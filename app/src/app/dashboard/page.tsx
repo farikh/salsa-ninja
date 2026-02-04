@@ -1,4 +1,5 @@
 import { redirect } from 'next/navigation'
+import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import LogoutButton from './logout-button'
 import UpcomingEventsWidget from './upcoming-events-widget'
@@ -21,7 +22,20 @@ export default async function DashboardPage() {
     redirect('/join/profile')
   }
 
-  const isStaff = member.role_name === 'owner' || member.role_name === 'instructor'
+  // Check all_roles array for multi-role support, fallback to role_name for backward compatibility
+  const allRoles: string[] = member.all_roles || [member.role_name]
+  const isAdmin = allRoles.includes('owner')
+  const isInstructor = allRoles.includes('owner') || allRoles.includes('instructor')
+  const isStaff = isAdmin || isInstructor
+
+  // Display role labels
+  const roleLabels: Record<string, string> = {
+    owner: 'Admin',
+    instructor: 'Instructor',
+    member_full: 'Student',
+    member_limited: 'Limited',
+    guest: 'Guest'
+  }
 
   const { data: events } = await supabase
     .from('upcoming_events')
@@ -37,14 +51,38 @@ export default async function DashboardPage() {
               Welcome, {member.display_name || member.full_name}
             </h1>
             <p style={{ color: 'var(--muted-foreground)', marginTop: '0.25rem' }}>
-              {member.role_name === 'owner' ? 'Owner' :
-               member.role_name === 'instructor' ? 'Instructor' :
-               member.role_name === 'member_full' ? 'Member' :
-               member.role_name === 'member_limited' ? 'Limited Member' : 'Guest'}
+              {allRoles.map(r => roleLabels[r] || r).join(' • ')}
             </p>
           </div>
           <LogoutButton />
         </div>
+
+        {/* Quick Actions */}
+        {isStaff && (
+          <div className="card" style={{ marginBottom: '1.5rem' }}>
+            <h3 style={{ fontWeight: 600, marginBottom: '0.75rem' }}>Quick Actions</h3>
+            <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+              {isAdmin && (
+                <Link
+                  href="/dashboard/admin/members"
+                  className="btn btn-primary"
+                  style={{ textDecoration: 'none' }}
+                >
+                  Manage Members
+                </Link>
+              )}
+              {isInstructor && (
+                <Link
+                  href="/private-sessions"
+                  className="btn btn-secondary"
+                  style={{ textDecoration: 'none' }}
+                >
+                  Private Lessons
+                </Link>
+              )}
+            </div>
+          </div>
+        )}
 
         <div className="grid-2">
           <UpcomingEventsWidget initialEvents={events ?? []} isStaff={isStaff} />

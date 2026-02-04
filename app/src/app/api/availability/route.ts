@@ -2,6 +2,37 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import type { InstructorAvailability } from '@/types/booking'
 
+// GET /api/availability?instructor_id=UUID - Get instructor's weekly availability
+export async function GET(request: NextRequest) {
+  const supabase = await createClient()
+
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
+  const { searchParams } = new URL(request.url)
+  const instructorId = searchParams.get('instructor_id')
+
+  if (!instructorId) {
+    return NextResponse.json({ error: 'instructor_id is required' }, { status: 400 })
+  }
+
+  const { data, error } = await supabase
+    .from('instructor_availability')
+    .select('*')
+    .eq('instructor_id', instructorId)
+    .eq('is_active', true)
+    .order('day_of_week')
+    .order('start_time')
+
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 })
+  }
+
+  return NextResponse.json({ data })
+}
+
 export async function POST(request: NextRequest) {
   const supabase = await createClient()
 

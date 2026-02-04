@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import { CalendarView } from './CalendarView'
+import InstructorAvailabilityManager from './InstructorAvailabilityManager'
 import type { Instructor } from '@/types/booking'
 
 export default async function PrivateSessionsPage() {
@@ -11,20 +12,61 @@ export default async function PrivateSessionsPage() {
     data: { user },
   } = await supabase.auth.getUser()
 
-  // Fetch instructors only if authenticated
+  // Fetch member profile if authenticated
+  let currentMemberId: string | null = null
+  let isInstructor = false
   let instructors: Instructor[] = []
+
   if (user) {
+    // Get current member's ID and check if they're an instructor
+    const { data: member } = await supabase
+      .from('member_profiles')
+      .select('id, all_roles, role_name')
+      .eq('user_id', user.id)
+      .single()
+
+    if (member) {
+      currentMemberId = member.id
+      const allRoles: string[] = member.all_roles || [member.role_name]
+      isInstructor = allRoles.includes('owner') || allRoles.includes('instructor')
+    }
+
+    // Fetch all instructors (check both member_roles and legacy role_id for compatibility)
     const { data: instructorMembers } = await supabase
       .from('members')
-      .select('id, display_name, full_name, avatar_url, roles!inner(name)')
-      .in('roles.name', ['instructor', 'owner'])
+      .select(`
+        id,
+        display_name,
+        full_name,
+        avatar_url,
+        member_roles!left(
+          roles!inner(name)
+        ),
+        roles!left(name)
+      `)
 
-    instructors = (instructorMembers ?? []).map((m) => ({
-      id: m.id,
-      display_name: m.display_name,
-      full_name: m.full_name,
-      avatar_url: m.avatar_url,
-    }))
+    // Filter to only instructors/owners
+    instructors = (instructorMembers ?? [])
+      .filter((m) => {
+        // Check member_roles (new multi-role system)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const memberRoles = m.member_roles as any[] | null
+        const hasRoleInMemberRoles = memberRoles?.some(
+          (mr) => mr.roles?.name === 'instructor' || mr.roles?.name === 'owner'
+        )
+        // Check legacy roles FK (backward compatibility)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const legacyRole = m.roles as any
+        const hasLegacyRole = legacyRole?.name === 'instructor' || legacyRole?.name === 'owner'
+
+        return hasRoleInMemberRoles || hasLegacyRole
+      })
+      .map((m) => ({
+        id: m.id,
+        display_name: m.display_name,
+        full_name: m.full_name,
+        avatar_url: m.avatar_url,
+      }))
   }
 
   return (
@@ -40,6 +82,15 @@ export default async function PrivateSessionsPage() {
           </div>
         </div>
       </section>
+
+      {/* Instructor Availability Manager — only visible to instructors */}
+      {user && isInstructor && currentMemberId && (
+        <section className="section">
+          <div className="container" style={{ maxWidth: '800px' }}>
+            <InstructorAvailabilityManager instructorId={currentMemberId} />
+          </div>
+        </section>
+      )}
 
       {/* Booking calendar — only visible when logged in */}
       {user ? (
