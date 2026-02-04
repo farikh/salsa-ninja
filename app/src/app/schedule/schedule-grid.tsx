@@ -32,6 +32,7 @@ export default function ScheduleGrid({ initialSlots }: ScheduleGridProps) {
   const [editValues, setEditValues] = useState({ class_name: '', class_level: '', color_key: 'intermediate' })
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
+  const [activeDay, setActiveDay] = useState(DAYS[0])
   const supabase = createClient()
 
   useEffect(() => {
@@ -146,12 +147,126 @@ export default function ScheduleGrid({ initialSlots }: ScheduleGridProps) {
     outline: 'none',
   }
 
+  function renderEditForm(day: string, time: string, slot: ScheduleSlot | undefined) {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+        <input
+          type="text"
+          value={editValues.class_name}
+          onChange={(e) => setEditValues(v => ({ ...v, class_name: e.target.value }))}
+          placeholder="Class name"
+          style={inputStyle}
+          autoFocus
+        />
+        <input
+          type="text"
+          value={editValues.class_level}
+          onChange={(e) => setEditValues(v => ({ ...v, class_level: e.target.value }))}
+          placeholder="Level"
+          style={inputStyle}
+        />
+        <select
+          value={editValues.color_key}
+          onChange={(e) => setEditValues(v => ({ ...v, color_key: e.target.value }))}
+          style={{ ...inputStyle, cursor: 'pointer' }}
+        >
+          {COLOR_OPTIONS.map(opt => (
+            <option key={opt.value} value={opt.value}>{opt.label}</option>
+          ))}
+        </select>
+        <div style={{ display: 'flex', gap: '0.25rem' }}>
+          <button
+            onClick={() => saveSlot(day, time)}
+            disabled={saving || !editValues.class_name.trim()}
+            style={{
+              flex: 1, padding: '0.25rem', fontSize: '0.75rem',
+              background: 'var(--primary)', color: 'white',
+              border: 'none', borderRadius: '0.25rem', cursor: 'pointer',
+            }}
+          >
+            {saving ? '...' : 'Save'}
+          </button>
+          {slot && (
+            <button
+              onClick={() => deleteSlot(day, time)}
+              disabled={saving}
+              style={{
+                padding: '0.25rem 0.5rem', fontSize: '0.75rem',
+                background: '#dc2626', color: 'white',
+                border: 'none', borderRadius: '0.25rem', cursor: 'pointer',
+              }}
+            >
+              Del
+            </button>
+          )}
+          <button
+            onClick={cancelEditing}
+            style={{
+              flex: 1, padding: '0.25rem', fontSize: '0.75rem',
+              background: 'white', border: '1px solid var(--border)',
+              borderRadius: '0.25rem', cursor: 'pointer',
+            }}
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <>
       {error && (
         <p style={{ color: '#dc2626', fontSize: '0.85rem', marginBottom: '0.75rem', textAlign: 'center' }}>{error}</p>
       )}
-      <div className="overflow-x-auto">
+
+      {/* Mobile: day tabs + stacked cards */}
+      <div className="schedule-mobile">
+        <div className="schedule-day-tabs">
+          {DAYS.map((day) => (
+            <button
+              key={day}
+              className={`schedule-day-tab ${activeDay === day ? 'active' : ''}`}
+              onClick={() => setActiveDay(day)}
+            >
+              {day.slice(0, 3)}
+            </button>
+          ))}
+        </div>
+        <div className="schedule-day-cards">
+          {TIMES.map((time) => {
+            const slot = getSlot(activeDay, time)
+            const key = cellKey(activeDay, time)
+            const isEditing = editingKey === key
+
+            return (
+              <div
+                key={key}
+                className={`schedule-mobile-row ${slot ? '' : 'empty'}`}
+                onClick={() => isStaff && !isEditing && startEditing(activeDay, time)}
+                style={{ cursor: isStaff && !isEditing ? 'pointer' : 'default' }}
+              >
+                <div className="schedule-mobile-time">{time}</div>
+                {isEditing ? (
+                  <div className="schedule-mobile-edit">
+                    {renderEditForm(activeDay, time, slot)}
+                  </div>
+                ) : slot ? (
+                  <div className={`class-card ${slot.color_key}`}>
+                    <div className="class-name">{slot.class_name}</div>
+                    <div className="class-level">{slot.class_level}</div>
+                  </div>
+                ) : (
+                  <div className="schedule-mobile-empty">—</div>
+                )}
+              </div>
+            )
+          })}
+        </div>
+      </div>
+
+      {/* Desktop: full table */}
+      <div className="schedule-desktop">
         <table className="schedule-table">
           <thead>
             <tr>
@@ -173,68 +288,7 @@ export default function ScheduleGrid({ initialSlots }: ScheduleGridProps) {
                   if (isEditing) {
                     return (
                       <td key={key} className="class-cell" style={{ padding: '0.5rem', verticalAlign: 'top' }}>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
-                          <input
-                            type="text"
-                            value={editValues.class_name}
-                            onChange={(e) => setEditValues(v => ({ ...v, class_name: e.target.value }))}
-                            placeholder="Class name"
-                            style={inputStyle}
-                            autoFocus
-                          />
-                          <input
-                            type="text"
-                            value={editValues.class_level}
-                            onChange={(e) => setEditValues(v => ({ ...v, class_level: e.target.value }))}
-                            placeholder="Level"
-                            style={inputStyle}
-                          />
-                          <select
-                            value={editValues.color_key}
-                            onChange={(e) => setEditValues(v => ({ ...v, color_key: e.target.value }))}
-                            style={{ ...inputStyle, cursor: 'pointer' }}
-                          >
-                            {COLOR_OPTIONS.map(opt => (
-                              <option key={opt.value} value={opt.value}>{opt.label}</option>
-                            ))}
-                          </select>
-                          <div style={{ display: 'flex', gap: '0.25rem' }}>
-                            <button
-                              onClick={() => saveSlot(day, time)}
-                              disabled={saving || !editValues.class_name.trim()}
-                              style={{
-                                flex: 1, padding: '0.25rem', fontSize: '0.75rem',
-                                background: 'var(--primary)', color: 'white',
-                                border: 'none', borderRadius: '0.25rem', cursor: 'pointer',
-                              }}
-                            >
-                              {saving ? '...' : 'Save'}
-                            </button>
-                            {slot && (
-                              <button
-                                onClick={() => deleteSlot(day, time)}
-                                disabled={saving}
-                                style={{
-                                  padding: '0.25rem 0.5rem', fontSize: '0.75rem',
-                                  background: '#dc2626', color: 'white',
-                                  border: 'none', borderRadius: '0.25rem', cursor: 'pointer',
-                                }}
-                              >
-                                Del
-                              </button>
-                            )}
-                            <button
-                              onClick={cancelEditing}
-                              style={{
-                                flex: 1, padding: '0.25rem', fontSize: '0.75rem',
-                                background: 'white', border: '1px solid var(--border)',
-                                borderRadius: '0.25rem', cursor: 'pointer',
-                              }}
-                            >
-                              Cancel
-                            </button>
-                          </div>
-                        </div>
+                        {renderEditForm(day, time, slot)}
                       </td>
                     )
                   }

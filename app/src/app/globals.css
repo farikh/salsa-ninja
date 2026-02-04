@@ -462,6 +462,97 @@ body {
   color: #6b7280;
   font-weight: 500;
 }
+/* Schedule: mobile vs desktop visibility */
+.schedule-mobile {
+  display: none;
+}
+.schedule-desktop {
+  display: block;
+}
+@media (max-width: 767px) {
+  .schedule-mobile {
+    display: block;
+  }
+  .schedule-desktop {
+    display: none;
+  }
+}
+
+/* Mobile schedule: day tabs */
+.schedule-day-tabs {
+  display: flex;
+  gap: 0.25rem;
+  margin-bottom: 1rem;
+  background: #f3f4f6;
+  border-radius: 0.75rem;
+  padding: 0.25rem;
+}
+.schedule-day-tab {
+  flex: 1;
+  padding: 0.75rem 0.5rem;
+  border: none;
+  background: transparent;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #6b7280;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.schedule-day-tab.active {
+  background: white;
+  color: var(--foreground);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile schedule: stacked cards */
+.schedule-day-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.schedule-mobile-row {
+  display: flex;
+  align-items: stretch;
+  gap: 0.75rem;
+  background: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  min-height: 60px;
+}
+.schedule-mobile-row.empty {
+  opacity: 0.5;
+}
+.schedule-mobile-time {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  min-width: 70px;
+  background: #f9fafb;
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: #4b5563;
+  border-right: 1px solid #e5e7eb;
+}
+.schedule-mobile-row .class-card {
+  flex: 1;
+  margin: 0.5rem 0.5rem 0.5rem 0;
+}
+.schedule-mobile-empty {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #d1d5db;
+  font-size: 0.9rem;
+}
+.schedule-mobile-edit {
+  flex: 1;
+  padding: 0.5rem 0.5rem 0.5rem 0;
+}
+
 .bootcamp-note {
   margin-top: 2rem;
   padding: 1.5rem 2rem;
