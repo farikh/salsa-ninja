@@ -33,7 +33,7 @@ export default function ProfileSetupPage() {
       .single()
 
     if (existingMember) {
-      router.push('/dashboard')
+      router.push('/private-sessions')
       return
     }
 
@@ -54,7 +54,7 @@ export default function ProfileSetupPage() {
       return
     }
 
-    router.push('/dashboard')
+    router.push('/private-sessions')
   }
 
   return (

@@ -35,7 +35,7 @@ export async function updateSession(request: NextRequest) {
   } = await supabase.auth.getUser()
 
   // Define route access
-  const publicRoutes = ['/', '/about', '/pricing', '/schedule', '/contact', '/login', '/join']
+  const publicRoutes = ['/', '/about', '/pricing', '/schedule', '/contact', '/login', '/join', '/private-sessions']
   const pathname = request.nextUrl.pathname
 
   const isPublicRoute = publicRoutes.some(

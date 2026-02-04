@@ -2,15 +2,23 @@
 
 ---
 
-## STOP - BEADS BEFORE CODE
+## Workflow: do-work Skill
+
+All orchestration — task capture, triage, execution, review, verification, archival — is managed by the **do-work skill** installed at `.agents/skills/do-work/`.
 
 **Before writing ANY code or making ANY edits:**
+- Say what you want in natural language → `do work <description>`
+- The skill captures requests, creates beads, and manages the full pipeline
 
+**To process the queue:** Say `do work run` or `go`
+
+**Full skill reference:** Read [`.agents/skills/do-work/SKILL.md`](.agents/skills/do-work/SKILL.md) for routing, actions, processes, and reference docs.
+
+**Fallback (if do-work is not installed):** Check if `.agents/skills/do-work/SKILL.md` exists. If not, use beads directly:
 ```bash
 cd app && bd create "Task title" --description="What and why" -p N
 ```
-
-This is NOT optional. Beads first, always. See [Beads Usage](.claude/docs/beads-usage.md) for details.
+See [Beads Usage](.claude/docs/beads-usage.md) for the standalone beads reference.
 
 ---
 
@@ -22,9 +30,11 @@ This is NOT optional. Beads first, always. See [Beads Usage](.claude/docs/beads-
 - **Backend:** Supabase (PostgreSQL, Auth, Realtime, Storage)
 - **Payments:** Stripe | **Hosting:** Vercel | **Video:** Cloudflare R2
 
+---
+
 ## Documentation Index
 
-All docs live in `./docs/`. Each spec file is an **index** that references smaller sub-documents in `./docs/specs/`. Read only what's needed for the current task — avoid loading full specs when a sub-document will suffice.
+All docs live in `./docs/`. Each spec file is an **index** that references smaller sub-documents in `./docs/specs/`. Read only what's needed for the current task.
 
 ### Project Context
 
@@ -34,16 +44,12 @@ All docs live in `./docs/`. Each spec file is an **index** that references small
 
 ### Specifications (Index Files)
 
-These are lightweight index files. Open them to find links to the specific sub-document you need.
-
 | Doc | When to read |
 |-----|-------------|
-| [Technical Spec](docs/salsa-studio-technical-spec.md) | When implementing any feature. Index links to: architecture, database schema, auth/roles, API endpoints, feature specs, UI design, deployment |
-| [Membership Spec](docs/membership-feature-spec.md) | When building auth, registration, profiles, roles, subscriptions, or admin member management. Index links to: user stories, wireframes, technical design, API contracts, edge cases |
+| [Technical Spec](docs/salsa-studio-technical-spec.md) | When implementing any feature. Links to: architecture, database schema, auth/roles, API endpoints, feature specs, UI design, deployment |
+| [Membership Spec](docs/membership-feature-spec.md) | When building auth, registration, profiles, roles, subscriptions, or admin member management |
 
 ### Sub-Documents (Direct Access)
-
-For targeted reads, go directly to the sub-document:
 
 **Architecture & Infrastructure**
 - `docs/specs/architecture.md` — System diagram, request flows
@@ -57,6 +63,8 @@ For targeted reads, go directly to the sub-document:
 
 **Feature Specs**
 - `docs/specs/features/calendar.md` — Events, RSVP, waitlist, recurring
+- `docs/specs/features/calendar-architecture.md` — Calendar architecture (Reviewed, 3 rounds)
+- `docs/specs/features/private-lesson-booking.md` — Private lesson booking (Reviewed, 3 rounds)
 - `docs/specs/features/video-library.md` — Search, filters, progress, R2 storage
 - `docs/specs/features/chat.md` — Channels, DMs, real-time, moderation
 - `docs/specs/features/admin.md` — Dashboard, management, invites
@@ -72,20 +80,23 @@ For targeted reads, go directly to the sub-document:
 
 | Doc | When to read |
 |-----|-------------|
-| [Chat Solution Analysis](docs/research/chat-solution-analysis.md) | When working on chat feature. Covers solution evaluation, open-source pattern sources, build approach, and open questions. |
+| [Chat Solution Analysis](docs/research/chat-solution-analysis.md) | When working on chat feature |
+| [Chat Research Findings](docs/research/chat-research-findings.md) | When implementing chat |
+| [Calendar Research Findings](docs/research/calendar-research-findings.md) | When implementing calendar |
 
-### Process & Workflow
+### Workflow & Process
 
 | Doc | When to read |
 |-----|-------------|
-| [Feature Design Process](docs/feature-design-process.md) | Before designing any new feature. 7-phase process with templates and checklists. |
-| [Beads Usage](.claude/docs/beads-usage.md) | Task tracking commands, lifecycle, parent/child patterns |
+| [do-work Skill](.agents/skills/do-work/SKILL.md) | Full workflow reference: capture, work, design, verify, cleanup |
+| [Workflow Integration Design](docs/specs/workflow-integration.md) | **Historical** — design rationale from pre-fork evaluation. The skill files are the authoritative reference. |
+
+---
 
 ## Development Conventions
 
-- **Beads before code:** Always create a bead before starting any task. See `.claude/docs/beads-usage.md`.
-- **Feature design first:** Follow `docs/feature-design-process.md` before building new features.
-- **GitHub before from-scratch:** When facing a build-from-scratch design decision, search GitHub for existing open-source projects, schemas, and tested patterns before designing a custom solution. Look for projects with real stars, recent commits, and production usage. Adapt proven patterns rather than inventing new ones. Document findings in `docs/research/`.
+See [`.agents/skills/do-work/reference/conventions.md`](.agents/skills/do-work/reference/conventions.md) for the full reference. Summary:
+
 - **Styling:** Tailwind CSS utilities. shadcn/ui components before custom ones.
 - **Colors:** Primary red/coral `#ef4444`, secondary gold/amber `#f59e0b`, neutrals `#fafafa`–`#18181b`.
 - **Auth:** Magic link only (no passwords). Invite-only via QR or referral link.

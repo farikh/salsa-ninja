@@ -1,5 +1,7 @@
 # Beads Task Tracking
 
+> **Note:** When the do-work skill is installed, the authoritative beads reference is at `.agents/skills/do-work/reference/beads.md`. This file serves as the standalone fallback.
+
 > **Purpose**: Persistent task tracking that survives session resets.
 >
 > TodoWrite is session-only. Beads persists across sessions.

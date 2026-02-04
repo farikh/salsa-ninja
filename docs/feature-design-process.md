@@ -1,5 +1,11 @@
 # Feature Design Process
 
+> **DEPRECATED:** This file is superseded by the do-work skill. See:
+> - `.agents/skills/do-work/actions/design.md` (authoritative version)
+> - `.agents/skills/do-work/processes/review-loop.md` (iterative review)
+>
+> This file is retained for reference only. Do not follow these instructions directly.
+
 A guide for designing features before development begins. Each feature goes through all phases below. Depth may vary by complexity, but skipping phases leads to rework.
 
 ## Process Overview
