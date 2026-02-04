@@ -1,13 +1,13 @@
 'use client'
 
 import { useState } from 'react'
-import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
-  const [status, setStatus] = useState<'idle' | 'loading' | 'sent' | 'error'>('idle')
+  const [status, setStatus] = useState<'idle' | 'loading' | 'sent' | 'not_found' | 'error'>('idle')
   const [errorMsg, setErrorMsg] = useState('')
+  const [isNewUser, setIsNewUser] = useState(false)
   const supabase = createClient()
 
   async function handleSubmit(e: React.FormEvent) {
@@ -15,8 +15,29 @@ export default function LoginPage() {
     setStatus('loading')
     setErrorMsg('')
 
+    // Check if email exists in members table
+    const { data: member } = await supabase
+      .from('members')
+      .select('id')
+      .eq('email', email.trim().toLowerCase())
+      .single()
+
+    if (!member) {
+      // Email not found — ask if they want to join
+      setStatus('not_found')
+      return
+    }
+
+    // Existing member — send magic link
+    await sendMagicLink(false)
+  }
+
+  async function sendMagicLink(newUser: boolean) {
+    setStatus('loading')
+    setIsNewUser(newUser)
+
     const { error } = await supabase.auth.signInWithOtp({
-      email,
+      email: email.trim().toLowerCase(),
       options: {
         emailRedirectTo: `${window.location.origin}/auth/callback`,
       },
@@ -34,9 +55,13 @@ export default function LoginPage() {
     <section className="section" style={{ minHeight: '70vh', display: 'flex', alignItems: 'center' }}>
       <div className="container" style={{ maxWidth: '440px' }}>
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-          <h1 className="heading-lg">Welcome Back</h1>
+          <h1 className="heading-lg">
+            {status === 'not_found' ? 'Join Salsa Ninja' : 'Welcome'}
+          </h1>
           <p style={{ color: 'var(--muted-foreground)', marginTop: '0.5rem' }}>
-            Enter your email to receive a login link
+            {status === 'not_found'
+              ? "We don't have an account for that email yet"
+              : 'Enter your email to get started'}
           </p>
         </div>
 
@@ -45,14 +70,37 @@ export default function LoginPage() {
             <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>📧</div>
             <h2 className="heading-md">Check Your Email</h2>
             <p style={{ color: 'var(--muted-foreground)', marginTop: '0.75rem', lineHeight: 1.7 }}>
-              We sent a login link to <strong>{email}</strong>. Click the link in the email to sign in.
+              {isNewUser
+                ? <>We sent a link to <strong>{email}</strong>. Click it to set up your profile and join!</>
+                : <>We sent a login link to <strong>{email}</strong>. Click the link in the email to sign in.</>
+              }
             </p>
             <button
-              onClick={() => { setStatus('idle'); setEmail('') }}
+              onClick={() => { setStatus('idle'); setEmail(''); setIsNewUser(false) }}
               className="btn btn-outline"
               style={{ marginTop: '1.5rem' }}
             >
               Use a different email
+            </button>
+          </div>
+        ) : status === 'not_found' ? (
+          <div className="card" style={{ padding: '2.5rem' }}>
+            <p style={{ fontSize: '0.95rem', lineHeight: 1.7, marginBottom: '1.5rem', textAlign: 'center' }}>
+              <strong>{email}</strong> isn&apos;t registered yet. Would you like to join?
+            </p>
+            <button
+              onClick={() => sendMagicLink(true)}
+              className="btn btn-primary"
+              style={{ width: '100%', marginBottom: '0.75rem' }}
+            >
+              Yes, send me a link to join
+            </button>
+            <button
+              onClick={() => { setStatus('idle'); setEmail('') }}
+              className="btn btn-outline"
+              style={{ width: '100%' }}
+            >
+              Try a different email
             </button>
           </div>
         ) : (
@@ -71,6 +119,7 @@ export default function LoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
                 required
+                autoFocus
                 style={{
                   width: '100%',
                   padding: '0.875rem 1rem',
@@ -97,23 +146,9 @@ export default function LoginPage() {
                 disabled={status === 'loading'}
                 style={{ width: '100%' }}
               >
-                {status === 'loading' ? 'Sending...' : 'Send Login Link'}
+                {status === 'loading' ? 'Checking...' : 'Continue'}
               </button>
             </form>
-
-            <div style={{
-              textAlign: 'center',
-              marginTop: '1.5rem',
-              paddingTop: '1.5rem',
-              borderTop: '1px solid var(--border)',
-            }}>
-              <p style={{ color: 'var(--muted-foreground)', fontSize: '0.9rem' }}>
-                Don&apos;t have an account?{' '}
-                <Link href="/join" style={{ color: 'var(--primary)', fontWeight: 600, textDecoration: 'none' }}>
-                  Join now
-                </Link>
-              </p>
-            </div>
           </div>
         )}
       </div>

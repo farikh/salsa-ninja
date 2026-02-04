@@ -47,7 +47,7 @@ export default function Home() {
               rhythm move your body and soul!
             </p>
             <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
-              <Link href="/register" className="btn btn-primary">
+              <Link href="/login" className="btn btn-primary">
                 Join Now
               </Link>
               <Link href="/schedule" className="btn btn-outline">
@@ -361,7 +361,7 @@ export default function Home() {
               Salsa Ninja&apos;s Community Blog on Telegram. Class homework,
               group events, and more!
             </p>
-            <Link href="/register" className="btn btn-primary">
+            <Link href="/login" className="btn btn-primary">
               Get Started Today
             </Link>
           </div>

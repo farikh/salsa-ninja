@@ -1,10 +1,34 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+import { createClient } from "@/lib/supabase/client";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const router = useRouter();
+  const supabase = createClient();
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      setIsLoggedIn(!!user);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setIsLoggedIn(!!session?.user);
+    });
+
+    return () => subscription.unsubscribe();
+  }, [supabase.auth]);
+
+  async function handleLogout() {
+    await supabase.auth.signOut();
+    setIsLoggedIn(false);
+    router.push("/");
+    router.refresh();
+  }
 
   const navLinks = [
     { href: "/", label: "Home" },
@@ -30,12 +54,21 @@ const Navbar = () => {
                 {link.label}
               </Link>
             ))}
-            <Link
-              href="/register"
-              className="btn btn-primary ml-2 py-2 px-5"
-            >
-              Join Now
-            </Link>
+            {isLoggedIn ? (
+              <button
+                onClick={handleLogout}
+                className="btn btn-outline ml-2 py-2 px-5"
+              >
+                Log out
+              </button>
+            ) : (
+              <Link
+                href="/login"
+                className="btn btn-primary ml-2 py-2 px-5"
+              >
+                Login
+              </Link>
+            )}
           </div>
 
           <button
@@ -60,13 +93,22 @@ const Navbar = () => {
               {link.label}
             </Link>
           ))}
-          <Link
-            href="/register"
-            onClick={() => setIsOpen(false)}
-            className="btn btn-primary mt-2 text-center"
-          >
-            Join Now
-          </Link>
+          {isLoggedIn ? (
+            <button
+              onClick={() => { handleLogout(); setIsOpen(false); }}
+              className="btn btn-outline mt-2 text-center"
+            >
+              Log out
+            </button>
+          ) : (
+            <Link
+              href="/login"
+              onClick={() => setIsOpen(false)}
+              className="btn btn-primary mt-2 text-center"
+            >
+              Login
+            </Link>
+          )}
         </div>
       </div>
     </nav>

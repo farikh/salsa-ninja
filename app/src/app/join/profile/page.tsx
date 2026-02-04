@@ -25,19 +25,6 @@ export default function ProfileSetupPage() {
       return
     }
 
-    // Get the guest role as default
-    const { data: guestRole } = await supabase
-      .from('roles')
-      .select('id')
-      .eq('name', 'guest')
-      .single()
-
-    if (!guestRole) {
-      setStatus('error')
-      setErrorMsg('System error. Please try again.')
-      return
-    }
-
     // Check if member already exists
     const { data: existingMember } = await supabase
       .from('members')
@@ -50,7 +37,7 @@ export default function ProfileSetupPage() {
       return
     }
 
-    // Create member profile
+    // Create member profile — role assigned by auto_assign_role trigger
     const { error } = await supabase
       .from('members')
       .insert({
@@ -59,33 +46,12 @@ export default function ProfileSetupPage() {
         full_name: fullName.trim(),
         display_name: displayName.trim() || null,
         dance_experience: danceExperience || null,
-        role_id: guestRole.id,
       })
 
     if (error) {
       setStatus('error')
       setErrorMsg(error.message)
       return
-    }
-
-    // Increment invite code usage if one was used
-    const inviteCode = user.user_metadata?.invite_code
-    if (inviteCode) {
-      try {
-        const { data: invite } = await supabase
-          .from('invite_codes')
-          .select('id, used_count')
-          .eq('code', inviteCode)
-          .single()
-        if (invite) {
-          await supabase
-            .from('invite_codes')
-            .update({ used_count: invite.used_count + 1 })
-            .eq('id', invite.id)
-        }
-      } catch {
-        // Non-critical, don't block registration
-      }
     }
 
     router.push('/dashboard')
