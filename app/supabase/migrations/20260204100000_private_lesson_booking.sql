@@ -22,7 +22,7 @@ CREATE TYPE booking_status AS ENUM (
 
 -- Recurring weekly availability windows per instructor
 CREATE TABLE instructor_availability (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   instructor_id UUID NOT NULL REFERENCES members(id) ON DELETE CASCADE,
   day_of_week INT NOT NULL CHECK (day_of_week BETWEEN 0 AND 6), -- 0=Sun
   start_time TIME NOT NULL,
@@ -43,7 +43,7 @@ CREATE INDEX idx_instructor_avail_instructor
 
 -- Date-specific blocks or extra availability
 CREATE TABLE availability_overrides (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   instructor_id UUID NOT NULL REFERENCES members(id) ON DELETE CASCADE,
   override_date DATE NOT NULL,
   start_time TIME,           -- NULL = entire day blocked
@@ -61,7 +61,7 @@ CREATE INDEX idx_avail_overrides_instructor
 
 -- Individual lesson bookings
 CREATE TABLE private_lesson_bookings (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   instructor_id UUID NOT NULL REFERENCES members(id),
   member_id UUID NOT NULL REFERENCES members(id),
   start_time TIMESTAMPTZ NOT NULL,
@@ -93,7 +93,7 @@ CREATE INDEX idx_bookings_status ON private_lesson_bookings(status);
 
 -- Per-booking message thread
 CREATE TABLE booking_messages (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   booking_id UUID NOT NULL REFERENCES private_lesson_bookings(id) ON DELETE CASCADE,
   sender_id UUID NOT NULL REFERENCES members(id),
   content TEXT NOT NULL CHECK (char_length(content) <= 2000),

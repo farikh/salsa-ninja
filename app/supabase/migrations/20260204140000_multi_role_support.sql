@@ -188,8 +188,10 @@ CREATE TRIGGER add_member_initial_role
 -- 5. UPDATE VIEWS
 -- ============================================================
 
--- Update member_profiles view to include all roles
-CREATE OR REPLACE VIEW member_profiles AS
+-- Drop and recreate member_profiles view to add all_roles column
+-- (CREATE OR REPLACE can't add columns in different positions)
+DROP VIEW IF EXISTS member_profiles;
+CREATE VIEW member_profiles AS
 SELECT
   m.*,
   r.name as role_name,
