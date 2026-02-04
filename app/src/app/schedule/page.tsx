@@ -1,88 +1,14 @@
-"use client";
-
 import Link from "next/link";
+import { createClient } from "@/lib/supabase/server";
+import ScheduleGrid from "./schedule-grid";
 
-export default function SchedulePage() {
-  const days = ["Monday", "Tuesday", "Wednesday", "Thursday"];
-  const times = ["6P-7P", "7P-8P", "8P-9P", "9P-10P", "10P-11P"];
+export default async function SchedulePage() {
+  const supabase = await createClient();
 
-  // Lighter, modern color palette - moved to CSS-in-JS
-  const schedule: Record<
-    string,
-    Record<
-      string,
-      { name: string; level: string; colorKey: string } | null
-    >
-  > = {
-    Monday: {
-      "6P-7P": {
-        name: "Absolute Beginners Salsa On 1 Bootcamp",
-        level: "Bootcamp",
-        colorKey: "bootcamp",
-      },
-      "7P-8P": {
-        name: "L.A. Salsa On 1",
-        level: "LVL 1-2 Shine & Partner",
-        colorKey: "intermediate",
-      },
-      "8P-9P": { name: "Bachata", level: "Open Level", colorKey: "openLevel" },
-      "9P-10P": {
-        name: "Absolute Beginners Salsa On 1 Bootcamp",
-        level: "Bootcamp",
-        colorKey: "bootcamp",
-      },
-      "10P-11P": null,
-    },
-    Tuesday: {
-      "6P-7P": null,
-      "7P-8P": {
-        name: "Salsa On 2",
-        level: "LVL 1&2 Shine & Partner",
-        colorKey: "intermediate",
-      },
-      "8P-9P": {
-        name: "Salsa Caleña",
-        level: "Level 1 & 2",
-        colorKey: "bootcamp",
-      },
-      "9P-10P": { name: "Team Training", level: "9PM-11PM", colorKey: "team" },
-      "10P-11P": { name: "Team Training", level: "Continued", colorKey: "team" },
-    },
-    Wednesday: {
-      "6P-7P": {
-        name: "Absolute Beginners Salsa On 1 Bootcamp",
-        level: "Bootcamp",
-        colorKey: "bootcamp",
-      },
-      "7P-8P": {
-        name: "L.A. Salsa On 1",
-        level: "LVL 2-3 Shine & Partner",
-        colorKey: "intermediate",
-      },
-      "8P-9P": { name: "Bachata", level: "Open Levels", colorKey: "openLevel" },
-      "9P-10P": {
-        name: "Absolute Beginners Salsa On 1 Bootcamp",
-        level: "Bootcamp",
-        colorKey: "bootcamp",
-      },
-      "10P-11P": null,
-    },
-    Thursday: {
-      "6P-7P": null,
-      "7P-8P": {
-        name: "Salsa On 1",
-        level: "Freestyle Fusion",
-        colorKey: "intermediate",
-      },
-      "8P-9P": {
-        name: "Salsa On 2",
-        level: "Level 2-3 Partnerwork",
-        colorKey: "openLevel",
-      },
-      "9P-10P": { name: "Team Training", level: "9PM-11PM", colorKey: "team" },
-      "10P-11P": { name: "Team Training", level: "Continued", colorKey: "team" },
-    },
-  };
+  const { data: slots } = await supabase
+    .from("schedule_slots")
+    .select("id, day, time_slot, class_name, class_level, color_key")
+    .order("created_at");
 
   const pricing = [
     {
@@ -163,45 +89,7 @@ export default function SchedulePage() {
       {/* Weekly Calendar View */}
       <section className="section">
         <div className="container">
-          <div className="overflow-x-auto">
-            <table className="schedule-table">
-              <thead>
-                <tr>
-                  <th className="time-header">Time</th>
-                  {days.map((day) => (
-                    <th key={day} className="day-header">
-                      {day}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {times.map((time, timeIndex) => (
-                  <tr key={time}>
-                    <td className="time-cell">{time}</td>
-                    {days.map((day) => {
-                      const cls = schedule[day][time];
-                      return (
-                        <td
-                          key={`${day}-${time}`}
-                          className={`class-cell ${
-                            !cls ? (timeIndex % 2 === 0 ? "bg-gray-50" : "bg-white") : ""
-                          }`}
-                        >
-                          {cls && (
-                            <div className={`class-card ${cls.colorKey}`}>
-                              <div className="class-name">{cls.name}</div>
-                              <div className="class-level">{cls.level}</div>
-                            </div>
-                          )}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <ScheduleGrid initialSlots={slots ?? []} />
 
           {/* Legend */}
           <div className="legend">
@@ -339,7 +227,7 @@ export default function SchedulePage() {
                   ))}
                 </ul>
                 <Link
-                  href="/register"
+                  href="/login"
                   className={
                     plan.highlight
                       ? "btn btn-primary w-full mt-6"
@@ -380,7 +268,7 @@ export default function SchedulePage() {
                   ))}
                 </div>
                 <div className="text-center mt-8">
-                  <Link href="/register" className="btn btn-primary">
+                  <Link href="/login" className="btn btn-primary">
                     Join Performance Team
                   </Link>
                 </div>
@@ -399,8 +287,8 @@ export default function SchedulePage() {
               Register now and try your first class for just $5. No experience
               necessary!
             </p>
-            <Link href="/register" className="btn btn-light">
-              Register Now
+            <Link href="/login" className="btn btn-light">
+              Get Started
             </Link>
           </div>
         </div>
