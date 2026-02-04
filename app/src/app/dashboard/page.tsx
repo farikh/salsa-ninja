@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import LogoutButton from './logout-button'
+import UpcomingEventsWidget from './upcoming-events-widget'
 
 export default async function DashboardPage() {
   const supabase = await createClient()
@@ -19,6 +20,13 @@ export default async function DashboardPage() {
   if (!member) {
     redirect('/join/profile')
   }
+
+  const isStaff = member.role_name === 'owner' || member.role_name === 'instructor'
+
+  const { data: events } = await supabase
+    .from('upcoming_events')
+    .select('id, title, description, start_time, end_time')
+    .limit(10)
 
   return (
     <section className="section">
@@ -39,12 +47,7 @@ export default async function DashboardPage() {
         </div>
 
         <div className="grid-2">
-          <div className="card">
-            <h3 style={{ fontWeight: 600, marginBottom: '0.75rem' }}>Upcoming Events</h3>
-            <p style={{ color: 'var(--muted-foreground)', fontSize: '0.9rem' }}>
-              No upcoming events yet. Check back soon!
-            </p>
-          </div>
+          <UpcomingEventsWidget initialEvents={events ?? []} isStaff={isStaff} />
 
           <div className="card">
             <h3 style={{ fontWeight: 600, marginBottom: '0.75rem' }}>Announcements</h3>

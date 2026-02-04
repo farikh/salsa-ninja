@@ -68,6 +68,12 @@ For targeted reads, go directly to the sub-document:
 - `docs/specs/membership/api-contracts.md` — Endpoint request/response examples
 - `docs/specs/membership/edge-cases.md` — Edge cases, acceptance criteria
 
+### Research & Decisions
+
+| Doc | When to read |
+|-----|-------------|
+| [Chat Solution Analysis](docs/research/chat-solution-analysis.md) | When working on chat feature. Covers solution evaluation, open-source pattern sources, build approach, and open questions. |
+
 ### Process & Workflow
 
 | Doc | When to read |
@@ -79,6 +85,7 @@ For targeted reads, go directly to the sub-document:
 
 - **Beads before code:** Always create a bead before starting any task. See `.claude/docs/beads-usage.md`.
 - **Feature design first:** Follow `docs/feature-design-process.md` before building new features.
+- **GitHub before from-scratch:** When facing a build-from-scratch design decision, search GitHub for existing open-source projects, schemas, and tested patterns before designing a custom solution. Look for projects with real stars, recent commits, and production usage. Adapt proven patterns rather than inventing new ones. Document findings in `docs/research/`.
 - **Styling:** Tailwind CSS utilities. shadcn/ui components before custom ones.
 - **Colors:** Primary red/coral `#ef4444`, secondary gold/amber `#f59e0b`, neutrals `#fafafa`–`#18181b`.
 - **Auth:** Magic link only (no passwords). Invite-only via QR or referral link.
