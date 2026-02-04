@@ -15,14 +15,11 @@ export default function LoginPage() {
     setStatus('loading')
     setErrorMsg('')
 
-    // Check if email exists in members table
-    const { data: member } = await supabase
-      .from('members')
-      .select('id')
-      .eq('email', email.trim().toLowerCase())
-      .single()
+    // Check if email exists (uses SECURITY DEFINER function to bypass RLS)
+    const { data: exists } = await supabase
+      .rpc('check_member_exists', { check_email: email.trim().toLowerCase() })
 
-    if (!member) {
+    if (!exists) {
       // Email not found — ask if they want to join
       setStatus('not_found')
       return
