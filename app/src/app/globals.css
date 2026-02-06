@@ -179,6 +179,18 @@ a:hover {
   overflow: hidden;
 }
 
+/* Safety: ensure dark text on any white-background section */
+.section-light h1, .section-light h2, .section-light h3,
+.section-light h4, .section-light h5, .section-light h6 {
+  color: var(--dark);
+}
+.section-light .section-heading .overline {
+  color: var(--red);
+}
+.section-light p:not(.gradient-text) {
+  color: #555;
+}
+
 .section-dark.angled {
   clip-path: polygon(0 40px, 100% 0, 100% calc(100% - 40px), 0 100%);
   padding: calc(var(--section-pad) + 40px) 0;

@@ -331,6 +331,7 @@ export default function Home() {
       <section
         style={{
           background: "#ffffff",
+          color: "#111111",
           padding: "7rem 0 5rem",
           clipPath: "polygon(0 40px, 100% 0, 100% calc(100% - 40px), 0 100%)",
           marginTop: "-20px",
@@ -863,6 +864,7 @@ export default function Home() {
       <section
         style={{
           background: "#ffffff",
+          color: "#111111",
           padding: "7rem 0 5rem",
           clipPath: "polygon(0 40px, 100% 0, 100% calc(100% - 40px), 0 100%)",
         }}
@@ -1253,6 +1255,7 @@ export default function Home() {
       <section
         style={{
           background: "#ffffff",
+          color: "#111111",
           padding: "7rem 0 5rem",
           clipPath: "polygon(0 40px, 100% 0, 100% calc(100% - 40px), 0 100%)",
         }}
@@ -1412,6 +1415,7 @@ export default function Home() {
       <section
         style={{
           background: "#ffffff",
+          color: "#111111",
           padding: "3rem 0 5rem",
         }}
       >

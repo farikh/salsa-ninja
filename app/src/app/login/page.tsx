@@ -119,6 +119,7 @@ export default function LoginPage() {
                 borderRadius: '0.75rem',
                 border: '1px solid var(--border)',
                 background: 'white',
+                color: '#111111',
                 fontSize: '1rem',
                 fontWeight: 600,
                 cursor: 'pointer',

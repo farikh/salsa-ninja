@@ -224,6 +224,7 @@ export default function UpcomingEventsWidget({ initialEvents, isStaff }: Upcomin
                     padding: '0.3rem 0.75rem',
                     fontSize: '0.8rem',
                     background: 'white',
+                    color: '#111111',
                     border: '1px solid var(--border)',
                     borderRadius: '0.375rem',
                     cursor: 'pointer',

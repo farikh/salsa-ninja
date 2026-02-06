@@ -84,6 +84,7 @@ export default function RegisterPage() {
             <div
               style={{
                 background: "#ffffff",
+                color: "#111111",
                 borderRadius: "1rem",
                 overflow: "hidden",
                 boxShadow: "var(--shadow-heavy)",

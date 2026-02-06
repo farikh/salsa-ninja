@@ -145,6 +145,7 @@ export default function ProfileSetupPage() {
                   fontSize: '1rem',
                   outline: 'none',
                   background: 'white',
+                  color: '#111111',
                   cursor: 'pointer',
                   transition: 'border-color 0.2s',
                 }}

@@ -203,7 +203,7 @@ export default function ScheduleGrid({ initialSlots }: ScheduleGridProps) {
             onClick={cancelEditing}
             style={{
               flex: 1, padding: '0.25rem', fontSize: '0.75rem',
-              background: 'white', border: '1px solid var(--border)',
+              background: 'white', color: '#111111', border: '1px solid var(--border)',
               borderRadius: '0.25rem', cursor: 'pointer',
             }}
           >
