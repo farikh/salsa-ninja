@@ -18,7 +18,7 @@ interface WeeklyGridViewProps {
   availability: InstructorAvailability[]
   bookings: PrivateLessonBooking[]
   overrides: AvailabilityOverride[]
-  onAddAvailability: (day: number, startTime: string) => void
+  onAddAvailability: (day: number, startTime: string, endTime: string) => void
   onDeleteAvailability: (id: string) => void
 }
 
@@ -36,7 +36,7 @@ interface PositionedBlock {
 // Constants
 // ---------------------------------------------------------------------------
 
-const START_HOUR = 6
+const START_HOUR = 10
 const END_HOUR = 22
 const TOTAL_SLOTS = (END_HOUR - START_HOUR) * 2 // 32 half-hour slots
 const ROW_HEIGHT_HOUR = 40 // px – hour rows
@@ -158,6 +158,14 @@ export function WeeklyGridView({
     y: number
   } | null>(null)
   const popoverRef = useRef<HTMLDivElement>(null)
+
+  // Drag-to-select state
+  const [dragState, setDragState] = useState<{
+    isDragging: boolean
+    dayIndex: number
+    startRow: number
+    currentRow: number
+  } | null>(null)
 
   // Close popover on outside click
   useEffect(() => {
@@ -296,13 +304,47 @@ export function WeeklyGridView({
   // Handlers
   // -------------------------------------------------------------------------
 
-  const handleCellClick = useCallback(
+  const handleDragStart = useCallback(
     (dayIndex: number, row: number) => {
-      const time = rowToTime(row)
-      onAddAvailability(dayIndex, time)
+      setDragState({ isDragging: true, dayIndex, startRow: row, currentRow: row })
     },
-    [onAddAvailability],
+    [],
   )
+
+  const handleDragMove = useCallback(
+    (row: number) => {
+      setDragState((prev) => {
+        if (!prev || !prev.isDragging) return prev
+        if (prev.currentRow === row) return prev
+        return { ...prev, currentRow: row }
+      })
+    },
+    [],
+  )
+
+  const handleDragEnd = useCallback(() => {
+    if (!dragState || !dragState.isDragging) {
+      setDragState(null)
+      return
+    }
+
+    const minRow = Math.min(dragState.startRow, dragState.currentRow)
+    // Add 1 to include the end row in the selection
+    const maxRow = Math.max(dragState.startRow, dragState.currentRow) + 1
+    const startTime = rowToTime(minRow)
+    const endTime = rowToTime(maxRow)
+
+    setDragState(null)
+    onAddAvailability(dragState.dayIndex, startTime, endTime)
+  }, [dragState, onAddAvailability])
+
+  // Global mouseup to handle drag ending outside the grid
+  useEffect(() => {
+    if (!dragState?.isDragging) return
+    const handleGlobalMouseUp = () => handleDragEnd()
+    document.addEventListener('mouseup', handleGlobalMouseUp)
+    return () => document.removeEventListener('mouseup', handleGlobalMouseUp)
+  }, [dragState?.isDragging, handleDragEnd])
 
   const handleBlockClick = useCallback(
     (block: PositionedBlock, e: React.MouseEvent) => {
@@ -396,11 +438,22 @@ export function WeeklyGridView({
     )
   }
 
+  /** Compute drag preview dimensions for a given day column. */
+  function getDragPreview(dayIndex: number) {
+    if (!dragState?.isDragging || dragState.dayIndex !== dayIndex) return null
+    const minRow = Math.min(dragState.startRow, dragState.currentRow)
+    const maxRow = Math.max(dragState.startRow, dragState.currentRow)
+    const top = rowY(minRow)
+    const height = spanHeight(minRow, maxRow - minRow + 1)
+    return { top, height }
+  }
+
   /** Render a single day column body (the time cells + overlaid blocks). */
   function renderDayColumn(dayIndex: number) {
     const dayBlocks = positionedBlocks.filter((b) => b.dayIndex === dayIndex)
     const dayDate = weekDates[dayIndex]
     const today = isToday(dayDate)
+    const preview = getDragPreview(dayIndex)
 
     return (
       <div
@@ -408,9 +461,10 @@ export function WeeklyGridView({
         style={{
           height: `${GRID_BODY_HEIGHT}px`,
           background: today ? 'var(--primary-5, rgba(239,68,68,0.05))' : undefined,
+          userSelect: dragState?.isDragging ? 'none' : undefined,
         }}
       >
-        {/* Grid row lines + clickable cells */}
+        {/* Grid row lines + draggable cells */}
         {Array.from({ length: TOTAL_SLOTS }, (_, row) => {
           const top = rowY(row)
           const height = row % 2 === 0 ? ROW_HEIGHT_HOUR : ROW_HEIGHT_HALF
@@ -425,17 +479,45 @@ export function WeeklyGridView({
               key={row}
               className={`absolute left-0 right-0 border-b ${
                 row % 2 === 0 ? 'border-border/30' : 'border-border/15'
-              } ${!isOccupied ? 'hover:bg-muted/30 cursor-pointer' : ''}`}
+              } ${!isOccupied ? 'hover:bg-muted/20 cursor-crosshair' : ''}`}
               style={{
                 top: `${top}px`,
                 height: `${height}px`,
               }}
-              onClick={() => {
-                if (!isOccupied) handleCellClick(dayIndex, row)
+              onMouseDown={(e) => {
+                if (!isOccupied) {
+                  e.preventDefault()
+                  handleDragStart(dayIndex, row)
+                }
+              }}
+              onMouseMove={() => {
+                if (dragState?.isDragging) handleDragMove(row)
               }}
             />
           )
         })}
+
+        {/* Drag preview overlay */}
+        {preview && (
+          <div
+            className="absolute left-0 right-0 mx-0.5 rounded-sm bg-emerald-500/30 border-l-2 border-emerald-400 pointer-events-none"
+            style={{
+              top: `${preview.top}px`,
+              height: `${preview.height}px`,
+              zIndex: 30,
+            }}
+          >
+            <div
+              className="px-1 py-0.5 text-[10px] leading-tight"
+              style={{ color: 'var(--foreground)', opacity: 0.85 }}
+            >
+              {formatTimeRange(
+                rowToTime(Math.min(dragState!.startRow, dragState!.currentRow)),
+                rowToTime(Math.max(dragState!.startRow, dragState!.currentRow) + 1),
+              )}
+            </div>
+          </div>
+        )}
 
         {/* Positioned blocks */}
         {dayBlocks.map(renderBlock)}

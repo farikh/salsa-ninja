@@ -49,6 +49,9 @@ type AvailabilityCalendarAction =
     }
   | { type: 'SET_LOADING'; loading: boolean }
   | { type: 'SET_ERROR'; error: string | null }
+  | { type: 'ADD_AVAILABILITY'; item: InstructorAvailability }
+  | { type: 'REPLACE_AVAILABILITY'; tempId: string; item: InstructorAvailability }
+  | { type: 'REMOVE_AVAILABILITY'; id: string }
 
 function reducer(
   state: AvailabilityCalendarState,
@@ -87,6 +90,23 @@ function reducer(
       return { ...state, loading: action.loading }
     case 'SET_ERROR':
       return { ...state, error: action.error, loading: false }
+    case 'ADD_AVAILABILITY':
+      return {
+        ...state,
+        availability: [...state.availability, action.item],
+      }
+    case 'REPLACE_AVAILABILITY':
+      return {
+        ...state,
+        availability: state.availability.map((a) =>
+          a.id === action.tempId ? action.item : a
+        ),
+      }
+    case 'REMOVE_AVAILABILITY':
+      return {
+        ...state,
+        availability: state.availability.filter((a) => a.id !== action.id),
+      }
     default:
       return state
   }
@@ -152,48 +172,78 @@ export function AvailabilityCalendar({
   // ---- Handlers ----
 
   const handleAddAvailability = useCallback(
-    async (day: number, startTime: string) => {
-      // Default: 1-hour slot starting at startTime
-      const [hours, minutes] = startTime.split(':').map(Number)
-      const endHours = hours + 1
-      const endTime = `${String(endHours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`
+    async (day: number, startTime: string, endTime: string) => {
+      // Optimistic: add a temporary entry immediately
+      const tempId = `temp-${Date.now()}`
+      const tempItem: InstructorAvailability = {
+        id: tempId,
+        instructor_id: instructorId,
+        day_of_week: day,
+        start_time: startTime,
+        end_time: endTime,
+        slot_duration_minutes: 60,
+        is_active: true,
+        effective_from: new Date().toISOString().split('T')[0],
+        effective_until: null,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      }
+      dispatch({ type: 'ADD_AVAILABILITY', item: tempItem })
 
-      const res = await fetch('/api/availability', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          instructor_id: instructorId,
-          day_of_week: day,
-          start_time: startTime,
-          end_time: endTime,
-          slot_duration_minutes: 60,
-        }),
-      })
+      try {
+        const res = await fetch('/api/availability', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            instructor_id: instructorId,
+            day_of_week: day,
+            start_time: startTime,
+            end_time: endTime,
+            slot_duration_minutes: 60,
+          }),
+        })
 
-      if (res.ok) {
-        fetchData()
-      } else {
-        const error = await res.json().catch(() => ({ error: 'Unknown error' }))
-        console.error('Failed to add availability:', error.error)
+        if (res.ok) {
+          const json = await res.json()
+          // Replace temp entry with real server data
+          dispatch({ type: 'REPLACE_AVAILABILITY', tempId, item: json.data })
+        } else {
+          const error = await res.json().catch(() => ({ error: 'Unknown error' }))
+          console.error('Failed to add availability:', error.error)
+          // Roll back optimistic entry
+          dispatch({ type: 'REMOVE_AVAILABILITY', id: tempId })
+        }
+      } catch {
+        // Roll back on network error
+        dispatch({ type: 'REMOVE_AVAILABILITY', id: tempId })
       }
     },
-    [instructorId, fetchData]
+    [instructorId]
   )
 
   const handleDeleteAvailability = useCallback(
     async (id: string) => {
-      const res = await fetch(`/api/availability/${id}`, {
-        method: 'DELETE',
-      })
+      // Optimistic: remove immediately
+      const removed = state.availability.find((a) => a.id === id)
+      dispatch({ type: 'REMOVE_AVAILABILITY', id })
 
-      if (res.ok) {
-        fetchData()
-      } else {
-        const error = await res.json().catch(() => ({ error: 'Unknown error' }))
-        console.error('Failed to delete availability:', error.error)
+      try {
+        const res = await fetch(`/api/availability/${id}`, {
+          method: 'DELETE',
+        })
+
+        if (!res.ok) {
+          const error = await res.json().catch(() => ({ error: 'Unknown error' }))
+          console.error('Failed to delete availability:', error.error)
+          // Restore on failure
+          if (removed) dispatch({ type: 'ADD_AVAILABILITY', item: removed })
+        }
+      } catch {
+        // Restore on network error
+        if (removed) dispatch({ type: 'ADD_AVAILABILITY', item: removed })
       }
     },
-    [fetchData]
+    [state.availability]
   )
 
   const handleDateSelect = useCallback((date: Date) => {

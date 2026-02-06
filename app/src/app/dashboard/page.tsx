@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import LogoutButton from './logout-button'
 import UpcomingEventsWidget from './upcoming-events-widget'
 import { DashboardBookings } from './DashboardBookings'
+import { DashboardMessages } from './DashboardMessages'
 import type { PrivateLessonBooking } from '@/types/booking'
 
 export default async function DashboardPage() {
@@ -100,29 +101,10 @@ export default async function DashboardPage() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1.5rem', marginBottom: '1.5rem' }}>
 
           {/* Messages */}
-          <div className="card" style={{ display: 'flex', flexDirection: 'column' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-              <div style={{
-                width: '40px',
-                height: '40px',
-                borderRadius: '10px',
-                background: 'linear-gradient(135deg, rgba(239,68,68,0.15), rgba(245,158,11,0.15))',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '1.2rem',
-                flexShrink: 0,
-              }}>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-                </svg>
-              </div>
-              <h3 style={{ fontWeight: 600 }}>Messages</h3>
-            </div>
-            <p style={{ color: 'var(--muted-foreground)', fontSize: '0.9rem', flex: 1 }}>
-              No messages yet. Community messaging is coming soon!
-            </p>
-          </div>
+          <DashboardMessages
+            initialBookings={(bookings ?? []) as PrivateLessonBooking[]}
+            memberId={member.id}
+          />
 
           {/* Upcoming Bookings — live data */}
           <DashboardBookings

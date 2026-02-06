@@ -92,6 +92,8 @@ export async function POST(request: NextRequest) {
       start_time: body.start_time,
       end_time: body.end_time,
       slot_duration_minutes: body.slot_duration_minutes ?? 60,
+      effective_from: new Date().toISOString().split('T')[0],
+      effective_until: null,
     })
     .select()
     .single()

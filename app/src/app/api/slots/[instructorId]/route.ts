@@ -43,6 +43,13 @@ export async function GET(
   })
 
   if (error) {
+    console.error('[slots API] get_available_slots RPC error:', {
+      instructorId,
+      start,
+      end,
+      error: error.message,
+      code: error.code,
+    })
     return NextResponse.json({ error: error.message }, { status: 500 })
   }
 

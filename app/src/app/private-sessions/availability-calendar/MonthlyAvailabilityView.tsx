@@ -34,7 +34,7 @@ interface MonthlyAvailabilityViewProps {
   bookings: PrivateLessonBooking[]
   overrides: AvailabilityOverride[]
   onDateSelect: (date: Date) => void
-  onAddAvailability: (day: number, startTime: string) => void
+  onAddAvailability: (day: number, startTime: string, endTime: string) => void
   onDeleteAvailability: (id: string) => void
 }
 
@@ -204,7 +204,7 @@ export function MonthlyAvailabilityView({
   const handleAddAvailability = useCallback(() => {
     if (!selectedDay) return
     const dayOfWeek = getDay(selectedDay)
-    onAddAvailability(dayOfWeek, '10:00')
+    onAddAvailability(dayOfWeek, '10:00', '11:00')
   }, [selectedDay, onAddAvailability])
 
   // -----------------------------------------------------------------------
