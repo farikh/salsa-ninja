@@ -56,10 +56,11 @@ const DAY_NAMES_FULL = [
 // Helpers
 // ---------------------------------------------------------------------------
 
-/** Convert "HH:MM" (or "HH:MM:SS") to a row index (06:00 = 0, 06:30 = 1). */
+/** Convert "HH:MM" (or "HH:MM:SS") to a row index (10:00 = 0, 10:30 = 1). Clamps to grid bounds. */
 function timeToRow(time: string): number {
   const [h, m] = time.split(':').map(Number)
-  return (h - START_HOUR) * 2 + (m >= 30 ? 1 : 0)
+  const row = (h - START_HOUR) * 2 + (m >= 30 ? 1 : 0)
+  return Math.max(0, Math.min(row, TOTAL_SLOTS))
 }
 
 /** Number of rows spanned between two times. */
@@ -166,6 +167,7 @@ export function WeeklyGridView({
     startRow: number
     currentRow: number
   } | null>(null)
+  const gridColumnRefs = useRef<(HTMLDivElement | null)[]>([])
 
   // Close popover on outside click
   useEffect(() => {
@@ -304,6 +306,17 @@ export function WeeklyGridView({
   // Handlers
   // -------------------------------------------------------------------------
 
+  /** Convert a Y pixel offset within a grid column to a row index. */
+  const yToRow = useCallback((y: number): number => {
+    let cumulative = 0
+    for (let r = 0; r < TOTAL_SLOTS; r++) {
+      const h = r % 2 === 0 ? ROW_HEIGHT_HOUR : ROW_HEIGHT_HALF
+      if (y < cumulative + h) return r
+      cumulative += h
+    }
+    return TOTAL_SLOTS - 1
+  }, [])
+
   const handleDragStart = useCallback(
     (dayIndex: number, row: number) => {
       setDragState({ isDragging: true, dayIndex, startRow: row, currentRow: row })
@@ -338,12 +351,16 @@ export function WeeklyGridView({
     onAddAvailability(dragState.dayIndex, startTime, endTime)
   }, [dragState, onAddAvailability])
 
-  // Global mouseup to handle drag ending outside the grid
+  // Global mouseup/touchend to handle drag ending outside the grid
   useEffect(() => {
     if (!dragState?.isDragging) return
-    const handleGlobalMouseUp = () => handleDragEnd()
-    document.addEventListener('mouseup', handleGlobalMouseUp)
-    return () => document.removeEventListener('mouseup', handleGlobalMouseUp)
+    const handleGlobalEnd = () => handleDragEnd()
+    document.addEventListener('mouseup', handleGlobalEnd)
+    document.addEventListener('touchend', handleGlobalEnd)
+    return () => {
+      document.removeEventListener('mouseup', handleGlobalEnd)
+      document.removeEventListener('touchend', handleGlobalEnd)
+    }
   }, [dragState?.isDragging, handleDragEnd])
 
   const handleBlockClick = useCallback(
@@ -457,11 +474,36 @@ export function WeeklyGridView({
 
     return (
       <div
+        ref={(el) => { gridColumnRefs.current[dayIndex] = el }}
         className="relative"
         style={{
           height: `${GRID_BODY_HEIGHT}px`,
           background: today ? 'var(--primary-5, rgba(239,68,68,0.05))' : undefined,
           userSelect: dragState?.isDragging ? 'none' : undefined,
+          touchAction: 'none',
+        }}
+        onTouchStart={(e) => {
+          const el = gridColumnRefs.current[dayIndex]
+          if (!el) return
+          const rect = el.getBoundingClientRect()
+          const y = e.touches[0].clientY - rect.top
+          const row = yToRow(y)
+          const isOccupied = dayBlocks.some(
+            (b) => row >= b.startRow && row < b.startRow + b.rowSpan,
+          )
+          if (!isOccupied) {
+            e.preventDefault()
+            handleDragStart(dayIndex, row)
+          }
+        }}
+        onTouchMove={(e) => {
+          if (!dragState?.isDragging) return
+          const el = gridColumnRefs.current[dayIndex]
+          if (!el) return
+          const rect = el.getBoundingClientRect()
+          const y = e.touches[0].clientY - rect.top
+          const row = Math.max(0, Math.min(yToRow(y), TOTAL_SLOTS - 1))
+          handleDragMove(row)
         }}
       >
         {/* Grid row lines + draggable cells */}

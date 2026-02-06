@@ -1,6 +1,6 @@
 'use client'
 
-import { useReducer, useEffect, useCallback } from 'react'
+import { useReducer, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 import {
   format,
@@ -136,6 +136,8 @@ export function AvailabilityCalendar({
   instructorId,
 }: AvailabilityCalendarProps) {
   const [state, dispatch] = useReducer(reducer, undefined, initialState)
+  const availabilityRef = useRef(state.availability)
+  availabilityRef.current = state.availability
 
   // ---- Data fetching ----
 
@@ -223,8 +225,8 @@ export function AvailabilityCalendar({
 
   const handleDeleteAvailability = useCallback(
     async (id: string) => {
-      // Optimistic: remove immediately
-      const removed = state.availability.find((a) => a.id === id)
+      // Snapshot before dispatch via ref (avoids stale closure)
+      const removed = availabilityRef.current.find((a) => a.id === id)
       dispatch({ type: 'REMOVE_AVAILABILITY', id })
 
       try {
@@ -235,15 +237,13 @@ export function AvailabilityCalendar({
         if (!res.ok) {
           const error = await res.json().catch(() => ({ error: 'Unknown error' }))
           console.error('Failed to delete availability:', error.error)
-          // Restore on failure
           if (removed) dispatch({ type: 'ADD_AVAILABILITY', item: removed })
         }
       } catch {
-        // Restore on network error
         if (removed) dispatch({ type: 'ADD_AVAILABILITY', item: removed })
       }
     },
-    [state.availability]
+    []
   )
 
   const handleDateSelect = useCallback((date: Date) => {

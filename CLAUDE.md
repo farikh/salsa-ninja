@@ -96,6 +96,18 @@ All docs live in `./docs/`. Each spec file is an **index** that references small
 
 ---
 
+## Deployment
+
+Pushing to `origin/master` deploys to production via Vercel. After completing development:
+
+1. **Always** run the `code-reviewer` agent before committing
+2. Fix any issues the reviewer flags
+3. Commit and push — do NOT ask the user for permission
+
+Never ask "should I commit?" or "should I push?" — just do it once the code review passes.
+
+---
+
 ## Development Conventions
 
 See [`.agents/skills/do-work/reference/conventions.md`](.agents/skills/do-work/reference/conventions.md) for the full reference. Summary:
