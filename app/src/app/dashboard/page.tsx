@@ -44,20 +44,21 @@ export default async function DashboardPage() {
 
   return (
     <section className="section">
-      <div className="container" style={{ maxWidth: '800px' }}>
+      <div className="container" style={{ maxWidth: '900px' }}>
+        {/* Welcome Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
           <div>
             <h1 className="heading-lg">
               Welcome, {member.display_name || member.full_name}
             </h1>
             <p style={{ color: 'var(--muted-foreground)', marginTop: '0.25rem' }}>
-              {allRoles.map(r => roleLabels[r] || r).join(' • ')}
+              {allRoles.map(r => roleLabels[r] || r).join(' \u2022 ')}
             </p>
           </div>
           <LogoutButton />
         </div>
 
-        {/* Quick Actions */}
+        {/* Quick Actions — Staff Only */}
         {isStaff && (
           <div className="card" style={{ marginBottom: '1.5rem' }}>
             <h3 style={{ fontWeight: 600, marginBottom: '0.75rem' }}>Quick Actions</h3>
@@ -84,7 +85,197 @@ export default async function DashboardPage() {
           </div>
         )}
 
-        <div className="grid-2">
+        {/* Main Dashboard Grid */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1.5rem', marginBottom: '1.5rem' }}>
+
+          {/* Messages */}
+          <div className="card" style={{ display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
+              <div style={{
+                width: '40px',
+                height: '40px',
+                borderRadius: '10px',
+                background: 'linear-gradient(135deg, rgba(239,68,68,0.15), rgba(245,158,11,0.15))',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '1.2rem',
+                flexShrink: 0,
+              }}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                </svg>
+              </div>
+              <h3 style={{ fontWeight: 600 }}>Messages</h3>
+            </div>
+            <p style={{ color: 'var(--muted-foreground)', fontSize: '0.9rem', flex: 1 }}>
+              No messages yet. Community messaging is coming soon!
+            </p>
+          </div>
+
+          {/* Upcoming Bookings */}
+          <div className="card" style={{ display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
+              <div style={{
+                width: '40px',
+                height: '40px',
+                borderRadius: '10px',
+                background: 'linear-gradient(135deg, rgba(239,68,68,0.15), rgba(245,158,11,0.15))',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0,
+              }}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                  <line x1="16" y1="2" x2="16" y2="6"/>
+                  <line x1="8" y1="2" x2="8" y2="6"/>
+                  <line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+              </div>
+              <h3 style={{ fontWeight: 600 }}>Upcoming Bookings</h3>
+            </div>
+            <p style={{ color: 'var(--muted-foreground)', fontSize: '0.9rem', marginBottom: '1rem', flex: 1 }}>
+              No upcoming private lessons booked.
+            </p>
+            <Link
+              href="/private-sessions"
+              style={{
+                color: '#ef4444',
+                fontSize: '0.85rem',
+                fontWeight: 600,
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.35rem',
+              }}
+            >
+              Book a private lesson
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+                <polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </Link>
+          </div>
+
+          {/* My Enrollment */}
+          <div className="card" style={{ display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
+              <div style={{
+                width: '40px',
+                height: '40px',
+                borderRadius: '10px',
+                background: 'linear-gradient(135deg, rgba(239,68,68,0.15), rgba(245,158,11,0.15))',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0,
+              }}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                  <circle cx="8.5" cy="7" r="4"/>
+                  <polyline points="17 11 19 13 23 9"/>
+                </svg>
+              </div>
+              <h3 style={{ fontWeight: 600 }}>My Enrollment</h3>
+            </div>
+            <p style={{ color: 'var(--muted-foreground)', fontSize: '0.9rem', marginBottom: '1rem', flex: 1 }}>
+              View class schedules and manage your enrollment.
+            </p>
+            <Link
+              href="/schedule"
+              style={{
+                color: '#ef4444',
+                fontSize: '0.85rem',
+                fontWeight: 600,
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.35rem',
+              }}
+            >
+              View class schedule
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+                <polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </Link>
+          </div>
+
+          {/* Video Library */}
+          <div className="card" style={{ display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
+              <div style={{
+                width: '40px',
+                height: '40px',
+                borderRadius: '10px',
+                background: 'linear-gradient(135deg, rgba(239,68,68,0.15), rgba(245,158,11,0.15))',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0,
+              }}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <polygon points="23 7 16 12 23 17 23 7"/>
+                  <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+                </svg>
+              </div>
+              <h3 style={{ fontWeight: 600 }}>Video Library</h3>
+            </div>
+            <p style={{ color: 'var(--muted-foreground)', fontSize: '0.9rem', marginBottom: '1rem', flex: 1 }}>
+              Access class recordings and archived videos. Coming soon!
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              <span
+                style={{
+                  color: 'rgba(255,255,255,0.3)',
+                  fontSize: '0.85rem',
+                  fontWeight: 600,
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.35rem',
+                }}
+              >
+                Recent class videos
+                <span style={{
+                  fontSize: '0.7rem',
+                  background: 'rgba(239,68,68,0.15)',
+                  color: '#ef4444',
+                  padding: '2px 8px',
+                  borderRadius: '9999px',
+                  fontWeight: 600,
+                }}>
+                  Soon
+                </span>
+              </span>
+              <span
+                style={{
+                  color: 'rgba(255,255,255,0.3)',
+                  fontSize: '0.85rem',
+                  fontWeight: 600,
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.35rem',
+                }}
+              >
+                Video archive
+                <span style={{
+                  fontSize: '0.7rem',
+                  background: 'rgba(239,68,68,0.15)',
+                  color: '#ef4444',
+                  padding: '2px 8px',
+                  borderRadius: '9999px',
+                  fontWeight: 600,
+                }}>
+                  Soon
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Events & Announcements Row */}
+        <div className="grid-2" style={{ marginBottom: '1.5rem' }}>
           <UpcomingEventsWidget initialEvents={events ?? []} isStaff={isStaff} />
 
           <div className="card">
@@ -95,7 +286,8 @@ export default async function DashboardPage() {
           </div>
         </div>
 
-        <div className="card" style={{ marginTop: '1.5rem' }}>
+        {/* Your Profile */}
+        <div className="card">
           <h3 style={{ fontWeight: 600, marginBottom: '1rem' }}>Your Profile</h3>
           <div style={{ display: 'grid', gap: '0.5rem', fontSize: '0.95rem' }}>
             <div><span style={{ color: 'var(--muted-foreground)' }}>Email:</span> {member.email}</div>
@@ -107,6 +299,14 @@ export default async function DashboardPage() {
           </div>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 640px) {
+          .container > div[style*="grid-template-columns: repeat(2"] {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
     </section>
   )
 }

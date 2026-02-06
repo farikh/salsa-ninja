@@ -122,24 +122,41 @@ const Navbar = () => {
                 </Link>
               ))}
               {isLoggedIn ? (
-                <button
-                  onClick={handleLogout}
-                  style={{
-                    background: "transparent",
-                    border: "1px solid rgba(255,255,255,0.2)",
-                    color: "rgba(255,255,255,0.85)",
-                    fontWeight: 600,
-                    fontSize: "0.82rem",
-                    padding: "10px 24px",
-                    borderRadius: "6px",
-                    cursor: "pointer",
-                    transition: "all 0.3s ease",
-                    marginLeft: "8px",
-                  }}
-                  className="fiery-btn-secondary"
-                >
-                  Log out
-                </button>
+                <>
+                  <Link
+                    href="/dashboard"
+                    className="fiery-nav-link"
+                    style={{
+                      color: "rgba(255,255,255,0.75)",
+                      fontSize: "0.85rem",
+                      fontWeight: 500,
+                      textDecoration: "none",
+                      position: "relative",
+                      paddingBottom: "4px",
+                      transition: "color 0.3s ease",
+                    }}
+                  >
+                    Dashboard
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    style={{
+                      background: "transparent",
+                      border: "1px solid rgba(255,255,255,0.2)",
+                      color: "rgba(255,255,255,0.85)",
+                      fontWeight: 600,
+                      fontSize: "0.82rem",
+                      padding: "10px 24px",
+                      borderRadius: "6px",
+                      cursor: "pointer",
+                      transition: "all 0.3s ease",
+                      marginLeft: "8px",
+                    }}
+                    className="fiery-btn-secondary"
+                  >
+                    Log out
+                  </button>
+                </>
               ) : (
                 <Link
                   href="/login"
@@ -253,24 +270,41 @@ const Navbar = () => {
               </Link>
             ))}
             {isLoggedIn ? (
-              <button
-                onClick={() => { handleLogout(); setIsOpen(false); }}
-                style={{
-                  background: "transparent",
-                  border: "1px solid rgba(255,255,255,0.2)",
-                  color: "rgba(255,255,255,0.85)",
-                  fontWeight: 600,
-                  fontSize: "0.9rem",
-                  padding: "12px 24px",
-                  borderRadius: "6px",
-                  cursor: "pointer",
-                  marginTop: "8px",
-                  textAlign: "center",
-                  transition: "all 0.3s ease",
-                }}
-              >
-                Log out
-              </button>
+              <>
+                <Link
+                  href="/dashboard"
+                  onClick={() => setIsOpen(false)}
+                  style={{
+                    color: "#ef4444",
+                    fontSize: "1rem",
+                    fontWeight: 600,
+                    textDecoration: "none",
+                    padding: "8px 0",
+                    borderBottom: "1px solid rgba(255,255,255,0.06)",
+                    transition: "color 0.3s ease",
+                  }}
+                >
+                  Dashboard
+                </Link>
+                <button
+                  onClick={() => { handleLogout(); setIsOpen(false); }}
+                  style={{
+                    background: "transparent",
+                    border: "1px solid rgba(255,255,255,0.2)",
+                    color: "rgba(255,255,255,0.85)",
+                    fontWeight: 600,
+                    fontSize: "0.9rem",
+                    padding: "12px 24px",
+                    borderRadius: "6px",
+                    cursor: "pointer",
+                    marginTop: "8px",
+                    textAlign: "center",
+                    transition: "all 0.3s ease",
+                  }}
+                >
+                  Log out
+                </button>
+              </>
             ) : (
               <Link
                 href="/login"
