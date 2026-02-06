@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Question or Chat
+    url: https://slack.com
+    about: For quick questions, hop into our Slack channel instead

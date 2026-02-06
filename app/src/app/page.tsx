@@ -270,10 +270,10 @@ export default function Home() {
             }}
           >
             {[
-              { number: "500+", label: "Students Trained" },
+              { number: "500+", label: "Students & Counting" },
               { number: "8+", label: "Years Teaching" },
-              { number: "50+", label: "Events Hosted" },
-              { number: "4.9", label: "Student Rating" },
+              { number: "50+", label: "Socials & Events" },
+              { number: "5\u2605", label: "Google Rating" },
             ].map((stat, i) => (
               <div
                 key={i}
@@ -703,8 +703,7 @@ export default function Home() {
         }}
       >
         <div className="container">
-          {/* Section heading */}
-          <div className="reveal" style={{ textAlign: "center", marginBottom: "3.5rem" }}>
+          <div className="reveal" style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto" }}>
             <span
               style={{
                 fontSize: "0.75rem",
@@ -720,7 +719,7 @@ export default function Home() {
               className="heading-lg"
               style={{ marginTop: "0.75rem", color: "#ffffff" }}
             >
-              Our{" "}
+              Learn From the{" "}
               <span
                 style={{
                   background:
@@ -730,137 +729,46 @@ export default function Home() {
                   backgroundClip: "text",
                 }}
               >
-                Instructors
+                Best
               </span>
             </h2>
-          </div>
-
-          {/* 3-column grid */}
-          <div className="grid-3">
-            {[
-              {
-                name: "Carlos Rivera",
-                title: "Lead Salsa Instructor",
-                bio: "15+ years of experience in LA-style Salsa. Trained with world champions and passionate about bringing out the best in every student.",
-              },
-              {
-                name: "Isabella Cruz",
-                title: "Bachata Director",
-                bio: "International Bachata competitor and educator. Specializes in Dominican-style footwork and sensual Bachata fusion techniques.",
-              },
-              {
-                name: "Marcus Thompson",
-                title: "Assistant Instructor",
-                bio: "Started as a beginner at Salsa Ninja and now leads classes. Living proof that dedication and the right environment create amazing dancers.",
-              },
-            ].map((instructor, i) => (
-              <div
-                key={i}
-                className="reveal"
-                style={{
-                  background: "#222222",
-                  borderRadius: "0.75rem",
-                  padding: "2.5rem 2rem",
-                  textAlign: "center",
-                  position: "relative",
-                  overflow: "hidden",
-                  transition: "all 0.3s ease",
-                }}
-              >
-                {/* Avatar circle */}
-                <div
-                  style={{
-                    width: "90px",
-                    height: "90px",
-                    borderRadius: "50%",
-                    margin: "0 auto 1.25rem",
-                    background: "#333333",
-                    position: "relative",
-                  }}
-                >
-                  <div
-                    style={{
-                      position: "absolute",
-                      inset: "-3px",
-                      borderRadius: "50%",
-                      background:
-                        "linear-gradient(135deg, #ef4444 0%, #f97316 100%)",
-                      zIndex: 0,
-                    }}
-                  />
-                  <div
-                    style={{
-                      position: "absolute",
-                      inset: "0",
-                      borderRadius: "50%",
-                      background: "#333333",
-                      zIndex: 1,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      fontSize: "1.75rem",
-                      color: "rgba(255,255,255,0.3)",
-                    }}
-                  >
-                    {instructor.name.charAt(0)}
-                  </div>
-                </div>
-                <h3
-                  style={{
-                    fontSize: "1.15rem",
-                    fontWeight: 700,
-                    color: "#ffffff",
-                    marginBottom: "0.35rem",
-                  }}
-                >
-                  {instructor.name}
-                </h3>
-                <p
-                  style={{
-                    fontSize: "0.8rem",
-                    fontWeight: 600,
-                    background:
-                      "linear-gradient(135deg, #ef4444 0%, #f97316 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                    marginBottom: "1rem",
-                    letterSpacing: "0.02em",
-                  }}
-                >
-                  {instructor.title}
-                </p>
-                <p
-                  style={{
-                    color: "rgba(255,255,255,0.5)",
-                    fontSize: "0.9rem",
-                    lineHeight: 1.7,
-                  }}
-                >
-                  {instructor.bio}
-                </p>
-                {/* Hover gradient bar at bottom */}
-                <div
-                  style={{
-                    position: "absolute",
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    height: "3px",
-                    background:
-                      "linear-gradient(90deg, #ef4444, #f97316)",
-                    opacity: 0,
-                    transition: "opacity 0.3s ease",
-                  }}
-                  className="instructor-bar"
-                />
-              </div>
-            ))}
+            <p style={{
+              color: "rgba(255,255,255,0.5)",
+              fontSize: "1.05rem",
+              lineHeight: 1.8,
+              marginTop: "1.5rem",
+              marginBottom: "2.5rem",
+            }}>
+              Our instructors bring years of experience in LA-style Salsa and Bachata
+              to every class. Whether you&apos;re stepping onto the floor for the first
+              time or refining your technique, you&apos;ll learn in a supportive environment
+              built around community and growth.
+            </p>
+            <Link
+              href="/schedule"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "0.875rem 2.5rem",
+                fontWeight: 700,
+                fontSize: "0.95rem",
+                background: "linear-gradient(135deg, #ef4444 0%, #f97316 100%)",
+                color: "white",
+                textDecoration: "none",
+                transform: "skewX(-6deg)",
+                transition: "all 0.3s ease",
+              }}
+            >
+              <span style={{ transform: "skewX(6deg)", display: "block" }}>
+                Try Your First Class — $5
+              </span>
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* ===== TESTIMONIALS SECTION ===== */}
+      {/* ===== SOCIAL PROOF / COMMUNITY CTA ===== */}
       <section
         style={{
           background: "#ffffff",
@@ -870,8 +778,7 @@ export default function Home() {
         }}
       >
         <div className="container">
-          {/* Section heading */}
-          <div className="reveal" style={{ textAlign: "center", marginBottom: "3.5rem" }}>
+          <div className="reveal" style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto" }}>
             <span
               style={{
                 fontSize: "0.75rem",
@@ -881,13 +788,13 @@ export default function Home() {
                 color: "#ef4444",
               }}
             >
-              Testimonials
+              Community
             </span>
             <h2
               className="heading-lg"
               style={{ marginTop: "0.75rem", color: "#111111" }}
             >
-              What Students{" "}
+              More Than a{" "}
               <span
                 style={{
                   background:
@@ -897,97 +804,64 @@ export default function Home() {
                   backgroundClip: "text",
                 }}
               >
-                Say
+                Dance School
               </span>
             </h2>
-          </div>
-
-          <div className="grid-3">
-            {[
-              {
-                quote:
-                  "I walked in with zero dance experience and within weeks I was confidently hitting the dance floor at socials. The instructors break everything down so clearly.",
-                name: "Jessica M.",
-                meta: "Student for 2 years",
-              },
-              {
-                quote:
-                  "The energy at Salsa Ninja is unmatched. It is not just a dance school, it is a family. The Thursday practica nights are the highlight of my week.",
-                name: "David L.",
-                meta: "Student for 1 year",
-              },
-              {
-                quote:
-                  "Best decision I ever made was signing up for the beginner bootcamp. Now I am addicted to Bachata and I attend every class I can. The community is amazing.",
-                name: "Maria S.",
-                meta: "Student for 6 months",
-              },
-            ].map((testimonial, i) => (
-              <div
-                key={i}
-                className="reveal"
+            <p style={{
+              color: "#6b7280",
+              fontSize: "1.05rem",
+              lineHeight: 1.8,
+              marginTop: "1.5rem",
+              marginBottom: "2.5rem",
+            }}>
+              Salsa Ninja is a family. Monthly socials, workshops with guest
+              instructors, bootcamps for absolute beginners, and a community that
+              shows up for each other on and off the dance floor.
+            </p>
+            <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
+              <a
+                href="https://www.instagram.com/salsaninjadanceacademy/"
+                target="_blank"
+                rel="noopener noreferrer"
                 style={{
-                  background: "#ffffff",
-                  borderRadius: "0.75rem",
-                  padding: "2rem",
-                  position: "relative",
-                  borderLeft: "3px solid transparent",
-                  borderImage:
-                    "linear-gradient(180deg, #ef4444, #f97316) 1",
-                  boxShadow:
-                    "0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03)",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "0.5rem",
+                  padding: "0.875rem 2rem",
+                  fontWeight: 700,
+                  fontSize: "0.95rem",
+                  background: "linear-gradient(135deg, #ef4444 0%, #f97316 100%)",
+                  color: "white",
+                  textDecoration: "none",
+                  transform: "skewX(-6deg)",
+                  transition: "all 0.3s ease",
                 }}
               >
-                {/* Large gradient quote mark */}
-                <span
-                  style={{
-                    fontSize: "3.5rem",
-                    fontWeight: 800,
-                    lineHeight: 1,
-                    background:
-                      "linear-gradient(135deg, #ef4444 0%, #f97316 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                    display: "block",
-                    marginBottom: "0.5rem",
-                  }}
-                >
-                  &ldquo;
+                <span style={{ transform: "skewX(6deg)", display: "block" }}>
+                  Follow @salsaninjadanceacademy
                 </span>
-                <p
-                  style={{
-                    fontStyle: "italic",
-                    color: "#4b5563",
-                    fontSize: "0.95rem",
-                    lineHeight: 1.7,
-                    marginBottom: "1.5rem",
-                  }}
-                >
-                  {testimonial.quote}
-                </p>
-                <div>
-                  <div
-                    style={{
-                      fontWeight: 700,
-                      color: "#111111",
-                      fontSize: "0.95rem",
-                    }}
-                  >
-                    {testimonial.name}
-                  </div>
-                  <div
-                    style={{
-                      color: "#9ca3af",
-                      fontSize: "0.8rem",
-                      marginTop: "0.15rem",
-                    }}
-                  >
-                    {testimonial.meta}
-                  </div>
-                </div>
-              </div>
-            ))}
+              </a>
+              <Link
+                href="/events"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  padding: "0.875rem 2rem",
+                  fontWeight: 600,
+                  fontSize: "0.95rem",
+                  background: "transparent",
+                  color: "#111111",
+                  textDecoration: "none",
+                  border: "2px solid rgba(0,0,0,0.15)",
+                  transform: "skewX(-6deg)",
+                  transition: "all 0.3s ease",
+                }}
+              >
+                <span style={{ transform: "skewX(6deg)", display: "block" }}>
+                  Upcoming Events
+                </span>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -1058,39 +932,38 @@ export default function Home() {
             {[
               {
                 name: "Drop-In",
-                price: "$20",
+                price: "$25",
                 period: "/class",
                 featured: false,
                 features: [
                   "Access to any single class",
+                  "Progressive classes & patterns",
                   "No commitment required",
-                  "Great for trying us out",
                   "Pay at the door",
                 ],
               },
               {
-                name: "Monthly Unlimited",
-                price: "$99",
+                name: "8 Class",
+                price: "$139",
                 period: "/month",
                 featured: true,
                 features: [
-                  "Unlimited classes all month",
-                  "Access to all styles & levels",
-                  "Telegram community access",
-                  "Priority event registration",
-                  "Bring a friend once a month",
+                  "8 classes per month",
+                  "5% off private lessons",
+                  "15% off any bootcamp",
+                  "Community group chat access",
                 ],
               },
               {
-                name: "Annual",
-                price: "$899",
-                period: "/year",
+                name: "Unlimited",
+                price: "$179",
+                period: "/month",
                 featured: false,
                 features: [
-                  "Everything in Monthly",
-                  "Save $289 per year",
-                  "Exclusive annual member events",
-                  "Free guest passes (4/year)",
+                  "Unlimited classes all month",
+                  "7% off private lessons",
+                  "20% off any bootcamp",
+                  "Community group chat access",
                 ],
               },
             ].map((plan, i) => (
@@ -1248,6 +1121,21 @@ export default function Home() {
               </div>
             ))}
           </div>
+          <div className="reveal" style={{ textAlign: "center", marginTop: "2rem" }}>
+            <Link
+              href="/schedule"
+              style={{
+                color: "rgba(255,255,255,0.5)",
+                fontSize: "0.85rem",
+                textDecoration: "none",
+                fontWeight: 600,
+                letterSpacing: "0.05em",
+                transition: "color 0.3s ease",
+              }}
+            >
+              View all plans including 5-Class and Showcase/Performance &rarr;
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -1293,125 +1181,104 @@ export default function Home() {
             </h2>
           </div>
 
-          <div className="grid-3">
-            {[
-              {
-                date: "MAR 15",
-                title: "Spring Social Dance Night",
-                time: "8:00 PM - 12:00 AM",
-                description:
-                  "Live DJ, open floor, and a celebration of the spring season. All levels welcome. Bring a friend for free!",
-                gradient: "linear-gradient(135deg, #ef4444, #dc2626)",
-              },
-              {
-                date: "APR 5",
-                title: "Bachata Sensual Workshop",
-                time: "2:00 PM - 5:00 PM",
-                description:
-                  "Intensive workshop with guest instructor from Miami. Focus on body movement, waves, and connection.",
-                gradient: "linear-gradient(135deg, #f97316, #ea580c)",
-              },
-              {
-                date: "APR 20",
-                title: "Salsa Congress Showcase",
-                time: "7:00 PM - 11:00 PM",
-                description:
-                  "Our performance teams hit the stage at the South Florida Salsa Congress. Come cheer them on!",
-                gradient: "linear-gradient(135deg, #ef4444, #f97316)",
-              },
-            ].map((event, i) => (
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "1.5rem",
+            maxWidth: "900px",
+            margin: "0 auto",
+          }} className="events-home-grid">
+            {/* Real featured event */}
+            <div
+              className="reveal"
+              style={{
+                background: "#ffffff",
+                borderRadius: "0.75rem",
+                overflow: "hidden",
+                boxShadow: "0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03)",
+              }}
+            >
               <div
-                key={i}
-                className="reveal"
                 style={{
-                  background: "#ffffff",
-                  borderRadius: "0.75rem",
+                  height: "180px",
+                  background: "linear-gradient(135deg, #ef4444, #dc2626)",
+                  position: "relative",
                   overflow: "hidden",
-                  boxShadow:
-                    "0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03)",
-                  transition: "all 0.3s ease",
                 }}
               >
-                {/* Image placeholder with angled overlay */}
-                <div
-                  style={{
-                    height: "180px",
-                    background: event.gradient,
-                    position: "relative",
-                    overflow: "hidden",
-                  }}
-                >
-                  <div
-                    style={{
-                      position: "absolute",
-                      bottom: 0,
-                      right: 0,
-                      width: "100%",
-                      height: "60px",
-                      background: "#ffffff",
-                      clipPath: "polygon(100% 0, 100% 100%, 0 100%)",
-                    }}
-                  />
-                  {/* Skewed date badge */}
-                  <span
-                    style={{
-                      position: "absolute",
-                      top: "16px",
-                      left: "16px",
-                      background: "rgba(0,0,0,0.8)",
-                      color: "white",
-                      padding: "0.5rem 1rem",
-                      fontSize: "0.75rem",
-                      fontWeight: 800,
-                      letterSpacing: "0.05em",
-                      transform: "skewX(-6deg)",
-                    }}
-                  >
-                    <span
-                      style={{ display: "block", transform: "skewX(6deg)" }}
-                    >
-                      {event.date}
-                    </span>
-                  </span>
-                </div>
-                <div style={{ padding: "1.5rem" }}>
-                  <h3
-                    style={{
-                      fontSize: "1.1rem",
-                      fontWeight: 700,
-                      color: "#111111",
-                      marginBottom: "0.35rem",
-                    }}
-                  >
-                    {event.title}
-                  </h3>
-                  <p
-                    style={{
-                      color: "#ef4444",
-                      fontSize: "0.8rem",
-                      fontWeight: 600,
-                      marginBottom: "0.75rem",
-                    }}
-                  >
-                    {event.time}
-                  </p>
-                  <p
-                    style={{
-                      color: "#6b7280",
-                      fontSize: "0.9rem",
-                      lineHeight: 1.7,
-                    }}
-                  >
-                    {event.description}
-                  </p>
-                </div>
+                <div style={{
+                  position: "absolute", inset: 0,
+                  backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(255,255,255,0.05) 20px, rgba(255,255,255,0.05) 22px)",
+                }} />
+                <div style={{
+                  position: "absolute", bottom: 0, right: 0, width: "100%", height: "60px",
+                  background: "#ffffff", clipPath: "polygon(100% 0, 100% 100%, 0 100%)",
+                }} />
+                <span style={{
+                  position: "absolute", top: "16px", left: "16px",
+                  background: "rgba(0,0,0,0.8)", color: "white",
+                  padding: "0.5rem 1rem", fontSize: "0.75rem", fontWeight: 800,
+                  letterSpacing: "0.05em", transform: "skewX(-6deg)",
+                }}>
+                  <span style={{ display: "block", transform: "skewX(6deg)" }}>MONTHLY</span>
+                </span>
               </div>
-            ))}
+              <div style={{ padding: "1.5rem" }}>
+                <h3 style={{ fontSize: "1.1rem", fontWeight: 700, color: "#111111", marginBottom: "0.35rem" }}>
+                  Salsa Ninja Dance Social
+                </h3>
+                <p style={{ color: "#ef4444", fontSize: "0.8rem", fontWeight: 600, marginBottom: "0.75rem" }}>
+                  Every 2nd Friday of the Month
+                </p>
+                <p style={{ color: "#6b7280", fontSize: "0.9rem", lineHeight: 1.7 }}>
+                  DJ, open floor, and the whole Ninja fam together. Salsa class at 9 PM, social dancing &apos;til late. BYOB with light bites and free parking.
+                </p>
+              </div>
+            </div>
+
+            {/* CTA card to see all events */}
+            <Link
+              href="/events"
+              className="reveal"
+              style={{
+                background: "#111111",
+                borderRadius: "0.75rem",
+                overflow: "hidden",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "3rem 2rem",
+                textDecoration: "none",
+                position: "relative",
+                transition: "all 0.3s ease",
+              }}
+            >
+              <div style={{
+                position: "absolute", inset: 0,
+                backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(239,68,68,0.04) 30px, rgba(239,68,68,0.04) 32px)",
+                pointerEvents: "none",
+              }} />
+              <div style={{
+                width: "60px", height: "60px", borderRadius: "50%",
+                background: "linear-gradient(135deg, #ef4444, #f97316)",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                marginBottom: "1.5rem", fontSize: "1.5rem", color: "white", position: "relative",
+              }}>
+                &rarr;
+              </div>
+              <h3 style={{ fontSize: "1.1rem", fontWeight: 700, color: "#ffffff", marginBottom: "0.5rem", position: "relative" }}>
+                View All Events
+              </h3>
+              <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.85rem", textAlign: "center", position: "relative" }}>
+                Socials, workshops, bootcamps, and more
+              </p>
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* ===== COMMUNITY GALLERY ===== */}
+      {/* ===== BOOTCAMP CTA ===== */}
       <section
         style={{
           background: "#ffffff",
@@ -1420,103 +1287,60 @@ export default function Home() {
         }}
       >
         <div className="container">
-          {/* Section heading */}
-          <div className="reveal" style={{ textAlign: "center", marginBottom: "1.5rem" }}>
-            <span
-              style={{
-                fontSize: "0.75rem",
-                fontWeight: 600,
-                letterSpacing: "0.15em",
-                textTransform: "uppercase",
-                color: "#ef4444",
-              }}
-            >
-              Community
-            </span>
-            <h2
-              className="heading-lg"
-              style={{ marginTop: "0.75rem", color: "#111111" }}
-            >
-              The Ninja{" "}
-              <span
-                style={{
-                  background:
-                    "linear-gradient(135deg, #ef4444 0%, #f97316 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                }}
-              >
-                Fam
-              </span>
-            </h2>
-          </div>
-          <p
-            className="reveal"
-            style={{
-              textAlign: "center",
-              color: "#6b7280",
-              fontSize: "1rem",
-              lineHeight: 1.7,
-              maxWidth: "600px",
-              margin: "0 auto 3rem",
-            }}
-          >
-            More than a dance school — a family. From socials to congresses, our
-            community shows up, supports each other, and dances together.
-          </p>
-
-          {/* 3x2 gallery grid */}
           <div
             className="reveal"
             style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: "0.75rem",
+              background: "#111111",
+              borderRadius: "0.75rem",
+              padding: "3.5rem 2.5rem",
+              textAlign: "center",
+              position: "relative",
+              overflow: "hidden",
             }}
           >
-            {[
-              "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)",
-              "linear-gradient(135deg, #f97316 0%, #ea580c 100%)",
-              "linear-gradient(135deg, #ef4444 0%, #f97316 100%)",
-              "linear-gradient(135deg, #ea580c 0%, #ef4444 100%)",
-              "linear-gradient(135deg, #dc2626 0%, #f97316 100%)",
-              "linear-gradient(135deg, #f97316 0%, #dc2626 100%)",
-            ].map((bg, i) => (
-              <div
-                key={i}
+            <div style={{
+              position: "absolute", inset: 0,
+              backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(239,68,68,0.04) 40px, rgba(239,68,68,0.04) 42px)",
+              pointerEvents: "none",
+            }} />
+            <div style={{ position: "relative", zIndex: 1 }}>
+              <span style={{
+                display: "inline-block", padding: "0.375rem 1rem", marginBottom: "1.25rem",
+                fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase",
+                background: "linear-gradient(135deg, #ef4444, #f97316)", color: "white",
+                transform: "skewX(-6deg)",
+              }}>
+                <span style={{ display: "block", transform: "skewX(6deg)" }}>New to Salsa?</span>
+              </span>
+              <h2 className="heading-lg" style={{ color: "#ffffff", marginBottom: "1rem" }}>
+                Start With the{" "}
+                <span style={{
+                  background: "linear-gradient(135deg, #ef4444 0%, #f97316 100%)",
+                  WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text",
+                }}>Bootcamp</span>
+              </h2>
+              <p style={{
+                color: "rgba(255,255,255,0.5)", fontSize: "1.05rem", lineHeight: 1.8,
+                maxWidth: "550px", margin: "0 auto 2rem",
+              }}>
+                Our 6-week beginner bootcamp is the perfect way to start. No partner or experience needed.
+                Progressive group lessons that take you from zero to the dance floor.
+              </p>
+              <Link
+                href="/bootcamp"
                 style={{
-                  aspectRatio: "1",
-                  background: bg,
-                  borderRadius: "0.5rem",
-                  position: "relative",
-                  overflow: "hidden",
-                  cursor: "pointer",
+                  display: "inline-flex", alignItems: "center", justifyContent: "center",
+                  padding: "0.875rem 2.5rem", fontWeight: 700, fontSize: "0.95rem",
+                  background: "linear-gradient(135deg, #ef4444 0%, #f97316 100%)",
+                  color: "white", textDecoration: "none", transform: "skewX(-6deg)",
+                  transition: "all 0.3s ease",
                 }}
-                className="gallery-item"
               >
-                {/* Diagonal pattern overlay */}
-                <div
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    backgroundImage:
-                      "repeating-linear-gradient(45deg, transparent, transparent 15px, rgba(255,255,255,0.05) 15px, rgba(255,255,255,0.05) 17px)",
-                  }}
-                />
-                {/* Red hover overlay */}
-                <div
-                  className="gallery-overlay"
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    background: "rgba(239, 68, 68, 0.5)",
-                    opacity: 0,
-                    transition: "opacity 0.3s ease",
-                  }}
-                />
-              </div>
-            ))}
+                <span style={{ transform: "skewX(6deg)", display: "block" }}>
+                  Learn About the Bootcamp
+                </span>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -1772,22 +1596,17 @@ export default function Home() {
           opacity: 1 !important;
         }
 
-        /* Gallery hover */
-        .gallery-item:hover .gallery-overlay {
-          opacity: 1 !important;
+        /* Events home grid responsive */
+        @media (max-width: 640px) {
+          .events-home-grid {
+            grid-template-columns: 1fr !important;
+          }
         }
 
         /* Pricing grid responsive */
         @media (max-width: 768px) {
           .pricing-grid {
             grid-template-columns: 1fr !important;
-          }
-        }
-
-        /* Gallery responsive */
-        @media (max-width: 640px) {
-          .gallery-item {
-            aspect-ratio: 1 !important;
           }
         }
 

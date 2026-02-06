@@ -35,13 +35,13 @@ Where N = priority (1=highest, 5=lowest)
 
 ```bash
 # Create parent
-bd create "Build auth system" -d "Overall task" -p 1
+cd app && bd create "Build auth system" -d "Overall task" -p 1
 # Output: app-abc
 
 # Create children
-bd create "Build login page" -d "Step 1" -p 1 --parent app-abc
-bd create "Build magic link handler" -d "Step 2" -p 1 --parent app-abc
-bd create "Build middleware" -d "Step 3" -p 1 --parent app-abc
+cd app && bd create "Build login page" -d "Step 1" -p 1 --parent app-abc
+cd app && bd create "Build magic link handler" -d "Step 2" -p 1 --parent app-abc
+cd app && bd create "Build middleware" -d "Step 3" -p 1 --parent app-abc
 ```
 
 ---
@@ -55,9 +55,9 @@ open → in_progress → closed
 ### Update Status
 
 ```bash
-bd update app-xyz -s in_progress  # Starting work
-bd update app-xyz -s open         # Paused/blocked
-bd close app-xyz -r "Reason"      # Completed
+cd app && bd update app-xyz -s in_progress  # Starting work
+cd app && bd update app-xyz -s open         # Paused/blocked
+cd app && bd close app-xyz -r "Reason"      # Completed
 ```
 
 ---
@@ -77,16 +77,16 @@ bd close app-xyz -r "Reason"      # Completed
 
 ```bash
 # List all tasks
-bd list
+cd app && bd list
 
 # List open tasks only
-bd list -s open
+cd app && bd list -s open
 
 # View task details
-bd show app-xyz
+cd app && bd show app-xyz
 
 # Search tasks
-bd search "keyword"
+cd app && bd search "keyword"
 ```
 
 ---

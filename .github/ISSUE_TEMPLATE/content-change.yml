@@ -1,0 +1,53 @@
+name: Content Update
+description: Update text, images, schedule info, or other content on the site
+title: "[Content] "
+labels: ["content", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Need to update something on the site? Tell us what needs to change.
+
+  - type: dropdown
+    id: page
+    attributes:
+      label: Which page needs updating?
+      options:
+        - Home page
+        - About page
+        - Schedule page
+        - Events page
+        - Bootcamp page
+        - Pricing page
+        - Contact page
+        - Shoes page
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: current
+    attributes:
+      label: What's there now?
+      description: Describe or paste the current text/content
+      placeholder: "Example: The schedule page shows last month's class times"
+    validations:
+      required: false
+
+  - type: textarea
+    id: new-content
+    attributes:
+      label: What should it say instead?
+      description: Provide the new text, images, or info
+      placeholder: "Example: Monday classes now start at 7:30pm instead of 7:00pm"
+    validations:
+      required: true
+
+  - type: textarea
+    id: assets
+    attributes:
+      label: New images or files
+      description: Drag and drop any new photos, logos, or files here
+      placeholder: "Drag and drop files here"
+    validations:
+      required: false

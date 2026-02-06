@@ -1,0 +1,56 @@
+name: Notify Slack — Ready for Review
+
+on:
+  pull_request:
+    types: [labeled]
+
+jobs:
+  notify:
+    if: github.event.label.name == 'ready-for-review'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ask owner to review
+        uses: slackapi/slack-github-action@v2.1.0
+        with:
+          webhook: ${{ secrets.SLACK_WEBHOOK_REVIEWS }}
+          webhook-type: incoming-webhook
+          payload: |
+            {
+              "blocks": [
+                {
+                  "type": "header",
+                  "text": {
+                    "type": "plain_text",
+                    "text": "Your review is needed!"
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*${{ github.event.pull_request.title }}*\n\nA new update is ready for you to check out. Click the link below to see what changed and leave your feedback."
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "_Tip: You can leave comments directly on the preview site or reply in this channel._"
+                  }
+                },
+                {
+                  "type": "actions",
+                  "elements": [
+                    {
+                      "type": "button",
+                      "text": {
+                        "type": "plain_text",
+                        "text": "Review Now"
+                      },
+                      "url": "${{ github.event.pull_request.html_url }}",
+                      "style": "primary"
+                    }
+                  ]
+                }
+              ]
+            }

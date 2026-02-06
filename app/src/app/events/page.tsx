@@ -87,14 +87,14 @@ export default function EventsPage() {
                   }}
                 >
                   <span style={{ display: "inline-block", transform: "skewX(6deg)" }}>
-                    First Social of the Year
+                    Next Monthly Social
                   </span>
                 </span>
                 <h2 style={{ fontSize: "2.5rem", fontWeight: 800, marginBottom: "0.5rem" }}>
-                  NEW YEAR Social 2026
+                  February Social 2026
                 </h2>
                 <p style={{ opacity: 0.9, fontSize: "1.1rem" }}>
-                  Kick off 2026 with the Ninja fam!
+                  Every 2nd Friday — don&apos;t miss it!
                 </p>
               </div>
             </div>
@@ -103,12 +103,12 @@ export default function EventsPage() {
             <div style={{ padding: "2.5rem" }}>
               <div style={{ marginBottom: "2rem" }}>
                 <p style={{ fontSize: "1.1rem", lineHeight: 1.8, color: "var(--text-light)", marginBottom: "1rem" }}>
-                  We&apos;re kicking off 2026 the only way Salsa Ninja knows how — with a
-                  packed dance floor, elite vibes, and the whole Ninja fam together!
+                  Join us for another night of pure salsa &amp; bachata energy with the
+                  Ninja fam! Packed dance floor, elite vibes, and good people.
                 </p>
                 <p style={{ fontSize: "1.1rem", lineHeight: 1.8, color: "var(--text-light)" }}>
-                  Get ready for a night of pure salsa & bachata energy, good people, and
-                  that feeling you only get at a Salsa Ninja social
+                  Every 2nd Friday of the month, the studio transforms into the best
+                  social dance floor in Sunrise. All levels welcome.
                 </p>
               </div>
 
@@ -122,10 +122,10 @@ export default function EventsPage() {
                 }}
               >
                 {[
-                  { emoji: "📅", label: "Date", value: "Friday, January 16, 2026" },
+                  { emoji: "📅", label: "Date", value: "Friday, February 13, 2026" },
                   { emoji: "🕘", label: "Time", value: "Salsa Class 9 PM\nSocial 10 PM 'til late" },
-                  { emoji: "🎧", label: "Music By", value: "DJ Mike Calderon" },
-                  { emoji: "🎟", label: "Entry", value: "$20 (Food on site)" },
+                  { emoji: "🎧", label: "Music", value: "Live DJ Set" },
+                  { emoji: "🎟", label: "Entry", value: "Pre-Sale $15 · Door $20" },
                 ].map((item, idx) => (
                   <div
                     key={idx}
@@ -183,10 +183,10 @@ export default function EventsPage() {
                   Dresscode
                 </div>
                 <div className="gradient-text" style={{ fontWeight: 800, fontSize: "1.75rem" }}>
-                  NEON
+                  DRESS TO IMPRESS
                 </div>
                 <p style={{ color: "var(--text-light)", marginTop: "0.5rem" }}>
-                  Come sharp, come confident — start the year in style!
+                  Come sharp, come confident — look good, dance better!
                 </p>
               </div>
 

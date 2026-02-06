@@ -1,0 +1,83 @@
+name: Create Issue from Slack
+
+on:
+  repository_dispatch:
+    types: [slack-issue]
+
+jobs:
+  create-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create GitHub Issue
+        uses: actions/github-script@v7
+        id: create-issue
+        with:
+          script: |
+            const payload = context.payload.client_payload;
+
+            const typeLabels = {
+              'Feature Request': ['feature-request', 'needs-triage'],
+              'Bug Report': ['bug', 'needs-triage'],
+              'Content Update': ['content', 'needs-triage'],
+              'General Feedback': ['feedback', 'needs-triage']
+            };
+
+            const areaLabels = {
+              'Public website': [],
+              'Class schedule': ['schedule'],
+              'Private lessons / booking': ['booking'],
+              'Events & socials': [],
+              'Member dashboard': [],
+              'Payments & billing': ['payments'],
+              'Admin / management': [],
+              'Mobile experience': ['mobile'],
+            };
+
+            const labels = [
+              ...(typeLabels[payload.type] || ['needs-triage']),
+              ...(areaLabels[payload.area] || [])
+            ];
+
+            const prefix = {
+              'Feature Request': '[Feature]',
+              'Bug Report': '[Bug]',
+              'Content Update': '[Content]',
+              'General Feedback': '[Feedback]'
+            }[payload.type] || '';
+
+            const body = [
+              payload.description,
+              '',
+              payload.area ? `**Area:** ${payload.area}` : '',
+              payload.priority ? `**Priority:** ${payload.priority}` : '',
+              '',
+              `_Submitted from Slack by ${payload.submitted_by}_`
+            ].filter(Boolean).join('\n');
+
+            const issue = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `${prefix} ${payload.title}`,
+              body: body,
+              labels: labels
+            });
+
+            return issue.data;
+
+      - name: Notify Slack of created issue
+        uses: slackapi/slack-github-action@v2.1.0
+        with:
+          webhook: ${{ secrets.SLACK_WEBHOOK_FEEDBACK }}
+          webhook-type: incoming-webhook
+          payload: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "Issue created from Slack request by *${{ github.event.client_payload.submitted_by }}*\n<${{ fromJSON(steps.create-issue.outputs.result).html_url }}|View on GitHub>"
+                  }
+                }
+              ]
+            }

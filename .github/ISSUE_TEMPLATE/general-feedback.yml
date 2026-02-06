@@ -1,0 +1,29 @@
+name: General Feedback
+description: Share thoughts, ideas, or anything else about the website
+title: "[Feedback] "
+labels: ["feedback", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        We'd love to hear your thoughts! Share anything on your mind about the website.
+
+  - type: textarea
+    id: feedback
+    attributes:
+      label: What's on your mind?
+      description: Share your thoughts, ideas, or feedback
+      placeholder: "Example: The site looks great on my phone but I wish the text was a bit bigger on the schedule page"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: sentiment
+    attributes:
+      label: How are you feeling about the site overall?
+      options:
+        - "Love it"
+        - "It's good, but has room to improve"
+        - "Frustrated — something needs to change"
+    validations:
+      required: false

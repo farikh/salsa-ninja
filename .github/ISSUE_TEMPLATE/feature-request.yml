@@ -1,0 +1,56 @@
+name: Feature Request
+description: Suggest a new feature or improvement for the website
+title: "[Feature] "
+labels: ["feature-request", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for sharing your idea! Fill out what you can — every field is optional except the description.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What would you like?
+      description: Describe the feature or improvement in your own words
+      placeholder: "Example: I'd like students to be able to see a calendar of upcoming socials and RSVP directly from the website"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: What part of the site does this relate to?
+      options:
+        - Public website (what visitors see)
+        - Class schedule
+        - Private lessons / booking
+        - Events & socials
+        - Member dashboard
+        - Payments & billing
+        - Admin / management
+        - Community / chat
+        - Mobile experience
+        - Other
+    validations:
+      required: false
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: How important is this to you?
+      options:
+        - Nice to have
+        - Important — would make a real difference
+        - Critical — blocking something right now
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Any additional context?
+      description: Screenshots, examples from other sites, or anything else that helps explain your idea
+      placeholder: "You can drag and drop images here"
+    validations:
+      required: false
