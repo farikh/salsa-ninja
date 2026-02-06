@@ -3,6 +3,8 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import LogoutButton from './logout-button'
 import UpcomingEventsWidget from './upcoming-events-widget'
+import { DashboardBookings } from './DashboardBookings'
+import type { PrivateLessonBooking } from '@/types/booking'
 
 export default async function DashboardPage() {
   const supabase = await createClient()
@@ -41,6 +43,15 @@ export default async function DashboardPage() {
     .from('upcoming_events')
     .select('id, title, description, start_time, end_time')
     .limit(10)
+
+  // Fetch bookings for the dashboard — RLS ensures correct access
+  const { data: bookings } = await supabase
+    .from('private_lesson_bookings')
+    .select('*')
+    .in('status', ['pending', 'confirmed'])
+    .gte('end_time', new Date().toISOString())
+    .order('start_time', { ascending: true })
+    .limit(20)
 
   return (
     <section className="section">
@@ -113,50 +124,12 @@ export default async function DashboardPage() {
             </p>
           </div>
 
-          {/* Upcoming Bookings */}
-          <div className="card" style={{ display: 'flex', flexDirection: 'column' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-              <div style={{
-                width: '40px',
-                height: '40px',
-                borderRadius: '10px',
-                background: 'linear-gradient(135deg, rgba(239,68,68,0.15), rgba(245,158,11,0.15))',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexShrink: 0,
-              }}>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                  <line x1="16" y1="2" x2="16" y2="6"/>
-                  <line x1="8" y1="2" x2="8" y2="6"/>
-                  <line x1="3" y1="10" x2="21" y2="10"/>
-                </svg>
-              </div>
-              <h3 style={{ fontWeight: 600 }}>Upcoming Bookings</h3>
-            </div>
-            <p style={{ color: 'var(--muted-foreground)', fontSize: '0.9rem', marginBottom: '1rem', flex: 1 }}>
-              No upcoming private lessons booked.
-            </p>
-            <Link
-              href="/private-sessions"
-              style={{
-                color: '#ef4444',
-                fontSize: '0.85rem',
-                fontWeight: 600,
-                textDecoration: 'none',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.35rem',
-              }}
-            >
-              Book a private lesson
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12"/>
-                <polyline points="12 5 19 12 12 19"/>
-              </svg>
-            </Link>
-          </div>
+          {/* Upcoming Bookings — live data */}
+          <DashboardBookings
+            initialBookings={(bookings ?? []) as PrivateLessonBooking[]}
+            memberId={member.id}
+            isInstructor={isInstructor}
+          />
 
           {/* My Enrollment */}
           <div className="card" style={{ display: 'flex', flexDirection: 'column' }}>

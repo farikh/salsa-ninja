@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -145,10 +146,14 @@ export default function InstructorAvailabilityManager({ instructorId }: { instru
             Set your weekly teaching schedule
           </p>
         </div>
-        <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-          <DialogTrigger asChild>
-            <Button size="sm">+ Add Hours</Button>
-          </DialogTrigger>
+        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+          <Link href="/private-sessions/availability-calendar">
+            <Button variant="outline" size="sm">View Calendar</Button>
+          </Link>
+          <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+            <DialogTrigger asChild>
+              <Button size="sm">+ Add Hours</Button>
+            </DialogTrigger>
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Add Available Hours</DialogTitle>
@@ -237,6 +242,7 @@ export default function InstructorAvailabilityManager({ instructorId }: { instru
             </div>
           </DialogContent>
         </Dialog>
+        </div>
       </div>
 
       {loading ? (

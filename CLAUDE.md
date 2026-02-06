@@ -12,6 +12,8 @@ All orchestration — task capture, triage, execution, review, verification, arc
 
 **To process the queue:** Say `do work run` or `go`
 
+**To design or architect a feature:** Say `do work design <feature>` — triggers the full research → design → iterative review process
+
 **Full skill reference:** Read [`.agents/skills/do-work/SKILL.md`](.agents/skills/do-work/SKILL.md) for routing, actions, processes, and reference docs.
 
 **Fallback (if do-work is not installed):** Check if `.agents/skills/do-work/SKILL.md` exists. If not, use beads directly:
@@ -65,6 +67,7 @@ All docs live in `./docs/`. Each spec file is an **index** that references small
 - `docs/specs/features/calendar.md` — Events, RSVP, waitlist, recurring
 - `docs/specs/features/calendar-architecture.md` — Calendar architecture (Reviewed, 3 rounds)
 - `docs/specs/features/private-lesson-booking.md` — Private lesson booking (Reviewed, 3 rounds)
+- `docs/specs/features/private-lesson-booking-v2.md` — Private lesson scheduling & booking system v2: availability calendar, dashboard cards, confirmation workflow (Reviewed, 3 rounds)
 - `docs/specs/features/video-library.md` — Search, filters, progress, R2 storage
 - `docs/specs/features/chat.md` — Channels, DMs, real-time, moderation
 - `docs/specs/features/admin.md` — Dashboard, management, invites
