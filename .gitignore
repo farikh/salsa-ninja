@@ -50,3 +50,7 @@ app/nul
 
 .vercel
 .env*.local
+
+# credentials / secrets
+docs/client_secret_*.json
+**/client_secret_*.json
