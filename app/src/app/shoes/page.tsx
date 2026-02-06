@@ -48,23 +48,30 @@ export default function ShoesPage() {
       {/* Hero */}
       <section
         style={{
-          background: "linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%)",
-          padding: "4rem 0 5rem",
+          background: "#111111",
+          padding: "5rem 0 6rem",
+          position: "relative",
+          overflow: "hidden",
         }}
       >
-        <div className="container">
+        <div
+          style={{
+            position: "absolute",
+            top: "-40%",
+            right: "-15%",
+            width: "60%",
+            height: "180%",
+            background: "radial-gradient(circle, rgba(239,68,68,0.08) 0%, transparent 60%)",
+            pointerEvents: "none",
+          }}
+        />
+        <div className="container" style={{ position: "relative", zIndex: 1 }}>
           <div style={{ textAlign: "center", maxWidth: "800px", margin: "0 auto" }}>
-            <span className="badge">Gear Up</span>
-            <h1 className="heading-xl" style={{ marginTop: "1rem" }}>
-              Shoes & Apparel
+            <span className="badge"><span>Gear Up</span></span>
+            <h1 className="heading-xl" style={{ marginTop: "1.5rem", color: "#ffffff" }}>
+              Shoes & <span className="gradient-text">Apparel</span>
             </h1>
-            <p
-              style={{
-                color: "var(--muted-foreground)",
-                fontSize: "1.1rem",
-                marginTop: "1rem",
-              }}
-            >
+            <p style={{ color: "var(--text-light)", fontSize: "1.1rem", marginTop: "1rem" }}>
               Salsa Ninja&apos;s go-to guide for shoes and when to wear them!
             </p>
           </div>
@@ -72,21 +79,13 @@ export default function ShoesPage() {
       </section>
 
       {/* Important Notice */}
-      <section style={{ padding: "3rem 0" }}>
+      <section style={{ padding: "3rem 0", background: "var(--dark)" }}>
         <div className="container">
-          <div
-            style={{
-              background: "linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%)",
-              borderRadius: "1.5rem",
-              padding: "2rem",
-              color: "white",
-              textAlign: "center",
-            }}
-          >
-            <h2 style={{ fontSize: "1.5rem", fontWeight: 700, marginBottom: "0.5rem" }}>
-              ⚠️ Appropriate Dance Shoes are MANDATORY
+          <div className="cta-card">
+            <h2 style={{ fontSize: "1.5rem", fontWeight: 800, marginBottom: "0.5rem", position: "relative", zIndex: 1 }}>
+              Appropriate Dance Shoes are MANDATORY
             </h2>
-            <p style={{ opacity: 0.9 }}>
+            <p style={{ opacity: 0.9, position: "relative", zIndex: 1 }}>
               All students must wear proper dance shoes during classes and events.
             </p>
           </div>
@@ -94,26 +93,41 @@ export default function ShoesPage() {
       </section>
 
       {/* Why Dance Shoes */}
-      <section className="section" style={{ paddingTop: 0 }}>
+      <section className="section diagonal-stripes" style={{ paddingTop: "2rem" }}>
         <div className="container">
-          <div className="card" style={{ maxWidth: "900px", margin: "0 auto" }}>
-            <h2 className="heading-md" style={{ marginBottom: "1.5rem" }}>
-              Why Dance Shoes Matter
-            </h2>
-            <p
+          <div
+            style={{
+              maxWidth: "900px",
+              margin: "0 auto",
+              background: "var(--dark-2)",
+              borderRadius: "1.5rem",
+              padding: "2.5rem",
+              border: "1px solid rgba(255,255,255,0.06)",
+              position: "relative",
+              overflow: "hidden",
+            }}
+          >
+            <div
               style={{
-                fontSize: "1.1rem",
-                lineHeight: 1.8,
-                color: "var(--muted-foreground)",
+                position: "absolute",
+                top: 0,
+                left: 0,
+                right: 0,
+                height: "4px",
+                background: "linear-gradient(90deg, #ef4444, #f59e0b)",
               }}
-            >
-              The main difference between <strong>BALLROOM DANCE SHOES / DANCER SNEAKERS</strong>{" "}
-              and <strong>CASUAL SHOES</strong> is that dance shoes have special suede soles
+            />
+            <h2 className="heading-md" style={{ marginBottom: "1.5rem", color: "#ffffff" }}>
+              Why Dance Shoes <span className="gradient-text">Matter</span>
+            </h2>
+            <p style={{ fontSize: "1.1rem", lineHeight: 1.8, color: "var(--text-light)" }}>
+              The main difference between <strong style={{ color: "#ffffff" }}>BALLROOM DANCE SHOES / DANCER SNEAKERS</strong>{" "}
+              and <strong style={{ color: "#ffffff" }}>CASUAL SHOES</strong> is that dance shoes have special suede soles
               or material which is smooth enough to allow easier pivot and turning motions on
               specific dance floors.
             </p>
             <div style={{ marginTop: "2rem" }}>
-              <h3 style={{ fontSize: "1.1rem", fontWeight: 600, marginBottom: "1rem" }}>
+              <h3 style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: "1rem", color: "#ffffff" }}>
                 Benefits of Proper Dance Shoes:
               </h3>
               <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
@@ -132,6 +146,7 @@ export default function ShoesPage() {
                       gap: "0.75rem",
                       marginBottom: "0.75rem",
                       fontSize: "1rem",
+                      color: "var(--text-light)",
                     }}
                   >
                     <span
@@ -142,9 +157,9 @@ export default function ShoesPage() {
                         width: "24px",
                         height: "24px",
                         borderRadius: "50%",
-                        background: "var(--primary)",
+                        background: "linear-gradient(135deg, #ef4444, #f59e0b)",
                         color: "white",
-                        fontSize: "0.75rem",
+                        fontSize: "0.7rem",
                         flexShrink: 0,
                       }}
                     >
@@ -162,14 +177,14 @@ export default function ShoesPage() {
       {/* Latin Ballroom Shoes */}
       <section className="section section-alt">
         <div className="container">
-          <div style={{ textAlign: "center", marginBottom: "3rem" }}>
-            <span className="badge">Recommended</span>
-            <h2 className="heading-lg" style={{ marginTop: "1rem" }}>
-              Latin Ballroom Shoes
+          <div className="section-heading">
+            <div className="overline">
+              <span>Recommended</span>
+            </div>
+            <h2>
+              Latin Ballroom <span className="gradient-text">Shoes</span>
             </h2>
-            <p style={{ color: "var(--muted-foreground)", marginTop: "0.5rem" }}>
-              Best for spins and pivoting on floors like hardwood
-            </p>
+            <p>Best for spins and pivoting on floors like hardwood</p>
           </div>
 
           <div className="grid-4">
@@ -191,7 +206,8 @@ export default function ShoesPage() {
                     width: "80px",
                     height: "80px",
                     borderRadius: "50%",
-                    background: "var(--secondary)",
+                    background: "rgba(239,68,68,0.1)",
+                    border: "1px solid rgba(239,68,68,0.15)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -205,21 +221,15 @@ export default function ShoesPage() {
                   className="badge"
                   style={{ marginBottom: "0.75rem", display: "inline-block" }}
                 >
-                  {shoe.type}
+                  <span>{shoe.type}</span>
                 </span>
-                <h3 style={{ fontSize: "1.1rem", fontWeight: 600, marginBottom: "0.5rem" }}>
+                <h3 style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: "0.5rem", color: "#ffffff" }}>
                   {shoe.name}
                 </h3>
-                <p
-                  style={{
-                    color: "var(--muted-foreground)",
-                    fontSize: "0.9rem",
-                    marginBottom: "1rem",
-                  }}
-                >
+                <p style={{ color: "var(--text-light)", fontSize: "0.9rem", marginBottom: "1rem" }}>
                   {shoe.description}
                 </p>
-                <span style={{ color: "var(--primary)", fontWeight: 500, fontSize: "0.9rem" }}>
+                <span className="gradient-text" style={{ fontWeight: 600, fontSize: "0.9rem" }}>
                   Shop on Amazon →
                 </span>
               </a>
@@ -229,29 +239,31 @@ export default function ShoesPage() {
       </section>
 
       {/* Partner Brands */}
-      <section className="section">
+      <section className="section diagonal-stripes">
         <div className="container">
-          <div style={{ textAlign: "center", marginBottom: "3rem" }}>
-            <span className="badge">Exclusive Partners</span>
-            <h2 className="heading-lg" style={{ marginTop: "1rem" }}>
-              Partner Brands
+          <div className="section-heading">
+            <div className="overline">
+              <span>Exclusive Partners</span>
+            </div>
+            <h2>
+              Partner <span className="gradient-text">Brands</span>
             </h2>
-            <p style={{ color: "var(--muted-foreground)", marginTop: "0.5rem" }}>
-              Exclusive dance shoes with special discount codes!
-            </p>
+            <p>Exclusive dance shoes with special discount codes!</p>
           </div>
 
           <div
             style={{
-              background: "linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%)",
-              borderRadius: "1rem",
+              background: "linear-gradient(135deg, rgba(239,68,68,0.12), rgba(245,158,11,0.12))",
+              border: "1px solid rgba(239,68,68,0.2)",
               padding: "1.5rem",
               textAlign: "center",
               marginBottom: "2rem",
+              transform: "skewX(-3deg)",
             }}
           >
-            <p style={{ fontWeight: 600, color: "var(--primary)", fontSize: "1.1rem" }}>
-              AFFILIATE DISCOUNT CODE: <span style={{ fontSize: "1.5rem" }}>SALSANINJA</span>
+            <p style={{ fontWeight: 700, fontSize: "1.1rem", transform: "skewX(3deg)" }}>
+              <span style={{ color: "var(--text-light)" }}>AFFILIATE DISCOUNT CODE: </span>
+              <span className="gradient-text" style={{ fontSize: "1.5rem" }}>SALSANINJA</span>
             </p>
           </div>
 
@@ -272,28 +284,27 @@ export default function ShoesPage() {
                   textAlign: "center",
                 }}
               >
-                <h3 style={{ fontSize: "1.5rem", fontWeight: 700, marginBottom: "0.75rem" }}>
+                <h3 style={{ fontSize: "1.5rem", fontWeight: 800, marginBottom: "0.75rem", color: "#ffffff" }}>
                   {brand.name}
                 </h3>
-                <p
-                  style={{
-                    color: "var(--muted-foreground)",
-                    marginBottom: "1rem",
-                  }}
-                >
+                <p style={{ color: "var(--text-light)", marginBottom: "1.25rem" }}>
                   {brand.description}
                 </p>
                 <span
                   style={{
-                    background: "var(--primary)",
+                    background: "linear-gradient(135deg, #ef4444, #f59e0b)",
                     color: "white",
                     padding: "0.5rem 1.5rem",
-                    borderRadius: "9999px",
                     fontSize: "0.9rem",
-                    fontWeight: 500,
+                    fontWeight: 700,
+                    transform: "skewX(-6deg)",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.03em",
                   }}
                 >
-                  {brand.discount}
+                  <span style={{ display: "inline-block", transform: "skewX(6deg)" }}>
+                    {brand.discount}
+                  </span>
                 </span>
               </a>
             ))}
@@ -305,18 +316,18 @@ export default function ShoesPage() {
       <section className="section section-alt">
         <div className="container">
           <div style={{ textAlign: "center", maxWidth: "600px", margin: "0 auto" }}>
-            <h2 className="heading-md" style={{ marginBottom: "1rem" }}>
-              Ready to Dance?
+            <h2 className="heading-md" style={{ marginBottom: "1rem", color: "#ffffff" }}>
+              Ready to <span className="gradient-text">Dance?</span>
             </h2>
-            <p style={{ color: "var(--muted-foreground)", marginBottom: "2rem" }}>
+            <p style={{ color: "var(--text-light)", marginBottom: "2rem" }}>
               Got your shoes? Register for classes and start your dance journey!
             </p>
             <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
               <Link href="/register" className="btn btn-primary">
-                Register for Classes
+                <span>Register for Classes</span>
               </Link>
               <Link href="/bootcamp" className="btn btn-outline">
-                Join Bootcamp
+                <span>Join Bootcamp</span>
               </Link>
             </div>
           </div>

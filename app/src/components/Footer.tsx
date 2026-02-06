@@ -5,16 +5,20 @@ import Link from "next/link";
 const Footer = () => {
   return (
     <footer className="main-footer">
-      <div className="container">
-        <div className="footer-grid">
+      <div className="footer-container">
+        <div className="footer-top">
           {/* Brand Column */}
-          <div>
-            <h3 className="footer-brand">Salsa Ninja</h3>
+          <div className="brand-column">
+            <div className="footer-logo">
+              <span className="logo-bar">|</span>
+              <span className="logo-salsa">Salsa</span>
+              <span className="logo-ninja">Ninja</span>
+            </div>
             <p className="footer-description">
               Quality dance instructions dedicated to social dancing and stage
               performances. Join the Ninja fam today!
             </p>
-            <div className="social-links">
+            <div className="social-icons">
               <a
                 href="https://instagram.com/salsaninjadanceacademy"
                 target="_blank"
@@ -40,9 +44,10 @@ const Footer = () => {
             </div>
           </div>
 
+          {/* Quick Links */}
           <div>
-            <h4 className="footer-heading">Quick Links</h4>
-            <ul className="footer-list">
+            <h4 className="column-heading">Quick Links</h4>
+            <ul className="column-list">
               {[
                 { href: "/schedule", label: "Schedule & Prices" },
                 { href: "/bootcamp", label: "Salsa Bootcamp" },
@@ -51,7 +56,7 @@ const Footer = () => {
                 { href: "/register", label: "Registration" },
               ].map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="footer-link">
+                  <Link href={link.href} className="column-link">
                     {link.label}
                   </Link>
                 </li>
@@ -59,20 +64,21 @@ const Footer = () => {
             </ul>
           </div>
 
+          {/* Contact */}
           <div>
-            <h4 className="footer-heading">Contact</h4>
-            <ul className="footer-list">
+            <h4 className="column-heading">Contact</h4>
+            <ul className="column-list">
               <li>
-                <a href="tel:9546625354" className="footer-link">
+                <a href="tel:9546625354" className="column-link">
                   (954) 662-5354
                 </a>
               </li>
               <li>
-                <a href="mailto:contact@salsaninja.com" className="footer-link">
+                <a href="mailto:contact@salsaninja.com" className="column-link">
                   contact@salsaninja.com
                 </a>
               </li>
-              <li className="text-white/70 text-[0.95rem] leading-relaxed">
+              <li className="address-text">
                 10070 W Oakland Park Blvd
                 <br />
                 Sunrise, FL 33351
@@ -80,18 +86,19 @@ const Footer = () => {
             </ul>
           </div>
 
+          {/* Hours */}
           <div>
-            <h4 className="footer-heading">Hours</h4>
-            <ul className="footer-list">
+            <h4 className="column-heading">Hours</h4>
+            <ul className="hours-list">
               {[
                 { day: "Monday", hours: "6:00 PM - 9:00 PM" },
                 { day: "Tuesday", hours: "7:00 PM - 9:00 PM" },
                 { day: "Wednesday", hours: "6:00 PM - 9:00 PM" },
                 { day: "Thursday", hours: "7:00 PM - 10:00 PM" },
-              ].map((item) => (
-                <li key={item.day} className="hour-item">
-                  <span>{item.day}</span>
-                  <span>{item.hours}</span>
+              ].map((item, index) => (
+                <li key={item.day} className={`hour-row${index > 0 ? " hour-row-border" : ""}`}>
+                  <span className="hour-day">{item.day}</span>
+                  <span className="hour-time">{item.hours}</span>
                 </li>
               ))}
             </ul>
@@ -103,117 +110,224 @@ const Footer = () => {
             &copy; {new Date().getFullYear()} Salsa Ninja Dance Academy. All
             rights reserved.
           </p>
+          <div className="bottom-social">
+            <a
+              href="https://instagram.com/salsaninjadanceacademy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bottom-social-link"
+            >
+              Instagram
+            </a>
+            <a
+              href="https://www.facebook.com/salsaninjadanceacademy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bottom-social-link"
+            >
+              Facebook
+            </a>
+          </div>
         </div>
       </div>
 
       <style jsx>{`
         .main-footer {
-          background: var(--foreground);
+          background: #111111;
           color: white;
-          padding-top: 4rem;
-          padding-bottom: 2rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.06);
+          padding: 60px 0 40px;
+          position: relative;
         }
-        .footer-grid {
+        .main-footer::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 3px;
+          background: linear-gradient(to right, #ef4444, #f59e0b);
+        }
+        .footer-container {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 24px;
+        }
+        .footer-top {
           display: grid;
-          grid-template-columns: 1fr;
-          gap: 3rem;
-          margin-bottom: 3rem;
+          grid-template-columns: 1.5fr 1fr 1fr 1fr;
+          gap: 40px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+          margin-bottom: 30px;
+          padding-bottom: 40px;
         }
-        .footer-brand {
-          font-size: 1.75rem;
+
+        /* Brand Column */
+        .brand-column {
+          display: flex;
+          flex-direction: column;
+        }
+        .footer-logo {
+          display: flex;
+          align-items: center;
+          gap: 0;
+          margin-bottom: 16px;
+          font-size: 1.5rem;
           font-weight: 800;
-          color: var(--primary-light);
-          margin-bottom: 1rem;
+          letter-spacing: -0.02em;
+        }
+        .logo-bar {
+          color: #ef4444;
+          margin-right: 8px;
+          font-weight: 300;
+        }
+        .logo-salsa {
+          color: white;
+        }
+        .logo-ninja {
+          background: linear-gradient(135deg, #ef4444, #f59e0b);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
         }
         .footer-description {
-          color: rgba(255, 255, 255, 0.7);
-          font-size: 0.95rem;
+          font-size: 0.85rem;
+          color: rgba(255, 255, 255, 0.4);
           line-height: 1.7;
-          max-width: 300px;
+          max-width: 280px;
+          margin: 0;
         }
-        .social-links {
-          display: flex;
-          gap: 1rem;
-          margin-top: 1.5rem;
+        .social-icons {
+          display: inline-flex;
+          gap: 20px;
+          margin-top: 20px;
         }
         .social-icon {
           display: flex;
           align-items: center;
           justify-content: center;
-          width: 40px;
-          height: 40px;
+          width: 36px;
+          height: 36px;
           border-radius: 50%;
-          background: rgba(255, 255, 255, 0.1);
-          color: white;
+          background: rgba(255, 255, 255, 0.08);
+          color: rgba(255, 255, 255, 0.5);
           transition: all 0.2s ease;
         }
         .social-icon:hover {
-          background: var(--primary);
+          background: rgba(239, 68, 68, 0.15);
+          color: #ef4444;
           transform: translateY(-2px);
         }
         .social-icon svg {
-          width: 20px;
-          height: 20px;
+          width: 18px;
+          height: 18px;
         }
-        .footer-heading {
-          font-size: 1rem;
-          font-weight: 600;
+
+        /* Column Headers */
+        .column-heading {
+          font-size: 0.7rem;
+          font-weight: 700;
+          letter-spacing: 0.15em;
           text-transform: uppercase;
-          letter-spacing: 0.05em;
-          margin-bottom: 1.25rem;
-          color: rgba(255, 255, 255, 0.9);
+          color: rgba(255, 255, 255, 0.3);
+          margin: 0 0 18px 0;
         }
-        .footer-list {
+
+        /* Column Lists & Links */
+        .column-list {
           list-style: none;
           padding: 0;
           margin: 0;
           display: flex;
           flex-direction: column;
-          gap: 0.75rem;
+          gap: 10px;
         }
-        .footer-link {
-          color: rgba(255, 255, 255, 0.7);
+        .column-link {
+          color: rgba(255, 255, 255, 0.55);
           text-decoration: none;
-          font-size: 0.95rem;
+          font-size: 0.88rem;
           transition: color 0.2s ease;
         }
-        .footer-link:hover {
-          color: white;
+        .column-link:hover {
+          color: #ef4444;
         }
-        .hour-item {
-          display: flex;
-          justify-content: space-between;
-          max-width: 220px;
-          font-size: 0.9rem;
-          color: rgba(255, 255, 255, 0.7);
-        }
-        .footer-bottom {
-          border-top: 1px solid rgba(255, 255, 255, 0.1);
-          padding-top: 2rem;
-          display: flex;
-          flex-direction: column;
-          gap: 1rem;
-          align-items: center;
-          text-align: center;
-        }
-        .copyright {
-          color: rgba(255, 255, 255, 0.5);
-          font-size: 0.875rem;
-          margin: 0;
+        .address-text {
+          color: rgba(255, 255, 255, 0.55);
+          font-size: 0.88rem;
+          line-height: 1.6;
         }
 
-        @media (min-width: 768px) {
-          .footer-grid {
+        /* Hours */
+        .hours-list {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 0;
+        }
+        .hour-row {
+          display: flex;
+          justify-content: space-between;
+          padding: 8px 0;
+        }
+        .hour-row-border {
+          border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .hour-day {
+          color: white;
+          font-weight: 600;
+          font-size: 0.85rem;
+        }
+        .hour-time {
+          color: rgba(255, 255, 255, 0.45);
+          font-size: 0.83rem;
+        }
+
+        /* Footer Bottom */
+        .footer-bottom {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .copyright {
+          font-size: 0.78rem;
+          color: rgba(255, 255, 255, 0.25);
+          margin: 0;
+        }
+        .bottom-social {
+          display: flex;
+          flex-direction: row;
+          gap: 20px;
+        }
+        .bottom-social-link {
+          color: rgba(255, 255, 255, 0.35);
+          text-decoration: none;
+          font-size: 0.8rem;
+          transition: color 0.2s ease;
+        }
+        .bottom-social-link:hover {
+          color: #ef4444;
+        }
+
+        /* Responsive: 900px - 2 columns */
+        @media (max-width: 900px) {
+          .footer-top {
             grid-template-columns: repeat(2, 1fr);
           }
-          .footer-bottom {
-            flex-direction: row;
-            justify-content: space-between;
-          }
         }
-        @media (min-width: 1024px) {
-          .footer-grid {
-            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+
+        /* Responsive: 600px - 1 column, stacked bottom */
+        @media (max-width: 600px) {
+          .footer-top {
+            grid-template-columns: 1fr;
+          }
+          .footer-bottom {
+            flex-direction: column;
+            gap: 16px;
+            align-items: center;
+            text-align: center;
           }
         }
       `}</style>
