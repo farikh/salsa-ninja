@@ -1,0 +1,1790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salsa Ninja Dance Academy — Luxe Gold</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           DESIGN 7 — LUXE GOLD
+           Salsa Ninja Dance Academy
+           Premium VIP Nightclub Aesthetic
+           ============================================ */
+
+        :root {
+            --gold: #d4a853;
+            --gold-light: #e8c97a;
+            --gold-dark: #b8860b;
+            --gold-deep: #8b6914;
+            --black-1: #0a0a0a;
+            --black-2: #111111;
+            --black-3: #1a1a1a;
+            --black-4: #222222;
+            --white: #ffffff;
+            --gray-light: #e5e5e5;
+            --gray-mid: #999999;
+            --gray-dark: #666666;
+            --font: 'Montserrat', sans-serif;
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--black-1);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ---- Utility ---- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section-pad {
+            padding: 100px 0;
+        }
+
+        .gold-text { color: var(--gold); }
+
+        .section-heading {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .section-subheading {
+            text-align: center;
+            color: var(--gray-mid);
+            font-weight: 300;
+            font-size: 1.05rem;
+            letter-spacing: 0.04em;
+            max-width: 600px;
+            margin: 0 auto 60px;
+        }
+
+        .gold-rule {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 16px auto 20px;
+        }
+
+        .gold-rule-wide {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold-dark), transparent);
+        }
+
+        /* ---- Reveal animation ---- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+
+        /* ============================================
+           1. NAVIGATION
+           ============================================ */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 18px 0;
+            transition: background 0.4s, padding 0.4s, box-shadow 0.4s;
+        }
+        .nav.scrolled {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 12px 0;
+            box-shadow: 0 1px 0 rgba(212, 168, 83, 0.15);
+        }
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        .nav-logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            color: var(--gold);
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+        .nav-logo span {
+            color: var(--white);
+            font-weight: 300;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+        }
+        .nav-links a {
+            color: var(--gray-light);
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            transition: color 0.3s;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: width 0.3s;
+        }
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        .nav-cta {
+            background: var(--gold) !important;
+            color: var(--black-1) !important;
+            padding: 10px 24px !important;
+            font-weight: 600 !important;
+            font-size: 0.78rem !important;
+            letter-spacing: 0.14em !important;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s, box-shadow 0.3s !important;
+            text-transform: uppercase;
+        }
+        .nav-cta::after { display: none !important; }
+        .nav-cta:hover {
+            background: var(--gold-light) !important;
+            color: var(--black-1) !important;
+            box-shadow: 0 0 20px rgba(212, 168, 83, 0.3) !important;
+        }
+
+        /* Mobile menu toggle */
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+        }
+        .nav-toggle span {
+            width: 24px;
+            height: 2px;
+            background: var(--gold);
+            transition: transform 0.3s, opacity 0.3s;
+        }
+        .nav-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .nav-toggle.active span:nth-child(2) { opacity: 0; }
+        .nav-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        @media (max-width: 768px) {
+            .nav-toggle { display: flex; }
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background: var(--black-2);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 80px 32px 32px;
+                gap: 24px;
+                transition: right 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+                border-left: 1px solid rgba(212, 168, 83, 0.2);
+            }
+            .nav-links.open { right: 0; }
+        }
+
+        /* ============================================
+           2. HERO
+           ============================================ */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: var(--black-1);
+        }
+
+        /* Background pattern */
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 50% 40%, rgba(212, 168, 83, 0.06) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 50% at 80% 20%, rgba(212, 168, 83, 0.04) 0%, transparent 60%),
+                radial-gradient(ellipse 30% 40% at 10% 80%, rgba(184, 134, 11, 0.03) 0%, transparent 50%);
+        }
+
+        /* Decorative diagonal lines */
+        .hero-lines {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            opacity: 0.06;
+        }
+        .hero-lines::before,
+        .hero-lines::after {
+            content: '';
+            position: absolute;
+            width: 1px;
+            height: 200%;
+            background: var(--gold);
+            top: -50%;
+        }
+        .hero-lines::before {
+            left: 20%;
+            transform: rotate(15deg);
+        }
+        .hero-lines::after {
+            right: 25%;
+            transform: rotate(-12deg);
+        }
+
+        /* Floating diamond accents */
+        .hero-diamond {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border: 1px solid rgba(212, 168, 83, 0.2);
+            transform: rotate(45deg);
+            animation: floatDiamond 6s ease-in-out infinite;
+        }
+        .hero-diamond:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+        .hero-diamond:nth-child(2) { top: 60%; right: 8%; animation-delay: 2s; width: 8px; height: 8px; }
+        .hero-diamond:nth-child(3) { bottom: 25%; left: 15%; animation-delay: 4s; }
+        .hero-diamond:nth-child(4) { top: 35%; right: 20%; animation-delay: 1s; width: 16px; height: 16px; border-color: rgba(212, 168, 83, 0.1); }
+
+        @keyframes floatDiamond {
+            0%, 100% { transform: rotate(45deg) translateY(0); opacity: 0.3; }
+            50% { transform: rotate(45deg) translateY(-20px); opacity: 0.7; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 0 24px;
+            max-width: 900px;
+        }
+
+        .hero-pre {
+            font-size: 0.85rem;
+            letter-spacing: 0.35em;
+            color: var(--gold);
+            font-weight: 500;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            opacity: 0;
+            animation: fadeUp 1s 0.3s forwards;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 7vw, 5rem);
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            line-height: 1.1;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            opacity: 0;
+            animation: fadeUp 1s 0.5s forwards;
+        }
+        .hero-title .gold {
+            color: var(--gold);
+            display: inline;
+        }
+
+        .hero-tagline {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            font-weight: 300;
+            color: var(--gray-light);
+            letter-spacing: 0.06em;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+            opacity: 0;
+            animation: fadeUp 1s 0.7s forwards;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeUp 1s 0.9s forwards;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .btn-gold {
+            display: inline-block;
+            padding: 16px 36px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: var(--black-1);
+            font-family: var(--font);
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: box-shadow 0.4s, transform 0.3s;
+        }
+        .btn-gold:hover {
+            box-shadow: 0 0 30px rgba(212, 168, 83, 0.35), 0 4px 20px rgba(0,0,0,0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            display: inline-block;
+            padding: 15px 36px;
+            background: transparent;
+            color: var(--gold);
+            font-family: var(--font);
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: 1px solid var(--gold);
+            cursor: pointer;
+            transition: background 0.4s, color 0.3s, box-shadow 0.4s, transform 0.3s;
+        }
+        .btn-outline:hover {
+            background: rgba(212, 168, 83, 0.08);
+            box-shadow: 0 0 20px rgba(212, 168, 83, 0.15);
+            transform: translateY(-2px);
+        }
+
+        /* Scroll indicator */
+        .hero-scroll {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            opacity: 0;
+            animation: fadeUp 1s 1.3s forwards;
+        }
+        .hero-scroll span {
+            font-size: 0.65rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gray-dark);
+        }
+        .scroll-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--gold), transparent);
+            animation: scrollPulse 2s ease-in-out infinite;
+        }
+        @keyframes scrollPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* ============================================
+           3. SOCIAL PROOF STATS
+           ============================================ */
+        .stats {
+            background: var(--black-2);
+            padding: 60px 0;
+            border-top: 1px solid rgba(212, 168, 83, 0.1);
+            border-bottom: 1px solid rgba(212, 168, 83, 0.1);
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+        }
+        .stat-card {
+            text-align: center;
+            padding: 24px 16px;
+            border-top: 2px solid var(--gold);
+            position: relative;
+        }
+        .stat-card + .stat-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 20%;
+            height: 60%;
+            width: 1px;
+            background: rgba(212, 168, 83, 0.15);
+        }
+        .stat-number {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 0.04em;
+            line-height: 1;
+        }
+        .stat-label {
+            font-size: 0.78rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--gray-mid);
+            margin-top: 8px;
+            font-weight: 400;
+        }
+
+        @media (max-width: 640px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .stat-card:nth-child(3)::before,
+            .stat-card:nth-child(1)::before { display: none; }
+        }
+
+        /* ============================================
+           4. WHAT WE OFFER / DANCE STYLES
+           ============================================ */
+        .offer { background: var(--black-1); }
+
+        .styles-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+            margin-bottom: 48px;
+        }
+
+        .style-card {
+            border: 1px solid rgba(212, 168, 83, 0.25);
+            background: var(--black-2);
+            overflow: hidden;
+            transition: border-color 0.4s, box-shadow 0.4s;
+        }
+        .style-card:hover {
+            border-color: var(--gold);
+            box-shadow: 0 0 30px rgba(212, 168, 83, 0.1);
+        }
+
+        .style-img {
+            height: 220px;
+            position: relative;
+            overflow: hidden;
+        }
+        .style-img-salsa {
+            background: linear-gradient(135deg, #1a0a0a 0%, #3d1515 40%, #6b1a1a 70%, #d4a853 100%);
+        }
+        .style-img-bachata {
+            background: linear-gradient(135deg, #0a0a1a 0%, #15153d 40%, #2a1a5a 70%, #d4a853 100%);
+        }
+        .style-img::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, var(--black-2) 0%, transparent 50%);
+        }
+        .style-badge {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: rgba(212, 168, 83, 0.9);
+            color: var(--black-1);
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            padding: 6px 14px;
+            z-index: 1;
+        }
+
+        .style-body {
+            padding: 28px;
+        }
+        .style-body h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+        .style-body p {
+            color: var(--gray-mid);
+            font-weight: 300;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        .style-link {
+            color: var(--gold);
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: letter-spacing 0.3s;
+        }
+        .style-link:hover {
+            letter-spacing: 0.22em;
+        }
+        .style-link::after {
+            content: ' \2192';
+        }
+
+        /* Service cards */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+        }
+        .service-card {
+            border: 1px solid rgba(212, 168, 83, 0.15);
+            background: var(--black-3);
+            padding: 28px 20px;
+            text-align: center;
+            transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+        }
+        .service-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+        }
+        .service-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 16px;
+            border: 1px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--gold);
+        }
+        .service-card h4 {
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--white);
+        }
+
+        @media (max-width: 768px) {
+            .styles-grid { grid-template-columns: 1fr; }
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 480px) {
+            .services-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ============================================
+           5. SCHEDULE PREVIEW
+           ============================================ */
+        .schedule {
+            background: var(--black-2);
+        }
+
+        .schedule-cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+        .schedule-card {
+            border: 1px solid rgba(212, 168, 83, 0.2);
+            background: var(--black-3);
+            padding: 32px 24px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .schedule-card:hover {
+            border-color: var(--gold);
+            box-shadow: 0 0 20px rgba(212, 168, 83, 0.08);
+        }
+        .schedule-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-dark));
+        }
+        .sched-day {
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+        .sched-time {
+            font-size: 1.6rem;
+            font-weight: 300;
+            color: var(--white);
+            margin-bottom: 12px;
+        }
+        .sched-info {
+            font-size: 0.78rem;
+            color: var(--gray-mid);
+            letter-spacing: 0.06em;
+        }
+
+        .schedule-cta {
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .schedule-cards { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 480px) {
+            .schedule-cards { grid-template-columns: 1fr; }
+        }
+
+        /* ============================================
+           6. INSTRUCTOR SPOTLIGHT
+           ============================================ */
+        .instructors { background: var(--black-1); }
+
+        .instructor-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+        .instructor-card {
+            border: 1px solid rgba(212, 168, 83, 0.2);
+            background: var(--black-2);
+            padding: 40px 28px;
+            text-align: center;
+            transition: border-color 0.4s, box-shadow 0.4s;
+        }
+        .instructor-card:hover {
+            border-color: var(--gold);
+            box-shadow: 0 0 30px rgba(212, 168, 83, 0.08);
+        }
+        .instructor-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 24px;
+            border: 2px solid var(--gold);
+            position: relative;
+            overflow: hidden;
+        }
+        .instructor-avatar-1 {
+            background: linear-gradient(135deg, #2a1810, #4a2820, #d4a853);
+        }
+        .instructor-avatar-2 {
+            background: linear-gradient(135deg, #10182a, #1a2848, #d4a853);
+        }
+        .instructor-avatar-3 {
+            background: linear-gradient(135deg, #1a2010, #2a3820, #d4a853);
+        }
+        .instructor-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 4px;
+        }
+        .instructor-title {
+            font-size: 0.78rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--gray-mid);
+            margin-bottom: 16px;
+        }
+        .instructor-bio {
+            font-size: 0.92rem;
+            font-weight: 300;
+            color: var(--gray-light);
+            line-height: 1.7;
+        }
+
+        @media (max-width: 768px) {
+            .instructor-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+        }
+
+        /* ============================================
+           7. TESTIMONIALS
+           ============================================ */
+        .testimonials { background: var(--black-2); }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+        .testimonial-card {
+            background: var(--black-3);
+            padding: 36px;
+            border-left: 3px solid var(--gold);
+            position: relative;
+            transition: box-shadow 0.3s;
+        }
+        .testimonial-card:hover {
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        .testimonial-quote {
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            font-size: 3.5rem;
+            color: rgba(212, 168, 83, 0.15);
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+        .testimonial-text {
+            font-size: 0.95rem;
+            font-weight: 300;
+            font-style: italic;
+            color: var(--gray-light);
+            line-height: 1.8;
+            margin-bottom: 24px;
+        }
+        .testimonial-author {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 0.06em;
+        }
+        .testimonial-since {
+            font-size: 0.75rem;
+            color: var(--gray-mid);
+            margin-top: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .testimonial-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ============================================
+           8. PRICING TEASER
+           ============================================ */
+        .pricing { background: var(--black-1); }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+            align-items: stretch;
+        }
+        .pricing-card {
+            border: 1px solid rgba(212, 168, 83, 0.2);
+            background: var(--black-2);
+            padding: 48px 32px;
+            text-align: center;
+            position: relative;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .pricing-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+        }
+        .pricing-featured {
+            background: linear-gradient(180deg, rgba(212, 168, 83, 0.12) 0%, var(--black-2) 100%);
+            border-color: var(--gold);
+            transform: scale(1.04);
+            z-index: 1;
+        }
+        .pricing-featured:hover {
+            transform: scale(1.04) translateY(-4px);
+        }
+        .pricing-badge {
+            position: absolute;
+            top: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gold);
+            color: var(--black-1);
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            padding: 6px 20px;
+        }
+        .pricing-name {
+            font-size: 0.85rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gray-mid);
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+        .pricing-price {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 8px;
+            line-height: 1;
+        }
+        .pricing-desc {
+            font-size: 0.85rem;
+            color: var(--gray-mid);
+            font-weight: 300;
+            margin-bottom: 32px;
+            font-style: italic;
+        }
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 36px;
+            text-align: left;
+        }
+        .pricing-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.88rem;
+            color: var(--gray-light);
+            font-weight: 300;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .pricing-features li::before {
+            content: '\2726';
+            color: var(--gold);
+            font-size: 0.7rem;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 768px) {
+            .pricing-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+            .pricing-featured { transform: none; }
+            .pricing-featured:hover { transform: translateY(-4px); }
+        }
+
+        /* ============================================
+           9. UPCOMING EVENTS
+           ============================================ */
+        .events { background: var(--black-2); }
+
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+        .event-card {
+            border: 1px solid rgba(212, 168, 83, 0.15);
+            background: var(--black-3);
+            overflow: hidden;
+            transition: border-color 0.3s, transform 0.3s;
+        }
+        .event-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-4px);
+        }
+        .event-img {
+            height: 160px;
+            position: relative;
+        }
+        .event-img-1 {
+            background: linear-gradient(135deg, #1a0808, #4a1515, #8b2020);
+        }
+        .event-img-2 {
+            background: linear-gradient(135deg, #0a0a1a, #1a1a40, #3a2a6a);
+        }
+        .event-img-3 {
+            background: linear-gradient(135deg, #1a1200, #3d2e00, #6b5a10);
+        }
+        .event-date-badge {
+            position: absolute;
+            bottom: -1px;
+            left: 24px;
+            background: var(--gold);
+            color: var(--black-1);
+            padding: 10px 16px;
+            text-align: center;
+        }
+        .event-date-month {
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+        .event-date-day {
+            font-size: 1.6rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+        .event-body {
+            padding: 28px;
+        }
+        .event-name {
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .event-desc {
+            font-size: 0.88rem;
+            color: var(--gray-mid);
+            font-weight: 300;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        .event-meta {
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            color: var(--gold);
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 768px) {
+            .events-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ============================================
+           10. COMMUNITY / GALLERY
+           ============================================ */
+        .community { background: var(--black-1); }
+
+        .community-text {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 48px;
+            font-weight: 300;
+            color: var(--gray-mid);
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 200px);
+            gap: 12px;
+        }
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(212, 168, 83, 0.1);
+            transition: border-color 0.3s;
+        }
+        .gallery-item:hover {
+            border-color: var(--gold);
+        }
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(212, 168, 83, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        .gallery-overlay span {
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .gal-1 { background: linear-gradient(135deg, #1a0a08, #3d1a15, #6b2a1a); }
+        .gal-2 { background: linear-gradient(135deg, #0a101a, #152040, #2a3a6b); }
+        .gal-3 { background: linear-gradient(135deg, #1a1a08, #3d3d15, #6b6b1a); }
+        .gal-4 { background: linear-gradient(135deg, #10081a, #281540, #4a2a6b); }
+        .gal-5 { background: linear-gradient(135deg, #081a0a, #153d1a, #1a6b2a); }
+        .gal-6 { background: linear-gradient(135deg, #1a1008, #3d2815, #6b4a1a); }
+
+        @media (max-width: 640px) {
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(3, 180px); }
+        }
+
+        /* ============================================
+           11. LOCATION + HOURS
+           ============================================ */
+        .location { background: var(--black-2); }
+
+        .location-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: start;
+        }
+        .location-info h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+        .location-row {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+            align-items: flex-start;
+        }
+        .location-icon {
+            color: var(--gold);
+            flex-shrink: 0;
+            width: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            margin-top: 2px;
+        }
+        .location-detail {
+            font-weight: 300;
+            color: var(--gray-light);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        .location-detail a {
+            color: var(--gold);
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+        .location-detail a:hover { opacity: 0.8; }
+
+        .hours-list {
+            margin-top: 32px;
+        }
+        .hours-list h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+        .hours-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .hours-day {
+            font-weight: 500;
+            color: var(--white);
+            font-size: 0.9rem;
+        }
+        .hours-time {
+            font-weight: 300;
+            color: var(--gray-mid);
+            font-size: 0.9rem;
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 360px;
+            border: 1px solid rgba(212, 168, 83, 0.25);
+            background: var(--black-3);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .map-placeholder::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(0deg, rgba(212, 168, 83, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(212, 168, 83, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .map-pin {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+        .map-pin-icon {
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+        .map-pin-text {
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gray-mid);
+        }
+
+        @media (max-width: 768px) {
+            .location-grid { grid-template-columns: 1fr; }
+            .map-placeholder { height: 260px; }
+        }
+
+        /* ============================================
+           12. FOOTER
+           ============================================ */
+        .footer {
+            background: var(--black-1);
+            padding: 60px 0 32px;
+            border-top: 1px solid rgba(212, 168, 83, 0.15);
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+        .footer-brand {
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            color: var(--gold);
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+        .footer-about {
+            font-size: 0.88rem;
+            font-weight: 300;
+            color: var(--gray-mid);
+            line-height: 1.7;
+            max-width: 340px;
+        }
+        .footer h4 {
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--white);
+            margin-bottom: 20px;
+        }
+        .footer-links {
+            list-style: none;
+        }
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        .footer-links a {
+            font-size: 0.85rem;
+            color: var(--gray-mid);
+            text-decoration: none;
+            font-weight: 300;
+            transition: color 0.3s;
+            letter-spacing: 0.02em;
+        }
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+        .footer-social {
+            display: flex;
+            gap: 16px;
+            margin-top: 8px;
+        }
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(212, 168, 83, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: background 0.3s, border-color 0.3s;
+        }
+        .footer-social a:hover {
+            background: rgba(212, 168, 83, 0.1);
+            border-color: var(--gold);
+        }
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer-copy {
+            font-size: 0.75rem;
+            color: var(--gray-dark);
+            letter-spacing: 0.06em;
+        }
+
+        @media (max-width: 768px) {
+            .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+            .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================
+         1. NAVIGATION
+         ============================================ -->
+    <nav class="nav" id="nav">
+        <div class="nav-inner">
+            <a href="#" class="nav-logo">SALSA <span>NINJA</span></a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#offer">Styles</a></li>
+                <li><a href="#schedule">Schedule</a></li>
+                <li><a href="#instructors">Instructors</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#events">Events</a></li>
+                <li><a href="#location">Location</a></li>
+                <li><a href="#pricing" class="nav-cta">Book Trial &mdash; $5</a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ============================================
+         2. HERO
+         ============================================ -->
+    <section class="hero" id="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-lines"></div>
+        <div class="hero-diamond"></div>
+        <div class="hero-diamond"></div>
+        <div class="hero-diamond"></div>
+        <div class="hero-diamond"></div>
+
+        <div class="hero-content">
+            <p class="hero-pre">Sunrise, Florida&rsquo;s Premier Latin Dance Studio</p>
+            <h1 class="hero-title">
+                UNLEASH YOUR<br>
+                INNER <span class="gold">DANCE</span><br>
+                <span class="gold">NINJA</span>
+            </h1>
+            <p class="hero-tagline">Quality dance instruction dedicated to social dancing and stage performances. Join the Ninja Fam and master Salsa &amp; Bachata.</p>
+            <div class="hero-ctas">
+                <a href="#pricing" class="btn-gold">Start Your Journey &mdash; $5 Trial</a>
+                <a href="#schedule" class="btn-outline">View Schedule</a>
+            </div>
+        </div>
+
+        <div class="hero-scroll">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         3. SOCIAL PROOF STATS
+         ============================================ -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card reveal">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Students Trained</div>
+                </div>
+                <div class="stat-card reveal reveal-delay-1">
+                    <div class="stat-number">8+</div>
+                    <div class="stat-label">Years Teaching</div>
+                </div>
+                <div class="stat-card reveal reveal-delay-2">
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">Dance Styles</div>
+                </div>
+                <div class="stat-card reveal reveal-delay-3">
+                    <div class="stat-number">100+</div>
+                    <div class="stat-label">Events Hosted</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         4. WHAT WE OFFER / DANCE STYLES
+         ============================================ -->
+    <section class="offer section-pad" id="offer">
+        <div class="container">
+            <h2 class="section-heading reveal">Master Your <span class="gold-text">Style</span></h2>
+            <div class="gold-rule reveal"></div>
+            <p class="section-subheading reveal">From your first step to the stage, we craft dancers who command attention on any floor.</p>
+
+            <div class="styles-grid">
+                <div class="style-card reveal">
+                    <div class="style-img style-img-salsa">
+                        <span class="style-badge">Signature</span>
+                    </div>
+                    <div class="style-body">
+                        <h3>Salsa On1 <span class="gold-text">(LA Style)</span></h3>
+                        <p>Master the electrifying energy of LA-style Salsa. Learn intricate turn patterns, smooth body movement, and musicality that will make you shine at any social.</p>
+                        <a href="#" class="style-link">Explore Salsa</a>
+                    </div>
+                </div>
+                <div class="style-card reveal reveal-delay-1">
+                    <div class="style-img style-img-bachata">
+                        <span class="style-badge">Popular</span>
+                    </div>
+                    <div class="style-body">
+                        <h3>Bachata</h3>
+                        <p>Discover the sensual rhythms of Bachata. From traditional Dominican roots to modern sensual fusion, develop your connection, footwork, and expression.</p>
+                        <a href="#" class="style-link">Explore Bachata</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card reveal">
+                    <div class="service-icon">&#9826;</div>
+                    <h4>Group Classes</h4>
+                </div>
+                <div class="service-card reveal reveal-delay-1">
+                    <div class="service-icon">&#9733;</div>
+                    <h4>Private Lessons</h4>
+                </div>
+                <div class="service-card reveal reveal-delay-2">
+                    <div class="service-icon">&#9889;</div>
+                    <h4>Bootcamps</h4>
+                </div>
+                <div class="service-card reveal reveal-delay-3">
+                    <div class="service-icon">&#9827;</div>
+                    <h4>Dance Teams</h4>
+                </div>
+                <div class="service-card reveal reveal-delay-4">
+                    <div class="service-icon">&#9830;</div>
+                    <h4>Socials &amp; Events</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         5. SCHEDULE PREVIEW
+         ============================================ -->
+    <section class="schedule section-pad" id="schedule">
+        <div class="container">
+            <h2 class="section-heading reveal">This Week at the <span class="gold-text">Studio</span></h2>
+            <div class="gold-rule reveal"></div>
+            <p class="section-subheading reveal">Every night is a new opportunity to level up your dance game.</p>
+
+            <div class="schedule-cards">
+                <div class="schedule-card reveal">
+                    <div class="sched-day">Monday</div>
+                    <div class="sched-time">6 &ndash; 9 PM</div>
+                    <div class="sched-info">Salsa &amp; Bachata</div>
+                </div>
+                <div class="schedule-card reveal reveal-delay-1">
+                    <div class="sched-day">Tuesday</div>
+                    <div class="sched-time">7 &ndash; 9 PM</div>
+                    <div class="sched-info">Bachata Focus</div>
+                </div>
+                <div class="schedule-card reveal reveal-delay-2">
+                    <div class="sched-day">Wednesday</div>
+                    <div class="sched-time">6 &ndash; 9 PM</div>
+                    <div class="sched-info">Salsa &amp; Bachata</div>
+                </div>
+                <div class="schedule-card reveal reveal-delay-3">
+                    <div class="sched-day">Thursday</div>
+                    <div class="sched-time">7 &ndash; 10 PM</div>
+                    <div class="sched-info">All Styles + Social</div>
+                </div>
+            </div>
+
+            <div class="schedule-cta reveal">
+                <a href="#" class="btn-gold">View Full Schedule</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         6. INSTRUCTOR SPOTLIGHT
+         ============================================ -->
+    <section class="instructors section-pad" id="instructors">
+        <div class="container">
+            <h2 class="section-heading reveal">Meet Your <span class="gold-text">Instructors</span></h2>
+            <div class="gold-rule reveal"></div>
+            <p class="section-subheading reveal">World-class dancers dedicated to unlocking your potential on and off the dance floor.</p>
+
+            <div class="instructor-grid">
+                <div class="instructor-card reveal">
+                    <div class="instructor-avatar instructor-avatar-1"></div>
+                    <div class="instructor-name">Carlos &ldquo;El Ninja&rdquo;</div>
+                    <div class="instructor-title">Founder &amp; Head Instructor</div>
+                    <p class="instructor-bio">Over 15 years of Salsa &amp; Bachata mastery. Trained across Latin America and the US, Carlos brings explosive energy and precision to every class.</p>
+                </div>
+                <div class="instructor-card reveal reveal-delay-1">
+                    <div class="instructor-avatar instructor-avatar-2"></div>
+                    <div class="instructor-name">Maria Santos</div>
+                    <div class="instructor-title">Lead Bachata Instructor</div>
+                    <p class="instructor-bio">Specialist in Sensual Bachata and Dominican style. Maria&rsquo;s fluid technique and patient teaching style have shaped hundreds of confident dancers.</p>
+                </div>
+                <div class="instructor-card reveal reveal-delay-2">
+                    <div class="instructor-avatar instructor-avatar-3"></div>
+                    <div class="instructor-name">David Reyes</div>
+                    <div class="instructor-title">Salsa On1 Instructor</div>
+                    <p class="instructor-bio">Competition champion and social dance specialist. David breaks down complex patterns into simple, memorable steps that stick from day one.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         7. TESTIMONIALS
+         ============================================ -->
+    <section class="testimonials section-pad" id="testimonials">
+        <div class="container">
+            <h2 class="section-heading reveal">What the <span class="gold-text">Ninja Fam</span> Says</h2>
+            <div class="gold-rule reveal"></div>
+            <p class="section-subheading reveal">Real stories from our community of dancers.</p>
+
+            <div class="testimonial-grid">
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-quote">&ldquo;</div>
+                    <p class="testimonial-text">I walked in with two left feet and zero confidence. Six months later, I&rsquo;m performing with the dance team. Salsa Ninja didn&rsquo;t just teach me to dance &mdash; they gave me a second family.</p>
+                    <div class="testimonial-author">Jessica R.</div>
+                    <div class="testimonial-since">Dancing for 2 years</div>
+                </div>
+                <div class="testimonial-card reveal reveal-delay-1">
+                    <div class="testimonial-quote">&ldquo;</div>
+                    <p class="testimonial-text">The instructors here break everything down so clearly. I came for the Bachata and stayed for the community. Thursday socials are the highlight of my week, every single time.</p>
+                    <div class="testimonial-author">Michael T.</div>
+                    <div class="testimonial-since">Dancing for 1 year</div>
+                </div>
+                <div class="testimonial-card reveal reveal-delay-2">
+                    <div class="testimonial-quote">&ldquo;</div>
+                    <p class="testimonial-text">Best dance studio in South Florida, hands down. The vibe is welcoming, the instruction is top-tier, and the socials are absolutely electric. Ninja Fam for life!</p>
+                    <div class="testimonial-author">Ana M.</div>
+                    <div class="testimonial-since">Dancing for 3 years</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         8. PRICING TEASER
+         ============================================ -->
+    <section class="pricing section-pad" id="pricing">
+        <div class="container">
+            <h2 class="section-heading reveal">Invest in Your <span class="gold-text">Dance Journey</span></h2>
+            <div class="gold-rule reveal"></div>
+            <p class="section-subheading reveal">Flexible options for every level of commitment.</p>
+
+            <div class="pricing-grid">
+                <div class="pricing-card reveal">
+                    <div class="pricing-name">Trial Class</div>
+                    <div class="pricing-price">$5</div>
+                    <div class="pricing-desc">Your first step</div>
+                    <ul class="pricing-features">
+                        <li>One full group class</li>
+                        <li>Meet the instructors</li>
+                        <li>Experience the community</li>
+                        <li>No commitment required</li>
+                    </ul>
+                    <a href="#" class="btn-outline" style="width:100%;text-align:center;">Try Your First Class</a>
+                </div>
+                <div class="pricing-card pricing-featured reveal reveal-delay-1">
+                    <div class="pricing-badge">Most Popular</div>
+                    <div class="pricing-name">Monthly Membership</div>
+                    <div class="pricing-price" style="font-size:1.8rem;">Contact Us</div>
+                    <div class="pricing-desc">Unlimited group access</div>
+                    <ul class="pricing-features">
+                        <li>Unlimited group classes</li>
+                        <li>All dance styles included</li>
+                        <li>Social events access</li>
+                        <li>Priority event registration</li>
+                        <li>Ninja Fam community perks</li>
+                    </ul>
+                    <a href="#" class="btn-gold" style="width:100%;text-align:center;">Get Started</a>
+                </div>
+                <div class="pricing-card reveal reveal-delay-2">
+                    <div class="pricing-name">Private Lessons</div>
+                    <div class="pricing-price" style="font-size:1.6rem;">From $75<small style="font-size:0.5em;font-weight:300;">/hr</small></div>
+                    <div class="pricing-desc">Personalized instruction</div>
+                    <ul class="pricing-features">
+                        <li>One-on-one attention</li>
+                        <li>Custom lesson plan</li>
+                        <li>Flexible scheduling</li>
+                        <li>Accelerated progress</li>
+                    </ul>
+                    <a href="#" class="btn-outline" style="width:100%;text-align:center;">Book a Session</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         9. UPCOMING EVENTS
+         ============================================ -->
+    <section class="events section-pad" id="events">
+        <div class="container">
+            <h2 class="section-heading reveal">Upcoming <span class="gold-text">Experiences</span></h2>
+            <div class="gold-rule reveal"></div>
+            <p class="section-subheading reveal">Where the dance floor comes alive.</p>
+
+            <div class="events-grid">
+                <div class="event-card reveal">
+                    <div class="event-img event-img-1">
+                        <div class="event-date-badge">
+                            <div class="event-date-month">Feb</div>
+                            <div class="event-date-day">14</div>
+                        </div>
+                    </div>
+                    <div class="event-body">
+                        <h3 class="event-name">Monthly Social Night</h3>
+                        <p class="event-desc">Open floor, great music, incredible energy. Dance Salsa &amp; Bachata all night with the Ninja Fam. All levels welcome.</p>
+                        <div class="event-meta">Friday &bull; 8 PM &ndash; Midnight</div>
+                    </div>
+                </div>
+                <div class="event-card reveal reveal-delay-1">
+                    <div class="event-img event-img-2">
+                        <div class="event-date-badge">
+                            <div class="event-date-month">Mar</div>
+                            <div class="event-date-day">08</div>
+                        </div>
+                    </div>
+                    <div class="event-body">
+                        <h3 class="event-name">Bachata Bootcamp</h3>
+                        <p class="event-desc">Intensive weekend workshop covering sensual, Dominican, and fusion styles. Level up your Bachata in two power-packed days.</p>
+                        <div class="event-meta">Sat &ndash; Sun &bull; 12 &ndash; 5 PM</div>
+                    </div>
+                </div>
+                <div class="event-card reveal reveal-delay-2">
+                    <div class="event-img event-img-3">
+                        <div class="event-date-badge">
+                            <div class="event-date-month">Apr</div>
+                            <div class="event-date-day">19</div>
+                        </div>
+                    </div>
+                    <div class="event-body">
+                        <h3 class="event-name">Spring Showcase Night</h3>
+                        <p class="event-desc">Our dance teams hit the stage for an unforgettable evening of performances, followed by an open social. Don&rsquo;t miss it.</p>
+                        <div class="event-meta">Saturday &bull; 7 PM &ndash; 11 PM</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         10. COMMUNITY / GALLERY
+         ============================================ -->
+    <section class="community section-pad" id="community">
+        <div class="container">
+            <h2 class="section-heading reveal">The <span class="gold-text">Ninja Fam</span></h2>
+            <div class="gold-rule reveal"></div>
+            <p class="community-text reveal">More than a dance studio &mdash; we&rsquo;re a family. From first-timers to seasoned performers, everyone belongs here. Step into the circle and feel the difference.</p>
+
+            <div class="gallery-grid">
+                <div class="gallery-item gal-1 reveal">
+                    <div class="gallery-overlay"><span>Social Night</span></div>
+                </div>
+                <div class="gallery-item gal-2 reveal reveal-delay-1">
+                    <div class="gallery-overlay"><span>Team Practice</span></div>
+                </div>
+                <div class="gallery-item gal-3 reveal reveal-delay-2">
+                    <div class="gallery-overlay"><span>Showcase</span></div>
+                </div>
+                <div class="gallery-item gal-4 reveal reveal-delay-1">
+                    <div class="gallery-overlay"><span>Bootcamp</span></div>
+                </div>
+                <div class="gallery-item gal-5 reveal reveal-delay-2">
+                    <div class="gallery-overlay"><span>Ninja Fam</span></div>
+                </div>
+                <div class="gallery-item gal-6 reveal reveal-delay-3">
+                    <div class="gallery-overlay"><span>Competition</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         11. LOCATION + HOURS
+         ============================================ -->
+    <section class="location section-pad" id="location">
+        <div class="container">
+            <h2 class="section-heading reveal">Find <span class="gold-text">Us</span></h2>
+            <div class="gold-rule reveal"></div>
+            <p class="section-subheading reveal">We&rsquo;re in the heart of Sunrise, Florida &mdash; ready when you are.</p>
+
+            <div class="location-grid">
+                <div class="location-info reveal">
+                    <h3>Contact</h3>
+                    <div class="location-row">
+                        <div class="location-icon">&#9670;</div>
+                        <div class="location-detail">10070 W Oakland Park Blvd<br>Sunrise, FL 33351</div>
+                    </div>
+                    <div class="location-row">
+                        <div class="location-icon">&#9742;</div>
+                        <div class="location-detail"><a href="tel:+19546625354">(954) 662-5354</a></div>
+                    </div>
+                    <div class="location-row">
+                        <div class="location-icon">&#9993;</div>
+                        <div class="location-detail"><a href="mailto:contact@salsaninja.com">contact@salsaninja.com</a></div>
+                    </div>
+
+                    <div class="hours-list">
+                        <h3>Studio Hours</h3>
+                        <div class="hours-row">
+                            <span class="hours-day">Monday</span>
+                            <span class="hours-time">6:00 PM &ndash; 9:00 PM</span>
+                        </div>
+                        <div class="hours-row">
+                            <span class="hours-day">Tuesday</span>
+                            <span class="hours-time">7:00 PM &ndash; 9:00 PM</span>
+                        </div>
+                        <div class="hours-row">
+                            <span class="hours-day">Wednesday</span>
+                            <span class="hours-time">6:00 PM &ndash; 9:00 PM</span>
+                        </div>
+                        <div class="hours-row">
+                            <span class="hours-day">Thursday</span>
+                            <span class="hours-time">7:00 PM &ndash; 10:00 PM</span>
+                        </div>
+                        <div class="hours-row">
+                            <span class="hours-day">Fri &ndash; Sun</span>
+                            <span class="hours-time">By appointment / Events</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reveal reveal-delay-1">
+                    <div class="map-placeholder">
+                        <div class="map-pin">
+                            <div class="map-pin-icon">&#9670;</div>
+                            <div class="map-pin-text">Salsa Ninja<br>Dance Academy</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         12. FOOTER
+         ============================================ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">SALSA NINJA</div>
+                    <p class="footer-about">Sunrise, Florida&rsquo;s premier Latin dance academy. Quality instruction in Salsa On1 and Bachata, dedicated to social dancing and stage performances. Join the Ninja Fam today.</p>
+                </div>
+                <div>
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#offer">Dance Styles</a></li>
+                        <li><a href="#schedule">Schedule</a></li>
+                        <li><a href="#instructors">Instructors</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#events">Events</a></li>
+                        <li><a href="#location">Location</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Connect</h4>
+                    <ul class="footer-links">
+                        <li><a href="mailto:contact@salsaninja.com">contact@salsaninja.com</a></li>
+                        <li><a href="tel:+19546625354">(954) 662-5354</a></li>
+                    </ul>
+                    <div class="footer-social">
+                        <a href="#" title="Instagram">IG</a>
+                        <a href="#" title="Facebook">FB</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span class="footer-copy">&copy; 2025 Salsa Ninja Dance Academy. All rights reserved.</span>
+                <span class="footer-copy">@salsaninjadanceacademy</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================
+         JAVASCRIPT
+         ============================================ -->
+    <script>
+        // --- Mobile Menu Toggle ---
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        navToggle.addEventListener('click', () => {
+            navToggle.classList.toggle('active');
+            navLinks.classList.toggle('open');
+        });
+
+        // Close menu on link click
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navToggle.classList.remove('active');
+                navLinks.classList.remove('open');
+            });
+        });
+
+        // --- Sticky Nav Background ---
+        const nav = document.getElementById('nav');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 60) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        }, { passive: true });
+
+        // --- Scroll Reveal (IntersectionObserver) ---
+        const revealEls = document.querySelectorAll('.reveal');
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.12,
+            rootMargin: '0px 0px -40px 0px'
+        });
+
+        revealEls.forEach(el => revealObserver.observe(el));
+    </script>
+</body>
+</html>

@@ -1,0 +1,1961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salsa Ninja Dance Academy — Unleash Your Inner Dance Ninja</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --black: #050505;
+  --dark-1: #0a0a0a;
+  --dark-2: #111111;
+  --dark-3: #1a1a1a;
+  --dark-4: #222222;
+  --red: #ef4444;
+  --red-bright: #f87171;
+  --red-dark: #b91c1c;
+  --gold: #f59e0b;
+  --gold-light: #fbbf24;
+  --white: #ffffff;
+  --gray-100: #f5f5f5;
+  --gray-300: #d4d4d4;
+  --gray-400: #a3a3a3;
+  --gray-500: #737373;
+  --glass-bg: rgba(255,255,255,0.04);
+  --glass-border: rgba(255,255,255,0.08);
+  --glow-red: 0 0 30px rgba(239,68,68,0.4);
+  --glow-red-strong: 0 0 50px rgba(239,68,68,0.6), 0 0 100px rgba(239,68,68,0.2);
+  --glow-gold: 0 0 20px rgba(245,158,11,0.3);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--black);
+  color: var(--gray-300);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ====== UTILITY ====== */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.section-pad { padding: 100px 0; }
+
+.section-label {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 14px;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-label::before {
+  content: '';
+  width: 40px;
+  height: 1px;
+  background: var(--red);
+}
+
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(36px, 5vw, 56px);
+  color: var(--white);
+  letter-spacing: 2px;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+.section-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--red), transparent);
+  opacity: 0.3;
+}
+
+/* ====== ANIMATIONS ====== */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(239,68,68,0.4); }
+  50% { box-shadow: 0 0 40px rgba(239,68,68,0.7), 0 0 80px rgba(239,68,68,0.3); }
+}
+
+@keyframes float-up {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-in-left {
+  from { opacity: 0; transform: translateX(-60px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  92% { opacity: 1; }
+  93% { opacity: 0.3; }
+  94% { opacity: 1; }
+  96% { opacity: 0.5; }
+  97% { opacity: 1; }
+}
+
+@keyframes katana-slash {
+  0% { width: 0; opacity: 0; }
+  20% { opacity: 1; }
+  100% { width: 120px; opacity: 1; }
+}
+
+@keyframes count-glow {
+  0%, 100% { text-shadow: 0 0 10px rgba(239,68,68,0.3); }
+  50% { text-shadow: 0 0 30px rgba(239,68,68,0.6), 0 0 60px rgba(239,68,68,0.2); }
+}
+
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -10%); }
+  30% { transform: translate(3%, -15%); }
+  50% { transform: translate(12%, 9%); }
+  70% { transform: translate(9%, 4%); }
+  90% { transform: translate(-1%, 7%); }
+}
+
+.fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+/* ====== GRAIN OVERLAY ====== */
+body::before {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  animation: grain 8s steps(10) infinite;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.5;
+}
+
+/* ====== NAVBAR ====== */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 20px 0;
+  transition: all 0.4s ease;
+  background: transparent;
+}
+.navbar.scrolled {
+  background: rgba(5,5,5,0.95);
+  backdrop-filter: blur(20px);
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(239,68,68,0.15);
+}
+.navbar .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.nav-logo-icon {
+  width: 38px;
+  height: 38px;
+  background: var(--red);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  transform: rotate(-5deg);
+  box-shadow: var(--glow-red);
+}
+.nav-logo-text {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  color: var(--white);
+  letter-spacing: 3px;
+}
+.nav-logo-text span { color: var(--red); }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+}
+.nav-links a {
+  text-decoration: none;
+  color: var(--gray-400);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  transition: color 0.3s;
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--red);
+  transition: width 0.3s;
+}
+.nav-links a:hover { color: var(--white); }
+.nav-links a:hover::after { width: 100%; }
+
+.nav-cta {
+  background: var(--red);
+  color: var(--white) !important;
+  padding: 10px 24px;
+  border-radius: 4px;
+  font-weight: 600 !important;
+  letter-spacing: 1px !important;
+  transition: all 0.3s !important;
+  box-shadow: var(--glow-red);
+}
+.nav-cta::after { display: none !important; }
+.nav-cta:hover { background: var(--red-bright) !important; transform: translateY(-1px); }
+
+.mobile-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px;
+}
+.mobile-toggle span {
+  width: 24px;
+  height: 2px;
+  background: var(--white);
+  transition: all 0.3s;
+}
+
+/* ====== HERO ====== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(239,68,68,0.15) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(139,0,0,0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 60% 80%, rgba(245,158,11,0.05) 0%, transparent 40%),
+    linear-gradient(180deg, var(--black) 0%, var(--dark-2) 50%, var(--black) 100%);
+}
+/* Diagonal slash pattern */
+.hero-bg::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 1px;
+  height: 200%;
+  background: linear-gradient(180deg, transparent, rgba(239,68,68,0.3), transparent);
+  transform: rotate(25deg);
+}
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: 10%;
+  width: 1px;
+  height: 200%;
+  background: linear-gradient(180deg, transparent, rgba(239,68,68,0.15), transparent);
+  transform: rotate(25deg);
+}
+/* Japanese circle motif */
+.hero-circle {
+  position: absolute;
+  right: -100px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  border: 1px solid rgba(239,68,68,0.08);
+}
+.hero-circle::before {
+  content: '';
+  position: absolute;
+  inset: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(239,68,68,0.05);
+}
+.hero-circle::after {
+  content: '';
+  position: absolute;
+  inset: 80px;
+  border-radius: 50%;
+  border: 1px solid rgba(239,68,68,0.03);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 700px;
+  animation: slide-in-left 1s ease forwards;
+}
+.hero-eyebrow {
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.hero-eyebrow::before {
+  content: '';
+  width: 0;
+  height: 2px;
+  background: var(--red);
+  animation: katana-slash 0.8s ease 0.5s forwards;
+  box-shadow: var(--glow-red);
+}
+
+.hero h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(52px, 8vw, 96px);
+  color: var(--white);
+  line-height: 0.95;
+  letter-spacing: 3px;
+  margin-bottom: 24px;
+}
+.hero h1 .accent { color: var(--red); animation: flicker 6s infinite; }
+
+.hero-tagline {
+  font-size: 18px;
+  color: var(--gray-400);
+  max-width: 500px;
+  margin-bottom: 40px;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+.hero-ctas {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--red);
+  color: var(--white);
+  padding: 16px 36px;
+  border: none;
+  border-radius: 4px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  animation: pulse-glow 3s ease infinite;
+}
+.btn-primary:hover { background: var(--red-bright); transform: translateY(-2px); }
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--white);
+  padding: 16px 36px;
+  border: 1px solid rgba(239,68,68,0.4);
+  border-radius: 4px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.btn-ghost:hover {
+  border-color: var(--red);
+  background: rgba(239,68,68,0.1);
+  box-shadow: var(--glow-red);
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--gray-500);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+.hero-scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(180deg, var(--red), transparent);
+  animation: pulse-glow 2s ease infinite;
+}
+
+/* ====== STATS ====== */
+.stats {
+  padding: 80px 0;
+  background: var(--dark-1);
+  position: relative;
+  overflow: hidden;
+}
+.stats::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(90deg, transparent, transparent 200px, rgba(239,68,68,0.03) 200px, rgba(239,68,68,0.03) 201px);
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+  position: relative;
+}
+.stat-item {
+  text-align: center;
+  position: relative;
+}
+.stat-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: -20px;
+  top: 10%;
+  height: 80%;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(239,68,68,0.2), transparent);
+}
+.stat-number {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(48px, 6vw, 72px);
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 8px;
+  animation: count-glow 4s ease infinite;
+}
+.stat-number .red { color: var(--red); }
+.stat-label {
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gray-500);
+  font-weight: 500;
+}
+
+/* ====== OFFERINGS ====== */
+.offerings {
+  background: var(--black);
+  position: relative;
+}
+.offerings-intro {
+  max-width: 600px;
+  margin-bottom: 60px;
+}
+.offerings-intro p {
+  color: var(--gray-400);
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.dance-styles-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-bottom: 40px;
+}
+.style-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  padding: 48px 36px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+.style-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--red), var(--gold), var(--red));
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.style-card:hover {
+  border-color: rgba(239,68,68,0.3);
+  box-shadow: var(--glow-red), inset 0 0 60px rgba(239,68,68,0.03);
+  transform: translateY(-4px);
+}
+.style-card:hover::before { opacity: 1; }
+
+.style-card-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  margin-bottom: 24px;
+}
+.style-card:first-child .style-card-icon {
+  background: linear-gradient(135deg, rgba(239,68,68,0.2), rgba(239,68,68,0.05));
+  border: 1px solid rgba(239,68,68,0.2);
+}
+.style-card:last-child .style-card-icon {
+  background: linear-gradient(135deg, rgba(245,158,11,0.2), rgba(245,158,11,0.05));
+  border: 1px solid rgba(245,158,11,0.2);
+}
+
+.style-card h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 32px;
+  color: var(--white);
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+.style-card p {
+  color: var(--gray-400);
+  font-size: 15px;
+  line-height: 1.7;
+}
+.style-tag {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 4px 12px;
+  background: rgba(239,68,68,0.1);
+  border: 1px solid rgba(239,68,68,0.2);
+  border-radius: 20px;
+  color: var(--red);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.style-card:last-child .style-tag {
+  background: rgba(245,158,11,0.1);
+  border-color: rgba(245,158,11,0.2);
+  color: var(--gold);
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+.service-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  padding: 28px 20px;
+  text-align: center;
+  transition: all 0.3s;
+}
+.service-card:hover {
+  border-color: rgba(239,68,68,0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(239,68,68,0.1);
+}
+.service-card-icon {
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+.service-card h4 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 16px;
+  color: var(--white);
+  letter-spacing: 2px;
+  margin-bottom: 6px;
+}
+.service-card p {
+  font-size: 12px;
+  color: var(--gray-500);
+  line-height: 1.5;
+}
+
+/* ====== SCHEDULE ====== */
+.schedule {
+  background: var(--dark-1);
+  position: relative;
+}
+.schedule-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 40px;
+}
+.schedule-table th {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 14px;
+  letter-spacing: 3px;
+  color: var(--red);
+  padding: 16px 20px;
+  text-align: left;
+  border-bottom: 1px solid rgba(239,68,68,0.2);
+  text-transform: uppercase;
+}
+.schedule-table td {
+  padding: 18px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  font-size: 14px;
+  color: var(--gray-300);
+}
+.schedule-table tr:hover td {
+  background: rgba(239,68,68,0.03);
+}
+.schedule-day {
+  font-weight: 600;
+  color: var(--white);
+  font-size: 15px;
+}
+.schedule-class-tag {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.tag-salsa {
+  background: rgba(239,68,68,0.15);
+  color: var(--red);
+  border: 1px solid rgba(239,68,68,0.2);
+}
+.tag-bachata {
+  background: rgba(245,158,11,0.15);
+  color: var(--gold);
+  border: 1px solid rgba(245,158,11,0.2);
+}
+.tag-open {
+  background: rgba(255,255,255,0.05);
+  color: var(--gray-400);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.schedule-cta {
+  text-align: center;
+}
+
+/* ====== INSTRUCTORS ====== */
+.instructors {
+  background: var(--black);
+  position: relative;
+}
+.instructors-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+.instructor-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  padding: 40px 32px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s;
+}
+.instructor-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--red), transparent);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.instructor-card:hover {
+  border-color: rgba(239,68,68,0.2);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4), var(--glow-red);
+}
+.instructor-card:hover::after { opacity: 1; }
+
+.instructor-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin: 0 auto 24px;
+  position: relative;
+}
+.instructor-avatar-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--red-dark), var(--dark-3));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px;
+  color: var(--white);
+  border: 2px solid rgba(239,68,68,0.3);
+}
+.instructor-card:nth-child(2) .instructor-avatar-inner {
+  background: linear-gradient(135deg, rgba(245,158,11,0.6), var(--dark-3));
+  border-color: rgba(245,158,11,0.3);
+}
+.instructor-card:nth-child(3) .instructor-avatar-inner {
+  background: linear-gradient(135deg, rgba(139,0,0,0.6), var(--dark-3));
+  border-color: rgba(139,0,0,0.3);
+}
+
+.instructor-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px;
+  color: var(--white);
+  letter-spacing: 2px;
+  margin-bottom: 4px;
+}
+.instructor-role {
+  font-size: 12px;
+  color: var(--red);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+.instructor-card:nth-child(2) .instructor-role { color: var(--gold); }
+.instructor-bio {
+  font-size: 14px;
+  color: var(--gray-400);
+  line-height: 1.7;
+}
+
+/* ====== TESTIMONIALS ====== */
+.testimonials {
+  background: var(--dark-1);
+  position: relative;
+  overflow: hidden;
+}
+.testimonials::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(239,68,68,0.05) 0%, transparent 70%);
+}
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  position: relative;
+}
+.testimonial-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  padding: 36px 28px;
+  position: relative;
+  transition: all 0.3s;
+}
+.testimonial-card:hover {
+  border-color: rgba(239,68,68,0.2);
+  transform: translateY(-2px);
+}
+.testimonial-quote-mark {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 64px;
+  color: var(--red);
+  opacity: 0.3;
+  line-height: 1;
+  margin-bottom: -10px;
+}
+.testimonial-stars {
+  color: var(--gold);
+  font-size: 14px;
+  margin-bottom: 16px;
+  letter-spacing: 2px;
+}
+.testimonial-text {
+  font-size: 15px;
+  color: var(--gray-300);
+  line-height: 1.8;
+  margin-bottom: 24px;
+  font-style: italic;
+}
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.testimonial-author-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--dark-3), var(--dark-4));
+  border: 1px solid rgba(239,68,68,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: var(--gray-400);
+}
+.testimonial-author-info h5 {
+  font-size: 14px;
+  color: var(--white);
+  font-weight: 600;
+}
+.testimonial-author-info span {
+  font-size: 12px;
+  color: var(--gray-500);
+}
+
+/* ====== PRICING ====== */
+.pricing {
+  background: var(--black);
+  position: relative;
+}
+.pricing-highlight {
+  text-align: center;
+  margin-bottom: 60px;
+  padding: 32px;
+  background: linear-gradient(135deg, rgba(239,68,68,0.1), rgba(239,68,68,0.02));
+  border: 1px solid rgba(239,68,68,0.15);
+  border-radius: 8px;
+}
+.pricing-highlight-label {
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+.pricing-highlight h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 48px;
+  color: var(--white);
+  letter-spacing: 2px;
+}
+.pricing-highlight h3 span { color: var(--red); }
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.pricing-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  padding: 40px 32px;
+  text-align: center;
+  transition: all 0.4s;
+  position: relative;
+}
+.pricing-card:hover {
+  transform: translateY(-4px);
+}
+.pricing-card.featured {
+  border-color: rgba(239,68,68,0.4);
+  box-shadow: var(--glow-red);
+  background: rgba(239,68,68,0.05);
+}
+.pricing-card.featured::before {
+  content: 'MOST POPULAR';
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--red);
+  color: var(--white);
+  padding: 4px 20px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  border-radius: 0 0 6px 6px;
+}
+.pricing-card-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  color: var(--white);
+  letter-spacing: 3px;
+  margin-bottom: 16px;
+}
+.pricing-card-price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 56px;
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.pricing-card-price .dollar {
+  font-size: 28px;
+  color: var(--red);
+  vertical-align: top;
+  margin-right: 2px;
+}
+.pricing-card-period {
+  font-size: 13px;
+  color: var(--gray-500);
+  margin-bottom: 24px;
+}
+.pricing-card-features {
+  list-style: none;
+  margin-bottom: 32px;
+  text-align: left;
+}
+.pricing-card-features li {
+  padding: 8px 0;
+  font-size: 14px;
+  color: var(--gray-400);
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.pricing-card-features li::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--red);
+  flex-shrink: 0;
+}
+.pricing-card.featured .pricing-card-features li::before {
+  box-shadow: 0 0 8px rgba(239,68,68,0.5);
+}
+.pricing-btn {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  border-radius: 4px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-decoration: none;
+  text-align: center;
+}
+.pricing-btn-outline {
+  background: transparent;
+  border: 1px solid rgba(239,68,68,0.3);
+  color: var(--white);
+}
+.pricing-btn-outline:hover {
+  border-color: var(--red);
+  box-shadow: var(--glow-red);
+}
+.pricing-btn-filled {
+  background: var(--red);
+  border: 1px solid var(--red);
+  color: var(--white);
+  box-shadow: var(--glow-red);
+}
+.pricing-btn-filled:hover {
+  background: var(--red-bright);
+  transform: translateY(-1px);
+}
+
+/* ====== EVENTS ====== */
+.events {
+  background: var(--dark-1);
+}
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.event-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.4s;
+}
+.event-card:hover {
+  border-color: rgba(239,68,68,0.2);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+.event-card-image {
+  height: 180px;
+  position: relative;
+}
+.event-card:nth-child(1) .event-card-image {
+  background: linear-gradient(135deg, #1a0505, #3a0a0a, #0a0a0a);
+}
+.event-card:nth-child(2) .event-card-image {
+  background: linear-gradient(135deg, #1a1005, #3a2a0a, #0a0a0a);
+}
+.event-card:nth-child(3) .event-card-image {
+  background: linear-gradient(135deg, #0a0515, #1a0a2a, #0a0a0a);
+}
+.event-card-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 40%, rgba(5,5,5,0.8));
+}
+.event-date-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 2;
+  background: var(--red);
+  padding: 8px 14px;
+  border-radius: 4px;
+  text-align: center;
+  box-shadow: var(--glow-red);
+}
+.event-date-badge .day {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px;
+  color: var(--white);
+  line-height: 1;
+}
+.event-date-badge .month {
+  font-size: 10px;
+  color: rgba(255,255,255,0.8);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 600;
+}
+.event-card-body { padding: 24px; }
+.event-card-body h4 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  color: var(--white);
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+.event-card-body p {
+  font-size: 14px;
+  color: var(--gray-400);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.event-meta {
+  display: flex;
+  gap: 16px;
+  font-size: 12px;
+  color: var(--gray-500);
+}
+.event-meta span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ====== COMMUNITY ====== */
+.community {
+  background: var(--black);
+  position: relative;
+}
+.community-header {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 48px;
+}
+.community-header p {
+  color: var(--gray-400);
+  font-size: 16px;
+  line-height: 1.8;
+}
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 180px);
+  gap: 12px;
+}
+.gallery-item {
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.4s;
+  cursor: pointer;
+}
+.gallery-item:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 30px rgba(239,68,68,0.2);
+  z-index: 2;
+}
+.gallery-item:nth-child(1) {
+  grid-column: span 2;
+  background: linear-gradient(135deg, #2a0808, #1a0303, #0d0202, #150505);
+}
+.gallery-item:nth-child(2) {
+  background: linear-gradient(225deg, #1a1005, #0d0a02, #1a1508);
+}
+.gallery-item:nth-child(3) {
+  background: linear-gradient(180deg, #150510, #0a0308, #1a0812);
+}
+.gallery-item:nth-child(4) {
+  background: linear-gradient(135deg, #0a0a15, #050510, #0d0815);
+}
+.gallery-item:nth-child(5) {
+  background: linear-gradient(225deg, #1a0808, #100505, #0d0303);
+}
+.gallery-item:nth-child(6) {
+  grid-column: span 2;
+  background: linear-gradient(135deg, #150d02, #1a1005, #0d0a02, #1a1508);
+}
+.gallery-item:nth-child(7) {
+  background: linear-gradient(180deg, #100510, #0a0308, #150812);
+}
+.gallery-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 60%, rgba(239,68,68,0.1));
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.gallery-item:hover::after { opacity: 1; }
+
+/* ====== LOCATION ====== */
+.location {
+  background: var(--dark-1);
+}
+.location-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+.map-placeholder {
+  height: 400px;
+  background: var(--dark-3);
+  border-radius: 8px;
+  border: 1px solid var(--glass-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.map-placeholder::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(255,255,255,0.02) 40px, rgba(255,255,255,0.02) 41px),
+    repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,255,255,0.02) 40px, rgba(255,255,255,0.02) 41px);
+}
+.map-placeholder-text {
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+.map-placeholder-text .pin {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+.map-placeholder-text p {
+  color: var(--gray-500);
+  font-size: 14px;
+}
+.map-placeholder-text .address {
+  color: var(--white);
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+.location-info h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px;
+  color: var(--white);
+  letter-spacing: 2px;
+  margin-bottom: 32px;
+}
+.location-detail {
+  display: flex;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.location-detail-icon {
+  width: 40px;
+  height: 40px;
+  background: rgba(239,68,68,0.1);
+  border: 1px solid rgba(239,68,68,0.15);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.location-detail-text h5 {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--white);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.location-detail-text p {
+  font-size: 14px;
+  color: var(--gray-400);
+  line-height: 1.6;
+}
+.location-detail-text a {
+  color: var(--red);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.location-detail-text a:hover { color: var(--red-bright); }
+
+/* ====== FOOTER ====== */
+.footer {
+  background: var(--black);
+  border-top: 1px solid rgba(255,255,255,0.05);
+  padding: 60px 0 30px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 48px;
+}
+.footer-brand .nav-logo { margin-bottom: 16px; }
+.footer-brand p {
+  font-size: 14px;
+  color: var(--gray-500);
+  line-height: 1.7;
+  max-width: 280px;
+}
+.footer-social {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+.footer-social a {
+  width: 40px;
+  height: 40px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gray-400);
+  text-decoration: none;
+  font-size: 18px;
+  transition: all 0.3s;
+}
+.footer-social a:hover {
+  border-color: var(--red);
+  color: var(--red);
+  box-shadow: 0 0 15px rgba(239,68,68,0.2);
+}
+
+.footer-col h5 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 16px;
+  color: var(--white);
+  letter-spacing: 3px;
+  margin-bottom: 20px;
+}
+.footer-col ul { list-style: none; }
+.footer-col ul li { margin-bottom: 10px; }
+.footer-col ul a {
+  color: var(--gray-500);
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.3s;
+}
+.footer-col ul a:hover { color: var(--red); }
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.05);
+  padding-top: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-bottom p {
+  font-size: 13px;
+  color: var(--gray-500);
+}
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 1024px) {
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+  .stat-item:nth-child(2)::after { display: none; }
+  .dance-styles-grid { grid-template-columns: 1fr; }
+  .services-grid { grid-template-columns: repeat(3, 1fr); }
+  .instructors-grid { grid-template-columns: repeat(2, 1fr); }
+  .instructors-grid .instructor-card:last-child { grid-column: span 2; max-width: 400px; margin: 0 auto; }
+  .testimonials-grid { grid-template-columns: 1fr 1fr; }
+  .testimonials-grid .testimonial-card:last-child { grid-column: span 2; max-width: 500px; margin: 0 auto; }
+  .pricing-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+  .events-grid { grid-template-columns: 1fr 1fr; }
+  .events-grid .event-card:last-child { grid-column: span 2; max-width: 400px; margin: 0 auto; }
+  .gallery-grid { grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 160px); }
+  .gallery-item:nth-child(1) { grid-column: span 2; }
+  .gallery-item:nth-child(6) { grid-column: span 1; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .mobile-toggle { display: flex; }
+  .nav-links.active {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(5,5,5,0.98);
+    backdrop-filter: blur(20px);
+    padding: 24px;
+    border-bottom: 1px solid rgba(239,68,68,0.15);
+    gap: 16px;
+  }
+  .hero h1 { font-size: clamp(40px, 10vw, 64px); }
+  .hero-ctas { flex-direction: column; }
+  .btn-primary, .btn-ghost { text-align: center; justify-content: center; }
+  .hero-circle { display: none; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .stat-item::after { display: none; }
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .instructors-grid { grid-template-columns: 1fr; }
+  .instructors-grid .instructor-card:last-child { grid-column: span 1; max-width: none; }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .testimonials-grid .testimonial-card:last-child { grid-column: span 1; max-width: none; }
+  .events-grid { grid-template-columns: 1fr; }
+  .events-grid .event-card:last-child { grid-column: span 1; max-width: none; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(4, 140px); }
+  .gallery-item:nth-child(1) { grid-column: span 2; }
+  .gallery-item:nth-child(6) { grid-column: span 2; }
+  .location-grid { grid-template-columns: 1fr; }
+  .map-placeholder { height: 280px; }
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+  .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+  .section-pad { padding: 60px 0; }
+  .schedule-table { font-size: 13px; }
+  .schedule-table th, .schedule-table td { padding: 12px 10px; }
+}
+
+@media (max-width: 640px) {
+  .services-grid { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .stat-number { font-size: 48px; }
+  .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+  .gallery-item { min-height: 120px; }
+  .gallery-item:nth-child(1), .gallery-item:nth-child(6) { grid-column: span 2; }
+}
+</style>
+</head>
+<body>
+
+<!-- ====== NAVBAR ====== -->
+<nav class="navbar" id="navbar">
+  <div class="container">
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-icon">&#x2694;</div>
+      <div class="nav-logo-text">SALSA <span>NINJA</span></div>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#offerings">Classes</a></li>
+      <li><a href="#schedule">Schedule</a></li>
+      <li><a href="#instructors">Instructors</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#events">Events</a></li>
+      <li><a href="#location">Location</a></li>
+      <li><a href="#pricing" class="nav-cta">Book Now</a></li>
+    </ul>
+    <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ====== HERO ====== -->
+<section class="hero" id="hero">
+  <div class="hero-bg">
+    <div class="hero-circle"></div>
+  </div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-eyebrow">Sunrise, FL &mdash; Since 2016</div>
+      <h1>UNLEASH YOUR<br>INNER <span class="accent">DANCE</span><br>NINJA</h1>
+      <p class="hero-tagline">Quality dance instructions dedicated to social dancing and stage performances. Join South Florida's most passionate Latin dance community.</p>
+      <div class="hero-ctas">
+        <a href="#pricing" class="btn-primary">Try Your First Class &mdash; $5</a>
+        <a href="#schedule" class="btn-ghost">View Schedule &rarr;</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="hero-scroll-line"></div>
+    SCROLL
+  </div>
+</section>
+
+<!-- ====== STATS ====== -->
+<div class="section-divider"></div>
+<section class="stats fade-in">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-number">500<span class="red">+</span></div>
+        <div class="stat-label">Students Trained</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">8<span class="red">+</span></div>
+        <div class="stat-label">Years Teaching</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">50<span class="red">+</span></div>
+        <div class="stat-label">Events Hosted</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">4.9<span class="red">&#9733;</span></div>
+        <div class="stat-label">Student Rating</div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="section-divider"></div>
+
+<!-- ====== OFFERINGS ====== -->
+<section class="offerings section-pad fade-in" id="offerings">
+  <div class="container">
+    <div class="offerings-intro">
+      <div class="section-label">What We Teach</div>
+      <h2 class="section-title">MASTER THE ART OF<br>LATIN DANCE</h2>
+      <p>From your first step to competition-level performance, we train dancers who own the floor. Two core disciplines. One relentless standard of excellence.</p>
+    </div>
+
+    <div class="dance-styles-grid">
+      <div class="style-card">
+        <div class="style-card-icon">&#128293;</div>
+        <h3>SALSA ON1 (LA STYLE)</h3>
+        <p>Fast, flashy, and precise. LA-style Salsa On1 is built for dancers who want to command attention. Linear patterns, explosive turn combinations, and musicality that makes every beat count. From beginner fundamentals to advanced shines and partnering.</p>
+        <span class="style-tag">All Levels Welcome</span>
+      </div>
+      <div class="style-card">
+        <div class="style-card-icon">&#127925;</div>
+        <h3>BACHATA</h3>
+        <p>Sensual, grounded, and deeply musical. Our Bachata program covers Dominican roots through modern sensual styles. Learn to connect with your partner, interpret the music, and move with confidence at any social. Technique meets feeling.</p>
+        <span class="style-tag">Beginner to Advanced</span>
+      </div>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-card-icon">&#128101;</div>
+        <h4>GROUP CLASSES</h4>
+        <p>Learn with the Ninja Fam in an energetic group setting</p>
+      </div>
+      <div class="service-card">
+        <div class="service-card-icon">&#127919;</div>
+        <h4>PRIVATE LESSONS</h4>
+        <p>One-on-one training tailored to your goals</p>
+      </div>
+      <div class="service-card">
+        <div class="service-card-icon">&#9889;</div>
+        <h4>BOOTCAMPS</h4>
+        <p>Intensive workshops for rapid skill breakthroughs</p>
+      </div>
+      <div class="service-card">
+        <div class="service-card-icon">&#127942;</div>
+        <h4>DANCE TEAMS</h4>
+        <p>Train and perform with our competition squads</p>
+      </div>
+      <div class="service-card">
+        <div class="service-card-icon">&#127879;</div>
+        <h4>SOCIALS &amp; EVENTS</h4>
+        <p>Practice and party with fellow dancers</p>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="section-divider"></div>
+
+<!-- ====== SCHEDULE ====== -->
+<section class="schedule section-pad fade-in" id="schedule">
+  <div class="container">
+    <div style="text-align:center; margin-bottom:48px;">
+      <div class="section-label" style="justify-content:center;">
+        <span></span>Weekly Schedule<span></span>
+      </div>
+      <h2 class="section-title">TRAIN WITH US</h2>
+    </div>
+    <div class="schedule-wrapper">
+      <table class="schedule-table">
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>Time</th>
+            <th>Classes</th>
+            <th>Level</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="schedule-day">Monday</span></td>
+            <td>6:00 PM &ndash; 9:00 PM</td>
+            <td>
+              <span class="schedule-class-tag tag-salsa">Salsa On1</span>
+              <span class="schedule-class-tag tag-bachata">Bachata</span>
+            </td>
+            <td>Beginner / Intermediate</td>
+          </tr>
+          <tr>
+            <td><span class="schedule-day">Tuesday</span></td>
+            <td>7:00 PM &ndash; 9:00 PM</td>
+            <td>
+              <span class="schedule-class-tag tag-bachata">Bachata</span>
+              <span class="schedule-class-tag tag-open">Open Practice</span>
+            </td>
+            <td>All Levels</td>
+          </tr>
+          <tr>
+            <td><span class="schedule-day">Wednesday</span></td>
+            <td>6:00 PM &ndash; 9:00 PM</td>
+            <td>
+              <span class="schedule-class-tag tag-salsa">Salsa On1</span>
+              <span class="schedule-class-tag tag-salsa">Adv. Salsa</span>
+            </td>
+            <td>Intermediate / Advanced</td>
+          </tr>
+          <tr>
+            <td><span class="schedule-day">Thursday</span></td>
+            <td>7:00 PM &ndash; 10:00 PM</td>
+            <td>
+              <span class="schedule-class-tag tag-salsa">Salsa On1</span>
+              <span class="schedule-class-tag tag-bachata">Bachata</span>
+              <span class="schedule-class-tag tag-open">Social</span>
+            </td>
+            <td>All Levels + Social</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="schedule-cta">
+        <a href="#" class="btn-ghost">See Full Schedule &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="section-divider"></div>
+
+<!-- ====== INSTRUCTORS ====== -->
+<section class="instructors section-pad fade-in" id="instructors">
+  <div class="container">
+    <div class="section-label">Meet Your Senseis</div>
+    <h2 class="section-title">WORLD-CLASS INSTRUCTORS</h2>
+    <p style="color:var(--gray-400); max-width:500px; margin-bottom:48px; line-height:1.8;">Every instructor at Salsa Ninja is a seasoned performer and dedicated teacher who lives and breathes Latin dance.</p>
+    <div class="instructors-grid">
+      <div class="instructor-card">
+        <div class="instructor-avatar">
+          <div class="instructor-avatar-inner">A</div>
+        </div>
+        <h4 class="instructor-name">SENSEI ALEX</h4>
+        <div class="instructor-role">Head Instructor</div>
+        <p class="instructor-bio">Founder of Salsa Ninja with over 12 years of Salsa On1 experience. Trained under top LA-style masters. Known for breaking down complex patterns into clear, repeatable steps that stick.</p>
+      </div>
+      <div class="instructor-card">
+        <div class="instructor-avatar">
+          <div class="instructor-avatar-inner">M</div>
+        </div>
+        <h4 class="instructor-name">SENSEI MARIA</h4>
+        <div class="instructor-role">Bachata Lead</div>
+        <p class="instructor-bio">Bachata specialist with roots in Dominican and sensual styles. Maria's classes are known for deep musicality training and body movement drills that transform how you feel the music.</p>
+      </div>
+      <div class="instructor-card">
+        <div class="instructor-avatar">
+          <div class="instructor-avatar-inner">C</div>
+        </div>
+        <h4 class="instructor-name">SENSEI CARLOS</h4>
+        <div class="instructor-role">Performance Director</div>
+        <p class="instructor-bio">Choreographer and competition team coach. Carlos trains our performance squads and brings stage presence, showmanship, and team discipline to every routine. Multiple regional titles under his belt.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="section-divider"></div>
+
+<!-- ====== TESTIMONIALS ====== -->
+<section class="testimonials section-pad fade-in" id="testimonials">
+  <div class="container">
+    <div style="text-align:center; margin-bottom:48px;">
+      <div class="section-label" style="justify-content:center;">
+        <span></span>Student Stories<span></span>
+      </div>
+      <h2 class="section-title">WHAT THE NINJA FAM SAYS</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-quote-mark">&ldquo;</div>
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testimonial-text">I walked in with zero dance experience and two left feet. Six months later, I'm hitting socials every weekend and actually getting asked to dance. The instructors break everything down so clearly, and the Ninja Fam makes you feel like you belong from day one.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-author-avatar">&#9786;</div>
+          <div class="testimonial-author-info">
+            <h5>Jessica R.</h5>
+            <span>Member since 2023</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-quote-mark">&ldquo;</div>
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testimonial-text">Sensei Alex and the team don't just teach steps &mdash; they teach you how to actually dance. The musicality training changed everything for me. Plus, the Thursday socials are the best in South Florida. This place became my second home.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-author-avatar">&#9786;</div>
+          <div class="testimonial-author-info">
+            <h5>Marcus T.</h5>
+            <span>Member since 2022</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-quote-mark">&ldquo;</div>
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testimonial-text">I came for the Bachata classes and stayed for the community. The Ninja Fam is real &mdash; everyone supports each other, celebrates wins together, and pushes you to be better. Joining Salsa Ninja was one of the best decisions I've made.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-author-avatar">&#9786;</div>
+          <div class="testimonial-author-info">
+            <h5>Valentina M.</h5>
+            <span>Member since 2021</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="section-divider"></div>
+
+<!-- ====== PRICING ====== -->
+<section class="pricing section-pad fade-in" id="pricing">
+  <div class="container">
+    <div style="text-align:center; margin-bottom:24px;">
+      <div class="section-label" style="justify-content:center;">
+        <span></span>Membership<span></span>
+      </div>
+      <h2 class="section-title">INVEST IN YOUR DANCE JOURNEY</h2>
+    </div>
+
+    <div class="pricing-highlight">
+      <div class="pricing-highlight-label">&#9733; New Student Special &#9733;</div>
+      <h3>YOUR FIRST CLASS &mdash; JUST <span>$5</span></h3>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h4 class="pricing-card-name">DROP-IN</h4>
+        <div class="pricing-card-price"><span class="dollar">$</span>20</div>
+        <div class="pricing-card-period">per class</div>
+        <ul class="pricing-card-features">
+          <li>Any single group class</li>
+          <li>No commitment required</li>
+          <li>Perfect for visitors</li>
+          <li>Access to social after class</li>
+        </ul>
+        <a href="#" class="pricing-btn pricing-btn-outline">Get Started</a>
+      </div>
+      <div class="pricing-card featured">
+        <h4 class="pricing-card-name">MONTHLY UNLIMITED</h4>
+        <div class="pricing-card-price"><span class="dollar">$</span>99</div>
+        <div class="pricing-card-period">per month</div>
+        <ul class="pricing-card-features">
+          <li>Unlimited group classes</li>
+          <li>All styles and levels</li>
+          <li>Access to all socials</li>
+          <li>Priority event registration</li>
+          <li>10% off private lessons</li>
+        </ul>
+        <a href="#" class="pricing-btn pricing-btn-filled">Join Now</a>
+      </div>
+      <div class="pricing-card">
+        <h4 class="pricing-card-name">NINJA FAM</h4>
+        <div class="pricing-card-price"><span class="dollar">$</span>149</div>
+        <div class="pricing-card-period">per month</div>
+        <ul class="pricing-card-features">
+          <li>Everything in Unlimited</li>
+          <li>2 private lessons per month</li>
+          <li>Free entry to all events</li>
+          <li>Exclusive Ninja Fam merch</li>
+          <li>Dance team audition access</li>
+        </ul>
+        <a href="#" class="pricing-btn pricing-btn-outline">Join the Fam</a>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="section-divider"></div>
+
+<!-- ====== EVENTS ====== -->
+<section class="events section-pad fade-in" id="events">
+  <div class="container">
+    <div class="section-label">What's Coming</div>
+    <h2 class="section-title">UPCOMING EVENTS</h2>
+    <p style="color:var(--gray-400); max-width:500px; margin-bottom:48px; line-height:1.8;">From weekly socials to special workshops and showcases, there's always something happening at the dojo.</p>
+    <div class="events-grid">
+      <div class="event-card">
+        <div class="event-card-image">
+          <div class="event-date-badge">
+            <div class="day">FRI</div>
+            <div class="month">Weekly</div>
+          </div>
+        </div>
+        <div class="event-card-body">
+          <h4>FRIDAY NIGHT SOCIAL</h4>
+          <p>Our legendary weekly social. DJ-driven music, open floor, and the best Latin dance vibes in Broward County. All levels welcome.</p>
+          <div class="event-meta">
+            <span>&#128337; 9PM &ndash; 1AM</span>
+            <span>&#128205; Main Studio</span>
+          </div>
+        </div>
+      </div>
+      <div class="event-card">
+        <div class="event-card-image">
+          <div class="event-date-badge">
+            <div class="day">15</div>
+            <div class="month">MAR</div>
+          </div>
+        </div>
+        <div class="event-card-body">
+          <h4>BACHATA BOOTCAMP</h4>
+          <p>Intensive 3-hour workshop covering sensual Bachata fundamentals, body movement, and advanced lead/follow technique.</p>
+          <div class="event-meta">
+            <span>&#128337; 2PM &ndash; 5PM</span>
+            <span>&#128176; $45</span>
+          </div>
+        </div>
+      </div>
+      <div class="event-card">
+        <div class="event-card-image">
+          <div class="event-date-badge">
+            <div class="day">05</div>
+            <div class="month">APR</div>
+          </div>
+        </div>
+        <div class="event-card-body">
+          <h4>NINJA FAM SHOWCASE</h4>
+          <p>Our bi-annual performance night. Watch our dance teams perform, celebrate student progress, and dance the night away.</p>
+          <div class="event-meta">
+            <span>&#128337; 7PM &ndash; 11PM</span>
+            <span>&#127915; Live Performance</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="section-divider"></div>
+
+<!-- ====== COMMUNITY ====== -->
+<section class="community section-pad fade-in" id="community">
+  <div class="container">
+    <div class="community-header">
+      <div class="section-label" style="justify-content:center;">
+        <span></span>Our Community<span></span>
+      </div>
+      <h2 class="section-title">JOIN THE NINJA FAM</h2>
+      <p>More than a dance studio &mdash; we're a family. The Ninja Fam is a tight-knit community of dancers who train together, grow together, and celebrate together. From your very first class, you're one of us.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item"></div>
+      <div class="gallery-item"></div>
+      <div class="gallery-item"></div>
+      <div class="gallery-item"></div>
+      <div class="gallery-item"></div>
+      <div class="gallery-item"></div>
+      <div class="gallery-item"></div>
+    </div>
+  </div>
+</section>
+<div class="section-divider"></div>
+
+<!-- ====== LOCATION ====== -->
+<section class="location section-pad fade-in" id="location">
+  <div class="container">
+    <div class="location-grid">
+      <div class="map-placeholder">
+        <div class="map-placeholder-text">
+          <div class="pin">&#128205;</div>
+          <p>Interactive Map</p>
+          <p class="address">10070 W Oakland Park Blvd<br>Sunrise, FL 33351</p>
+        </div>
+      </div>
+      <div class="location-info">
+        <div class="section-label">Find Us</div>
+        <h3>VISIT THE DOJO</h3>
+        <div class="location-detail">
+          <div class="location-detail-icon">&#128205;</div>
+          <div class="location-detail-text">
+            <h5>Address</h5>
+            <p>10070 W Oakland Park Blvd<br>Sunrise, FL 33351</p>
+          </div>
+        </div>
+        <div class="location-detail">
+          <div class="location-detail-icon">&#128222;</div>
+          <div class="location-detail-text">
+            <h5>Phone</h5>
+            <p><a href="tel:9546625354">(954) 662-5354</a></p>
+          </div>
+        </div>
+        <div class="location-detail">
+          <div class="location-detail-icon">&#9993;</div>
+          <div class="location-detail-text">
+            <h5>Email</h5>
+            <p><a href="mailto:contact@salsaninja.com">contact@salsaninja.com</a></p>
+          </div>
+        </div>
+        <div class="location-detail">
+          <div class="location-detail-icon">&#128336;</div>
+          <div class="location-detail-text">
+            <h5>Hours</h5>
+            <p>Monday: 6:00 PM &ndash; 9:00 PM<br>
+               Tuesday: 7:00 PM &ndash; 9:00 PM<br>
+               Wednesday: 6:00 PM &ndash; 9:00 PM<br>
+               Thursday: 7:00 PM &ndash; 10:00 PM</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== FOOTER ====== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo">
+          <div class="nav-logo-icon">&#x2694;</div>
+          <div class="nav-logo-text">SALSA <span>NINJA</span></div>
+        </a>
+        <p>Quality dance instructions dedicated to social dancing and stage performances. Serving South Florida's Latin dance community since 2016.</p>
+        <div class="footer-social">
+          <a href="https://instagram.com/salsaninjadanceacademy" aria-label="Instagram" title="@salsaninjadanceacademy">&#128247;</a>
+          <a href="#" aria-label="Facebook">&#9780;</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>NAVIGATE</h5>
+        <ul>
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#offerings">Classes</a></li>
+          <li><a href="#schedule">Schedule</a></li>
+          <li><a href="#instructors">About</a></li>
+          <li><a href="#location">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>PROGRAMS</h5>
+        <ul>
+          <li><a href="#">Salsa On1</a></li>
+          <li><a href="#">Bachata</a></li>
+          <li><a href="#">Private Lessons</a></li>
+          <li><a href="#">Dance Teams</a></li>
+          <li><a href="#">Bootcamps</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>CONNECT</h5>
+        <ul>
+          <li><a href="tel:9546625354">(954) 662-5354</a></li>
+          <li><a href="mailto:contact@salsaninja.com">contact@salsaninja.com</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Facebook</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Salsa Ninja Dance Academy. All rights reserved.</p>
+      <p>Sunrise, FL &bull; Unleash Your Inner Dance Ninja</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Navbar scroll effect
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// Mobile menu toggle
+const mobileToggle = document.getElementById('mobileToggle');
+const navLinks = document.getElementById('navLinks');
+mobileToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('active');
+});
+
+// Close mobile menu on link click
+navLinks.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => navLinks.classList.remove('active'));
+});
+
+// Intersection Observer for fade-in animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

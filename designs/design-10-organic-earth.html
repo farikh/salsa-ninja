@@ -1,0 +1,2222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salsa Ninja Dance Academy — Organic Earth</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Nunito:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&family=Caveat:wght@400;500;600;700&display=swap');
+
+  :root {
+    --brown-deep: #3E2723;
+    --brown-warm: #5D4037;
+    --brown-medium: #8B4513;
+    --brown-light: #A0522D;
+    --terracotta: #C85A30;
+    --terracotta-light: #E07040;
+    --terracotta-soft: #E8956A;
+    --sage: #7C9070;
+    --sage-light: #8FAE80;
+    --sage-pale: #B8CDB0;
+    --sage-bg: #EDF3EA;
+    --clay: #D4A574;
+    --clay-light: #E4C8A8;
+    --cream: #FFF8F0;
+    --cream-dark: #FAF0E6;
+    --cream-warm: #FDF5EB;
+    --gold: #D4940A;
+    --gold-light: #F5C842;
+    --text-primary: #3E2723;
+    --text-secondary: #6D5D53;
+    --text-muted: #9C8B80;
+    --shadow-warm: rgba(139, 69, 19, 0.08);
+    --shadow-warm-md: rgba(139, 69, 19, 0.12);
+    --shadow-warm-lg: rgba(139, 69, 19, 0.15);
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Nunito', 'Segoe UI', sans-serif;
+    background: var(--cream);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    line-height: 1.7;
+  }
+
+  /* ===== SUBTLE PAPER TEXTURE ===== */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    opacity: 0.3;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  section, header, footer, .wave-divider { position: relative; z-index: 1; }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ===== TYPOGRAPHY ===== */
+  .heading-display {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 800;
+    font-optical-sizing: auto;
+    color: var(--text-primary);
+    line-height: 1.15;
+  }
+
+  .section-eyebrow {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 12px;
+    display: inline-block;
+  }
+
+  .section-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    color: var(--text-primary);
+  }
+
+  .section-subtitle {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+    max-width: 560px;
+    line-height: 1.7;
+  }
+
+  .body-serif {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 400;
+  }
+
+  .handwritten {
+    font-family: 'Caveat', cursive;
+  }
+
+  /* ===== ORGANIC CARD ===== */
+  .earth-card {
+    background: #fff;
+    border-radius: 22px;
+    box-shadow:
+      0 2px 8px var(--shadow-warm),
+      0 8px 32px var(--shadow-warm);
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    border: 1px solid rgba(139, 69, 19, 0.05);
+  }
+  .earth-card:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      0 4px 16px var(--shadow-warm-md),
+      0 16px 48px var(--shadow-warm-lg);
+  }
+
+  /* ===== BUTTONS ===== */
+  .btn-earth {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 32px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    border: none;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+    letter-spacing: 0.3px;
+  }
+  .btn-earth--terracotta {
+    background: var(--terracotta);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(200, 90, 48, 0.25);
+  }
+  .btn-earth--terracotta:hover {
+    background: var(--terracotta-light);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(200, 90, 48, 0.3);
+  }
+  .btn-earth--sage {
+    background: var(--sage);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(124, 144, 112, 0.25);
+  }
+  .btn-earth--sage:hover {
+    background: var(--sage-light);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(124, 144, 112, 0.3);
+  }
+  .btn-earth--outline {
+    background: transparent;
+    color: var(--terracotta);
+    border: 2px solid var(--terracotta);
+  }
+  .btn-earth--outline:hover {
+    background: var(--terracotta);
+    color: #fff;
+    transform: translateY(-2px);
+  }
+  .btn-earth--cream {
+    background: var(--cream);
+    color: var(--terracotta);
+    font-weight: 800;
+  }
+  .btn-earth--cream:hover {
+    background: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(139, 69, 19, 0.15);
+  }
+
+  /* ===== WAVE DIVIDERS ===== */
+  .wave-divider {
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    margin-top: -1px;
+  }
+  .wave-divider svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* ===== SCROLL REVEAL ===== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1), transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ===== DECORATIVE LEAF ===== */
+  .deco-leaf {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.06;
+    z-index: 0;
+  }
+
+  /* =============================================== */
+  /*  NAVIGATION                                     */
+  /* =============================================== */
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    transition: all 0.4s ease;
+    padding: 0 24px;
+  }
+  .nav--scrolled {
+    background: rgba(255, 248, 240, 0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 2px 20px rgba(139, 69, 19, 0.06);
+  }
+  .nav__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+  }
+  .nav__logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .nav__logo-mark {
+    width: 42px;
+    height: 42px;
+    background: linear-gradient(135deg, var(--terracotta), var(--terracotta-light));
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    box-shadow: 0 3px 12px rgba(200, 90, 48, 0.2);
+  }
+  .nav__logo-name {
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    font-size: 1.15rem;
+    color: var(--brown-deep);
+    letter-spacing: -0.3px;
+  }
+  .nav__logo-name span {
+    color: var(--terracotta);
+  }
+  .nav__links {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    list-style: none;
+  }
+  .nav__links a {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.25s ease;
+    position: relative;
+  }
+  .nav__links a:not(.btn-earth)::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--terracotta);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+  }
+  .nav__links a:not(.btn-earth):hover {
+    color: var(--terracotta);
+  }
+  .nav__links a:not(.btn-earth):hover::after {
+    width: 100%;
+  }
+  .nav__cta {
+    padding: 10px 24px !important;
+    font-size: 0.8rem !important;
+  }
+  .nav__mobile-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--brown-deep);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 8px;
+  }
+  .nav__mobile-menu {
+    display: none;
+    position: fixed;
+    top: 70px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 248, 240, 0.98);
+    backdrop-filter: blur(16px);
+    padding: 32px 24px;
+    z-index: 999;
+  }
+  .nav__mobile-menu.open {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .nav__mobile-menu a {
+    font-family: 'Fraunces', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(139, 69, 19, 0.06);
+    transition: color 0.2s;
+  }
+  .nav__mobile-menu a:hover { color: var(--terracotta); }
+
+  @media (max-width: 900px) {
+    .nav__links { display: none; }
+    .nav__mobile-toggle { display: block; }
+  }
+
+  /* =============================================== */
+  /*  HERO                                           */
+  /* =============================================== */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding-top: 70px;
+    background: linear-gradient(170deg, var(--cream) 0%, var(--cream-dark) 40%, var(--sage-bg) 100%);
+  }
+  /* Organic blob decorations */
+  .hero__blob-1 {
+    position: absolute;
+    top: -10%;
+    right: -8%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(ellipse, rgba(200, 90, 48, 0.07) 0%, transparent 70%);
+    border-radius: 43% 57% 70% 30% / 45% 55% 45% 55%;
+    animation: blobMorph 20s ease-in-out infinite;
+  }
+  .hero__blob-2 {
+    position: absolute;
+    bottom: 5%;
+    left: -5%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(124, 144, 112, 0.08) 0%, transparent 70%);
+    border-radius: 57% 43% 30% 70% / 55% 45% 55% 45%;
+    animation: blobMorph 25s ease-in-out infinite reverse;
+  }
+  @keyframes blobMorph {
+    0%, 100% { border-radius: 43% 57% 70% 30% / 45% 55% 45% 55%; }
+    25% { border-radius: 57% 43% 45% 55% / 70% 30% 55% 45%; }
+    50% { border-radius: 30% 70% 55% 45% / 43% 57% 30% 70%; }
+    75% { border-radius: 70% 30% 43% 57% / 55% 45% 70% 30%; }
+  }
+
+  .hero__content {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    padding: 60px 0;
+  }
+  .hero__text {}
+  .hero__welcome {
+    font-family: 'Caveat', cursive;
+    font-size: 1.4rem;
+    color: var(--terracotta);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .hero__title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    color: var(--brown-deep);
+  }
+  .hero__title em {
+    font-style: italic;
+    color: var(--terracotta);
+  }
+  .hero__desc {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    margin-bottom: 36px;
+    max-width: 480px;
+    line-height: 1.7;
+  }
+  .hero__ctas {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .hero__visual {
+    position: relative;
+  }
+  .hero__image-frame {
+    width: 100%;
+    aspect-ratio: 4/5;
+    border-radius: 40% 60% 55% 45% / 55% 40% 60% 45%;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(139, 69, 19, 0.12);
+    animation: blobMorph 15s ease-in-out infinite;
+  }
+  .hero__image-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--terracotta-soft), var(--clay), var(--sage-pale));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero__image-emoji {
+    font-size: 6rem;
+    opacity: 0.3;
+    filter: grayscale(0.3);
+  }
+  /* Floating accent badge */
+  .hero__accent-badge {
+    position: absolute;
+    bottom: 10%;
+    left: -20px;
+    padding: 14px 22px;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 8px 30px rgba(139, 69, 19, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: gentleFloat 5s ease-in-out infinite;
+  }
+  @keyframes gentleFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  .hero__accent-badge-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: var(--sage-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+  }
+  .hero__accent-badge-text {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--brown-deep);
+  }
+  .hero__accent-badge-sub {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  @media (max-width: 800px) {
+    .hero__content { grid-template-columns: 1fr; text-align: center; }
+    .hero__desc { margin-left: auto; margin-right: auto; }
+    .hero__ctas { justify-content: center; }
+    .hero__visual { max-width: 360px; margin: 0 auto; }
+    .hero__accent-badge { left: auto; right: -10px; }
+  }
+
+  /* =============================================== */
+  /*  STATS                                          */
+  /* =============================================== */
+  .stats {
+    padding: 50px 0;
+    background: var(--cream-warm);
+    position: relative;
+  }
+  .stats__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    text-align: center;
+  }
+  .stats__item {
+    padding: 20px 12px;
+  }
+  .stats__number {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 6px;
+    color: var(--terracotta);
+  }
+  .stats__label {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .stats__divider {
+    display: none;
+  }
+
+  @media (max-width: 700px) {
+    .stats__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* =============================================== */
+  /*  OFFER / DANCE STYLES                           */
+  /* =============================================== */
+  .offer {
+    padding: 100px 0;
+    background: var(--cream);
+    position: relative;
+  }
+  .offer__header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+  .offer__header .section-subtitle {
+    margin: 0 auto;
+  }
+  .offer__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+    margin-bottom: 48px;
+  }
+  .offer__card {
+    padding: 40px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .offer__card-accent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    border-radius: 22px 22px 0 0;
+  }
+  .offer__card-accent--salsa {
+    background: linear-gradient(90deg, var(--terracotta), var(--terracotta-light));
+  }
+  .offer__card-accent--bachata {
+    background: linear-gradient(90deg, var(--sage), var(--sage-light));
+  }
+  .offer__card-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+  .offer__card-icon--salsa {
+    background: rgba(200, 90, 48, 0.08);
+  }
+  .offer__card-icon--bachata {
+    background: rgba(124, 144, 112, 0.1);
+  }
+  .offer__card-name {
+    font-family: 'Fraunces', serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--brown-deep);
+  }
+  .offer__card-desc {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+  .offer__card-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .offer__tag {
+    padding: 5px 14px;
+    border-radius: 100px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+  .offer__tag--terracotta {
+    background: rgba(200, 90, 48, 0.08);
+    color: var(--terracotta);
+  }
+  .offer__tag--sage {
+    background: rgba(124, 144, 112, 0.1);
+    color: var(--sage);
+  }
+
+  .offer__services {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  .offer__service {
+    text-align: center;
+    padding: 28px 16px;
+  }
+  .offer__service-icon {
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .offer__service-name {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  @media (max-width: 800px) {
+    .offer__grid { grid-template-columns: 1fr; }
+    .offer__services { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* =============================================== */
+  /*  SCHEDULE                                       */
+  /* =============================================== */
+  .schedule {
+    padding: 100px 0;
+    background: var(--sage-bg);
+    position: relative;
+  }
+  .schedule__header {
+    margin-bottom: 48px;
+  }
+  .schedule__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  .schedule__day {
+    padding: 28px 20px;
+    text-align: center;
+    background: #fff;
+  }
+  .schedule__day-name {
+    font-family: 'Fraunces', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--brown-deep);
+    margin-bottom: 4px;
+  }
+  .schedule__day-time {
+    font-family: 'Caveat', cursive;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--terracotta);
+    margin-bottom: 18px;
+  }
+  .schedule__classes {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .schedule__class {
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+  .schedule__class--salsa {
+    background: rgba(200, 90, 48, 0.08);
+    color: var(--terracotta);
+  }
+  .schedule__class--bachata {
+    background: rgba(124, 144, 112, 0.1);
+    color: var(--sage);
+  }
+  .schedule__class--social {
+    background: rgba(212, 148, 10, 0.08);
+    color: var(--gold);
+  }
+  .schedule__class--team {
+    background: rgba(139, 69, 19, 0.06);
+    color: var(--brown-medium);
+  }
+  .schedule__footer {
+    text-align: center;
+    margin-top: 40px;
+  }
+
+  @media (max-width: 700px) {
+    .schedule__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* =============================================== */
+  /*  INSTRUCTORS                                    */
+  /* =============================================== */
+  .instructors {
+    padding: 100px 0;
+    background: var(--cream);
+    position: relative;
+  }
+  .instructors__header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+  .instructors__header .section-subtitle {
+    margin: 0 auto;
+  }
+  .instructors__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  .instructor {
+    text-align: center;
+    padding: 0;
+    overflow: hidden;
+  }
+  .instructor__photo {
+    width: 100%;
+    aspect-ratio: 3/4;
+    position: relative;
+    overflow: hidden;
+    border-radius: 22px 22px 0 0;
+  }
+  .instructor__photo-bg {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    opacity: 0.25;
+  }
+  .instructor__photo-bg--chris {
+    background: linear-gradient(150deg, var(--terracotta-soft), var(--clay));
+  }
+  .instructor__photo-bg--maria {
+    background: linear-gradient(150deg, var(--sage-pale), var(--clay-light));
+  }
+  .instructor__photo-bg--rico {
+    background: linear-gradient(150deg, var(--clay), var(--terracotta-soft));
+  }
+  .instructor__photo-bg--alex {
+    background: linear-gradient(150deg, var(--sage-pale), var(--terracotta-soft));
+  }
+  .instructor__lead {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 5px 12px;
+    background: var(--terracotta);
+    color: #fff;
+    border-radius: 100px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .instructor__info {
+    padding: 22px 16px 28px;
+  }
+  .instructor__name {
+    font-family: 'Fraunces', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--brown-deep);
+    margin-bottom: 2px;
+  }
+  .instructor__role {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+  .instructor__tags {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .instructor__tag {
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    background: var(--sage-bg);
+    color: var(--sage);
+  }
+
+  @media (max-width: 900px) {
+    .instructors__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 500px) {
+    .instructors__grid { grid-template-columns: 1fr; max-width: 340px; margin: 0 auto; }
+  }
+
+  /* =============================================== */
+  /*  TESTIMONIALS                                   */
+  /* =============================================== */
+  .testimonials {
+    padding: 100px 0;
+    background: var(--cream-warm);
+    position: relative;
+  }
+  .testimonials__header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+  .testimonials__header .section-subtitle {
+    margin: 0 auto;
+  }
+  .testimonials__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  .testimonial {
+    padding: 32px;
+    background: #fff;
+    position: relative;
+  }
+  .testimonial__quote-mark {
+    font-family: 'Fraunces', serif;
+    font-size: 4rem;
+    line-height: 1;
+    color: var(--terracotta-soft);
+    opacity: 0.3;
+    position: absolute;
+    top: 16px;
+    left: 24px;
+  }
+  .testimonial__stars {
+    display: flex;
+    gap: 3px;
+    margin-bottom: 14px;
+    color: var(--gold-light);
+    font-size: 0.85rem;
+  }
+  .testimonial__text {
+    font-family: 'Fraunces', serif;
+    font-size: 0.95rem;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+  }
+  .testimonial__author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .testimonial__avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Fraunces', serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #fff;
+  }
+  .testimonial__avatar--1 { background: linear-gradient(135deg, var(--terracotta), var(--terracotta-light)); }
+  .testimonial__avatar--2 { background: linear-gradient(135deg, var(--sage), var(--sage-light)); }
+  .testimonial__avatar--3 { background: linear-gradient(135deg, var(--clay), var(--terracotta-soft)); }
+  .testimonial__avatar--4 { background: linear-gradient(135deg, var(--brown-warm), var(--clay)); }
+  .testimonial__name {
+    font-family: 'Fraunces', serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--brown-deep);
+  }
+  .testimonial__detail {
+    font-family: 'Caveat', cursive;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+  }
+
+  @media (max-width: 700px) {
+    .testimonials__grid { grid-template-columns: 1fr; }
+  }
+
+  /* =============================================== */
+  /*  PRICING                                        */
+  /* =============================================== */
+  .pricing {
+    padding: 100px 0;
+    background: var(--cream);
+    position: relative;
+  }
+  .pricing__header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+  .pricing__header .section-subtitle {
+    margin: 0 auto;
+  }
+  .pricing__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+  .pricing-card {
+    padding: 36px 28px;
+    text-align: center;
+    background: #fff;
+    position: relative;
+  }
+  .pricing-card--featured {
+    border: 2px solid var(--sage);
+    box-shadow: 0 8px 40px rgba(124, 144, 112, 0.12);
+  }
+  .pricing-card--featured::after {
+    content: 'Most Popular';
+    position: absolute;
+    top: -13px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 5px 18px;
+    background: var(--sage);
+    color: #fff;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 800;
+    border-radius: 100px;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+  .pricing-card__name {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+  .pricing-card__price {
+    font-family: 'Fraunces', serif;
+    font-size: 3rem;
+    font-weight: 900;
+    line-height: 1;
+    color: var(--brown-deep);
+    margin-bottom: 4px;
+  }
+  .pricing-card__price sup {
+    font-size: 1.2rem;
+    vertical-align: super;
+    color: var(--terracotta);
+  }
+  .pricing-card__period {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+  }
+  .pricing-card__features {
+    list-style: none;
+    text-align: left;
+    margin-bottom: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .pricing-card__features li {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    padding-left: 26px;
+    position: relative;
+  }
+  .pricing-card__features li::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 8px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+  .pricing-card__features li.f-terra::before { background: rgba(200, 90, 48, 0.2); }
+  .pricing-card__features li.f-sage::before { background: rgba(124, 144, 112, 0.25); }
+  .pricing-card__features li.f-clay::before { background: rgba(212, 165, 116, 0.3); }
+
+  .pricing__note {
+    text-align: center;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+  }
+  .pricing__note a {
+    color: var(--terracotta);
+    text-decoration: none;
+    font-weight: 700;
+    border-bottom: 2px solid rgba(200, 90, 48, 0.2);
+    transition: border-color 0.2s;
+  }
+  .pricing__note a:hover { border-color: var(--terracotta); }
+
+  @media (max-width: 800px) {
+    .pricing__grid { grid-template-columns: 1fr; max-width: 380px; margin-left: auto; margin-right: auto; margin-bottom: 32px; }
+  }
+
+  /* =============================================== */
+  /*  EVENTS                                         */
+  /* =============================================== */
+  .events {
+    padding: 100px 0;
+    background: var(--cream-warm);
+    position: relative;
+  }
+  .events__header {
+    margin-bottom: 48px;
+  }
+  .events__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .event {
+    overflow: hidden;
+    background: #fff;
+  }
+  .event__image {
+    height: 190px;
+    position: relative;
+    overflow: hidden;
+  }
+  .event__image-bg {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    opacity: 0.25;
+  }
+  .event__image-bg--social { background: linear-gradient(135deg, var(--terracotta-soft), var(--clay)); }
+  .event__image-bg--bootcamp { background: linear-gradient(135deg, var(--sage-pale), var(--sage)); }
+  .event__image-bg--showcase { background: linear-gradient(135deg, var(--clay), var(--terracotta)); }
+  .event__date {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    padding: 8px 14px;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(8px);
+    border-radius: 14px;
+    text-align: center;
+    box-shadow: 0 2px 12px rgba(139, 69, 19, 0.08);
+  }
+  .event__date-month {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--terracotta);
+  }
+  .event__date-day {
+    font-family: 'Fraunces', serif;
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: var(--brown-deep);
+    line-height: 1;
+  }
+  .event__body {
+    padding: 24px;
+  }
+  .event__title {
+    font-family: 'Fraunces', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--brown-deep);
+    margin-bottom: 8px;
+  }
+  .event__desc {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 18px;
+  }
+  .event__meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .event__time {
+    font-family: 'Caveat', cursive;
+    font-size: 1rem;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+
+  @media (max-width: 800px) {
+    .events__grid { grid-template-columns: 1fr; }
+  }
+
+  /* =============================================== */
+  /*  COMMUNITY                                      */
+  /* =============================================== */
+  .community {
+    padding: 100px 0;
+    background: var(--cream);
+    position: relative;
+  }
+  .community__header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .community__header .section-subtitle { margin: 0 auto; }
+
+  .community__gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 200px);
+    gap: 14px;
+    margin-bottom: 40px;
+  }
+  .community__photo {
+    border-radius: 18px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .community__photo:hover {
+    transform: scale(1.03);
+    z-index: 2;
+  }
+  .community__photo--wide { grid-column: span 2; }
+  .community__photo-bg {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    opacity: 0.2;
+    transition: opacity 0.3s;
+  }
+  .community__photo:hover .community__photo-bg { opacity: 0.35; }
+  .community__photo-bg--1 { background: linear-gradient(135deg, var(--terracotta-soft), var(--clay)); }
+  .community__photo-bg--2 { background: linear-gradient(135deg, var(--sage-pale), var(--sage)); }
+  .community__photo-bg--3 { background: linear-gradient(135deg, var(--clay), var(--terracotta)); }
+  .community__photo-bg--4 { background: linear-gradient(135deg, var(--sage), var(--clay-light)); }
+  .community__photo-bg--5 { background: linear-gradient(135deg, var(--terracotta), var(--brown-warm)); }
+  .community__photo-bg--6 { background: linear-gradient(135deg, var(--clay-light), var(--sage-pale)); }
+  .community__photo-label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 14px 18px;
+    background: linear-gradient(transparent, rgba(62, 39, 35, 0.75));
+    color: #fff;
+    font-family: 'Caveat', cursive;
+    font-size: 1.05rem;
+    font-weight: 600;
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .community__photo:hover .community__photo-label {
+    transform: translateY(0);
+  }
+  .community__cta {
+    text-align: center;
+  }
+  .community__cta-text {
+    font-family: 'Caveat', cursive;
+    font-size: 1.3rem;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+
+  @media (max-width: 700px) {
+    .community__gallery {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(4, 160px);
+    }
+    .community__photo--wide { grid-column: span 1; }
+  }
+
+  /* =============================================== */
+  /*  LOCATION                                       */
+  /* =============================================== */
+  .location {
+    padding: 100px 0;
+    background: var(--cream-warm);
+    position: relative;
+  }
+  .location__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .location__address {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+  .location__address strong {
+    color: var(--brown-deep);
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .location__contacts {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 32px;
+  }
+  .location__contact {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+  }
+  .location__contact-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    background: var(--sage-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+    flex-shrink: 0;
+  }
+  .location__contact a {
+    color: var(--terracotta);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+  }
+  .location__contact a:hover { color: var(--brown-deep); }
+
+  .location__hours-label {
+    font-family: 'Caveat', cursive;
+    font-size: 1.2rem;
+    color: var(--sage);
+    margin-bottom: 14px;
+    font-weight: 700;
+  }
+  .location__hours-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .location__hours-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(139, 69, 19, 0.06);
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.92rem;
+  }
+  .location__hours-day { font-weight: 700; color: var(--brown-deep); }
+  .location__hours-time { color: var(--text-secondary); }
+
+  .location__map {
+    border-radius: 22px;
+    overflow: hidden;
+    height: 400px;
+    background: #fff;
+    box-shadow: 0 4px 24px var(--shadow-warm);
+    border: 1px solid rgba(139, 69, 19, 0.05);
+  }
+  .location__map-inner {
+    width: 100%;
+    height: 100%;
+    background:
+      radial-gradient(circle at 50% 50%, rgba(124, 144, 112, 0.06) 0%, transparent 50%),
+      linear-gradient(135deg, var(--cream-warm), var(--sage-bg));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  .location__map-pin {
+    font-size: 2.5rem;
+    animation: gentleFloat 4s ease-in-out infinite;
+  }
+  .location__map-text {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+  .location__map-addr {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-align: center;
+    max-width: 240px;
+  }
+
+  @media (max-width: 800px) {
+    .location__grid { grid-template-columns: 1fr; }
+  }
+
+  /* =============================================== */
+  /*  FOOTER                                         */
+  /* =============================================== */
+  .footer {
+    padding: 60px 0 28px;
+    background: var(--brown-deep);
+    color: rgba(255, 248, 240, 0.7);
+    position: relative;
+  }
+  .footer__top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 48px;
+  }
+  .footer__brand-name {
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    font-size: 1.2rem;
+    color: var(--cream);
+    margin-bottom: 12px;
+  }
+  .footer__brand-name span { color: var(--terracotta-light); }
+  .footer__brand-desc {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.88rem;
+    line-height: 1.7;
+    max-width: 300px;
+    color: rgba(255, 248, 240, 0.5);
+  }
+  .footer__social {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  .footer__social-link {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: rgba(255, 248, 240, 0.06);
+    border: 1px solid rgba(255, 248, 240, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  .footer__social-link:hover {
+    background: rgba(200, 90, 48, 0.2);
+    border-color: rgba(200, 90, 48, 0.3);
+  }
+  .footer__col-title {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255, 248, 240, 0.35);
+    margin-bottom: 18px;
+  }
+  .footer__col-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .footer__col-links a {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.88rem;
+    color: rgba(255, 248, 240, 0.55);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer__col-links a:hover { color: var(--terracotta-light); }
+
+  .footer__divider {
+    height: 1px;
+    background: rgba(255, 248, 240, 0.06);
+    margin-bottom: 24px;
+  }
+  .footer__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .footer__copy {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.78rem;
+    color: rgba(255, 248, 240, 0.3);
+  }
+  .footer__legal {
+    display: flex;
+    gap: 20px;
+  }
+  .footer__legal a {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.78rem;
+    color: rgba(255, 248, 240, 0.3);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer__legal a:hover { color: rgba(255, 248, 240, 0.55); }
+
+  @media (max-width: 800px) {
+    .footer__top { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 500px) {
+    .footer__top { grid-template-columns: 1fr; }
+  }
+
+  /* ===== CTA BANNER ===== */
+  .cta-banner {
+    padding: 80px 0;
+    background: linear-gradient(135deg, var(--terracotta) 0%, var(--terracotta-light) 50%, var(--clay) 100%);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.15'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+  .cta-banner__title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .cta-banner__subtitle {
+    font-family: 'Caveat', cursive;
+    font-size: 1.3rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 28px;
+    position: relative;
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== NAVIGATION ===== -->
+<header class="nav" id="nav">
+  <div class="nav__inner">
+    <a href="#" class="nav__logo">
+      <div class="nav__logo-mark">&#x1F977;</div>
+      <div class="nav__logo-name">Salsa <span>Ninja</span></div>
+    </a>
+    <ul class="nav__links">
+      <li><a href="#styles">Styles</a></li>
+      <li><a href="#schedule">Schedule</a></li>
+      <li><a href="#instructors">Team</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#events">Events</a></li>
+      <li><a href="#location">Visit</a></li>
+      <li><a href="#pricing" class="btn-earth btn-earth--terracotta nav__cta">Join Us</a></li>
+    </ul>
+    <button class="nav__mobile-toggle" id="mobileToggle" aria-label="Menu">&#9776;</button>
+  </div>
+  <div class="nav__mobile-menu" id="mobileMenu">
+    <a href="#styles" onclick="closeMobile()">Dance Styles</a>
+    <a href="#schedule" onclick="closeMobile()">Schedule</a>
+    <a href="#instructors" onclick="closeMobile()">Instructors</a>
+    <a href="#pricing" onclick="closeMobile()">Pricing</a>
+    <a href="#events" onclick="closeMobile()">Events</a>
+    <a href="#community" onclick="closeMobile()">Community</a>
+    <a href="#location" onclick="closeMobile()">Location</a>
+    <a href="#pricing" class="btn-earth btn-earth--terracotta" style="text-align:center; margin-top:12px; display:block;" onclick="closeMobile()">Try Your First Class &mdash; $5</a>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="hero">
+  <div class="hero__blob-1"></div>
+  <div class="hero__blob-2"></div>
+  <div class="container">
+    <div class="hero__content">
+      <div class="hero__text">
+        <p class="hero__welcome">Welcome to the Ninja Fam &#128150;</p>
+        <h1 class="hero__title">Find Your Rhythm,<br>Find Your <em>People</em></h1>
+        <p class="hero__desc">Quality dance instructions dedicated to social dancing and stage performances. Whether you're taking your first step or training for the stage, you belong here.</p>
+        <div class="hero__ctas">
+          <a href="#pricing" class="btn-earth btn-earth--terracotta">Try Your First Class &mdash; $5</a>
+          <a href="#schedule" class="btn-earth btn-earth--outline">View Schedule</a>
+        </div>
+      </div>
+      <div class="hero__visual">
+        <div class="hero__image-frame">
+          <div class="hero__image-placeholder">
+            <div class="hero__image-emoji">&#128131;</div>
+          </div>
+        </div>
+        <div class="hero__accent-badge">
+          <div class="hero__accent-badge-icon">&#127775;</div>
+          <div>
+            <div class="hero__accent-badge-text">4.9 Star Rating</div>
+            <div class="hero__accent-badge-sub">from 200+ reviews</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WAVE DIVIDER ===== -->
+<div class="wave-divider" style="background: var(--cream-warm);">
+  <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block; width:100%; height:60px;">
+    <path d="M0 40C240 10 480 70 720 40C960 10 1200 70 1440 40V80H0V40Z" fill="var(--cream-warm)"/>
+    <path d="M0 50C240 20 480 80 720 50C960 20 1200 80 1440 50V80H0V50Z" fill="var(--cream-warm)" opacity="0.5"/>
+  </svg>
+</div>
+
+<!-- ===== STATS ===== -->
+<section class="stats">
+  <div class="container">
+    <div class="stats__grid">
+      <div class="stats__item reveal">
+        <div class="stats__number">8+</div>
+        <div class="stats__label">Years Teaching</div>
+      </div>
+      <div class="stats__item reveal">
+        <div class="stats__number">1,000+</div>
+        <div class="stats__label">Students Trained</div>
+      </div>
+      <div class="stats__item reveal">
+        <div class="stats__number">50+</div>
+        <div class="stats__label">Events Per Year</div>
+      </div>
+      <div class="stats__item reveal">
+        <div class="stats__number">4.9 &#9733;</div>
+        <div class="stats__label">Star Rating</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WAVE DIVIDER ===== -->
+<div class="wave-divider" style="background: var(--cream);">
+  <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block; width:100%; height:60px;">
+    <path d="M0 60C360 20 720 80 1080 40C1260 20 1380 50 1440 40V80H0Z" fill="var(--cream)"/>
+  </svg>
+</div>
+
+<!-- ===== WHAT WE OFFER ===== -->
+<section class="offer" id="styles">
+  <div class="container">
+    <div class="offer__header reveal">
+      <div class="section-eyebrow">What We Teach</div>
+      <h2 class="section-title">Two Styles, <em style="font-family:'Fraunces',serif; color:var(--terracotta);">Endless</em> Expression</h2>
+      <p class="section-subtitle">From the explosive energy of Salsa On1 to the sensual flow of Bachata, discover the style that moves you.</p>
+    </div>
+    <div class="offer__grid">
+      <div class="offer__card earth-card reveal">
+        <div class="offer__card-accent offer__card-accent--salsa"></div>
+        <div class="offer__card-icon offer__card-icon--salsa">&#128131;</div>
+        <h3 class="offer__card-name">Salsa On1 (LA Style)</h3>
+        <p class="offer__card-desc">LA-style Salsa On1 is all about explosive energy, sharp turns, and dynamic partner work. Our structured curriculum takes you from basic steps to advanced shines and complex combinations. Perfect for social dancing and stage performance.</p>
+        <div class="offer__card-tags">
+          <span class="offer__tag offer__tag--terracotta">Beginner</span>
+          <span class="offer__tag offer__tag--terracotta">Intermediate</span>
+          <span class="offer__tag offer__tag--terracotta">Advanced</span>
+        </div>
+      </div>
+      <div class="offer__card earth-card reveal">
+        <div class="offer__card-accent offer__card-accent--bachata"></div>
+        <div class="offer__card-icon offer__card-icon--bachata">&#127926;</div>
+        <h3 class="offer__card-name">Bachata</h3>
+        <p class="offer__card-desc">Bachata blends Dominican roots with modern sensual styling. Learn body movement, isolations, musicality, and partner connection. Our classes cover traditional, modern, and sensual Bachata for a complete experience.</p>
+        <div class="offer__card-tags">
+          <span class="offer__tag offer__tag--sage">Beginner</span>
+          <span class="offer__tag offer__tag--sage">Intermediate</span>
+          <span class="offer__tag offer__tag--sage">Advanced</span>
+        </div>
+      </div>
+    </div>
+    <div class="offer__services reveal">
+      <div class="offer__service earth-card">
+        <span class="offer__service-icon">&#127891;</span>
+        <div class="offer__service-name">Group Classes</div>
+      </div>
+      <div class="offer__service earth-card">
+        <span class="offer__service-icon">&#129351;</span>
+        <div class="offer__service-name">Private Lessons</div>
+      </div>
+      <div class="offer__service earth-card">
+        <span class="offer__service-icon">&#9889;</span>
+        <div class="offer__service-name">Bootcamps</div>
+      </div>
+      <div class="offer__service earth-card">
+        <span class="offer__service-icon">&#127911;</span>
+        <div class="offer__service-name">Dance Teams</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WAVE DIVIDER ===== -->
+<div class="wave-divider" style="background: var(--sage-bg);">
+  <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block; width:100%; height:70px;">
+    <path d="M0 30C180 60 360 10 540 40C720 70 900 20 1080 50C1260 80 1380 30 1440 45V80H0Z" fill="var(--sage-bg)"/>
+  </svg>
+</div>
+
+<!-- ===== SCHEDULE ===== -->
+<section class="schedule" id="schedule">
+  <div class="container">
+    <div class="schedule__header reveal">
+      <div class="section-eyebrow">Weekly Schedule</div>
+      <h2 class="section-title">Four Nights of <em style="font-family:'Fraunces',serif; color:var(--sage);">Latin Dance</em></h2>
+      <p class="section-subtitle">Find the right class for your level and style. Everyone is welcome, no partner needed.</p>
+    </div>
+    <div class="schedule__grid">
+      <div class="schedule__day earth-card reveal">
+        <div class="schedule__day-name">Monday</div>
+        <div class="schedule__day-time">6 &ndash; 9 PM</div>
+        <div class="schedule__classes">
+          <div class="schedule__class schedule__class--salsa">Salsa Beginner</div>
+          <div class="schedule__class schedule__class--salsa">Salsa Intermediate</div>
+          <div class="schedule__class schedule__class--social">Open Practice</div>
+        </div>
+      </div>
+      <div class="schedule__day earth-card reveal">
+        <div class="schedule__day-name">Tuesday</div>
+        <div class="schedule__day-time">7 &ndash; 9 PM</div>
+        <div class="schedule__classes">
+          <div class="schedule__class schedule__class--bachata">Bachata Beginner</div>
+          <div class="schedule__class schedule__class--bachata">Bachata Intermediate</div>
+        </div>
+      </div>
+      <div class="schedule__day earth-card reveal">
+        <div class="schedule__day-name">Wednesday</div>
+        <div class="schedule__day-time">6 &ndash; 9 PM</div>
+        <div class="schedule__classes">
+          <div class="schedule__class schedule__class--salsa">Salsa All Levels</div>
+          <div class="schedule__class schedule__class--bachata">Bachata Styling</div>
+          <div class="schedule__class schedule__class--team">Team Practice</div>
+        </div>
+      </div>
+      <div class="schedule__day earth-card reveal">
+        <div class="schedule__day-name">Thursday</div>
+        <div class="schedule__day-time">7 &ndash; 10 PM</div>
+        <div class="schedule__classes">
+          <div class="schedule__class schedule__class--salsa">Salsa Advanced</div>
+          <div class="schedule__class schedule__class--bachata">Bachata Advanced</div>
+          <div class="schedule__class schedule__class--social">Social Dancing</div>
+        </div>
+      </div>
+    </div>
+    <div class="schedule__footer reveal">
+      <a href="#pricing" class="btn-earth btn-earth--sage">Start Dancing &mdash; First Class $5</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WAVE DIVIDER ===== -->
+<div class="wave-divider" style="background: var(--cream);">
+  <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block; width:100%; height:60px;">
+    <path d="M0 50C240 20 480 70 720 35C960 0 1200 60 1440 30V80H0Z" fill="var(--cream)"/>
+  </svg>
+</div>
+
+<!-- ===== INSTRUCTORS ===== -->
+<section class="instructors" id="instructors">
+  <div class="container">
+    <div class="instructors__header reveal">
+      <div class="section-eyebrow">Meet The Team</div>
+      <h2 class="section-title">Passionate Teachers, <em style="font-family:'Fraunces',serif; color:var(--terracotta);">Real Dancers</em></h2>
+      <p class="section-subtitle">Our instructors have been shaping South Florida's dance community for years. They're here to help you grow at your own pace.</p>
+    </div>
+    <div class="instructors__grid">
+      <div class="instructor earth-card reveal">
+        <div class="instructor__photo">
+          <div class="instructor__photo-bg instructor__photo-bg--chris">&#x1F977;</div>
+          <div class="instructor__lead">Lead Instructor</div>
+        </div>
+        <div class="instructor__info">
+          <div class="instructor__name">Ninja Chris</div>
+          <div class="instructor__role">Founder & Head Instructor</div>
+          <div class="instructor__tags">
+            <span class="instructor__tag">Salsa On1</span>
+            <span class="instructor__tag">Bachata</span>
+            <span class="instructor__tag">Choreography</span>
+          </div>
+        </div>
+      </div>
+      <div class="instructor earth-card reveal">
+        <div class="instructor__photo">
+          <div class="instructor__photo-bg instructor__photo-bg--maria">&#128131;</div>
+        </div>
+        <div class="instructor__info">
+          <div class="instructor__name">Maria V.</div>
+          <div class="instructor__role">Bachata Specialist</div>
+          <div class="instructor__tags">
+            <span class="instructor__tag">Bachata Sensual</span>
+            <span class="instructor__tag">Ladies Styling</span>
+          </div>
+        </div>
+      </div>
+      <div class="instructor earth-card reveal">
+        <div class="instructor__photo">
+          <div class="instructor__photo-bg instructor__photo-bg--rico">&#127911;</div>
+        </div>
+        <div class="instructor__info">
+          <div class="instructor__name">DJ Rico</div>
+          <div class="instructor__role">Instructor & Resident DJ</div>
+          <div class="instructor__tags">
+            <span class="instructor__tag">Musicality</span>
+            <span class="instructor__tag">Salsa On1</span>
+          </div>
+        </div>
+      </div>
+      <div class="instructor earth-card reveal">
+        <div class="instructor__photo">
+          <div class="instructor__photo-bg instructor__photo-bg--alex">&#9889;</div>
+        </div>
+        <div class="instructor__info">
+          <div class="instructor__name">Alex T.</div>
+          <div class="instructor__role">Performance Coach</div>
+          <div class="instructor__tags">
+            <span class="instructor__tag">Team Choreo</span>
+            <span class="instructor__tag">Stage Performance</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WAVE DIVIDER ===== -->
+<div class="wave-divider" style="background: var(--cream-warm);">
+  <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block; width:100%; height:60px;">
+    <path d="M0 40C360 70 720 10 1080 50C1260 70 1380 30 1440 45V80H0Z" fill="var(--cream-warm)"/>
+  </svg>
+</div>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section class="testimonials" id="testimonials">
+  <div class="container">
+    <div class="testimonials__header reveal">
+      <div class="section-eyebrow">What People Say</div>
+      <h2 class="section-title">Stories From the <em style="font-family:'Fraunces',serif; color:var(--sage);">Ninja Fam</em></h2>
+      <p class="section-subtitle">Real words from real people who found their rhythm, their confidence, and their community with us.</p>
+    </div>
+    <div class="testimonials__grid">
+      <div class="testimonial earth-card reveal">
+        <div class="testimonial__quote-mark">&ldquo;</div>
+        <div class="testimonial__stars">&#9733; &#9733; &#9733; &#9733; &#9733;</div>
+        <p class="testimonial__text">I walked in with zero dance experience and now I'm performing on stage with the team. The instructors break everything down so clearly, and the community is SO supportive. Ninja Fam for life!</p>
+        <div class="testimonial__author">
+          <div class="testimonial__avatar testimonial__avatar--1">JR</div>
+          <div>
+            <div class="testimonial__name">Jessica R.</div>
+            <div class="testimonial__detail">Member since 2022</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial earth-card reveal">
+        <div class="testimonial__quote-mark">&ldquo;</div>
+        <div class="testimonial__stars">&#9733; &#9733; &#9733; &#9733; &#9733;</div>
+        <p class="testimonial__text">Best dance studio in South Florida, hands down. Chris and the team create an environment where you actually want to push yourself. The Thursday socials are the highlight of my week.</p>
+        <div class="testimonial__author">
+          <div class="testimonial__avatar testimonial__avatar--2">MC</div>
+          <div>
+            <div class="testimonial__name">Marcus C.</div>
+            <div class="testimonial__detail">Member since 2021</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial earth-card reveal">
+        <div class="testimonial__quote-mark">&ldquo;</div>
+        <div class="testimonial__stars">&#9733; &#9733; &#9733; &#9733; &#9733;</div>
+        <p class="testimonial__text">I tried other studios before finding Salsa Ninja, and the difference is night and day. The energy here is incredible. You don't just learn steps, you learn how to actually dance and feel the music.</p>
+        <div class="testimonial__author">
+          <div class="testimonial__avatar testimonial__avatar--3">SP</div>
+          <div>
+            <div class="testimonial__name">Sofia P.</div>
+            <div class="testimonial__detail">Member since 2023</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial earth-card reveal">
+        <div class="testimonial__quote-mark">&ldquo;</div>
+        <div class="testimonial__stars">&#9733; &#9733; &#9733; &#9733; &#9733;</div>
+        <p class="testimonial__text">Started with the $5 trial class and got completely hooked. The bootcamps took my Bachata to another level. If you're on the fence, just show up &mdash; you won't regret it.</p>
+        <div class="testimonial__author">
+          <div class="testimonial__avatar testimonial__avatar--4">DL</div>
+          <div>
+            <div class="testimonial__name">David L.</div>
+            <div class="testimonial__detail">Member since 2023</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WAVE DIVIDER ===== -->
+<div class="wave-divider" style="background: var(--cream);">
+  <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block; width:100%; height:60px;">
+    <path d="M0 30C240 60 480 15 720 45C960 75 1200 25 1440 55V80H0Z" fill="var(--cream)"/>
+  </svg>
+</div>
+
+<!-- ===== PRICING ===== -->
+<section class="pricing" id="pricing">
+  <div class="container">
+    <div class="pricing__header reveal">
+      <div class="section-eyebrow">Simple Pricing</div>
+      <h2 class="section-title">No Contracts, No <em style="font-family:'Fraunces',serif; color:var(--terracotta);">Surprises</em></h2>
+      <p class="section-subtitle">Start with a $5 trial class and upgrade whenever you're ready. We keep things simple because dancing should be the fun part.</p>
+    </div>
+    <div class="pricing__grid">
+      <div class="pricing-card earth-card reveal">
+        <div class="pricing-card__name">First Class</div>
+        <div class="pricing-card__price"><sup>$</sup>5</div>
+        <div class="pricing-card__period">one-time trial</div>
+        <ul class="pricing-card__features">
+          <li class="f-terra">Any group class</li>
+          <li class="f-terra">No commitment required</li>
+          <li class="f-terra">All levels welcome</li>
+          <li class="f-terra">Partner not required</li>
+        </ul>
+        <a href="#" class="btn-earth btn-earth--terracotta" style="width:100%; justify-content:center;">Try It Out</a>
+      </div>
+      <div class="pricing-card earth-card pricing-card--featured reveal">
+        <div class="pricing-card__name">Monthly Unlimited</div>
+        <div class="pricing-card__price"><sup>$</sup>99</div>
+        <div class="pricing-card__period">per month</div>
+        <ul class="pricing-card__features">
+          <li class="f-sage">Unlimited group classes</li>
+          <li class="f-sage">All styles & levels</li>
+          <li class="f-sage">Social events included</li>
+          <li class="f-sage">Priority registration</li>
+          <li class="f-sage">Ninja Fam community access</li>
+        </ul>
+        <a href="#" class="btn-earth btn-earth--sage" style="width:100%; justify-content:center;">Get Started</a>
+      </div>
+      <div class="pricing-card earth-card reveal">
+        <div class="pricing-card__name">Drop-In</div>
+        <div class="pricing-card__price"><sup>$</sup>15</div>
+        <div class="pricing-card__period">per class</div>
+        <ul class="pricing-card__features">
+          <li class="f-clay">Any single group class</li>
+          <li class="f-clay">No membership needed</li>
+          <li class="f-clay">Flexible schedule</li>
+          <li class="f-clay">All levels welcome</li>
+        </ul>
+        <a href="#" class="btn-earth btn-earth--outline" style="width:100%; justify-content:center;">Book a Class</a>
+      </div>
+    </div>
+    <p class="pricing__note reveal">Looking for one-on-one attention? <a href="#">Private lessons</a> are available &mdash; ask about instructor availability and custom packages.</p>
+  </div>
+</section>
+
+<!-- ===== WAVE DIVIDER ===== -->
+<div class="wave-divider" style="background: var(--cream-warm);">
+  <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block; width:100%; height:60px;">
+    <path d="M0 55C180 25 360 65 540 35C720 5 900 55 1080 30C1260 5 1380 50 1440 35V80H0Z" fill="var(--cream-warm)"/>
+  </svg>
+</div>
+
+<!-- ===== EVENTS ===== -->
+<section class="events" id="events">
+  <div class="container">
+    <div class="events__header reveal">
+      <div class="section-eyebrow">Coming Up</div>
+      <h2 class="section-title">Upcoming <em style="font-family:'Fraunces',serif; color:var(--sage);">Events</em></h2>
+      <p class="section-subtitle">From monthly socials to intensive bootcamps, there's always something happening at Salsa Ninja.</p>
+    </div>
+    <div class="events__grid">
+      <div class="event earth-card reveal">
+        <div class="event__image">
+          <div class="event__image-bg event__image-bg--social">&#127880;</div>
+          <div class="event__date">
+            <div class="event__date-month">Feb</div>
+            <div class="event__date-day">14</div>
+          </div>
+        </div>
+        <div class="event__body">
+          <h3 class="event__title">Valentine's Day Social</h3>
+          <p class="event__desc">Our biggest monthly social of the year! DJ sets, performances by the dance team, and open dancing all night. Bring a friend or come solo.</p>
+          <div class="event__meta">
+            <span class="event__time">8 PM &ndash; 12 AM</span>
+            <a href="#" class="btn-earth btn-earth--terracotta" style="padding:8px 20px; font-size:0.78rem;">RSVP</a>
+          </div>
+        </div>
+      </div>
+      <div class="event earth-card reveal">
+        <div class="event__image">
+          <div class="event__image-bg event__image-bg--bootcamp">&#9889;</div>
+          <div class="event__date">
+            <div class="event__date-month">Feb</div>
+            <div class="event__date-day">22</div>
+          </div>
+        </div>
+        <div class="event__body">
+          <h3 class="event__title">Bachata Bootcamp</h3>
+          <p class="event__desc">Intensive 3-hour deep dive into Bachata sensual techniques. Limited to 20 spots for personalized attention from our instructors.</p>
+          <div class="event__meta">
+            <span class="event__time">2 PM &ndash; 5 PM</span>
+            <a href="#" class="btn-earth btn-earth--sage" style="padding:8px 20px; font-size:0.78rem;">Register</a>
+          </div>
+        </div>
+      </div>
+      <div class="event earth-card reveal">
+        <div class="event__image">
+          <div class="event__image-bg event__image-bg--showcase">&#127775;</div>
+          <div class="event__date">
+            <div class="event__date-month">Mar</div>
+            <div class="event__date-day">08</div>
+          </div>
+        </div>
+        <div class="event__body">
+          <h3 class="event__title">Performance Showcase</h3>
+          <p class="event__desc">Watch the Salsa Ninja dance teams take the stage! Months of rehearsal culminate in an electrifying night of choreographed performances.</p>
+          <div class="event__meta">
+            <span class="event__time">7 PM &ndash; 10 PM</span>
+            <a href="#" class="btn-earth btn-earth--outline" style="padding:8px 20px; font-size:0.78rem;">Tickets</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WAVE DIVIDER ===== -->
+<div class="wave-divider" style="background: var(--cream);">
+  <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block; width:100%; height:60px;">
+    <path d="M0 40C360 70 720 15 1080 50C1260 65 1380 30 1440 45V80H0Z" fill="var(--cream)"/>
+  </svg>
+</div>
+
+<!-- ===== COMMUNITY ===== -->
+<section class="community" id="community">
+  <div class="container">
+    <div class="community__header reveal">
+      <div class="section-eyebrow">The Ninja Fam</div>
+      <h2 class="section-title">More Than a Studio, <em style="font-family:'Fraunces',serif; color:var(--terracotta);">We're Family</em></h2>
+      <p class="section-subtitle">From your very first class to performing on stage, the Ninja Fam is there for every step. Everyone belongs here, no matter your level.</p>
+    </div>
+    <div class="community__gallery reveal">
+      <div class="community__photo community__photo--wide">
+        <div class="community__photo-bg community__photo-bg--1">&#128131;</div>
+        <div class="community__photo-label">Monthly Social Night</div>
+      </div>
+      <div class="community__photo">
+        <div class="community__photo-bg community__photo-bg--2">&#127926;</div>
+        <div class="community__photo-label">Bachata Class</div>
+      </div>
+      <div class="community__photo">
+        <div class="community__photo-bg community__photo-bg--3">&#129351;</div>
+        <div class="community__photo-label">Performance Team</div>
+      </div>
+      <div class="community__photo">
+        <div class="community__photo-bg community__photo-bg--4">&#127880;</div>
+        <div class="community__photo-label">Salsa Bootcamp</div>
+      </div>
+      <div class="community__photo">
+        <div class="community__photo-bg community__photo-bg--5">&#127911;</div>
+        <div class="community__photo-label">DJ Night</div>
+      </div>
+      <div class="community__photo community__photo--wide">
+        <div class="community__photo-bg community__photo-bg--6">&#x1F977;</div>
+        <div class="community__photo-label">The Whole Ninja Fam</div>
+      </div>
+    </div>
+    <div class="community__cta reveal">
+      <p class="community__cta-text">Follow the journey on Instagram</p>
+      <a href="https://instagram.com/salsaninjadanceacademy" class="btn-earth btn-earth--outline" target="_blank">@salsaninjadanceacademy</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA BANNER ===== -->
+<section class="cta-banner">
+  <div class="container reveal">
+    <h2 class="cta-banner__title">Ready to Find Your Rhythm?</h2>
+    <p class="cta-banner__subtitle">Your first class is just $5. No experience needed, no partner required.</p>
+    <a href="#pricing" class="btn-earth btn-earth--cream">Try Your First Class</a>
+  </div>
+</section>
+
+<!-- ===== WAVE DIVIDER ===== -->
+<div class="wave-divider" style="background: var(--cream-warm);">
+  <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block; width:100%; height:60px;">
+    <path d="M0 25C240 55 480 10 720 45C960 80 1200 30 1440 55V80H0Z" fill="var(--cream-warm)"/>
+  </svg>
+</div>
+
+<!-- ===== LOCATION ===== -->
+<section class="location" id="location">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-eyebrow">Visit Us</div>
+      <h2 class="section-title" style="margin-bottom:48px;">Location <em style="font-family:'Fraunces',serif; color:var(--sage);">& Hours</em></h2>
+    </div>
+    <div class="location__grid">
+      <div class="location__info reveal">
+        <p class="location__address">
+          <strong>Salsa Ninja Dance Academy</strong>
+          10070 W Oakland Park Blvd<br>
+          Sunrise, FL 33351
+        </p>
+        <ul class="location__contacts">
+          <li class="location__contact">
+            <div class="location__contact-icon">&#128222;</div>
+            <a href="tel:9546625354">(954) 662-5354</a>
+          </li>
+          <li class="location__contact">
+            <div class="location__contact-icon">&#9993;</div>
+            <a href="mailto:contact@salsaninja.com">contact@salsaninja.com</a>
+          </li>
+          <li class="location__contact">
+            <div class="location__contact-icon">&#128247;</div>
+            <a href="https://instagram.com/salsaninjadanceacademy" target="_blank">@salsaninjadanceacademy</a>
+          </li>
+        </ul>
+        <div class="location__hours-label">Class Hours</div>
+        <ul class="location__hours-list">
+          <li class="location__hours-row">
+            <span class="location__hours-day">Monday</span>
+            <span class="location__hours-time">6:00 PM &ndash; 9:00 PM</span>
+          </li>
+          <li class="location__hours-row">
+            <span class="location__hours-day">Tuesday</span>
+            <span class="location__hours-time">7:00 PM &ndash; 9:00 PM</span>
+          </li>
+          <li class="location__hours-row">
+            <span class="location__hours-day">Wednesday</span>
+            <span class="location__hours-time">6:00 PM &ndash; 9:00 PM</span>
+          </li>
+          <li class="location__hours-row">
+            <span class="location__hours-day">Thursday</span>
+            <span class="location__hours-time">7:00 PM &ndash; 10:00 PM</span>
+          </li>
+          <li class="location__hours-row">
+            <span class="location__hours-day">Fri &ndash; Sun</span>
+            <span class="location__hours-time" style="color:var(--text-muted);">Special Events Only</span>
+          </li>
+        </ul>
+      </div>
+      <div class="location__map reveal">
+        <div class="location__map-inner">
+          <div class="location__map-pin">&#128205;</div>
+          <div class="location__map-text">Salsa Ninja Dance Academy</div>
+          <div class="location__map-addr">10070 W Oakland Park Blvd, Sunrise, FL 33351</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__top">
+      <div>
+        <div class="footer__brand-name">Salsa <span>Ninja</span></div>
+        <p class="footer__brand-desc">Quality dance instructions dedicated to social dancing and stage performances. Join the Ninja Fam in Sunrise, FL.</p>
+        <div class="footer__social">
+          <a href="https://instagram.com/salsaninjadanceacademy" class="footer__social-link" target="_blank" aria-label="Instagram">&#128247;</a>
+          <a href="#" class="footer__social-link" aria-label="Facebook">&#102;</a>
+          <a href="mailto:contact@salsaninja.com" class="footer__social-link" aria-label="Email">&#9993;</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer__col-title">Dance</div>
+        <ul class="footer__col-links">
+          <li><a href="#styles">Salsa On1</a></li>
+          <li><a href="#styles">Bachata</a></li>
+          <li><a href="#schedule">Group Classes</a></li>
+          <li><a href="#">Private Lessons</a></li>
+          <li><a href="#">Bootcamps</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer__col-title">Studio</div>
+        <ul class="footer__col-links">
+          <li><a href="#schedule">Schedule</a></li>
+          <li><a href="#instructors">Instructors</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#events">Events</a></li>
+          <li><a href="#community">Community</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer__col-title">Contact</div>
+        <ul class="footer__col-links">
+          <li><a href="tel:9546625354">(954) 662-5354</a></li>
+          <li><a href="mailto:contact@salsaninja.com">Email Us</a></li>
+          <li><a href="#location">Get Directions</a></li>
+          <li><a href="https://instagram.com/salsaninjadanceacademy" target="_blank">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__divider"></div>
+    <div class="footer__bottom">
+      <div class="footer__copy">&copy; 2026 Salsa Ninja Dance Academy. All rights reserved.</div>
+      <div class="footer__legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ===== SCROLL REVEAL =====
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, i * 60);
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach(el => revealObserver.observe(el));
+
+  // ===== NAV SCROLL =====
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('nav--scrolled', window.scrollY > 40);
+  });
+
+  // ===== MOBILE NAV =====
+  const mobileToggle = document.getElementById('mobileToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+  let mobileOpen = false;
+  mobileToggle.addEventListener('click', () => {
+    mobileOpen = !mobileOpen;
+    mobileMenu.classList.toggle('open', mobileOpen);
+    mobileToggle.innerHTML = mobileOpen ? '&#10005;' : '&#9776;';
+  });
+  function closeMobile() {
+    mobileOpen = false;
+    mobileMenu.classList.remove('open');
+    mobileToggle.innerHTML = '&#9776;';
+  }
+</script>
+</body>
+</html>
