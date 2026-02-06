@@ -31,35 +31,15 @@ export default async function PrivateSessionsPage() {
       isInstructor = allRoles.includes('owner') || allRoles.includes('instructor')
     }
 
-    // Fetch all instructors (check both member_roles and legacy role_id for compatibility)
-    const { data: instructorMembers } = await supabase
-      .from('members')
-      .select(`
-        id,
-        display_name,
-        full_name,
-        avatar_url,
-        member_roles!left(
-          roles!inner(name)
-        ),
-        roles!left(name)
-      `)
+    // Fetch all instructors via member_profiles view (has pre-computed all_roles array)
+    const { data: allMembers } = await supabase
+      .from('member_profiles')
+      .select('id, display_name, full_name, avatar_url, all_roles, role_name')
 
-    // Filter to only instructors/owners
-    instructors = (instructorMembers ?? [])
+    instructors = (allMembers ?? [])
       .filter((m) => {
-        // Check member_roles (new multi-role system)
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const memberRoles = m.member_roles as any[] | null
-        const hasRoleInMemberRoles = memberRoles?.some(
-          (mr) => mr.roles?.name === 'instructor' || mr.roles?.name === 'owner'
-        )
-        // Check legacy roles FK (backward compatibility)
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const legacyRole = m.roles as any
-        const hasLegacyRole = legacyRole?.name === 'instructor' || legacyRole?.name === 'owner'
-
-        return hasRoleInMemberRoles || hasLegacyRole
+        const allRoles: string[] = m.all_roles || [m.role_name]
+        return allRoles.includes('instructor') || allRoles.includes('owner')
       })
       .map((m) => ({
         id: m.id,
