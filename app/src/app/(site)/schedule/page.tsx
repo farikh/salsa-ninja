@@ -88,6 +88,22 @@ export default async function SchedulePage() {
         </div>
       </section>
 
+      {/* Dynamic Events Calendar Link */}
+      <section style={{ padding: '1.5rem 0 0' }}>
+        <div className="container" style={{ textAlign: 'center' }}>
+          <Link
+            href="/calendar"
+            className="btn btn-primary"
+            style={{ textDecoration: 'none' }}
+          >
+            <span>View Events Calendar</span>
+          </Link>
+          <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginTop: '0.5rem' }}>
+            Browse all classes, workshops, and events in an interactive calendar
+          </p>
+        </div>
+      </section>
+
       {/* Weekly Calendar View */}
       <section className="section diagonal-stripes">
         <div className="container">
