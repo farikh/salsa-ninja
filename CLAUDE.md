@@ -79,6 +79,12 @@ All docs live in `./docs/`. Each spec file is an **index** that references small
 - `docs/specs/membership/api-contracts.md` — Endpoint request/response examples
 - `docs/specs/membership/edge-cases.md` — Edge cases, acceptance criteria
 
+### Troubleshooting
+
+| Doc | When to read |
+|-----|-------------|
+| [Styled-JSX Hydration Bug](docs/troubleshooting/styled-jsx-hydration-bug.md) | When styles look broken in browser. **Read this first** — contains checklist for diagnosing style issues |
+
 ### Research & Decisions
 
 | Doc | When to read |
@@ -87,11 +93,15 @@ All docs live in `./docs/`. Each spec file is an **index** that references small
 | [Chat Research Findings](docs/research/chat-research-findings.md) | When implementing chat |
 | [Calendar Research Findings](docs/research/calendar-research-findings.md) | When implementing calendar |
 
+**DevOps & Pipeline**
+- `docs/specs/slack-dev-pipeline.md` — Slack-driven dev pipeline: bug reporting, feature workflow, permissions, Claude Code automation, staging/production flow
+
 ### Workflow & Process
 
 | Doc | When to read |
 |-----|-------------|
 | [do-work Skill](.agents/skills/do-work/SKILL.md) | Full workflow reference: capture, work, design, verify, cleanup |
+| [Slack Dev Pipeline](docs/specs/slack-dev-pipeline.md) | When building or modifying the Slack-based bug/feature/deploy pipeline |
 | [Workflow Integration Design](docs/specs/workflow-integration.md) | **Historical** — design rationale from pre-fork evaluation. The skill files are the authoritative reference. |
 
 ---
@@ -112,7 +122,7 @@ Never ask "should I commit?" or "should I push?" — just do it once the code re
 
 See [`.agents/skills/do-work/reference/conventions.md`](.agents/skills/do-work/reference/conventions.md) for the full reference. Summary:
 
-- **Styling:** Tailwind CSS utilities. shadcn/ui components before custom ones.
+- **Styling:** Tailwind CSS utilities. shadcn/ui components before custom ones. **Never use styled-jsx** (`<style jsx>`) — causes hydration bugs.
 - **Colors:** Primary red/coral `#ef4444`, secondary gold/amber `#f59e0b`, neutrals `#fafafa`–`#18181b`.
 - **Auth:** Magic link only (no passwords). Invite-only via QR or referral link.
 - **Roles:** owner, instructor, member_full, member_limited, guest. Enforced via middleware + Supabase RLS.

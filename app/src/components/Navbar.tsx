@@ -333,67 +333,6 @@ const Navbar = () => {
       {/* Spacer to offset fixed navbar */}
       <div style={{ height: "72px" }} />
 
-      <style jsx>{`
-        /* Desktop nav: show as flex row */
-        .fiery-desktop-nav {
-          display: flex;
-        }
-
-        /* Mobile hamburger: hidden on desktop */
-        .fiery-mobile-btn {
-          display: none !important;
-        }
-
-        /* Mobile nav dropdown: hidden on desktop */
-        .fiery-mobile-nav {
-          display: none !important;
-        }
-
-        /* Nav link hover underline */
-        .fiery-nav-link::after {
-          content: '';
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 0;
-          height: 2px;
-          background: linear-gradient(90deg, #ef4444, #f59e0b);
-          border-radius: 1px;
-          transition: width 0.3s ease;
-        }
-        .fiery-nav-link:hover {
-          color: #fff !important;
-        }
-        .fiery-nav-link:hover::after {
-          width: 100%;
-        }
-
-        /* CTA button hover */
-        .fiery-cta-btn:hover {
-          transform: skewX(-6deg) translateY(-2px) !important;
-          box-shadow: 0 8px 24px rgba(239, 68, 68, 0.35);
-        }
-
-        /* Secondary button hover */
-        .fiery-btn-secondary:hover {
-          border-color: rgba(255,255,255,0.4) !important;
-          color: #fff !important;
-          background: rgba(255,255,255,0.05) !important;
-        }
-
-        /* Responsive: tablet and below */
-        @media (max-width: 900px) {
-          .fiery-desktop-nav {
-            display: none !important;
-          }
-          .fiery-mobile-btn {
-            display: flex !important;
-          }
-          .fiery-mobile-nav {
-            display: flex !important;
-          }
-        }
-      `}</style>
     </>
   );
 };
