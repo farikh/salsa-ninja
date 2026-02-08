@@ -31,12 +31,18 @@ interface DashboardTabsProps {
     bootcamp_enrolled: boolean
   }
   bookings: PrivateLessonBooking[]
-  events: { id: string; title: string; description: string | null; start_time: string; end_time: string }[]
+  events: {
+    id: string; title: string; description: string | null; event_type: string
+    start_time: string; end_time: string; location: string | null
+    music_genre: string | null; price: number | null; tags: string[] | null
+    dress_code: string | null; purchase_enabled: boolean; purchase_url: string | null
+  }[]
   isAdmin: boolean
   isInstructor: boolean
   isStaff: boolean
   availableRoles: Role[]
   instructors: Instructor[]
+  hasUpcomingBootcamp: boolean
 }
 
 export function DashboardTabs({
@@ -48,19 +54,20 @@ export function DashboardTabs({
   isStaff,
   availableRoles,
   instructors,
+  hasUpcomingBootcamp,
 }: DashboardTabsProps) {
   const [activeTab, setActiveTab] = useState<TabId>('home')
 
   const tabs: { id: TabId; label: string; visible: boolean }[] = [
     { id: 'home', label: 'Home', visible: true },
     { id: 'members', label: 'Manage Members', visible: isAdmin },
-    { id: 'private-lessons', label: 'Private Lessons', visible: isInstructor },
+    { id: 'private-lessons', label: 'Private Lessons', visible: true },
   ]
 
   return (
     <>
       {/* Tab Navigation */}
-      {isStaff && (
+      {tabs.filter(t => t.visible).length > 1 && (
         <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '1.5rem' }}>
           {tabs.filter(t => t.visible).map((tab) => (
             <button
@@ -94,6 +101,7 @@ export function DashboardTabs({
           events={events}
           isInstructor={isInstructor}
           isStaff={isStaff}
+          hasUpcomingBootcamp={hasUpcomingBootcamp}
         />
       )}
 
@@ -107,8 +115,13 @@ export function DashboardTabs({
         </div>
       )}
 
-      {activeTab === 'private-lessons' && isInstructor && (
-        <PrivateLessonsTab instructors={instructors} memberId={member.id} />
+      {activeTab === 'private-lessons' && (
+        <PrivateLessonsTab
+          instructors={instructors}
+          memberId={member.id}
+          isInstructor={isInstructor}
+          bookings={bookings}
+        />
       )}
     </>
   )
@@ -120,12 +133,14 @@ function HomeTab({
   events,
   isInstructor,
   isStaff,
+  hasUpcomingBootcamp,
 }: {
   member: DashboardTabsProps['member']
   bookings: PrivateLessonBooking[]
   events: DashboardTabsProps['events']
   isInstructor: boolean
   isStaff: boolean
+  hasUpcomingBootcamp: boolean
 }) {
   return (
     <>
@@ -148,6 +163,7 @@ function HomeTab({
         <EnrollmentCard
           currentPlan={member.enrollment_plan}
           bootcampEnrolled={member.bootcamp_enrolled}
+          hasUpcomingBootcamp={hasUpcomingBootcamp}
         />
 
         {/* Video Library */}
@@ -254,9 +270,11 @@ const PLANS = [
 function EnrollmentCard({
   currentPlan,
   bootcampEnrolled,
+  hasUpcomingBootcamp,
 }: {
   currentPlan: string | null
   bootcampEnrolled: boolean
+  hasUpcomingBootcamp: boolean
 }) {
   const [plan, setPlan] = useState<string>(currentPlan || 'classes_5')
   const [saving, setSaving] = useState(false)
@@ -390,8 +408,8 @@ function EnrollmentCard({
         )}
       </div>
 
-      {/* Boot Camp Enrollment */}
-      <div
+      {/* Boot Camp Enrollment — only shown when an upcoming bootcamp event exists */}
+      {hasUpcomingBootcamp && <div
         onClick={handleBootcampToggle}
         style={{
           border: bootcamp ? '1px solid rgba(239,68,68,0.4)' : '1px solid rgba(255,255,255,0.1)',
@@ -429,7 +447,7 @@ function EnrollmentCard({
             )}
           </div>
         </div>
-      </div>
+      </div>}
     </div>
   )
 }

@@ -1,27 +1,26 @@
-import { redirect } from 'next/navigation'
+import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
-import { ConversationsList } from './ConversationsList'
 
-export default async function ConversationsPage() {
+export async function GET() {
   const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
 
+  const { data: { user } } = await supabase.auth.getUser()
   if (!user) {
-    redirect('/login')
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
   const { data: member } = await supabase
-    .from('member_profiles')
+    .from('members')
     .select('id')
     .eq('user_id', user.id)
     .single()
 
   if (!member) {
-    redirect('/join/profile')
+    return NextResponse.json({ error: 'Member not found' }, { status: 400 })
   }
 
   // Get all bookings user is part of
-  const { data: bookings } = await supabase
+  const { data: bookings, error: bookingsError } = await supabase
     .from('private_lesson_bookings')
     .select('id, instructor_id, member_id, start_time, end_time, status, notes')
     .or(`member_id.eq.${member.id},instructor_id.eq.${member.id}`)
@@ -29,30 +28,24 @@ export default async function ConversationsPage() {
     .order('start_time', { ascending: false })
     .limit(50)
 
+  if (bookingsError) {
+    return NextResponse.json({ error: bookingsError.message }, { status: 500 })
+  }
+
   if (!bookings || bookings.length === 0) {
-    return (
-      <section className="section">
-        <div className="container" style={{ maxWidth: '900px' }}>
-          <ConversationsList
-            initialConversations={[]}
-            participants={{}}
-            currentMemberId={member.id}
-          />
-        </div>
-      </section>
-    )
+    return NextResponse.json({ conversations: [], participants: {} })
   }
 
   const bookingIds = bookings.map(b => b.id)
 
-  // Fetch latest messages for all bookings
+  // Get latest message per booking + message count
   const { data: allMessages } = await supabase
     .from('booking_messages')
     .select('booking_id, content, created_at, sender_id, members!inner(display_name)')
     .in('booking_id', bookingIds)
     .order('created_at', { ascending: false })
 
-  // Fetch read markers
+  // Get read markers
   const { data: readMarkers } = await supabase
     .from('booking_message_reads')
     .select('booking_id, last_read_at')
@@ -86,6 +79,7 @@ export default async function ConversationsPage() {
     participantIds.add(b.member_id)
   })
 
+  // Fetch participant profiles
   const { data: profiles } = await supabase
     .from('member_profiles')
     .select('id, display_name, full_name, avatar_url')
@@ -120,7 +114,7 @@ export default async function ConversationsPage() {
     }
   })
 
-  // Sort: unread first, then by latest message time
+  // Sort: unread first, then by latest message time (most recent first), then by booking start_time
   conversations.sort((a, b) => {
     if (a.has_unread !== b.has_unread) return a.has_unread ? -1 : 1
     const aTime = a.latest_message_at ?? a.start_time
@@ -128,15 +122,5 @@ export default async function ConversationsPage() {
     return bTime.localeCompare(aTime)
   })
 
-  return (
-    <section className="section">
-      <div className="container" style={{ maxWidth: '900px' }}>
-        <ConversationsList
-          initialConversations={conversations}
-          participants={participants}
-          currentMemberId={member.id}
-        />
-      </div>
-    </section>
-  )
+  return NextResponse.json({ conversations, participants, currentMemberId: member.id })
 }

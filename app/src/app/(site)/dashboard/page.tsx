@@ -39,8 +39,11 @@ export default async function DashboardPage() {
 
   const { data: events } = await supabase
     .from('upcoming_events')
-    .select('id, title, description, start_time, end_time')
+    .select('id, title, description, event_type, start_time, end_time, location, music_genre, price, tags, dress_code, purchase_enabled, purchase_url')
     .limit(10)
+
+  // Check if there's an upcoming bootcamp event
+  const hasUpcomingBootcamp = (events ?? []).some(e => e.event_type === 'bootcamp')
 
   // Fetch bookings for the dashboard — RLS ensures correct access
   const { data: bookings } = await supabase
@@ -61,25 +64,22 @@ export default async function DashboardPage() {
     availableRoles = roles ?? []
   }
 
-  // Fetch instructors for private lessons tab
-  let instructors: { id: string; display_name: string; full_name: string; avatar_url: string | null }[] = []
-  if (isInstructor) {
-    const { data: allMembers } = await supabase
-      .from('member_profiles')
-      .select('id, display_name, full_name, avatar_url, all_roles, role_name')
+  // Fetch instructors for private lessons tab (needed for all users now)
+  const { data: allMembers } = await supabase
+    .from('member_profiles')
+    .select('id, display_name, full_name, avatar_url, all_roles, role_name')
 
-    instructors = (allMembers ?? [])
-      .filter((m) => {
-        const roles: string[] = m.all_roles || [m.role_name]
-        return roles.includes('instructor') || roles.includes('owner')
-      })
-      .map((m) => ({
-        id: m.id,
-        display_name: m.display_name,
-        full_name: m.full_name,
-        avatar_url: m.avatar_url,
-      }))
-  }
+  const instructors = (allMembers ?? [])
+    .filter((m) => {
+      const roles: string[] = m.all_roles || [m.role_name]
+      return roles.includes('instructor') || roles.includes('owner')
+    })
+    .map((m) => ({
+      id: m.id,
+      display_name: m.display_name,
+      full_name: m.full_name,
+      avatar_url: m.avatar_url,
+    }))
 
   return (
     <section className="section">
@@ -115,6 +115,7 @@ export default async function DashboardPage() {
           isStaff={isStaff}
           availableRoles={availableRoles}
           instructors={instructors}
+          hasUpcomingBootcamp={hasUpcomingBootcamp}
         />
       </div>
     </section>

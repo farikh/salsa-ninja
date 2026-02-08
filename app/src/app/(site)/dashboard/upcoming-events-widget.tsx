@@ -1,19 +1,74 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
+
+const EVENT_TYPES = [
+  { value: 'studio_social', label: 'Social' },
+  { value: 'bootcamp', label: 'Bootcamp' },
+  { value: 'community', label: 'Other' },
+] as const
+
+const EVENT_TYPE_LABELS: Record<string, string> = {
+  class: 'Class',
+  workshop: 'Workshop',
+  bootcamp: 'Bootcamp',
+  studio_social: 'Social',
+  community: 'Other',
+}
+
+const COMMON_TAGS = ['BYOB', 'Light Bites', 'Free Parking', 'All Levels', 'Live Music']
 
 interface EventItem {
   id: string
   title: string
   description: string | null
+  event_type: string
   start_time: string
   end_time: string
+  location: string | null
+  music_genre: string | null
+  price: number | null
+  tags: string[] | null
+  dress_code: string | null
+  purchase_enabled: boolean
+  purchase_url: string | null
 }
 
 interface UpcomingEventsWidgetProps {
   initialEvents: EventItem[]
   isStaff: boolean
+}
+
+interface EditValues {
+  title: string
+  description: string
+  event_type: string
+  start_time: string
+  end_time: string
+  location: string
+  music_genre: string
+  price: string
+  tags: string[]
+  dress_code: string
+  purchase_enabled: boolean
+  purchase_url: string
+}
+
+const DEFAULT_EDIT: EditValues = {
+  title: '',
+  description: '',
+  event_type: 'studio_social',
+  start_time: '',
+  end_time: '',
+  location: '',
+  music_genre: '',
+  price: '',
+  tags: [],
+  dress_code: '',
+  purchase_enabled: false,
+  purchase_url: '',
 }
 
 function toLocalInput(iso: string): string {
@@ -36,7 +91,7 @@ function formatEventTime(start: string, end: string): string {
 export default function UpcomingEventsWidget({ initialEvents, isStaff }: UpcomingEventsWidgetProps) {
   const [events, setEvents] = useState<EventItem[]>(initialEvents)
   const [editingId, setEditingId] = useState<string | null>(null)
-  const [editValues, setEditValues] = useState({ title: '', description: '', start_time: '', end_time: '' })
+  const [editValues, setEditValues] = useState<EditValues>(DEFAULT_EDIT)
   const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
@@ -48,8 +103,16 @@ export default function UpcomingEventsWidget({ initialEvents, isStaff }: Upcomin
     setEditValues({
       title: event.title,
       description: event.description || '',
+      event_type: event.event_type || 'studio_social',
       start_time: toLocalInput(event.start_time),
       end_time: toLocalInput(event.end_time),
+      location: event.location || '',
+      music_genre: event.music_genre || '',
+      price: event.price != null ? String(event.price) : '',
+      tags: event.tags || [],
+      dress_code: event.dress_code || '',
+      purchase_enabled: event.purchase_enabled || false,
+      purchase_url: event.purchase_url || '',
     })
     setPendingDeleteId(null)
     setError('')
@@ -65,14 +128,24 @@ export default function UpcomingEventsWidget({ initialEvents, isStaff }: Upcomin
     setSaving(true)
     setError('')
 
+    const updateData = {
+      title: editValues.title.trim(),
+      description: editValues.description.trim() || null,
+      event_type: editValues.event_type,
+      start_time: new Date(editValues.start_time).toISOString(),
+      end_time: new Date(editValues.end_time).toISOString(),
+      location: editValues.location.trim() || null,
+      music_genre: editValues.music_genre.trim() || null,
+      price: editValues.price ? parseFloat(editValues.price) : null,
+      tags: editValues.tags.length > 0 ? editValues.tags : null,
+      dress_code: editValues.dress_code.trim() || null,
+      purchase_enabled: editValues.purchase_enabled,
+      purchase_url: editValues.purchase_url.trim() || null,
+    }
+
     const { error: updateError } = await supabase
       .from('events')
-      .update({
-        title: editValues.title.trim(),
-        description: editValues.description.trim() || null,
-        start_time: new Date(editValues.start_time).toISOString(),
-        end_time: new Date(editValues.end_time).toISOString(),
-      })
+      .update(updateData)
       .eq('id', editingId)
 
     if (updateError) {
@@ -83,13 +156,7 @@ export default function UpcomingEventsWidget({ initialEvents, isStaff }: Upcomin
 
     setEvents(prev => prev.map(e =>
       e.id === editingId
-        ? {
-            ...e,
-            title: editValues.title.trim(),
-            description: editValues.description.trim() || null,
-            start_time: new Date(editValues.start_time).toISOString(),
-            end_time: new Date(editValues.end_time).toISOString(),
-          }
+        ? { ...e, ...updateData }
         : e
     ))
     setEditingId(null)
@@ -110,11 +177,11 @@ export default function UpcomingEventsWidget({ initialEvents, isStaff }: Upcomin
       .insert({
         title: 'New Event',
         description: '',
-        event_type: 'class',
+        event_type: 'studio_social',
         start_time: startTime.toISOString(),
         end_time: endTime.toISOString(),
       })
-      .select('id, title, description, start_time, end_time')
+      .select('id, title, description, event_type, start_time, end_time, location, music_genre, price, tags, dress_code, purchase_enabled, purchase_url')
       .single()
 
     if (insertError || !data) {
@@ -149,13 +216,22 @@ export default function UpcomingEventsWidget({ initialEvents, isStaff }: Upcomin
     setSaving(false)
   }
 
+  function toggleTag(tag: string) {
+    setEditValues(v => ({
+      ...v,
+      tags: v.tags.includes(tag) ? v.tags.filter(t => t !== tag) : [...v.tags, tag],
+    }))
+  }
+
   const inputStyle: React.CSSProperties = {
     width: '100%',
     padding: '0.5rem 0.75rem',
     borderRadius: '0.5rem',
     border: '1px solid var(--border)',
-    fontSize: '0.9rem',
+    fontSize: '0.85rem',
     outline: 'none',
+    background: 'var(--card)',
+    color: 'inherit',
   }
 
   return (
@@ -191,7 +267,7 @@ export default function UpcomingEventsWidget({ initialEvents, isStaff }: Upcomin
               key={event.id}
               style={{
                 padding: '0.75rem',
-                background: '#fef2f2',
+                background: 'rgba(220,38,38,0.1)',
                 borderRadius: '0.5rem',
                 display: 'flex',
                 justifyContent: 'space-between',
@@ -199,7 +275,7 @@ export default function UpcomingEventsWidget({ initialEvents, isStaff }: Upcomin
                 marginBottom: i < events.length - 1 ? '0.5rem' : 0,
               }}
             >
-              <span style={{ color: '#dc2626', fontSize: '0.9rem', fontWeight: 500 }}>
+              <span style={{ color: '#ef4444', fontSize: '0.9rem', fontWeight: 500 }}>
                 Delete &ldquo;{event.title}&rdquo;?
               </span>
               <div style={{ display: 'flex', gap: '0.5rem' }}>
@@ -209,7 +285,7 @@ export default function UpcomingEventsWidget({ initialEvents, isStaff }: Upcomin
                   style={{
                     padding: '0.3rem 0.75rem',
                     fontSize: '0.8rem',
-                    background: '#dc2626',
+                    background: '#ef4444',
                     color: 'white',
                     border: 'none',
                     borderRadius: '0.375rem',
@@ -223,9 +299,9 @@ export default function UpcomingEventsWidget({ initialEvents, isStaff }: Upcomin
                   style={{
                     padding: '0.3rem 0.75rem',
                     fontSize: '0.8rem',
-                    background: 'white',
-                    color: '#111111',
-                    border: '1px solid var(--border)',
+                    background: 'transparent',
+                    color: 'inherit',
+                    border: '1px solid rgba(255,255,255,0.2)',
                     borderRadius: '0.375rem',
                     cursor: 'pointer',
                   }}
@@ -243,11 +319,13 @@ export default function UpcomingEventsWidget({ initialEvents, isStaff }: Upcomin
               key={event.id}
               style={{
                 padding: '0.75rem',
-                background: 'var(--muted)',
+                background: 'rgba(255,255,255,0.05)',
                 borderRadius: '0.5rem',
+                border: '1px solid rgba(255,255,255,0.1)',
                 marginBottom: i < events.length - 1 ? '0.5rem' : 0,
               }}
             >
+              {/* Title */}
               <div style={{ marginBottom: '0.5rem' }}>
                 <input
                   type="text"
@@ -258,6 +336,43 @@ export default function UpcomingEventsWidget({ initialEvents, isStaff }: Upcomin
                   autoFocus
                 />
               </div>
+
+              {/* Event Type Picklist */}
+              <div style={{ marginBottom: '0.5rem' }}>
+                <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--muted-foreground)', marginBottom: '0.25rem' }}>
+                  Event Type
+                </label>
+                <div style={{ display: 'flex', gap: '0.375rem' }}>
+                  {EVENT_TYPES.map((type) => (
+                    <button
+                      key={type.value}
+                      onClick={() => setEditValues(v => ({ ...v, event_type: type.value }))}
+                      style={{
+                        flex: 1,
+                        padding: '0.4rem 0.5rem',
+                        fontSize: '0.8rem',
+                        fontWeight: 600,
+                        borderRadius: '0.375rem',
+                        border: editValues.event_type === type.value
+                          ? '1px solid #ef4444'
+                          : '1px solid rgba(255,255,255,0.15)',
+                        background: editValues.event_type === type.value
+                          ? 'rgba(239,68,68,0.15)'
+                          : 'transparent',
+                        color: editValues.event_type === type.value
+                          ? '#ef4444'
+                          : 'rgba(255,255,255,0.7)',
+                        cursor: 'pointer',
+                        transition: 'all 0.15s',
+                      }}
+                    >
+                      {type.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Description */}
               <div style={{ marginBottom: '0.5rem' }}>
                 <textarea
                   value={editValues.description}
@@ -267,44 +382,176 @@ export default function UpcomingEventsWidget({ initialEvents, isStaff }: Upcomin
                   style={{ ...inputStyle, resize: 'vertical' }}
                 />
               </div>
-              <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.75rem' }}>
+
+              {/* Date inputs */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--muted-foreground)', marginBottom: '0.25rem' }}>Start</label>
+                  <input type="datetime-local" value={editValues.start_time} onChange={(e) => setEditValues(v => ({ ...v, start_time: e.target.value }))} style={{ ...inputStyle, colorScheme: 'dark' }} />
+                </div>
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--muted-foreground)', marginBottom: '0.25rem' }}>End</label>
+                  <input type="datetime-local" value={editValues.end_time} onChange={(e) => setEditValues(v => ({ ...v, end_time: e.target.value }))} style={{ ...inputStyle, colorScheme: 'dark' }} />
+                </div>
+              </div>
+
+              {/* Location */}
+              <div style={{ marginBottom: '0.5rem' }}>
+                <input
+                  type="text"
+                  value={editValues.location}
+                  onChange={(e) => setEditValues(v => ({ ...v, location: e.target.value }))}
+                  placeholder="Location"
+                  style={inputStyle}
+                />
+              </div>
+
+              {/* Music & Entry in a row */}
+              <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.5rem' }}>
                 <div style={{ flex: 1 }}>
-                  <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--muted-foreground)', marginBottom: '0.25rem' }}>
-                    Start
-                  </label>
                   <input
-                    type="datetime-local"
-                    value={editValues.start_time}
-                    onChange={(e) => setEditValues(v => ({ ...v, start_time: e.target.value }))}
+                    type="text"
+                    value={editValues.music_genre}
+                    onChange={(e) => setEditValues(v => ({ ...v, music_genre: e.target.value }))}
+                    placeholder="Music (e.g. Live DJ)"
                     style={inputStyle}
                   />
                 </div>
                 <div style={{ flex: 1 }}>
-                  <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--muted-foreground)', marginBottom: '0.25rem' }}>
-                    End
-                  </label>
                   <input
-                    type="datetime-local"
-                    value={editValues.end_time}
-                    onChange={(e) => setEditValues(v => ({ ...v, end_time: e.target.value }))}
+                    type="text"
+                    value={editValues.price}
+                    onChange={(e) => setEditValues(v => ({ ...v, price: e.target.value }))}
+                    placeholder="Entry $ (e.g. 15)"
                     style={inputStyle}
                   />
                 </div>
               </div>
+
+              {/* Dress Code */}
+              <div style={{ marginBottom: '0.5rem' }}>
+                <input
+                  type="text"
+                  value={editValues.dress_code}
+                  onChange={(e) => setEditValues(v => ({ ...v, dress_code: e.target.value }))}
+                  placeholder="Dress code (e.g. Dress to Impress)"
+                  style={inputStyle}
+                />
+              </div>
+
+              {/* Tags */}
+              <div style={{ marginBottom: '0.5rem' }}>
+                <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--muted-foreground)', marginBottom: '0.25rem' }}>Tags</label>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.25rem' }}>
+                  {COMMON_TAGS.map(tag => (
+                    <button
+                      key={tag}
+                      onClick={() => toggleTag(tag)}
+                      style={{
+                        padding: '0.25rem 0.6rem',
+                        fontSize: '0.75rem',
+                        fontWeight: 600,
+                        borderRadius: '9999px',
+                        border: editValues.tags.includes(tag)
+                          ? '1px solid #ef4444'
+                          : '1px solid rgba(255,255,255,0.15)',
+                        background: editValues.tags.includes(tag)
+                          ? 'rgba(239,68,68,0.15)'
+                          : 'transparent',
+                        color: editValues.tags.includes(tag)
+                          ? '#ef4444'
+                          : 'rgba(255,255,255,0.5)',
+                        cursor: 'pointer',
+                        transition: 'all 0.15s',
+                      }}
+                    >
+                      {tag}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Purchase Tickets Toggle */}
+              <div
+                onClick={() => setEditValues(v => ({ ...v, purchase_enabled: !v.purchase_enabled }))}
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  padding: '0.5rem 0.75rem',
+                  borderRadius: '0.375rem',
+                  border: editValues.purchase_enabled ? '1px solid rgba(239,68,68,0.4)' : '1px solid rgba(255,255,255,0.1)',
+                  background: editValues.purchase_enabled ? 'rgba(239,68,68,0.08)' : 'transparent',
+                  cursor: 'pointer',
+                  marginBottom: editValues.purchase_enabled ? '0.5rem' : '0.75rem',
+                }}
+              >
+                <span style={{ fontSize: '0.85rem', fontWeight: 500 }}>Include Purchase Tickets</span>
+                <div style={{
+                  width: '18px',
+                  height: '18px',
+                  borderRadius: '3px',
+                  border: editValues.purchase_enabled ? '2px solid #ef4444' : '2px solid rgba(255,255,255,0.2)',
+                  background: editValues.purchase_enabled ? '#ef4444' : 'transparent',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  transition: 'all 0.15s',
+                  flexShrink: 0,
+                }}>
+                  {editValues.purchase_enabled && (
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                  )}
+                </div>
+              </div>
+
+              {/* Purchase URL — only when purchase_enabled */}
+              {editValues.purchase_enabled && (
+                <div style={{ marginBottom: '0.75rem' }}>
+                  <input
+                    type="url"
+                    value={editValues.purchase_url}
+                    onChange={(e) => setEditValues(v => ({ ...v, purchase_url: e.target.value }))}
+                    placeholder="Purchase URL (e.g. https://square.link/...)"
+                    style={inputStyle}
+                  />
+                </div>
+              )}
+
+              {/* Action Buttons */}
               <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
                 <button
-                  className="btn btn-outline"
                   onClick={cancelEditing}
                   disabled={saving}
-                  style={{ padding: '0.35rem 0.875rem', fontSize: '0.8rem' }}
+                  style={{
+                    padding: '0.4rem 1rem',
+                    fontSize: '0.8rem',
+                    background: 'transparent',
+                    color: 'rgba(255,255,255,0.7)',
+                    border: '1px solid rgba(255,255,255,0.2)',
+                    borderRadius: '0.375rem',
+                    cursor: 'pointer',
+                    fontWeight: 500,
+                  }}
                 >
                   Cancel
                 </button>
                 <button
-                  className="btn btn-primary"
                   onClick={saveEdit}
                   disabled={saving || !editValues.title.trim()}
-                  style={{ padding: '0.35rem 0.875rem', fontSize: '0.8rem' }}
+                  style={{
+                    padding: '0.4rem 1rem',
+                    fontSize: '0.8rem',
+                    background: 'linear-gradient(135deg, #ef4444, #f59e0b)',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '0.375rem',
+                    cursor: saving || !editValues.title.trim() ? 'not-allowed' : 'pointer',
+                    fontWeight: 600,
+                    opacity: saving || !editValues.title.trim() ? 0.5 : 1,
+                  }}
                 >
                   {saving ? 'Saving...' : 'Save'}
                 </button>
@@ -324,10 +571,29 @@ export default function UpcomingEventsWidget({ initialEvents, isStaff }: Upcomin
               alignItems: 'flex-start',
               cursor: isStaff ? 'pointer' : 'default',
             }}
-            onClick={() => startEditing(event)}
+            onClick={() => isStaff ? startEditing(event) : undefined}
           >
-            <div style={{ flex: 1 }}>
-              <div style={{ fontWeight: 600, fontSize: '0.95rem' }}>{event.title}</div>
+            <Link
+              href={`/events/${event.id}`}
+              onClick={(e) => { if (isStaff) e.preventDefault() }}
+              style={{ flex: 1, textDecoration: 'none', color: 'inherit' }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <span style={{ fontWeight: 600, fontSize: '0.95rem' }}>{event.title}</span>
+                {event.event_type && (
+                  <span style={{
+                    fontSize: '0.7rem',
+                    fontWeight: 600,
+                    padding: '1px 8px',
+                    borderRadius: '9999px',
+                    background: 'rgba(239,68,68,0.1)',
+                    color: '#ef4444',
+                    border: '1px solid rgba(239,68,68,0.2)',
+                  }}>
+                    {EVENT_TYPE_LABELS[event.event_type] || event.event_type}
+                  </span>
+                )}
+              </div>
               {event.description && (
                 <div style={{ color: 'var(--muted-foreground)', fontSize: '0.85rem', marginTop: '0.25rem' }}>
                   {event.description}
@@ -336,7 +602,7 @@ export default function UpcomingEventsWidget({ initialEvents, isStaff }: Upcomin
               <div style={{ color: 'var(--muted-foreground)', fontSize: '0.8rem', marginTop: '0.25rem' }}>
                 {formatEventTime(event.start_time, event.end_time)}
               </div>
-            </div>
+            </Link>
             {isStaff && (
               <button
                 onClick={(e) => { e.stopPropagation(); setPendingDeleteId(event.id) }}
