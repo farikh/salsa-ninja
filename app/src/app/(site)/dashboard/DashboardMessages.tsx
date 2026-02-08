@@ -95,7 +95,7 @@ export function DashboardMessages({ initialBookings, memberId }: DashboardMessag
           {unread.slice(0, 3).map((msg) => (
             <Link
               key={msg.booking_id}
-              href="/private-sessions"
+              href="/dashboard/conversations"
               style={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -147,7 +147,7 @@ export function DashboardMessages({ initialBookings, memberId }: DashboardMessag
       )}
 
       <Link
-        href="/private-sessions"
+        href="/dashboard/conversations"
         style={{
           color: '#ef4444',
           fontSize: '0.85rem',
