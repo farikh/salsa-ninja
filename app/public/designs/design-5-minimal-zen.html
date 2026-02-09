@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salsa Ninja Dance Academy — Minimal Zen</title>
+<style>
+  /* ===== RESET & BASE ===== */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    font-size: 17px;
+  }
+
+  body {
+    font-family: 'Noto Serif', 'Georgia', 'Times New Roman', serif;
+    background: #fafaf8;
+    color: #555;
+    line-height: 1.85;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  /* ===== CSS VARIABLES ===== */
+  :root {
+    --bg: #fafaf8;
+    --bg-warm: #f5f3ee;
+    --charcoal: #2d2d2d;
+    --text: #666;
+    --text-light: #999;
+    --red: #b83226;
+    --red-hover: #a02b20;
+    --gold: #c9a84c;
+    --border: #e0ddd8;
+    --border-light: #ece9e3;
+    --max-w: 860px;
+    --section-pad: 110px;
+    --heading-font: 'Segoe UI', -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  /* ===== SCROLL ANIMATIONS ===== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.9s cubic-bezier(0.25, 0.1, 0.25, 1),
+                transform 0.9s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ===== TYPOGRAPHY ===== */
+  h1, h2, h3, h4, h5 {
+    font-family: var(--heading-font);
+    color: var(--charcoal);
+    font-weight: 200;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    font-size: 0.85rem;
+    letter-spacing: 0.3em;
+    margin-bottom: 50px;
+    text-align: center;
+    position: relative;
+  }
+
+  h3 {
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    margin-bottom: 18px;
+    font-weight: 300;
+  }
+
+  p { margin-bottom: 1.2em; }
+
+  a {
+    color: var(--charcoal);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  a:hover { color: var(--red); }
+
+  /* ===== UTILITY ===== */
+  .container {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 30px;
+  }
+
+  .section {
+    padding: var(--section-pad) 0;
+  }
+
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: var(--border);
+    border: none;
+  }
+
+  .section-number {
+    font-family: var(--heading-font);
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    color: var(--text-light);
+    text-align: center;
+    display: block;
+    margin-bottom: 30px;
+    font-weight: 300;
+  }
+
+  /* Enso circle decorative element */
+  .enso {
+    width: 36px;
+    height: 36px;
+    border: 1.5px solid var(--border);
+    border-radius: 50%;
+    margin: 0 auto 35px;
+    position: relative;
+    /* break in circle — zen enso style */
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 85%, 5% 80%);
+  }
+  .enso::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: 12px;
+    width: 12px;
+    height: 4px;
+    background: var(--bg);
+  }
+
+  /* Small dash accent */
+  .dash-accent {
+    width: 30px;
+    height: 1px;
+    background: var(--red);
+    margin: 0 auto 30px;
+    opacity: 0.6;
+  }
+
+  /* ===== NAVIGATION ===== */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(250, 250, 248, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-light);
+    transition: all 0.3s ease;
+  }
+
+  nav .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+  }
+
+  .nav-logo {
+    font-family: var(--heading-font);
+    font-size: 0.7rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--charcoal);
+    font-weight: 300;
+  }
+  .nav-logo span {
+    color: var(--red);
+    font-weight: 400;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: var(--heading-font);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    font-weight: 300;
+    transition: color 0.3s ease;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--red);
+    transition: width 0.3s ease;
+  }
+  .nav-links a:hover { color: var(--charcoal); }
+  .nav-links a:hover::after { width: 100%; }
+
+  .nav-cta {
+    font-family: var(--heading-font);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 10px 24px;
+    border: 1px solid var(--charcoal);
+    color: var(--charcoal) !important;
+    font-weight: 300;
+    transition: all 0.3s ease;
+  }
+  .nav-cta:hover {
+    background: var(--charcoal);
+    color: var(--bg) !important;
+  }
+  .nav-cta::after { display: none !important; }
+
+  /* Mobile nav toggle */
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 8px;
+    background: none;
+    border: none;
+  }
+  .nav-toggle span {
+    width: 22px;
+    height: 1px;
+    background: var(--charcoal);
+    transition: all 0.3s ease;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(165deg, #2d2d2d 0%, #3a3532 40%, #4a3833 70%, #5a3a35 100%);
+    z-index: 0;
+  }
+
+  /* Subtle grid pattern overlay */
+  .hero-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(250,250,248,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(250,250,248,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  /* Subtle radial light */
+  .hero-bg::after {
+    content: '';
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(184,50,38,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    padding: 0 30px;
+  }
+
+  .hero-overline {
+    font-family: var(--heading-font);
+    font-size: 0.6rem;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: rgba(250,250,248,0.4);
+    margin-bottom: 40px;
+    font-weight: 300;
+  }
+
+  .hero h1 {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    color: #fafaf8;
+    font-weight: 100;
+    letter-spacing: 0.35em;
+    margin-bottom: 30px;
+    line-height: 1.3;
+  }
+
+  .hero-tagline {
+    font-family: 'Georgia', serif;
+    font-size: 0.95rem;
+    color: rgba(250,250,248,0.5);
+    font-style: italic;
+    font-weight: 300;
+    margin-bottom: 55px;
+    letter-spacing: 0.05em;
+    line-height: 1.8;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-cta {
+    display: inline-block;
+    font-family: var(--heading-font);
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    padding: 16px 40px;
+    border: 1px solid rgba(250,250,248,0.3);
+    color: #fafaf8;
+    font-weight: 300;
+    transition: all 0.4s ease;
+  }
+  .hero-cta:hover {
+    background: rgba(250,250,248,0.08);
+    border-color: rgba(250,250,248,0.6);
+    color: #fafaf8;
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+  }
+  .hero-scroll span {
+    display: block;
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(to bottom, rgba(250,250,248,0.3), transparent);
+    margin: 0 auto;
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(1); }
+    50% { opacity: 0.7; transform: scaleY(1.2); }
+  }
+
+  /* ===== STATS ===== */
+  .stats {
+    padding: 80px 0;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    text-align: center;
+  }
+
+  .stat-item {
+    padding: 30px 20px;
+    border-right: 1px solid var(--border-light);
+  }
+  .stat-item:last-child { border-right: none; }
+
+  .stat-number {
+    font-family: var(--heading-font);
+    font-size: 1.6rem;
+    font-weight: 200;
+    color: var(--charcoal);
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+  }
+
+  .stat-label {
+    font-family: var(--heading-font);
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+
+  /* ===== DANCE STYLES ===== */
+  .styles-intro {
+    text-align: center;
+    max-width: 560px;
+    margin: 0 auto 60px;
+    color: var(--text);
+    font-size: 0.95rem;
+    line-height: 2;
+  }
+
+  .styles-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+
+  .style-card {
+    border: 1px solid var(--border);
+    padding: 0;
+    transition: border-color 0.3s ease;
+  }
+  .style-card:hover { border-color: #ccc; }
+
+  .style-img {
+    height: 220px;
+    background: linear-gradient(135deg, #3a3532 0%, #5a5550 50%, #4a4540 100%);
+    position: relative;
+  }
+  .style-card:first-child .style-img {
+    background: linear-gradient(135deg, #4a3833 0%, #5a4843 50%, #3a2823 100%);
+  }
+
+  .style-body {
+    padding: 35px 30px;
+  }
+
+  .style-body h3 {
+    margin-bottom: 15px;
+  }
+
+  .style-body p {
+    font-size: 0.88rem;
+    color: var(--text);
+    line-height: 1.9;
+    margin-bottom: 0;
+  }
+
+  /* ===== SCHEDULE ===== */
+  .schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+  }
+
+  .schedule-table thead th {
+    font-family: var(--heading-font);
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-weight: 300;
+    color: var(--text-light);
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+  }
+
+  .schedule-table tbody td {
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--border-light);
+    color: var(--text);
+    vertical-align: top;
+  }
+
+  .schedule-table tbody tr:last-child td { border-bottom: none; }
+
+  .schedule-day {
+    font-family: var(--heading-font);
+    font-weight: 400;
+    color: var(--charcoal);
+    letter-spacing: 0.05em;
+  }
+
+  .schedule-time {
+    color: var(--text-light);
+    font-size: 0.82rem;
+  }
+
+  .schedule-class {
+    color: var(--charcoal);
+    font-weight: 400;
+  }
+
+  .schedule-level {
+    display: inline-block;
+    font-family: var(--heading-font);
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    border: 1px solid var(--border);
+    padding: 2px 10px;
+    margin-left: 10px;
+  }
+
+  /* ===== INSTRUCTORS ===== */
+  .instructors-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 50px;
+    text-align: center;
+  }
+
+  .instructor-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: 0 auto 25px;
+    background: linear-gradient(135deg, #e0ddd8, #d0cdc8);
+    position: relative;
+  }
+  .instructor-avatar::after {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border: 1px solid var(--border-light);
+    border-radius: 50%;
+  }
+
+  .instructor-name {
+    font-family: var(--heading-font);
+    font-size: 0.88rem;
+    font-weight: 400;
+    color: var(--charcoal);
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+
+  .instructor-title {
+    font-family: var(--heading-font);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 18px;
+    font-weight: 300;
+    opacity: 0.8;
+  }
+
+  .instructor-bio {
+    font-size: 0.85rem;
+    color: var(--text);
+    line-height: 1.8;
+  }
+
+  /* ===== TESTIMONIALS ===== */
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 60px;
+    max-width: 620px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .testimonial-quote {
+    font-family: 'Georgia', serif;
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--charcoal);
+    line-height: 2;
+    margin-bottom: 25px;
+    position: relative;
+  }
+  .testimonial-quote::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 1px;
+    background: var(--red);
+    margin: 0 auto 25px;
+    opacity: 0.5;
+  }
+
+  .testimonial-author {
+    font-family: var(--heading-font);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+
+  .testimonial-detail {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--border);
+    margin-top: 4px;
+  }
+
+  /* ===== PRICING ===== */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 1px solid var(--border);
+  }
+
+  .pricing-card {
+    padding: 50px 30px;
+    text-align: center;
+    border-right: 1px solid var(--border);
+    position: relative;
+    transition: background 0.3s ease;
+  }
+  .pricing-card:last-child { border-right: none; }
+  .pricing-card:hover { background: rgba(0,0,0,0.01); }
+
+  .pricing-card.featured {
+    background: var(--charcoal);
+  }
+  .pricing-card.featured h3,
+  .pricing-card.featured .pricing-amount,
+  .pricing-card.featured .pricing-period {
+    color: #fafaf8;
+  }
+  .pricing-card.featured .pricing-features li {
+    color: rgba(250,250,248,0.6);
+    border-bottom-color: rgba(250,250,248,0.1);
+  }
+  .pricing-card.featured .pricing-badge {
+    color: var(--gold);
+    border-color: var(--gold);
+  }
+  .pricing-card.featured .pricing-cta {
+    border-color: rgba(250,250,248,0.3);
+    color: #fafaf8;
+  }
+  .pricing-card.featured .pricing-cta:hover {
+    background: rgba(250,250,248,0.08);
+  }
+
+  .pricing-badge {
+    font-family: var(--heading-font);
+    font-size: 0.55rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--red);
+    border: 1px solid var(--red);
+    display: inline-block;
+    padding: 4px 14px;
+    margin-bottom: 25px;
+    font-weight: 300;
+    opacity: 0.8;
+  }
+
+  .pricing-amount {
+    font-family: var(--heading-font);
+    font-size: 2.2rem;
+    font-weight: 100;
+    color: var(--charcoal);
+    letter-spacing: 0.05em;
+    margin-bottom: 5px;
+  }
+
+  .pricing-period {
+    font-family: var(--heading-font);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 35px;
+    font-weight: 300;
+  }
+
+  .pricing-features {
+    list-style: none;
+    margin-bottom: 35px;
+    text-align: left;
+  }
+
+  .pricing-features li {
+    font-size: 0.82rem;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-light);
+    color: var(--text);
+  }
+  .pricing-features li:last-child { border-bottom: none; }
+
+  .pricing-cta {
+    display: inline-block;
+    font-family: var(--heading-font);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 12px 30px;
+    border: 1px solid var(--charcoal);
+    color: var(--charcoal);
+    font-weight: 300;
+    transition: all 0.3s ease;
+  }
+  .pricing-cta:hover {
+    background: var(--charcoal);
+    color: var(--bg);
+  }
+
+  /* ===== EVENTS ===== */
+  .events-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+  }
+
+  .event-card {
+    border: 1px solid var(--border);
+    transition: border-color 0.3s ease;
+  }
+  .event-card:hover { border-color: #ccc; }
+
+  .event-img {
+    height: 160px;
+    position: relative;
+  }
+  .event-card:nth-child(1) .event-img {
+    background: linear-gradient(135deg, #5a3a35 0%, #4a3833 50%, #3a2823 100%);
+  }
+  .event-card:nth-child(2) .event-img {
+    background: linear-gradient(135deg, #3a3532 0%, #4a4540 50%, #5a5550 100%);
+  }
+  .event-card:nth-child(3) .event-img {
+    background: linear-gradient(135deg, #4a3833 0%, #3a3532 50%, #5a4843 100%);
+  }
+
+  .event-date {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font-family: var(--heading-font);
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(250,250,248,0.7);
+    font-weight: 300;
+  }
+
+  .event-body {
+    padding: 25px;
+  }
+
+  .event-body h3 {
+    margin-bottom: 10px;
+    font-size: 0.7rem;
+  }
+
+  .event-body p {
+    font-size: 0.82rem;
+    color: var(--text);
+    line-height: 1.8;
+    margin-bottom: 0;
+  }
+
+  .event-time {
+    font-family: var(--heading-font);
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: var(--text-light);
+    margin-bottom: 12px;
+    font-weight: 300;
+  }
+
+  /* ===== COMMUNITY / GALLERY ===== */
+  .community-intro {
+    text-align: center;
+    max-width: 520px;
+    margin: 0 auto 50px;
+    font-size: 0.95rem;
+    color: var(--text);
+    line-height: 2;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto;
+    gap: 4px;
+  }
+
+  .gallery-item {
+    aspect-ratio: 1;
+    position: relative;
+    overflow: hidden;
+    transition: opacity 0.3s ease;
+  }
+  .gallery-item:hover { opacity: 0.85; }
+
+  .gallery-item:nth-child(1) { background: linear-gradient(135deg, #4a4540, #5a5550); }
+  .gallery-item:nth-child(2) { background: linear-gradient(135deg, #5a3a35, #4a3833); }
+  .gallery-item:nth-child(3) { background: linear-gradient(135deg, #3a3532, #4a4540); }
+  .gallery-item:nth-child(4) { background: linear-gradient(135deg, #4a3833, #5a4843); }
+  .gallery-item:nth-child(5) { background: linear-gradient(135deg, #5a5550, #3a3532); }
+  .gallery-item:nth-child(6) { background: linear-gradient(135deg, #3a2823, #5a3a35); }
+
+  /* ===== LOCATION ===== */
+  .location-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: start;
+  }
+
+  .location-map {
+    aspect-ratio: 4/3;
+    background: linear-gradient(135deg, #e0ddd8, #d0cdc8, #e8e5e0);
+    position: relative;
+  }
+  .location-map::after {
+    content: 'Map';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--heading-font);
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-light);
+  }
+
+  .location-info h3 {
+    margin-bottom: 30px;
+  }
+
+  .location-detail {
+    margin-bottom: 25px;
+  }
+
+  .location-label {
+    font-family: var(--heading-font);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 6px;
+    font-weight: 300;
+  }
+
+  .location-value {
+    font-size: 0.88rem;
+    color: var(--charcoal);
+    line-height: 1.7;
+  }
+
+  .hours-list {
+    list-style: none;
+  }
+  .hours-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-light);
+    font-size: 0.85rem;
+  }
+  .hours-list li:last-child { border-bottom: none; }
+  .hours-day { color: var(--charcoal); font-weight: 400; }
+  .hours-time { color: var(--text-light); }
+
+  /* ===== FOOTER ===== */
+  footer {
+    padding: 60px 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 30px;
+    text-align: center;
+  }
+
+  .footer-logo {
+    font-family: var(--heading-font);
+    font-size: 0.7rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--charcoal);
+    font-weight: 200;
+    margin-bottom: 30px;
+  }
+  .footer-logo span { color: var(--red); }
+
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 35px;
+    list-style: none;
+    margin-bottom: 30px;
+  }
+
+  .footer-links a {
+    font-family: var(--heading-font);
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+  .footer-links a:hover { color: var(--charcoal); }
+
+  .footer-social {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-bottom: 30px;
+  }
+  .footer-social a {
+    font-family: var(--heading-font);
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+  .footer-social a:hover { color: var(--charcoal); }
+
+  .footer-contact {
+    font-size: 0.78rem;
+    color: var(--text-light);
+    margin-bottom: 20px;
+    line-height: 1.8;
+  }
+
+  .footer-copy {
+    font-family: var(--heading-font);
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: var(--border);
+    font-weight: 300;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .stat-item:nth-child(2) { border-right: none; }
+    .stat-item { border-bottom: 1px solid var(--border-light); }
+    .stat-item:nth-child(3), .stat-item:nth-child(4) { border-bottom: none; }
+
+    .styles-grid { grid-template-columns: 1fr; gap: 30px; }
+    .instructors-grid { grid-template-columns: 1fr; gap: 40px; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .pricing-card { border-right: none; border-bottom: 1px solid var(--border); }
+    .pricing-card:last-child { border-bottom: none; }
+    .events-grid { grid-template-columns: 1fr; gap: 20px; }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    .location-grid { grid-template-columns: 1fr; gap: 30px; }
+  }
+
+  @media (max-width: 700px) {
+    :root { --section-pad: 80px; }
+
+    .nav-links { display: none; }
+    .nav-toggle { display: flex; }
+
+    /* Mobile nav open state */
+    nav.open .nav-links {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 70px;
+      left: 0;
+      right: 0;
+      background: rgba(250,250,248,0.98);
+      padding: 30px;
+      gap: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+
+    .schedule-table { font-size: 0.8rem; }
+    .schedule-table thead th,
+    .schedule-table tbody td { padding: 12px 10px; }
+    .schedule-level { display: block; margin-left: 0; margin-top: 6px; }
+
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+
+    .footer-links { flex-wrap: wrap; gap: 20px; }
+
+    h2 { font-size: 0.75rem; }
+    .hero h1 { letter-spacing: 0.2em; }
+  }
+
+  @media (max-width: 480px) {
+    :root { --section-pad: 60px; }
+    .stats-grid { grid-template-columns: 1fr; }
+    .stat-item { border-right: none; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; }
+    .instructors-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== NAVIGATION ===== -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Salsa <span>Ninja</span></a>
+    <ul class="nav-links">
+      <li><a href="#styles">Classes</a></li>
+      <li><a href="#schedule">Schedule</a></li>
+      <li><a href="#instructors">Instructors</a></li>
+      <li><a href="#events">Events</a></li>
+      <li><a href="#location">Visit</a></li>
+      <li><a href="#pricing" class="nav-cta">Join Us</a></li>
+    </ul>
+    <button class="nav-toggle" onclick="document.getElementById('navbar').classList.toggle('open')" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content reveal">
+    <p class="hero-overline">Sunrise, Florida</p>
+    <h1>Salsa Ninja<br>Dance Academy</h1>
+    <p class="hero-tagline">Quality dance instruction dedicated to social dancing and stage performances</p>
+    <a href="#pricing" class="hero-cta">Try Your First Class &mdash; $5</a>
+  </div>
+  <div class="hero-scroll"><span></span></div>
+</section>
+
+<!-- ===== SOCIAL PROOF STATS ===== -->
+<section class="stats reveal" id="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-number">500+</div>
+        <div class="stat-label">Students Trained</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">8+</div>
+        <div class="stat-label">Years Teaching</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">50+</div>
+        <div class="stat-label">Events Hosted</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">4.9</div>
+        <div class="stat-label">Student Rating</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ===== DANCE STYLES ===== -->
+<section class="section reveal" id="styles">
+  <div class="container">
+    <span class="section-number">01</span>
+    <div class="enso"></div>
+    <h2>What We Teach</h2>
+    <p class="styles-intro">
+      We believe dance is a practice &mdash; a discipline that rewards patience,
+      presence, and dedication. Every class is designed to build your confidence
+      on the social floor and sharpen your artistry on stage.
+    </p>
+    <div class="styles-grid">
+      <div class="style-card">
+        <div class="style-img"></div>
+        <div class="style-body">
+          <h3>Salsa On1 &mdash; LA Style</h3>
+          <p>Dynamic, linear footwork with sharp turns and expressive body movement. Our Salsa program takes you from foundational timing and basic steps through intricate partner combinations and advanced styling.</p>
+        </div>
+      </div>
+      <div class="style-card">
+        <div class="style-img"></div>
+        <div class="style-body">
+          <h3>Bachata</h3>
+          <p>Sensual, grounded movement rooted in Dominican tradition. Learn authentic footwork, body rolls, and musicality. From traditional bachata to modern sensual fusion, develop your own voice on the dance floor.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ===== SCHEDULE ===== -->
+<section class="section reveal" id="schedule">
+  <div class="container">
+    <span class="section-number">02</span>
+    <div class="dash-accent"></div>
+    <h2>Weekly Schedule</h2>
+    <table class="schedule-table">
+      <thead>
+        <tr>
+          <th>Day</th>
+          <th>Time</th>
+          <th>Class</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="schedule-day">Monday</td>
+          <td class="schedule-time">6:00 &ndash; 7:00 PM</td>
+          <td><span class="schedule-class">Salsa Fundamentals</span><span class="schedule-level">Beginner</span></td>
+        </tr>
+        <tr>
+          <td class="schedule-day">Monday</td>
+          <td class="schedule-time">7:00 &ndash; 8:00 PM</td>
+          <td><span class="schedule-class">Intermediate Salsa</span><span class="schedule-level">Intermediate</span></td>
+        </tr>
+        <tr>
+          <td class="schedule-day">Monday</td>
+          <td class="schedule-time">8:00 &ndash; 9:00 PM</td>
+          <td><span class="schedule-class">Advanced Styling</span><span class="schedule-level">Advanced</span></td>
+        </tr>
+        <tr>
+          <td class="schedule-day">Tuesday</td>
+          <td class="schedule-time">7:00 &ndash; 8:30 PM</td>
+          <td><span class="schedule-class">Bachata Basics</span><span class="schedule-level">Beginner</span></td>
+        </tr>
+        <tr>
+          <td class="schedule-day">Tuesday</td>
+          <td class="schedule-time">8:30 &ndash; 9:00 PM</td>
+          <td><span class="schedule-class">Open Social Practice</span><span class="schedule-level">All Levels</span></td>
+        </tr>
+        <tr>
+          <td class="schedule-day">Wednesday</td>
+          <td class="schedule-time">6:00 &ndash; 7:30 PM</td>
+          <td><span class="schedule-class">Salsa Fundamentals</span><span class="schedule-level">Beginner</span></td>
+        </tr>
+        <tr>
+          <td class="schedule-day">Wednesday</td>
+          <td class="schedule-time">7:30 &ndash; 9:00 PM</td>
+          <td><span class="schedule-class">Bachata Sensual</span><span class="schedule-level">Intermediate</span></td>
+        </tr>
+        <tr>
+          <td class="schedule-day">Thursday</td>
+          <td class="schedule-time">7:00 &ndash; 8:30 PM</td>
+          <td><span class="schedule-class">Intermediate Salsa</span><span class="schedule-level">Intermediate</span></td>
+        </tr>
+        <tr>
+          <td class="schedule-day">Thursday</td>
+          <td class="schedule-time">8:30 &ndash; 10:00 PM</td>
+          <td><span class="schedule-class">Open Social Practice</span><span class="schedule-level">All Levels</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ===== INSTRUCTORS ===== -->
+<section class="section reveal" id="instructors">
+  <div class="container">
+    <span class="section-number">03</span>
+    <div class="enso"></div>
+    <h2>Instructors</h2>
+    <div class="instructors-grid">
+      <div class="instructor-item">
+        <div class="instructor-avatar"></div>
+        <div class="instructor-name">Marco Delgado</div>
+        <div class="instructor-title">Lead Instructor &amp; Founder</div>
+        <p class="instructor-bio">Over 15 years of training in LA-style salsa. Marco has competed internationally and brings a technical yet soulful approach to every class he teaches.</p>
+      </div>
+      <div class="instructor-item">
+        <div class="instructor-avatar"></div>
+        <div class="instructor-name">Valentina Reyes</div>
+        <div class="instructor-title">Bachata Director</div>
+        <p class="instructor-bio">Trained in the Dominican Republic, Valentina blends traditional roots with modern sensual technique. Her classes focus on musicality and authentic connection.</p>
+      </div>
+      <div class="instructor-item">
+        <div class="instructor-avatar"></div>
+        <div class="instructor-name">Daniel Okafor</div>
+        <div class="instructor-title">Performance Coach</div>
+        <p class="instructor-bio">A stage performer and choreographer, Daniel leads our competition teams and bootcamps. His energy is contagious and his attention to detail is unmatched.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ===== TESTIMONIALS ===== -->
+<section class="section reveal" id="testimonials">
+  <div class="container">
+    <span class="section-number">04</span>
+    <div class="dash-accent"></div>
+    <h2>Student Voices</h2>
+    <div class="testimonials-grid">
+      <div class="testimonial-item">
+        <p class="testimonial-quote">I walked in knowing nothing. Six months later I'm dancing at socials every weekend and I've found a second family. Salsa Ninja changed my life in ways I never expected.</p>
+        <div class="testimonial-author">Alejandra M.</div>
+        <div class="testimonial-detail">Dancing 2 years</div>
+      </div>
+      <div class="testimonial-item">
+        <p class="testimonial-quote">The instructors here don't just teach steps &mdash; they teach you how to feel the music. I've trained at other studios but nothing compares to the depth of instruction at Salsa Ninja.</p>
+        <div class="testimonial-author">James T.</div>
+        <div class="testimonial-detail">Dancing 4 years</div>
+      </div>
+      <div class="testimonial-item">
+        <p class="testimonial-quote">As someone who was terrified to dance in public, the supportive atmosphere made all the difference. The Ninja Fam welcomes everyone with open arms.</p>
+        <div class="testimonial-author">Sofia R.</div>
+        <div class="testimonial-detail">Dancing 8 months</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ===== PRICING ===== -->
+<section class="section reveal" id="pricing">
+  <div class="container">
+    <span class="section-number">05</span>
+    <div class="enso"></div>
+    <h2>Membership</h2>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3>Drop-In</h3>
+        <div class="pricing-amount">$20</div>
+        <div class="pricing-period">Per Class</div>
+        <ul class="pricing-features">
+          <li>Access to any single class</li>
+          <li>No commitment required</li>
+          <li>Pay at the door</li>
+          <li>Perfect for visitors</li>
+        </ul>
+        <a href="#" class="pricing-cta">Get Started</a>
+      </div>
+      <div class="pricing-card featured">
+        <div class="pricing-badge">Most Popular</div>
+        <h3>Monthly Unlimited</h3>
+        <div class="pricing-amount">$99</div>
+        <div class="pricing-period">Per Month</div>
+        <ul class="pricing-features">
+          <li>Unlimited group classes</li>
+          <li>Access to all socials</li>
+          <li>10% off private lessons</li>
+          <li>Cancel anytime</li>
+        </ul>
+        <a href="#" class="pricing-cta">Join Now</a>
+      </div>
+      <div class="pricing-card">
+        <h3>Ninja Fam Annual</h3>
+        <div class="pricing-amount">$899</div>
+        <div class="pricing-period">Per Year</div>
+        <ul class="pricing-features">
+          <li>Everything in Monthly</li>
+          <li>2 free private lessons</li>
+          <li>Priority event registration</li>
+          <li>Exclusive Ninja Fam merch</li>
+        </ul>
+        <a href="#" class="pricing-cta">Commit</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ===== EVENTS ===== -->
+<section class="section reveal" id="events">
+  <div class="container">
+    <span class="section-number">06</span>
+    <div class="dash-accent"></div>
+    <h2>Upcoming Events</h2>
+    <div class="events-grid">
+      <div class="event-card">
+        <div class="event-img">
+          <span class="event-date">Mar 15, 2025</span>
+        </div>
+        <div class="event-body">
+          <h3>Monthly Social Night</h3>
+          <div class="event-time">8:00 PM &ndash; 12:00 AM</div>
+          <p>Open floor dancing, guest DJs, and good vibes. Our monthly social brings together dancers of all levels for an unforgettable night of salsa and bachata.</p>
+        </div>
+      </div>
+      <div class="event-card">
+        <div class="event-img">
+          <span class="event-date">Mar 22&ndash;23, 2025</span>
+        </div>
+        <div class="event-body">
+          <h3>Bachata Bootcamp</h3>
+          <div class="event-time">10:00 AM &ndash; 4:00 PM</div>
+          <p>An intensive two-day workshop covering sensual bachata technique, musicality drills, and partner connection. Limited to 30 participants.</p>
+        </div>
+      </div>
+      <div class="event-card">
+        <div class="event-img">
+          <span class="event-date">Apr 5, 2025</span>
+        </div>
+        <div class="event-body">
+          <h3>Team Showcase</h3>
+          <div class="event-time">7:00 PM &ndash; 10:00 PM</div>
+          <p>Watch our competition teams perform their latest choreography. Live music, performances, and a social dance to follow. Friends and family welcome.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ===== COMMUNITY / GALLERY ===== -->
+<section class="section reveal" id="community">
+  <div class="container">
+    <span class="section-number">07</span>
+    <div class="enso"></div>
+    <h2>The Ninja Fam</h2>
+    <p class="community-intro">
+      More than a studio &mdash; we are a family. The Ninja Fam is a community
+      of dancers who support each other on and off the floor. From first timers
+      to seasoned performers, everyone belongs here.
+    </p>
+  </div>
+  <div class="container" style="max-width: 900px;">
+    <div class="gallery-grid">
+      <div class="gallery-item"></div>
+      <div class="gallery-item"></div>
+      <div class="gallery-item"></div>
+      <div class="gallery-item"></div>
+      <div class="gallery-item"></div>
+      <div class="gallery-item"></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ===== LOCATION + HOURS ===== -->
+<section class="section reveal" id="location">
+  <div class="container">
+    <span class="section-number">08</span>
+    <div class="dash-accent"></div>
+    <h2>Visit Us</h2>
+    <div class="location-grid">
+      <div class="location-map"></div>
+      <div class="location-info">
+        <h3>Studio Location</h3>
+        <div class="location-detail">
+          <div class="location-label">Address</div>
+          <div class="location-value">10070 W Oakland Park Blvd<br>Sunrise, FL 33351</div>
+        </div>
+        <div class="location-detail">
+          <div class="location-label">Phone</div>
+          <div class="location-value"><a href="tel:9546625354">(954) 662-5354</a></div>
+        </div>
+        <div class="location-detail">
+          <div class="location-label">Email</div>
+          <div class="location-value"><a href="mailto:contact@salsaninja.com">contact@salsaninja.com</a></div>
+        </div>
+        <div class="location-detail">
+          <div class="location-label">Hours</div>
+          <ul class="hours-list">
+            <li><span class="hours-day">Monday</span><span class="hours-time">6:00 &ndash; 9:00 PM</span></li>
+            <li><span class="hours-day">Tuesday</span><span class="hours-time">7:00 &ndash; 9:00 PM</span></li>
+            <li><span class="hours-day">Wednesday</span><span class="hours-time">6:00 &ndash; 9:00 PM</span></li>
+            <li><span class="hours-day">Thursday</span><span class="hours-time">7:00 &ndash; 10:00 PM</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Salsa <span>Ninja</span> Dance Academy</div>
+    <ul class="footer-links">
+      <li><a href="#styles">Classes</a></li>
+      <li><a href="#schedule">Schedule</a></li>
+      <li><a href="#instructors">Instructors</a></li>
+      <li><a href="#events">Events</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#location">Visit</a></li>
+    </ul>
+    <div class="footer-social">
+      <a href="https://instagram.com/salsaninjadanceacademy" target="_blank">Instagram</a>
+      <a href="#" target="_blank">Facebook</a>
+    </div>
+    <div class="footer-contact">
+      <a href="mailto:contact@salsaninja.com">contact@salsaninja.com</a> &nbsp;&middot;&nbsp; <a href="tel:9546625354">(954) 662-5354</a>
+    </div>
+    <div class="footer-copy">&copy; 2025 Salsa Ninja Dance Academy. All rights reserved.</div>
+  </div>
+</footer>
+
+<!-- ===== SCROLL REVEAL SCRIPT ===== -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(function(el) {
+      observer.observe(el);
+    });
+
+    // Close mobile nav on link click
+    document.querySelectorAll('.nav-links a').forEach(function(link) {
+      link.addEventListener('click', function() {
+        document.getElementById('navbar').classList.remove('open');
+      });
+    });
+  });
+</script>
+</body>
+</html>

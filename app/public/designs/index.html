@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salsa Ninja — Design Alternatives</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #0a0a0a;
+    color: #fff;
+    min-height: 100vh;
+  }
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+  }
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+  }
+  h1 span {
+    background: linear-gradient(135deg, #ef4444, #f97316);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .subtitle {
+    color: rgba(255,255,255,0.4);
+    font-size: 1rem;
+    margin-bottom: 3rem;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+  .card {
+    background: #1a1a1a;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.06);
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .card:hover {
+    border-color: rgba(239,68,68,0.3);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  }
+  .card-preview {
+    height: 180px;
+    position: relative;
+    overflow: hidden;
+  }
+  .card-preview iframe {
+    width: 200%;
+    height: 200%;
+    transform: scale(0.5);
+    transform-origin: top left;
+    pointer-events: none;
+    border: none;
+  }
+  .card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.8));
+  }
+  .card-body {
+    padding: 1.25rem;
+  }
+  .card-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+  .card-file {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.3);
+    font-family: monospace;
+  }
+  .badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    background: rgba(239,68,68,0.15);
+    color: #ef4444;
+    border-radius: 2px;
+    margin-bottom: 0.75rem;
+  }
+  .current { background: rgba(34,197,94,0.15); color: #22c55e; }
+  footer {
+    text-align: center;
+    padding: 3rem 1.5rem;
+    color: rgba(255,255,255,0.2);
+    font-size: 0.8rem;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>Design <span>Alternatives</span></h1>
+    <p class="subtitle">Salsa Ninja Dance Academy — 10 design concepts to explore</p>
+
+    <div class="grid">
+      <a class="card" href="design-6-fiery-motion.html">
+        <div class="card-preview">
+          <iframe src="design-6-fiery-motion.html" loading="lazy"></iframe>
+          <div class="card-overlay"></div>
+        </div>
+        <div class="card-body">
+          <span class="badge current">Current Design</span>
+          <div class="card-title">Fiery Motion</div>
+          <div class="card-file">design-6-fiery-motion.html</div>
+        </div>
+      </a>
+
+      <a class="card" href="dark-ninja.html">
+        <div class="card-preview">
+          <iframe src="dark-ninja.html" loading="lazy"></iframe>
+          <div class="card-overlay"></div>
+        </div>
+        <div class="card-body">
+          <span class="badge">Alternative</span>
+          <div class="card-title">Dark Ninja</div>
+          <div class="card-file">dark-ninja.html</div>
+        </div>
+      </a>
+
+      <a class="card" href="warm-elegance.html">
+        <div class="card-preview">
+          <iframe src="warm-elegance.html" loading="lazy"></iframe>
+          <div class="card-overlay"></div>
+        </div>
+        <div class="card-body">
+          <span class="badge">Alternative</span>
+          <div class="card-title">Warm Elegance</div>
+          <div class="card-file">warm-elegance.html</div>
+        </div>
+      </a>
+
+      <a class="card" href="design3-tropical-fiesta.html">
+        <div class="card-preview">
+          <iframe src="design3-tropical-fiesta.html" loading="lazy"></iframe>
+          <div class="card-overlay"></div>
+        </div>
+        <div class="card-body">
+          <span class="badge">Alternative</span>
+          <div class="card-title">Tropical Fiesta</div>
+          <div class="card-file">design3-tropical-fiesta.html</div>
+        </div>
+      </a>
+
+      <a class="card" href="design4-bold-street.html">
+        <div class="card-preview">
+          <iframe src="design4-bold-street.html" loading="lazy"></iframe>
+          <div class="card-overlay"></div>
+        </div>
+        <div class="card-body">
+          <span class="badge">Alternative</span>
+          <div class="card-title">Bold Street</div>
+          <div class="card-file">design4-bold-street.html</div>
+        </div>
+      </a>
+
+      <a class="card" href="design-5-minimal-zen.html">
+        <div class="card-preview">
+          <iframe src="design-5-minimal-zen.html" loading="lazy"></iframe>
+          <div class="card-overlay"></div>
+        </div>
+        <div class="card-body">
+          <span class="badge">Alternative</span>
+          <div class="card-title">Minimal Zen</div>
+          <div class="card-file">design-5-minimal-zen.html</div>
+        </div>
+      </a>
+
+      <a class="card" href="design-7-luxe-gold.html">
+        <div class="card-preview">
+          <iframe src="design-7-luxe-gold.html" loading="lazy"></iframe>
+          <div class="card-overlay"></div>
+        </div>
+        <div class="card-body">
+          <span class="badge">Alternative</span>
+          <div class="card-title">Luxe Gold</div>
+          <div class="card-file">design-7-luxe-gold.html</div>
+        </div>
+      </a>
+
+      <a class="card" href="design-8-retro-havana.html">
+        <div class="card-preview">
+          <iframe src="design-8-retro-havana.html" loading="lazy"></iframe>
+          <div class="card-overlay"></div>
+        </div>
+        <div class="card-body">
+          <span class="badge">Alternative</span>
+          <div class="card-title">Retro Havana</div>
+          <div class="card-file">design-8-retro-havana.html</div>
+        </div>
+      </a>
+
+      <a class="card" href="design-9-neon-pulse.html">
+        <div class="card-preview">
+          <iframe src="design-9-neon-pulse.html" loading="lazy"></iframe>
+          <div class="card-overlay"></div>
+        </div>
+        <div class="card-body">
+          <span class="badge">Alternative</span>
+          <div class="card-title">Neon Pulse</div>
+          <div class="card-file">design-9-neon-pulse.html</div>
+        </div>
+      </a>
+
+      <a class="card" href="design-10-organic-earth.html">
+        <div class="card-preview">
+          <iframe src="design-10-organic-earth.html" loading="lazy"></iframe>
+          <div class="card-overlay"></div>
+        </div>
+        <div class="card-body">
+          <span class="badge">Alternative</span>
+          <div class="card-title">Organic Earth</div>
+          <div class="card-file">design-10-organic-earth.html</div>
+        </div>
+      </a>
+    </div>
+  </div>
+  <footer>Salsa Ninja Dance Academy — Design Exploration</footer>
+</body>
+</html>
