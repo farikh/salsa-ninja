@@ -6,11 +6,12 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: path.resolve(__dirname),
   },
-  async rewrites() {
+  async redirects() {
     return [
       {
         source: '/designs',
         destination: '/designs/index.html',
+        permanent: false,
       },
     ];
   },
