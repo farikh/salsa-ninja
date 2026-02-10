@@ -1,0 +1,2090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salsa Ninja Dance Academy — Tropical Fiesta</title>
+<style>
+  /* ========== CSS CUSTOM PROPERTIES ========== */
+  :root {
+    --coral: #FF6B6B;
+    --coral-deep: #E85555;
+    --turquoise: #4ECDC4;
+    --turquoise-deep: #38B2A9;
+    --yellow: #FFE66D;
+    --yellow-warm: #FFD93D;
+    --green: #2ECC71;
+    --green-deep: #27AE60;
+    --white: #FFFFFF;
+    --cream: #FFF8F0;
+    --cream-warm: #FFF3E4;
+    --dark: #2D3436;
+    --dark-soft: #636E72;
+    --light-gray: #F0F0F0;
+
+    --radius-sm: 12px;
+    --radius-md: 20px;
+    --radius-lg: 28px;
+    --radius-xl: 40px;
+    --radius-pill: 100px;
+
+    --shadow-soft: 0 4px 20px rgba(0,0,0,0.06);
+    --shadow-md: 0 8px 32px rgba(0,0,0,0.08);
+    --shadow-lg: 0 12px 48px rgba(0,0,0,0.12);
+    --shadow-coral: 0 8px 30px rgba(255,107,107,0.3);
+    --shadow-turquoise: 0 8px 30px rgba(78,205,196,0.3);
+
+    --font-display: 'Trebuchet MS', 'Segoe UI', system-ui, sans-serif;
+    --font-body: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    --font-accent: Georgia, 'Times New Roman', serif;
+  }
+
+  /* ========== RESET & BASE ========== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+  }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--dark);
+    background: var(--white);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  a { text-decoration: none; color: inherit; }
+  ul { list-style: none; }
+  img { max-width: 100%; display: block; }
+
+  /* ========== ANIMATED BACKGROUND DOTS ========== */
+  .confetti-dot {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.15;
+    pointer-events: none;
+    animation: floatDot 8s ease-in-out infinite;
+  }
+  @keyframes floatDot {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    33% { transform: translateY(-20px) rotate(120deg); }
+    66% { transform: translateY(10px) rotate(240deg); }
+  }
+
+  /* ========== UTILITY CLASSES ========== */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .section-label {
+    font-family: var(--font-accent);
+    font-style: italic;
+    color: var(--coral);
+    font-size: 1.1rem;
+    letter-spacing: 0.02em;
+    margin-bottom: 8px;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .section-subtitle {
+    font-size: 1.1rem;
+    color: var(--dark-soft);
+    max-width: 600px;
+    line-height: 1.7;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 36px;
+    border-radius: var(--radius-pill);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.15);
+    transform: translateX(-100%);
+    transition: transform 0.4s ease;
+  }
+  .btn:hover::after { transform: translateX(0); }
+
+  .btn-coral {
+    background: var(--coral);
+    color: var(--white);
+    box-shadow: var(--shadow-coral);
+  }
+  .btn-coral:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 12px 40px rgba(255,107,107,0.4);
+  }
+
+  .btn-turquoise {
+    background: var(--turquoise);
+    color: var(--white);
+    box-shadow: var(--shadow-turquoise);
+  }
+  .btn-turquoise:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 12px 40px rgba(78,205,196,0.4);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--dark);
+    border: 2.5px solid var(--dark);
+  }
+  .btn-outline:hover {
+    background: var(--dark);
+    color: var(--white);
+    transform: translateY(-3px) scale(1.03);
+  }
+
+  .btn-sm {
+    padding: 12px 28px;
+    font-size: 0.9rem;
+  }
+
+  .wave-divider {
+    width: 100%;
+    line-height: 0;
+    overflow: hidden;
+  }
+  .wave-divider svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* ========== NAVIGATION ========== */
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    transition: box-shadow 0.3s ease;
+  }
+  .nav.scrolled {
+    box-shadow: 0 4px 30px rgba(0,0,0,0.08);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.3rem;
+    color: var(--coral);
+  }
+  .nav-ninja-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--coral), var(--coral-deep));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: white;
+    font-weight: 900;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+  .nav-links a {
+    font-weight: 600;
+    font-size: 0.92rem;
+    color: var(--dark-soft);
+    transition: color 0.3s ease;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: var(--coral);
+    border-radius: 3px;
+    transition: width 0.3s ease;
+  }
+  .nav-links a:hover { color: var(--coral); }
+  .nav-links a:hover::after { width: 100%; }
+
+  .nav-cta {
+    padding: 10px 24px;
+    background: var(--coral);
+    color: var(--white) !important;
+    border-radius: var(--radius-pill);
+    font-weight: 700 !important;
+    transition: all 0.3s ease !important;
+    box-shadow: var(--shadow-coral);
+  }
+  .nav-cta:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 30px rgba(255,107,107,0.4) !important;
+  }
+  .nav-cta::after { display: none !important; }
+
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 8px;
+    background: none;
+    border: none;
+  }
+  .nav-hamburger span {
+    width: 28px;
+    height: 3px;
+    background: var(--dark);
+    border-radius: 3px;
+    transition: all 0.3s ease;
+  }
+
+  /* ========== HERO SECTION ========== */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding-top: 80px;
+    background: var(--cream);
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 50%, rgba(255,107,107,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 30%, rgba(78,205,196,0.10) 0%, transparent 50%),
+      radial-gradient(ellipse at 60% 80%, rgba(255,230,109,0.12) 0%, transparent 50%);
+    animation: heroShift 12s ease-in-out infinite alternate;
+  }
+  @keyframes heroShift {
+    0% { transform: scale(1) translate(0, 0); }
+    100% { transform: scale(1.05) translate(-10px, -10px); }
+  }
+
+  .hero-blob-1 {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
+    background: linear-gradient(135deg, rgba(255,107,107,0.08), rgba(255,230,109,0.08));
+    top: -100px;
+    right: -100px;
+    animation: blobMorph 15s ease-in-out infinite;
+  }
+  .hero-blob-2 {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    border-radius: 40% 60% 30% 70% / 60% 40% 50% 50%;
+    background: linear-gradient(135deg, rgba(78,205,196,0.06), rgba(46,204,113,0.06));
+    bottom: -50px;
+    left: -80px;
+    animation: blobMorph 18s ease-in-out infinite reverse;
+  }
+  @keyframes blobMorph {
+    0%, 100% { border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%; }
+    25% { border-radius: 40% 60% 50% 50% / 60% 40% 60% 40%; }
+    50% { border-radius: 50% 50% 40% 60% / 40% 60% 50% 50%; }
+    75% { border-radius: 60% 40% 60% 40% / 50% 50% 40% 60%; }
+  }
+
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+  .hero-content {
+    animation: fadeSlideUp 1s ease-out;
+  }
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--white);
+    padding: 8px 20px;
+    border-radius: var(--radius-pill);
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--coral);
+    margin-bottom: 24px;
+    box-shadow: var(--shadow-soft);
+    animation: fadeSlideUp 1s ease-out 0.1s both;
+  }
+  .hero-badge-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--green);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.3); }
+  }
+
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.8rem, 6vw, 4.5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    margin-bottom: 20px;
+    animation: fadeSlideUp 1s ease-out 0.2s both;
+  }
+  .hero h1 .text-coral { color: var(--coral); }
+  .hero h1 .text-turquoise { color: var(--turquoise); }
+  .hero h1 .text-script {
+    font-family: var(--font-accent);
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .hero-tagline {
+    font-size: 1.15rem;
+    color: var(--dark-soft);
+    line-height: 1.7;
+    margin-bottom: 36px;
+    max-width: 500px;
+    animation: fadeSlideUp 1s ease-out 0.3s both;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    animation: fadeSlideUp 1s ease-out 0.4s both;
+  }
+
+  .hero-visual {
+    position: relative;
+    animation: fadeSlideUp 1s ease-out 0.5s both;
+  }
+  .hero-image-main {
+    width: 100%;
+    aspect-ratio: 4/5;
+    border-radius: var(--radius-xl);
+    background: linear-gradient(135deg, var(--coral), var(--yellow-warm), var(--turquoise));
+    transform: rotate(3deg);
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-image-main::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 30% 40%, rgba(255,255,255,0.3) 0%, transparent 50%),
+      radial-gradient(circle at 70% 60%, rgba(0,0,0,0.05) 0%, transparent 50%);
+  }
+  .hero-image-main::after {
+    content: '💃';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 5rem;
+    opacity: 0.3;
+  }
+
+  .hero-float-card {
+    position: absolute;
+    background: var(--white);
+    border-radius: var(--radius-md);
+    padding: 16px 20px;
+    box-shadow: var(--shadow-md);
+    animation: float 4s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  .hero-float-card.card-1 {
+    top: 10%;
+    left: -30px;
+    animation-delay: 0s;
+  }
+  .hero-float-card.card-2 {
+    bottom: 15%;
+    right: -20px;
+    animation-delay: 1.5s;
+  }
+  .hero-float-card .card-emoji { font-size: 1.5rem; margin-bottom: 4px; }
+  .hero-float-card .card-text { font-weight: 700; font-size: 0.85rem; color: var(--dark); }
+  .hero-float-card .card-sub { font-size: 0.75rem; color: var(--dark-soft); }
+
+  /* ========== STATS SECTION ========== */
+  .stats {
+    padding: 80px 0;
+    background: var(--white);
+    position: relative;
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  .stat-card {
+    text-align: center;
+    padding: 32px 20px;
+    border-radius: var(--radius-lg);
+    background: var(--cream);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    border-radius: 4px 4px 0 0;
+  }
+  .stat-card:nth-child(1)::before { background: var(--coral); }
+  .stat-card:nth-child(2)::before { background: var(--turquoise); }
+  .stat-card:nth-child(3)::before { background: var(--yellow-warm); }
+  .stat-card:nth-child(4)::before { background: var(--green); }
+
+  .stat-card:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: var(--shadow-md);
+  }
+  .stat-number {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--dark);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .stat-card:nth-child(1) .stat-number { color: var(--coral); }
+  .stat-card:nth-child(2) .stat-number { color: var(--turquoise-deep); }
+  .stat-card:nth-child(3) .stat-number { color: var(--dark); }
+  .stat-card:nth-child(4) .stat-number { color: var(--green-deep); }
+
+  .stat-label {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--dark-soft);
+  }
+
+  /* ========== OFFERINGS SECTION ========== */
+  .offerings {
+    padding: 100px 0;
+    background: var(--cream);
+    position: relative;
+  }
+  .offerings-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+  .offerings-header .section-subtitle {
+    margin: 0 auto;
+  }
+
+  .dance-styles {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-bottom: 48px;
+  }
+  .style-card {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--white);
+    box-shadow: var(--shadow-soft);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+  }
+  .style-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+  }
+  .style-card-image {
+    height: 220px;
+    position: relative;
+    overflow: hidden;
+  }
+  .style-card:nth-child(1) .style-card-image {
+    background: linear-gradient(135deg, var(--coral), #FF8E53, var(--yellow));
+  }
+  .style-card:nth-child(2) .style-card-image {
+    background: linear-gradient(135deg, var(--turquoise), #45B7AA, var(--green));
+  }
+  .style-card-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.2) 0%, transparent 70%);
+  }
+  .style-card-image .style-emoji {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4rem;
+    opacity: 0.4;
+  }
+  .style-card-body {
+    padding: 28px;
+  }
+  .style-card-body h3 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+  .style-card-body .style-tag {
+    display: inline-block;
+    padding: 4px 14px;
+    border-radius: var(--radius-pill);
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--white);
+  }
+  .style-card:nth-child(1) .style-tag { background: var(--coral); }
+  .style-card:nth-child(2) .style-tag { background: var(--turquoise-deep); }
+
+  .style-card-body p {
+    color: var(--dark-soft);
+    line-height: 1.7;
+    font-size: 0.95rem;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  .service-card {
+    background: var(--white);
+    border-radius: var(--radius-md);
+    padding: 28px 20px;
+    text-align: center;
+    box-shadow: var(--shadow-soft);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  .service-card:hover {
+    transform: translateY(-6px) rotate(-1deg);
+    box-shadow: var(--shadow-md);
+  }
+  .service-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin: 0 auto 16px;
+  }
+  .service-card:nth-child(1) .service-icon { background: rgba(255,107,107,0.12); }
+  .service-card:nth-child(2) .service-icon { background: rgba(78,205,196,0.12); }
+  .service-card:nth-child(3) .service-icon { background: rgba(255,230,109,0.25); }
+  .service-card:nth-child(4) .service-icon { background: rgba(46,204,113,0.12); }
+
+  .service-card h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+  .service-card p {
+    font-size: 0.85rem;
+    color: var(--dark-soft);
+    line-height: 1.5;
+  }
+
+  /* ========== SCHEDULE SECTION ========== */
+  .schedule {
+    padding: 100px 0;
+    background: var(--white);
+    position: relative;
+  }
+  .schedule-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .schedule-header .section-subtitle { margin: 0 auto; }
+
+  .schedule-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+  .schedule-day {
+    background: var(--cream);
+    border-radius: var(--radius-md);
+    padding: 28px 20px;
+    text-align: center;
+    transition: all 0.4s ease;
+    border: 2px solid transparent;
+  }
+  .schedule-day:hover {
+    border-color: var(--coral);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-soft);
+  }
+  .schedule-day-name {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--coral);
+    margin-bottom: 8px;
+  }
+  .schedule-day-time {
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--dark);
+    margin-bottom: 12px;
+  }
+  .schedule-day-classes {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .schedule-class-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: var(--radius-pill);
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  .tag-salsa { background: rgba(255,107,107,0.12); color: var(--coral); }
+  .tag-bachata { background: rgba(78,205,196,0.12); color: var(--turquoise-deep); }
+  .tag-social { background: rgba(255,230,109,0.3); color: #B8860B; }
+  .tag-practice { background: rgba(46,204,113,0.12); color: var(--green-deep); }
+
+  .schedule-cta {
+    text-align: center;
+  }
+
+  /* ========== INSTRUCTORS SECTION ========== */
+  .instructors {
+    padding: 100px 0;
+    background: var(--cream);
+    position: relative;
+  }
+  .instructors-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+  .instructors-header .section-subtitle { margin: 0 auto; }
+
+  .instructors-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .instructor-card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .instructor-card:hover {
+    transform: translateY(-8px) rotate(-1deg);
+    box-shadow: var(--shadow-lg);
+  }
+  .instructor-photo {
+    height: 280px;
+    position: relative;
+    overflow: hidden;
+  }
+  .instructor-card:nth-child(1) .instructor-photo {
+    background: linear-gradient(160deg, var(--coral), var(--yellow-warm));
+  }
+  .instructor-card:nth-child(2) .instructor-photo {
+    background: linear-gradient(160deg, var(--turquoise), var(--green));
+  }
+  .instructor-photo::after {
+    content: '🥷';
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-size: 3rem;
+    opacity: 0.3;
+  }
+  .instructor-info {
+    padding: 28px;
+  }
+  .instructor-name {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin-bottom: 4px;
+  }
+  .instructor-title {
+    font-family: var(--font-accent);
+    font-style: italic;
+    color: var(--coral);
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+  }
+  .instructor-bio {
+    font-size: 0.9rem;
+    color: var(--dark-soft);
+    line-height: 1.7;
+  }
+  .instructor-specialties {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+  }
+  .instructor-specialties span {
+    padding: 4px 14px;
+    border-radius: var(--radius-pill);
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: var(--cream);
+    color: var(--dark-soft);
+  }
+
+  /* ========== TESTIMONIALS SECTION ========== */
+  .testimonials {
+    padding: 100px 0;
+    background: var(--white);
+    position: relative;
+  }
+  .testimonials-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+  .testimonials-header .section-subtitle { margin: 0 auto; }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .testimonial-card {
+    background: var(--cream);
+    border-radius: var(--radius-lg);
+    padding: 36px 28px;
+    position: relative;
+    transition: all 0.4s ease;
+  }
+  .testimonial-card:nth-child(2) {
+    transform: translateY(-12px);
+  }
+  .testimonial-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-md);
+  }
+  .testimonial-card:nth-child(2):hover {
+    transform: translateY(-20px);
+  }
+  .testimonial-quote-mark {
+    font-size: 3rem;
+    line-height: 1;
+    color: var(--coral);
+    opacity: 0.3;
+    font-family: var(--font-accent);
+    margin-bottom: 12px;
+  }
+  .testimonial-stars {
+    color: var(--yellow-warm);
+    font-size: 1.1rem;
+    margin-bottom: 16px;
+    letter-spacing: 2px;
+  }
+  .testimonial-text {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--dark);
+    margin-bottom: 20px;
+    font-style: italic;
+  }
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .testimonial-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.85rem;
+    color: var(--white);
+  }
+  .testimonial-card:nth-child(1) .testimonial-avatar { background: var(--coral); }
+  .testimonial-card:nth-child(2) .testimonial-avatar { background: var(--turquoise); }
+  .testimonial-card:nth-child(3) .testimonial-avatar { background: var(--green); }
+
+  .testimonial-author-info .name {
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+  .testimonial-author-info .detail {
+    font-size: 0.8rem;
+    color: var(--dark-soft);
+  }
+
+  /* ========== PRICING SECTION ========== */
+  .pricing {
+    padding: 100px 0;
+    background: linear-gradient(135deg, var(--cream) 0%, var(--cream-warm) 100%);
+    position: relative;
+  }
+  .pricing-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+  .pricing-header .section-subtitle { margin: 0 auto; }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    max-width: 960px;
+    margin: 0 auto 40px;
+  }
+  .price-card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 40px 28px;
+    text-align: center;
+    box-shadow: var(--shadow-soft);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    border: 2px solid transparent;
+  }
+  .price-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+  }
+  .price-card.featured {
+    border-color: var(--coral);
+    transform: scale(1.05);
+  }
+  .price-card.featured:hover {
+    transform: scale(1.05) translateY(-8px);
+  }
+  .price-badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--coral);
+    color: var(--white);
+    padding: 6px 20px;
+    border-radius: var(--radius-pill);
+    font-size: 0.75rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .price-card-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+  }
+  .price-card:nth-child(1) .price-card-icon { background: rgba(78,205,196,0.12); }
+  .price-card:nth-child(2) .price-card-icon { background: rgba(255,107,107,0.12); }
+  .price-card:nth-child(3) .price-card-icon { background: rgba(255,230,109,0.25); }
+
+  .price-card h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+  }
+  .price-amount {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 2.5rem;
+    color: var(--dark);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .price-period {
+    font-size: 0.85rem;
+    color: var(--dark-soft);
+    margin-bottom: 24px;
+  }
+  .price-features {
+    text-align: left;
+    margin-bottom: 28px;
+  }
+  .price-features li {
+    padding: 8px 0;
+    font-size: 0.9rem;
+    color: var(--dark-soft);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .price-features li::before {
+    content: '✓';
+    color: var(--green);
+    font-weight: 700;
+    font-size: 0.85rem;
+  }
+  .pricing-note {
+    text-align: center;
+    color: var(--dark-soft);
+    font-size: 0.9rem;
+  }
+
+  /* ========== EVENTS SECTION ========== */
+  .events {
+    padding: 100px 0;
+    background: var(--white);
+    position: relative;
+  }
+  .events-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+  .events-header .section-subtitle { margin: 0 auto; }
+
+  .events-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .event-card {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--white);
+    box-shadow: var(--shadow-soft);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .event-card:hover {
+    transform: translateY(-8px) rotate(1deg);
+    box-shadow: var(--shadow-lg);
+  }
+  .event-image {
+    height: 180px;
+    position: relative;
+    overflow: hidden;
+  }
+  .event-card:nth-child(1) .event-image {
+    background: linear-gradient(135deg, var(--coral), var(--yellow));
+  }
+  .event-card:nth-child(2) .event-image {
+    background: linear-gradient(135deg, var(--turquoise), var(--green));
+  }
+  .event-card:nth-child(3) .event-image {
+    background: linear-gradient(135deg, var(--yellow-warm), var(--coral));
+  }
+  .event-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 60% 40%, rgba(255,255,255,0.25), transparent 60%);
+  }
+  .event-date-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background: var(--white);
+    border-radius: var(--radius-sm);
+    padding: 8px 14px;
+    text-align: center;
+    box-shadow: var(--shadow-soft);
+    z-index: 2;
+  }
+  .event-date-badge .month {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--coral);
+    letter-spacing: 0.05em;
+  }
+  .event-date-badge .day {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 900;
+    line-height: 1;
+  }
+  .event-body {
+    padding: 24px;
+  }
+  .event-type {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: var(--radius-pill);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 10px;
+  }
+  .event-card:nth-child(1) .event-type { background: rgba(255,107,107,0.12); color: var(--coral); }
+  .event-card:nth-child(2) .event-type { background: rgba(78,205,196,0.12); color: var(--turquoise-deep); }
+  .event-card:nth-child(3) .event-type { background: rgba(255,230,109,0.3); color: #B8860B; }
+
+  .event-body h3 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+  }
+  .event-body p {
+    font-size: 0.9rem;
+    color: var(--dark-soft);
+    line-height: 1.6;
+  }
+
+  /* ========== COMMUNITY / NINJA FAM ========== */
+  .community {
+    padding: 100px 0;
+    background: var(--cream);
+    position: relative;
+    overflow: hidden;
+  }
+  .community-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+  .community-header .section-subtitle { margin: 0 auto; }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto auto;
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+  .gallery-item {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: all 0.4s ease;
+    position: relative;
+    min-height: 200px;
+  }
+  .gallery-item:hover {
+    transform: scale(1.03);
+    box-shadow: var(--shadow-lg);
+    z-index: 2;
+  }
+  .gallery-item:nth-child(1) {
+    grid-column: span 2;
+    min-height: 260px;
+    background: linear-gradient(135deg, var(--coral), var(--yellow));
+  }
+  .gallery-item:nth-child(2) {
+    background: linear-gradient(135deg, var(--turquoise), var(--green));
+  }
+  .gallery-item:nth-child(3) {
+    background: linear-gradient(135deg, var(--yellow-warm), var(--coral));
+  }
+  .gallery-item:nth-child(4) {
+    background: linear-gradient(135deg, var(--green), var(--turquoise));
+  }
+  .gallery-item:nth-child(5) {
+    background: linear-gradient(135deg, var(--coral), var(--turquoise));
+  }
+  .gallery-item:nth-child(6) {
+    grid-column: span 2;
+    background: linear-gradient(135deg, var(--yellow), var(--green));
+  }
+  .gallery-item::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.2) 0%, transparent 60%);
+  }
+
+  .community-cta {
+    text-align: center;
+  }
+
+  /* ========== LOCATION SECTION ========== */
+  .location {
+    padding: 100px 0;
+    background: var(--white);
+    position: relative;
+  }
+  .location-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+  .location-header .section-subtitle { margin: 0 auto; }
+
+  .location-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .map-placeholder {
+    width: 100%;
+    aspect-ratio: 4/3;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, #e8e8e8, #d4d4d4);
+    position: relative;
+    overflow: hidden;
+  }
+  .map-placeholder::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 30px, rgba(0,0,0,0.03) 30px, rgba(0,0,0,0.03) 31px),
+      repeating-linear-gradient(90deg, transparent, transparent 30px, rgba(0,0,0,0.03) 30px, rgba(0,0,0,0.03) 31px);
+  }
+  .map-placeholder::after {
+    content: '📍 10070 W Oakland Park Blvd';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--white);
+    padding: 12px 24px;
+    border-radius: var(--radius-pill);
+    font-weight: 700;
+    font-size: 0.85rem;
+    box-shadow: var(--shadow-md);
+    white-space: nowrap;
+  }
+
+  .location-info {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .location-detail {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .location-detail-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--cream);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+  .location-detail h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+  }
+  .location-detail p {
+    font-size: 0.9rem;
+    color: var(--dark-soft);
+    line-height: 1.6;
+  }
+
+  .hours-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 8px 16px;
+    font-size: 0.9rem;
+  }
+  .hours-day {
+    font-weight: 700;
+    color: var(--dark);
+  }
+  .hours-time {
+    color: var(--dark-soft);
+  }
+
+  /* ========== FOOTER ========== */
+  .footer {
+    background: var(--dark);
+    color: var(--white);
+    padding: 64px 0 32px;
+  }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 48px;
+  }
+  .footer-brand {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.3rem;
+    color: var(--coral);
+    margin-bottom: 12px;
+  }
+  .footer-desc {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.7;
+    max-width: 300px;
+    margin-bottom: 20px;
+  }
+  .footer-social {
+    display: flex;
+    gap: 12px;
+  }
+  .footer-social a {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+  }
+  .footer-social a:hover {
+    background: var(--coral);
+    transform: translateY(-3px);
+  }
+
+  .footer-col h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+    color: var(--white);
+  }
+  .footer-col a {
+    display: block;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.6);
+    padding: 6px 0;
+    transition: color 0.3s ease;
+  }
+  .footer-col a:hover { color: var(--coral); }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.4);
+  }
+
+  /* ========== WAVE DIVIDERS ========== */
+  .wave-cream-to-white {
+    background: var(--cream);
+  }
+  .wave-white-to-cream {
+    background: var(--white);
+  }
+
+  /* ========== SCROLL ANIMATIONS ========== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* ========== MOBILE MENU ========== */
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255,255,255,0.98);
+    backdrop-filter: blur(20px);
+    z-index: 999;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--dark);
+    transition: color 0.3s ease;
+  }
+  .mobile-menu a:hover { color: var(--coral); }
+  .mobile-menu-close {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: var(--dark);
+  }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 1024px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+    .hero-visual { max-width: 400px; margin: 0 auto; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .dance-styles { grid-template-columns: 1fr; }
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+    .schedule-grid { grid-template-columns: repeat(2, 1fr); }
+    .instructors-grid { grid-template-columns: 1fr; max-width: 500px; }
+    .testimonials-grid { grid-template-columns: 1fr; max-width: 500px; margin: 0 auto; }
+    .testimonial-card:nth-child(2) { transform: none; }
+    .pricing-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto 40px; }
+    .price-card.featured { transform: none; }
+    .price-card.featured:hover { transform: translateY(-8px); }
+    .events-grid { grid-template-columns: 1fr; max-width: 500px; margin: 0 auto; }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    .gallery-item:nth-child(1) { grid-column: span 2; }
+    .gallery-item:nth-child(6) { grid-column: span 2; }
+    .location-content { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .nav-hamburger { display: flex; }
+    .hero { padding-top: 100px; }
+    .hero h1 { font-size: 2.4rem; }
+    .hero-float-card { display: none; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .stat-card { padding: 24px 16px; }
+    .stat-number { font-size: 2rem; }
+    .services-grid { grid-template-columns: 1fr 1fr; }
+    .schedule-grid { grid-template-columns: 1fr 1fr; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; }
+    .gallery-item:nth-child(1) { grid-column: span 1; }
+    .gallery-item:nth-child(6) { grid-column: span 1; }
+    .footer-top { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+  }
+
+  @media (max-width: 480px) {
+    .hero-ctas { flex-direction: column; }
+    .btn { width: 100%; justify-content: center; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+    .services-grid { grid-template-columns: 1fr; }
+    .schedule-grid { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: 1fr; }
+    .hours-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== NAVIGATION ========== -->
+<nav class="nav" id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-brand">
+      <div class="nav-ninja-icon">N</div>
+      Salsa Ninja
+    </a>
+    <div class="nav-links">
+      <a href="#offerings">Classes</a>
+      <a href="#schedule">Schedule</a>
+      <a href="#instructors">Instructors</a>
+      <a href="#events">Events</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#location">Contact</a>
+      <a href="#pricing" class="nav-cta">Try a Class &mdash; $5</a>
+    </div>
+    <button class="nav-hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" onclick="toggleMobileMenu()">&times;</button>
+  <a href="#offerings" onclick="toggleMobileMenu()">Classes</a>
+  <a href="#schedule" onclick="toggleMobileMenu()">Schedule</a>
+  <a href="#instructors" onclick="toggleMobileMenu()">Instructors</a>
+  <a href="#events" onclick="toggleMobileMenu()">Events</a>
+  <a href="#pricing" onclick="toggleMobileMenu()">Pricing</a>
+  <a href="#location" onclick="toggleMobileMenu()">Contact</a>
+  <a href="#pricing" class="btn btn-coral" onclick="toggleMobileMenu()">Try a Class &mdash; $5</a>
+</div>
+
+<!-- ========== HERO ========== -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-blob-1"></div>
+  <div class="hero-blob-2"></div>
+
+  <!-- Floating confetti dots -->
+  <div class="confetti-dot" style="width:12px;height:12px;background:var(--coral);top:15%;left:8%;animation-delay:0s;"></div>
+  <div class="confetti-dot" style="width:8px;height:8px;background:var(--turquoise);top:30%;left:15%;animation-delay:1s;"></div>
+  <div class="confetti-dot" style="width:16px;height:16px;background:var(--yellow);top:60%;left:5%;animation-delay:2s;"></div>
+  <div class="confetti-dot" style="width:10px;height:10px;background:var(--green);top:80%;left:12%;animation-delay:0.5s;"></div>
+  <div class="confetti-dot" style="width:14px;height:14px;background:var(--coral);top:20%;right:15%;animation-delay:1.5s;"></div>
+  <div class="confetti-dot" style="width:10px;height:10px;background:var(--turquoise);top:70%;right:8%;animation-delay:3s;"></div>
+
+  <div class="container hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Now enrolling &mdash; Sunrise, FL
+      </div>
+      <h1>
+        Learn to<br>
+        <span class="text-coral">Dance</span> <span class="text-script">like a</span><br>
+        <span class="text-turquoise">Ninja</span>
+      </h1>
+      <p class="hero-tagline">
+        Quality dance instructions dedicated to social dancing and stage performances. Join the Ninja Fam and discover the joy of Salsa and Bachata in South Florida.
+      </p>
+      <div class="hero-ctas">
+        <a href="#pricing" class="btn btn-coral">Start Dancing &mdash; $5 Trial</a>
+        <a href="#schedule" class="btn btn-outline">View Schedule</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-image-main"></div>
+      <div class="hero-float-card card-1">
+        <div class="card-emoji">🔥</div>
+        <div class="card-text">500+ Students</div>
+        <div class="card-sub">Trained &amp; counting</div>
+      </div>
+      <div class="hero-float-card card-2">
+        <div class="card-emoji">⭐</div>
+        <div class="card-text">4.9 Rating</div>
+        <div class="card-sub">Google Reviews</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Wave: Cream to White -->
+<div class="wave-divider wave-cream-to-white">
+  <svg viewBox="0 0 1440 100" preserveAspectRatio="none" style="height:60px;">
+    <path fill="#FFFFFF" d="M0,40 C240,100 480,0 720,50 C960,100 1200,0 1440,40 L1440,100 L0,100 Z"/>
+  </svg>
+</div>
+
+<!-- ========== SOCIAL PROOF STATS ========== -->
+<section class="stats" id="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-card reveal">
+        <div class="stat-number">500+</div>
+        <div class="stat-label">Students Trained</div>
+      </div>
+      <div class="stat-card reveal reveal-delay-1">
+        <div class="stat-number">8+</div>
+        <div class="stat-label">Years Teaching</div>
+      </div>
+      <div class="stat-card reveal reveal-delay-2">
+        <div class="stat-number">50+</div>
+        <div class="stat-label">Events Per Year</div>
+      </div>
+      <div class="stat-card reveal reveal-delay-3">
+        <div class="stat-number">4.9&#9733;</div>
+        <div class="stat-label">Google Rating</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Wave: White to Cream -->
+<div class="wave-divider wave-white-to-cream">
+  <svg viewBox="0 0 1440 100" preserveAspectRatio="none" style="height:60px;">
+    <path fill="#FFF8F0" d="M0,60 C360,0 720,100 1080,40 C1260,10 1360,70 1440,60 L1440,100 L0,100 Z"/>
+  </svg>
+</div>
+
+<!-- ========== WHAT WE OFFER ========== -->
+<section class="offerings" id="offerings">
+  <div class="container">
+    <div class="offerings-header reveal">
+      <div class="section-label">What We Teach</div>
+      <h2 class="section-title">Find Your Rhythm</h2>
+      <p class="section-subtitle">From your first step to the stage, we have a class for you. Our expert instructors make every level feel welcome.</p>
+    </div>
+
+    <!-- Dance Styles -->
+    <div class="dance-styles">
+      <div class="style-card reveal">
+        <div class="style-card-image">
+          <span class="style-emoji">💃</span>
+        </div>
+        <div class="style-card-body">
+          <span class="style-tag">Most Popular</span>
+          <h3>Salsa On1 (LA Style)</h3>
+          <p>The foundation of social dancing. Learn smooth turns, footwork, and partner connection with our progressive curriculum. From basic steps to advanced combos, you'll be dancing at socials in no time.</p>
+        </div>
+      </div>
+      <div class="style-card reveal reveal-delay-1">
+        <div class="style-card-image">
+          <span class="style-emoji">🕺</span>
+        </div>
+        <div class="style-card-body">
+          <span class="style-tag">Sensual &amp; Fun</span>
+          <h3>Bachata</h3>
+          <p>Feel the music with smooth body movement and intricate partner work. Our Bachata classes blend traditional Dominican style with modern sensual techniques for a complete dance experience.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Services -->
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon">👥</div>
+        <h4>Group Classes</h4>
+        <p>Learn with friends in an encouraging environment. All levels welcome.</p>
+      </div>
+      <div class="service-card reveal reveal-delay-1">
+        <div class="service-icon">🎯</div>
+        <h4>Private Lessons</h4>
+        <p>One-on-one attention tailored to your goals and pace.</p>
+      </div>
+      <div class="service-card reveal reveal-delay-2">
+        <div class="service-icon">⚡</div>
+        <h4>Bootcamps</h4>
+        <p>Intensive workshops to level up fast. Perfect for dedicated dancers.</p>
+      </div>
+      <div class="service-card reveal reveal-delay-3">
+        <div class="service-icon">🏆</div>
+        <h4>Dance Teams</h4>
+        <p>Train and perform with the Ninja crew. Stage performance opportunities.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Wave: Cream to White -->
+<div class="wave-divider wave-cream-to-white">
+  <svg viewBox="0 0 1440 100" preserveAspectRatio="none" style="height:60px;">
+    <path fill="#FFFFFF" d="M0,30 C180,80 360,10 540,50 C720,90 900,20 1080,55 C1260,90 1350,30 1440,45 L1440,100 L0,100 Z"/>
+  </svg>
+</div>
+
+<!-- ========== SCHEDULE ========== -->
+<section class="schedule" id="schedule">
+  <div class="container">
+    <div class="schedule-header reveal">
+      <div class="section-label">This Week</div>
+      <h2 class="section-title">Class Schedule</h2>
+      <p class="section-subtitle">Drop in any night. No experience needed. Just bring comfortable shoes and a smile.</p>
+    </div>
+
+    <div class="schedule-grid">
+      <div class="schedule-day reveal">
+        <div class="schedule-day-name">Monday</div>
+        <div class="schedule-day-time">6 &ndash; 9 PM</div>
+        <div class="schedule-day-classes">
+          <span class="schedule-class-tag tag-salsa">Salsa Beginner</span>
+          <span class="schedule-class-tag tag-salsa">Salsa Intermediate</span>
+          <span class="schedule-class-tag tag-practice">Open Practice</span>
+        </div>
+      </div>
+      <div class="schedule-day reveal reveal-delay-1">
+        <div class="schedule-day-name">Tuesday</div>
+        <div class="schedule-day-time">7 &ndash; 9 PM</div>
+        <div class="schedule-day-classes">
+          <span class="schedule-class-tag tag-bachata">Bachata Beginner</span>
+          <span class="schedule-class-tag tag-bachata">Bachata Intermediate</span>
+        </div>
+      </div>
+      <div class="schedule-day reveal reveal-delay-2">
+        <div class="schedule-day-name">Wednesday</div>
+        <div class="schedule-day-time">6 &ndash; 9 PM</div>
+        <div class="schedule-day-classes">
+          <span class="schedule-class-tag tag-salsa">Salsa All Levels</span>
+          <span class="schedule-class-tag tag-bachata">Bachata Styling</span>
+          <span class="schedule-class-tag tag-social">Social Dancing</span>
+        </div>
+      </div>
+      <div class="schedule-day reveal reveal-delay-3">
+        <div class="schedule-day-name">Thursday</div>
+        <div class="schedule-day-time">7 &ndash; 10 PM</div>
+        <div class="schedule-day-classes">
+          <span class="schedule-class-tag tag-salsa">Salsa Advanced</span>
+          <span class="schedule-class-tag tag-bachata">Bachata All Levels</span>
+          <span class="schedule-class-tag tag-social">Social Night</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="schedule-cta reveal">
+      <a href="#" class="btn btn-turquoise">See Full Schedule</a>
+    </div>
+  </div>
+</section>
+
+<!-- Wave: White to Cream -->
+<div class="wave-divider wave-white-to-cream">
+  <svg viewBox="0 0 1440 100" preserveAspectRatio="none" style="height:60px;">
+    <path fill="#FFF8F0" d="M0,50 C200,10 400,90 600,40 C800,0 1000,80 1200,30 C1320,10 1400,60 1440,50 L1440,100 L0,100 Z"/>
+  </svg>
+</div>
+
+<!-- ========== INSTRUCTORS ========== -->
+<section class="instructors" id="instructors">
+  <div class="container">
+    <div class="instructors-header reveal">
+      <div class="section-label">Meet Your Guides</div>
+      <h2 class="section-title">Our Senseis</h2>
+      <p class="section-subtitle">Passionate instructors who make learning fun, inclusive, and unforgettable.</p>
+    </div>
+
+    <div class="instructors-grid">
+      <div class="instructor-card reveal">
+        <div class="instructor-photo"></div>
+        <div class="instructor-info">
+          <h3 class="instructor-name">Sensei Alex</h3>
+          <div class="instructor-title">Lead Salsa Instructor &amp; Founder</div>
+          <p class="instructor-bio">With over 10 years of experience in LA-style Salsa, Sensei Alex founded Salsa Ninja to build a dance community rooted in quality instruction and genuine connection. His teaching style breaks down complex moves into approachable steps.</p>
+          <div class="instructor-specialties">
+            <span>Salsa On1</span>
+            <span>Choreography</span>
+            <span>Performance</span>
+          </div>
+        </div>
+      </div>
+      <div class="instructor-card reveal reveal-delay-1">
+        <div class="instructor-photo"></div>
+        <div class="instructor-info">
+          <h3 class="instructor-name">Sensei Maria</h3>
+          <div class="instructor-title">Bachata Director &amp; Coach</div>
+          <p class="instructor-bio">Sensei Maria brings warmth and precision to every class. Trained in both traditional and sensual Bachata, she helps students discover their personal style and build confidence on the dance floor.</p>
+          <div class="instructor-specialties">
+            <span>Bachata</span>
+            <span>Body Movement</span>
+            <span>Styling</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Wave: Cream to White -->
+<div class="wave-divider wave-cream-to-white">
+  <svg viewBox="0 0 1440 100" preserveAspectRatio="none" style="height:60px;">
+    <path fill="#FFFFFF" d="M0,70 C240,20 480,80 720,40 C960,0 1200,60 1440,30 L1440,100 L0,100 Z"/>
+  </svg>
+</div>
+
+<!-- ========== TESTIMONIALS ========== -->
+<section class="testimonials" id="testimonials">
+  <div class="container">
+    <div class="testimonials-header reveal">
+      <div class="section-label">Love from the Fam</div>
+      <h2 class="section-title">What Our Ninjas Say</h2>
+      <p class="section-subtitle">Real stories from real dancers who found their groove with us.</p>
+    </div>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <div class="testimonial-quote-mark">&ldquo;</div>
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testimonial-text">I walked in with zero dance experience and felt welcome from minute one. Sensei Alex breaks everything down so clearly. Three months later, I'm out social dancing every weekend!</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">JR</div>
+          <div class="testimonial-author-info">
+            <div class="name">Jessica R.</div>
+            <div class="detail">Salsa student, 6 months</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal reveal-delay-1">
+        <div class="testimonial-quote-mark">&ldquo;</div>
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testimonial-text">The Ninja Fam is the real deal. It's not just dance classes — it's a family. The Bachata program with Sensei Maria transformed my confidence. I've made lifelong friends here.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">MT</div>
+          <div class="testimonial-author-info">
+            <div class="name">Marcus T.</div>
+            <div class="detail">Bachata student, 1 year</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal reveal-delay-2">
+        <div class="testimonial-quote-mark">&ldquo;</div>
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testimonial-text">Best dance studio in South Florida, hands down. The vibe, the music, the people — everything is top tier. My only regret is not joining sooner. The $5 trial class was the best money I ever spent.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">SA</div>
+          <div class="testimonial-author-info">
+            <div class="name">Sofia A.</div>
+            <div class="detail">Salsa &amp; Bachata, 2 years</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Wave: White to Cream -->
+<div class="wave-divider wave-white-to-cream">
+  <svg viewBox="0 0 1440 100" preserveAspectRatio="none" style="height:60px;">
+    <path fill="#FFF8F0" d="M0,40 C300,90 600,10 900,60 C1100,90 1300,20 1440,50 L1440,100 L0,100 Z"/>
+  </svg>
+</div>
+
+<!-- ========== PRICING ========== -->
+<section class="pricing" id="pricing">
+  <div class="container">
+    <div class="pricing-header reveal">
+      <div class="section-label">Simple Pricing</div>
+      <h2 class="section-title">Start Dancing Today</h2>
+      <p class="section-subtitle">No contracts. No hidden fees. Just great dancing at prices that make sense.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="price-card reveal">
+        <div class="price-card-icon">🎟️</div>
+        <h3>Drop-In</h3>
+        <div class="price-amount">$15</div>
+        <div class="price-period">per class</div>
+        <ul class="price-features">
+          <li>Any single class</li>
+          <li>No commitment</li>
+          <li>All levels welcome</li>
+          <li>Pay at the door</li>
+        </ul>
+        <a href="#" class="btn btn-turquoise btn-sm">Get Started</a>
+      </div>
+      <div class="price-card featured reveal reveal-delay-1">
+        <div class="price-badge">Best Value</div>
+        <div class="price-card-icon">🔥</div>
+        <h3>Monthly Unlimited</h3>
+        <div class="price-amount">$99</div>
+        <div class="price-period">per month</div>
+        <ul class="price-features">
+          <li>Unlimited group classes</li>
+          <li>All dance styles</li>
+          <li>Social events access</li>
+          <li>Community perks</li>
+          <li>Cancel anytime</li>
+        </ul>
+        <a href="#" class="btn btn-coral btn-sm">Join Now</a>
+      </div>
+      <div class="price-card reveal reveal-delay-2">
+        <div class="price-card-icon">✨</div>
+        <h3>First Class</h3>
+        <div class="price-amount">$5</div>
+        <div class="price-period">one-time trial</div>
+        <ul class="price-features">
+          <li>Your first class ever</li>
+          <li>Pick any class</li>
+          <li>No obligation</li>
+          <li>Meet the Ninja Fam</li>
+        </ul>
+        <a href="#" class="btn btn-turquoise btn-sm">Try for $5</a>
+      </div>
+    </div>
+
+    <p class="pricing-note reveal">Private lessons and bootcamp pricing available upon request. <a href="#location" style="color:var(--coral);font-weight:600;text-decoration:underline;">Contact us</a> for details.</p>
+  </div>
+</section>
+
+<!-- Wave: Cream to White -->
+<div class="wave-divider" style="background:linear-gradient(135deg, var(--cream) 0%, var(--cream-warm) 100%);">
+  <svg viewBox="0 0 1440 100" preserveAspectRatio="none" style="height:60px;">
+    <path fill="#FFFFFF" d="M0,55 C180,10 360,80 540,45 C720,10 900,70 1080,35 C1260,0 1380,60 1440,40 L1440,100 L0,100 Z"/>
+  </svg>
+</div>
+
+<!-- ========== EVENTS ========== -->
+<section class="events" id="events">
+  <div class="container">
+    <div class="events-header reveal">
+      <div class="section-label">Coming Up</div>
+      <h2 class="section-title">Upcoming Events</h2>
+      <p class="section-subtitle">Socials, bootcamps, and showcases — there's always something happening at Salsa Ninja.</p>
+    </div>
+
+    <div class="events-grid">
+      <div class="event-card reveal">
+        <div class="event-image">
+          <div class="event-date-badge">
+            <div class="month">Feb</div>
+            <div class="day">14</div>
+          </div>
+        </div>
+        <div class="event-body">
+          <span class="event-type">Social</span>
+          <h3>Salsa Social Night</h3>
+          <p>An evening of open dancing, DJ sets, and good vibes. All levels welcome. Bring a friend and hit the floor. Light refreshments provided.</p>
+        </div>
+      </div>
+      <div class="event-card reveal reveal-delay-1">
+        <div class="event-image">
+          <div class="event-date-badge">
+            <div class="month">Feb</div>
+            <div class="day">22</div>
+          </div>
+        </div>
+        <div class="event-body">
+          <span class="event-type">Workshop</span>
+          <h3>Bachata Bootcamp</h3>
+          <p>An intensive full-day workshop focused on body movement, musicality, and advanced partner work. Limited spots available. Register early.</p>
+        </div>
+      </div>
+      <div class="event-card reveal reveal-delay-2">
+        <div class="event-image">
+          <div class="event-date-badge">
+            <div class="month">Mar</div>
+            <div class="day">8</div>
+          </div>
+        </div>
+        <div class="event-body">
+          <span class="event-type">Performance</span>
+          <h3>Ninja Fam Showcase</h3>
+          <p>Our student teams and instructors take the stage for an unforgettable night of choreography, live music, and celebration. Don't miss it.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Wave: White to Cream -->
+<div class="wave-divider wave-white-to-cream">
+  <svg viewBox="0 0 1440 100" preserveAspectRatio="none" style="height:60px;">
+    <path fill="#FFF8F0" d="M0,45 C240,90 480,10 720,55 C960,100 1200,20 1440,60 L1440,100 L0,100 Z"/>
+  </svg>
+</div>
+
+<!-- ========== COMMUNITY / NINJA FAM ========== -->
+<section class="community" id="community">
+  <!-- Background confetti -->
+  <div class="confetti-dot" style="width:18px;height:18px;background:var(--coral);top:10%;left:5%;animation-delay:0s;opacity:0.08;"></div>
+  <div class="confetti-dot" style="width:12px;height:12px;background:var(--turquoise);top:30%;right:8%;animation-delay:1.5s;opacity:0.08;"></div>
+  <div class="confetti-dot" style="width:20px;height:20px;background:var(--yellow);bottom:20%;left:10%;animation-delay:3s;opacity:0.08;"></div>
+
+  <div class="container">
+    <div class="community-header reveal">
+      <div class="section-label">Our People</div>
+      <h2 class="section-title">Join the Ninja Fam</h2>
+      <p class="section-subtitle">More than a dance studio — we're a family. See what it's like to be part of the crew.</p>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="gallery-item reveal"></div>
+      <div class="gallery-item reveal reveal-delay-1"></div>
+      <div class="gallery-item reveal reveal-delay-2"></div>
+      <div class="gallery-item reveal reveal-delay-1"></div>
+      <div class="gallery-item reveal reveal-delay-2"></div>
+      <div class="gallery-item reveal reveal-delay-3"></div>
+    </div>
+
+    <div class="community-cta reveal">
+      <a href="#pricing" class="btn btn-coral">Become a Ninja &mdash; $5 First Class</a>
+    </div>
+  </div>
+</section>
+
+<!-- Wave: Cream to White -->
+<div class="wave-divider wave-cream-to-white">
+  <svg viewBox="0 0 1440 100" preserveAspectRatio="none" style="height:60px;">
+    <path fill="#FFFFFF" d="M0,35 C300,80 600,10 900,55 C1100,80 1300,25 1440,45 L1440,100 L0,100 Z"/>
+  </svg>
+</div>
+
+<!-- ========== LOCATION + HOURS ========== -->
+<section class="location" id="location">
+  <div class="container">
+    <div class="location-header reveal">
+      <div class="section-label">Visit Us</div>
+      <h2 class="section-title">Come Say Hello</h2>
+      <p class="section-subtitle">We're in the heart of Sunrise, FL. Walk in, take a class, and feel the energy.</p>
+    </div>
+
+    <div class="location-content">
+      <div class="map-placeholder reveal"></div>
+      <div class="location-info">
+        <div class="location-detail reveal">
+          <div class="location-detail-icon">📍</div>
+          <div>
+            <h4>Address</h4>
+            <p>10070 W Oakland Park Blvd<br>Sunrise, FL 33351</p>
+          </div>
+        </div>
+        <div class="location-detail reveal reveal-delay-1">
+          <div class="location-detail-icon">📞</div>
+          <div>
+            <h4>Phone</h4>
+            <p>(954) 662-5354</p>
+          </div>
+        </div>
+        <div class="location-detail reveal reveal-delay-1">
+          <div class="location-detail-icon">✉️</div>
+          <div>
+            <h4>Email</h4>
+            <p>contact@salsaninja.com</p>
+          </div>
+        </div>
+        <div class="location-detail reveal reveal-delay-2">
+          <div class="location-detail-icon">🕐</div>
+          <div>
+            <h4>Class Hours</h4>
+            <div class="hours-grid">
+              <span class="hours-day">Monday</span><span class="hours-time">6:00 PM &ndash; 9:00 PM</span>
+              <span class="hours-day">Tuesday</span><span class="hours-time">7:00 PM &ndash; 9:00 PM</span>
+              <span class="hours-day">Wednesday</span><span class="hours-time">6:00 PM &ndash; 9:00 PM</span>
+              <span class="hours-day">Thursday</span><span class="hours-time">7:00 PM &ndash; 10:00 PM</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">Salsa Ninja Dance Academy</div>
+        <p class="footer-desc">Quality dance instructions dedicated to social dancing and stage performances. Based in Sunrise, FL.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram" title="@salsaninjadanceacademy">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="#" aria-label="Facebook">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="mailto:contact@salsaninja.com" aria-label="Email">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Classes</h4>
+        <a href="#offerings">Salsa On1</a>
+        <a href="#offerings">Bachata</a>
+        <a href="#offerings">Private Lessons</a>
+        <a href="#offerings">Bootcamps</a>
+      </div>
+      <div class="footer-col">
+        <h4>Studio</h4>
+        <a href="#schedule">Schedule</a>
+        <a href="#instructors">Instructors</a>
+        <a href="#events">Events</a>
+        <a href="#pricing">Pricing</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="#location">Visit Us</a>
+        <a href="tel:9546625354">(954) 662-5354</a>
+        <a href="mailto:contact@salsaninja.com">Email Us</a>
+        <a href="#">Instagram</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Salsa Ninja Dance Academy &copy; 2025. All rights reserved.</span>
+      <span>Sunrise, FL &mdash; Where Ninjas Dance</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ========== JAVASCRIPT ========== -->
+<script>
+  // Navbar scroll effect
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // Mobile menu toggle
+  function toggleMobileMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+
+  // Scroll reveal
+  const revealElements = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  revealElements.forEach(el => revealObserver.observe(el));
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
