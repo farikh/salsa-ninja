@@ -76,7 +76,11 @@ export function useCalendarNavigation(options?: UseCalendarNavigationOptions) {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const urlView = searchParams.get('view') as CalendarViewType | null;
+  const rawView = searchParams.get('view');
+  const urlView: CalendarViewType | null =
+    rawView && ['month', 'week', 'day', 'list'].includes(rawView)
+      ? (rawView as CalendarViewType)
+      : null;
   const urlDate = searchParams.get('date');
 
   const [currentView, setCurrentView] = useState<CalendarViewType>(
