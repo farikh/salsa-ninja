@@ -33,19 +33,25 @@ export function PrivateLessonsTab({ instructors, memberId, isInstructor, booking
     return isActive.includes(b.status) && !isPast(parseISO(b.end_time))
   })
 
-  const handleAction = useCallback(async (bookingId: string, action: 'confirm' | 'decline') => {
+  const handleAction = useCallback(async (bookingId: string, action: 'confirm' | 'decline' | 'cancel') => {
     setActionLoading(bookingId)
     try {
       const res = await fetch(`/api/bookings/${bookingId}/${action}`, { method: 'POST' })
       if (res.ok) {
+        const statusMap: Record<string, BookingStatus> = {
+          confirm: 'confirmed',
+          decline: 'declined',
+          cancel: 'cancelled_by_instructor',
+        }
         setBookings(prev => prev.map(b =>
-          b.id === bookingId
-            ? { ...b, status: (action === 'confirm' ? 'confirmed' : 'declined') as BookingStatus }
-            : b
+          b.id === bookingId ? { ...b, status: statusMap[action] } : b
         ))
+      } else {
+        const data = await res.json().catch(() => null)
+        alert(data?.error || `Failed to ${action} booking`)
       }
     } catch {
-      // user can retry
+      alert('Network error — please try again')
     } finally {
       setActionLoading(null)
     }
@@ -67,7 +73,7 @@ export function PrivateLessonsTab({ instructors, memberId, isInstructor, booking
       {/* Section 2: Bookings List */}
       <div style={{ marginBottom: '2rem' }}>
         <h3 style={{ fontWeight: 600, marginBottom: '1rem' }}>
-          {isInstructor ? 'Your Bookings' : 'Your Bookings'}
+          Your Bookings
         </h3>
 
         {/* Pending requests — instructor only */}
@@ -151,23 +157,85 @@ export function PrivateLessonsTab({ instructors, memberId, isInstructor, booking
 
         {upcomingBookings.length > 0 ? (
           <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-            {upcomingBookings.map(booking => (
-              <div
-                key={booking.id}
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  padding: '0.5rem 0',
-                  borderBottom: '1px solid var(--border)',
-                }}
-              >
-                <p style={{ fontSize: '0.85rem', margin: 0 }}>
-                  {formatBookingTime(booking.start_time, booking.end_time)}
-                </p>
-                <BookingStatusBadge status={booking.status} size="sm" />
-              </div>
-            ))}
+            {upcomingBookings.map(booking => {
+              const isOwnBooking = isInstructor && booking.instructor_id === memberId
+              const isPending = booking.status === 'pending'
+              return (
+                <div
+                  key={booking.id}
+                  style={{
+                    padding: '0.5rem 0',
+                    borderBottom: '1px solid var(--border)',
+                  }}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <p style={{ fontSize: '0.85rem', margin: 0 }}>
+                      {formatBookingTime(booking.start_time, booking.end_time)}
+                    </p>
+                    <BookingStatusBadge status={booking.status} size="sm" />
+                  </div>
+                  {isOwnBooking && (
+                    <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.4rem' }}>
+                      {isPending && (
+                        <button
+                          onClick={() => handleAction(booking.id, 'confirm')}
+                          disabled={actionLoading === booking.id}
+                          style={{
+                            background: '#22c55e',
+                            color: '#fff',
+                            border: 'none',
+                            borderRadius: '6px',
+                            padding: '0.25rem 0.6rem',
+                            fontSize: '0.75rem',
+                            fontWeight: 600,
+                            cursor: 'pointer',
+                            opacity: actionLoading === booking.id ? 0.5 : 1,
+                          }}
+                        >
+                          Accept
+                        </button>
+                      )}
+                      {isPending && (
+                        <button
+                          onClick={() => handleAction(booking.id, 'decline')}
+                          disabled={actionLoading === booking.id}
+                          style={{
+                            background: 'transparent',
+                            color: '#ef4444',
+                            border: '1px solid rgba(239,68,68,0.3)',
+                            borderRadius: '6px',
+                            padding: '0.25rem 0.6rem',
+                            fontSize: '0.75rem',
+                            fontWeight: 600,
+                            cursor: 'pointer',
+                            opacity: actionLoading === booking.id ? 0.5 : 1,
+                          }}
+                        >
+                          Decline
+                        </button>
+                      )}
+                      <button
+                        onClick={() => handleAction(booking.id, 'cancel')}
+                        disabled={actionLoading === booking.id}
+                        style={{
+                          background: 'transparent',
+                          color: 'var(--muted-foreground)',
+                          border: '1px solid var(--border)',
+                          borderRadius: '6px',
+                          padding: '0.25rem 0.6rem',
+                          fontSize: '0.75rem',
+                          fontWeight: 600,
+                          cursor: 'pointer',
+                          opacity: actionLoading === booking.id ? 0.5 : 1,
+                        }}
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )
+            })}
           </div>
         ) : (
           pendingRequests.length === 0 && (

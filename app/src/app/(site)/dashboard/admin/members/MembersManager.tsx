@@ -99,6 +99,9 @@ export default function MembersManager({ availableRoles }: { availableRoles: Rol
         const updated = data.members?.find((m: Member) => m.member_id === memberId)
         if (updated) setSelectedMember(updated)
       }
+    } else {
+      const data = await res.json().catch(() => null)
+      alert(data?.error || 'Failed to add role')
     }
     setUpdating(false)
   }

@@ -39,6 +39,7 @@ interface DashboardTabsProps {
   }[]
   isAdmin: boolean
   isInstructor: boolean
+  isStudent: boolean
   isStaff: boolean
   availableRoles: Role[]
   instructors: Instructor[]
@@ -51,6 +52,7 @@ export function DashboardTabs({
   events,
   isAdmin,
   isInstructor,
+  isStudent,
   isStaff,
   availableRoles,
   instructors,
@@ -100,6 +102,7 @@ export function DashboardTabs({
           bookings={bookings}
           events={events}
           isInstructor={isInstructor}
+          isStudent={isStudent}
           isStaff={isStaff}
           hasUpcomingBootcamp={hasUpcomingBootcamp}
         />
@@ -132,6 +135,7 @@ function HomeTab({
   bookings,
   events,
   isInstructor,
+  isStudent,
   isStaff,
   hasUpcomingBootcamp,
 }: {
@@ -139,6 +143,7 @@ function HomeTab({
   bookings: PrivateLessonBooking[]
   events: DashboardTabsProps['events']
   isInstructor: boolean
+  isStudent: boolean
   isStaff: boolean
   hasUpcomingBootcamp: boolean
 }) {
@@ -159,12 +164,14 @@ function HomeTab({
           isInstructor={isInstructor}
         />
 
-        {/* My Enrollment */}
-        <EnrollmentCard
-          currentPlan={member.enrollment_plan}
-          bootcampEnrolled={member.bootcamp_enrolled}
-          hasUpcomingBootcamp={hasUpcomingBootcamp}
-        />
+        {/* My Enrollment — only show for students (member_full or member_limited) */}
+        {isStudent && (
+          <EnrollmentCard
+            currentPlan={member.enrollment_plan}
+            bootcampEnrolled={member.bootcamp_enrolled}
+            hasUpcomingBootcamp={hasUpcomingBootcamp}
+          />
+        )}
 
         {/* Video Library */}
         <div className="card" style={{ display: 'flex', flexDirection: 'column' }}>

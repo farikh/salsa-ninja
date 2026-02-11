@@ -26,6 +26,7 @@ export default async function DashboardPage() {
   const allRoles: string[] = member.all_roles || [member.role_name]
   const isAdmin = allRoles.includes('owner')
   const isInstructor = allRoles.includes('owner') || allRoles.includes('instructor')
+  const isStudent = allRoles.includes('member_full') || allRoles.includes('member_limited')
   const isStaff = isAdmin || isInstructor
 
   // Display role labels
@@ -112,6 +113,7 @@ export default async function DashboardPage() {
           events={events ?? []}
           isAdmin={isAdmin}
           isInstructor={isInstructor}
+          isStudent={isStudent}
           isStaff={isStaff}
           availableRoles={availableRoles}
           instructors={instructors}

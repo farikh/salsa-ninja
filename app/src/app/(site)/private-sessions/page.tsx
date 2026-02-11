@@ -77,15 +77,16 @@ export default async function PrivateSessionsPage() {
         <section className="section">
           <div className="container">
             <div className="text-center mb-8">
-              <h2 className="heading-lg">Book a Session</h2>
+              <h2 className="heading-lg">
+                {isInstructor ? 'Your Calendar' : 'Book a Session'}
+              </h2>
               <p
                 className="text-muted-foreground mt-4"
                 style={{ maxWidth: '42rem', margin: '1rem auto 0' }}
               >
-                Private lessons offer personalized instruction tailored to your
-                goals. Whether you&apos;re preparing for a special event, want
-                to accelerate your learning, or focus on specific techniques,
-                our instructors are here to help.
+                {isInstructor
+                  ? 'View your bookings and manage your private lesson schedule.'
+                  : 'Private lessons offer personalized instruction tailored to your goals. Whether you\u2019re preparing for a special event, want to accelerate your learning, or focus on specific techniques, our instructors are here to help.'}
               </p>
             </div>
 

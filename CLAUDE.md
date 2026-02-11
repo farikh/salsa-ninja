@@ -7,6 +7,7 @@
 All orchestration — task capture, triage, execution, review, verification, archival — is managed by the **do-work skill** installed at `.agents/skills/do-work/`.
 
 **Before writing ANY code or making ANY edits:**
+- **Always create beads first.** Every bug fix, feature, or change must have a bead before any code is touched.
 - Say what you want in natural language → `do work <description>`
 - The skill captures requests, creates beads, and manages the full pipeline
 
