@@ -47,7 +47,6 @@ export async function GET(request: NextRequest) {
     )
     .gte('start_time', startDate.toISOString())
     .lte('start_time', endDate.toISOString())
-    .is('cancelled_at', null)
     .eq('approval_status', 'approved')
     .order('start_time', { ascending: true })
     .limit(500);
