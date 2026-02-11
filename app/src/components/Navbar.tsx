@@ -138,6 +138,21 @@ const Navbar = () => {
                   >
                     Dashboard
                   </Link>
+                  <Link
+                    href="/my-schedule"
+                    className="fiery-nav-link"
+                    style={{
+                      color: "rgba(255,255,255,0.75)",
+                      fontSize: "0.85rem",
+                      fontWeight: 500,
+                      textDecoration: "none",
+                      position: "relative",
+                      paddingBottom: "4px",
+                      transition: "color 0.3s ease",
+                    }}
+                  >
+                    My Schedule
+                  </Link>
                   <button
                     onClick={handleLogout}
                     style={{
@@ -285,6 +300,21 @@ const Navbar = () => {
                   }}
                 >
                   Dashboard
+                </Link>
+                <Link
+                  href="/my-schedule"
+                  onClick={() => setIsOpen(false)}
+                  style={{
+                    color: "#ef4444",
+                    fontSize: "1rem",
+                    fontWeight: 600,
+                    textDecoration: "none",
+                    padding: "8px 0",
+                    borderBottom: "1px solid rgba(255,255,255,0.06)",
+                    transition: "color 0.3s ease",
+                  }}
+                >
+                  My Schedule
                 </Link>
                 <button
                   onClick={() => { handleLogout(); setIsOpen(false); }}

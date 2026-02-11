@@ -67,6 +67,8 @@ All docs live in `./docs/`. Each spec file is an **index** that references small
 - `docs/specs/features/calendar.md` — Events, RSVP, waitlist, recurring
 - `docs/specs/features/calendar-architecture.md` — Calendar architecture (Reviewed, 3 rounds)
 - `docs/specs/features/private-lesson-booking.md` — Private lesson booking (Reviewed, 3 rounds)
+- `docs/specs/features/unified-schedule.md` — Unified Schedule View: Phase A design (Reviewed, 5 rounds + phase gate passed)
+- `docs/specs/unified-experience-prd.md` — Unified Experience PRD: 5 phases covering schedule, comms, booking, instructor, owner
 - `docs/specs/features/private-lesson-booking-v2.md` — Private lesson scheduling & booking system v2: availability calendar, dashboard cards, confirmation workflow (Reviewed, 3 rounds)
 - `docs/specs/features/video-library.md` — Search, filters, progress, R2 storage
 - `docs/specs/features/chat.md` — Channels, DMs, real-time, moderation

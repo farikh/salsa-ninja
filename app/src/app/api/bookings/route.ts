@@ -17,7 +17,44 @@ export async function GET(request: NextRequest) {
   const start = searchParams.get('start')
   const end = searchParams.get('end')
 
-  // Build query - RLS filters to own bookings for members, all for staff
+  // When start+end are both provided, return BookingWithDetails[] with joined profiles
+  // (used by unified schedule). Otherwise return raw bookings (backward compatible).
+  if (start && end) {
+    // Resolve current member for user-scoped query (defense-in-depth alongside RLS)
+    const { data: member } = await supabase
+      .from('members')
+      .select('id')
+      .eq('user_id', user.id)
+      .single()
+
+    if (!member) {
+      return NextResponse.json({ data: [] })
+    }
+
+    let query = supabase
+      .from('private_lesson_bookings')
+      .select(`*, instructor:members!private_lesson_bookings_instructor_id_fkey(
+          id, display_name, full_name, avatar_url
+        ), member:members!private_lesson_bookings_member_id_fkey(
+          id, display_name, full_name, avatar_url
+        )`)
+      .or(`member_id.eq.${member.id},instructor_id.eq.${member.id}`)
+      .order('start_time', { ascending: true })
+      .gte('start_time', `${start}T00:00:00.000Z`)
+      .lte('start_time', `${end}T23:59:59.999Z`)
+
+    if (instructorId) {
+      query = query.eq('instructor_id', instructorId)
+    }
+
+    const { data, error } = await query
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 })
+    }
+    return NextResponse.json({ data: data ?? [] })
+  }
+
+  // Simple query (backward compatible) — returns PrivateLessonBooking[]
   let query = supabase
     .from('private_lesson_bookings')
     .select('*')
