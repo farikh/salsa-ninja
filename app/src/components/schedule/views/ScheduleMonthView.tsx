@@ -51,16 +51,21 @@ function ScheduleItemChip({
 
   if (compact) {
     return (
-      <button
-        type="button"
-        onClick={() => onClick?.(item)}
-        className={cn('w-1.5 h-1.5 rounded-full shrink-0')}
-        style={{
-          backgroundColor: inlineColor ? item.color : undefined,
-          opacity: item.opacity,
-        }}
-        title={item.title}
-      />
+      <div className="relative inline-block">
+        <button
+          type="button"
+          onClick={() => onClick?.(item)}
+          className={cn('w-1.5 h-1.5 rounded-full shrink-0')}
+          style={{
+            backgroundColor: inlineColor ? item.color : undefined,
+            opacity: item.opacity,
+          }}
+          title={item.title}
+        />
+        {item.hasUnread && (
+          <span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 rounded-full bg-blue-500" />
+        )}
+      </div>
     );
   }
 
@@ -72,7 +77,7 @@ function ScheduleItemChip({
         onClick?.(item);
       }}
       className={cn(
-        'w-full text-left rounded px-1.5 py-0.5 text-xs truncate',
+        'w-full text-left rounded px-1.5 py-0.5 text-xs truncate relative',
         'cursor-pointer transition-colors duration-150',
         'hover:brightness-125 min-h-[22px]'
       )}
@@ -85,6 +90,9 @@ function ScheduleItemChip({
     >
       <span className="font-medium">{timeStr}</span>{' '}
       <span className="opacity-80">{item.title}</span>
+      {item.hasUnread && (
+        <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-blue-500" />
+      )}
     </button>
   );
 }
