@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { format, parseISO, formatDistanceToNow } from 'date-fns'
-import { Send, Loader2, ArrowLeft, MessageSquare } from 'lucide-react'
+import { Send, Loader2, ArrowLeft, MessageSquare, Plus } from 'lucide-react'
 import Link from 'next/link'
 import type { BookingMessage } from '@/types/booking'
 
@@ -247,18 +247,39 @@ export function ConversationsList({
           justifyContent: 'space-between',
         }}>
           <h2 style={{ fontWeight: 700, fontSize: '1rem', margin: 0 }}>Messages</h2>
-          {conversations.some(c => c.has_unread) && (
-            <span style={{
-              fontSize: '0.7rem',
-              background: '#ef4444',
-              color: '#fff',
-              padding: '2px 8px',
-              borderRadius: '9999px',
-              fontWeight: 700,
-            }}>
-              {conversations.filter(c => c.has_unread).length} new
-            </span>
-          )}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            {conversations.some(c => c.has_unread) && (
+              <span style={{
+                fontSize: '0.7rem',
+                background: '#ef4444',
+                color: '#fff',
+                padding: '2px 8px',
+                borderRadius: '9999px',
+                fontWeight: 700,
+              }}>
+                {conversations.filter(c => c.has_unread).length} new
+              </span>
+            )}
+            <Link
+              href="/private-sessions"
+              title="New conversation"
+              style={{
+                width: '30px',
+                height: '30px',
+                borderRadius: '8px',
+                border: '1px solid var(--border)',
+                background: 'transparent',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: 'var(--foreground)',
+                textDecoration: 'none',
+                transition: 'background 0.15s',
+              }}
+            >
+              <Plus size={16} />
+            </Link>
+          </div>
         </div>
 
         {/* Conversation Items */}

@@ -5,6 +5,7 @@ import type { PrivateLessonBooking } from '@/types/booking'
 import type { Instructor } from '@/types/booking'
 import { DashboardMessages } from './DashboardMessages'
 import { DashboardBookings } from './DashboardBookings'
+import { ProfileCard } from './ProfileCard'
 import UpcomingEventsWidget from './upcoming-events-widget'
 
 type Role = {
@@ -250,17 +251,7 @@ function HomeTab({
       </div>
 
       {/* Your Profile */}
-      <div className="card">
-        <h3 style={{ fontWeight: 600, marginBottom: '1rem' }}>Your Profile</h3>
-        <div style={{ display: 'grid', gap: '0.5rem', fontSize: '0.95rem' }}>
-          <div><span style={{ color: 'var(--muted-foreground)' }}>Email:</span> {member.email}</div>
-          <div><span style={{ color: 'var(--muted-foreground)' }}>Name:</span> {member.full_name}</div>
-          {member.dance_experience && (
-            <div><span style={{ color: 'var(--muted-foreground)' }}>Experience:</span> {member.dance_experience}</div>
-          )}
-          <div><span style={{ color: 'var(--muted-foreground)' }}>Member since:</span> {new Date(member.created_at).toLocaleDateString()}</div>
-        </div>
-      </div>
+      <ProfileCard member={member} />
 
     </>
   )
