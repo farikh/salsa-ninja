@@ -1,10 +1,11 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
+import { requireSuperAdmin } from './auth'
 import { createServiceRoleClient } from '@/lib/supabase/service'
 
 export async function inviteAdmin(formData: FormData) {
-  const supabase = createServiceRoleClient()
+  const supabase = await requireSuperAdmin()
 
   const email = (formData.get('email') as string)?.trim().toLowerCase()
   const role = formData.get('role') as string
@@ -29,25 +30,31 @@ export async function inviteAdmin(formData: FormData) {
     return { error: 'This email is already a super admin' }
   }
 
-  // Check if auth user exists
-  const { data: existingUsers } = await supabase.auth.admin.listUsers()
-  const existingUser = existingUsers?.users?.find(
-    (u) => u.email?.toLowerCase() === email
-  )
-
+  // Find or create the auth user
   let userId: string
 
-  if (existingUser) {
-    userId = existingUser.id
-  } else {
-    // Invite via magic link
-    const { data: invitedUser, error: inviteError } =
-      await supabase.auth.admin.inviteUserByEmail(email)
+  // Try inviteUserByEmail first -- creates if new, errors if exists
+  const { data: invitedUser, error: inviteError } =
+    await supabase.auth.admin.inviteUserByEmail(email)
 
-    if (inviteError || !invitedUser.user) {
-      return { error: `Failed to invite user: ${inviteError?.message}` }
-    }
+  if (invitedUser?.user) {
     userId = invitedUser.user.id
+  } else if (inviteError) {
+    // User likely already exists -- look up from members table
+    const { data: existingMember } = await supabase
+      .from('members')
+      .select('user_id')
+      .eq('email', email)
+      .limit(1)
+      .single()
+
+    if (existingMember) {
+      userId = existingMember.user_id
+    } else {
+      return { error: `Failed to invite user: ${inviteError.message}` }
+    }
+  } else {
+    return { error: 'Failed to resolve user' }
   }
 
   // Create super_admins record
@@ -68,6 +75,9 @@ export async function inviteAdmin(formData: FormData) {
 }
 
 export async function sendAdminMagicLink(formData: FormData) {
+  // This action is called from the login page BEFORE the user is authenticated,
+  // so we cannot use requireSuperAdmin() here. Instead, we verify the email
+  // exists in super_admins before sending the magic link.
   const supabase = createServiceRoleClient()
 
   const email = (formData.get('email') as string)?.trim().toLowerCase()

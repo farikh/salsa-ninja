@@ -10,8 +10,9 @@ export interface TenantInfo {
   settings: Record<string, unknown>
 }
 
-// In-memory cache with 1-minute TTL
+// In-memory cache with 1-minute TTL and bounded size
 const CACHE_TTL_MS = 60_000
+const MAX_CACHE_SIZE = 1000
 
 interface CacheEntry {
   tenant: TenantInfo | null
@@ -31,6 +32,13 @@ function getCached(key: string): TenantInfo | null | undefined {
 }
 
 function setCache(key: string, tenant: TenantInfo | null) {
+  // Evict oldest entry if cache exceeds max size
+  if (tenantCache.size >= MAX_CACHE_SIZE && !tenantCache.has(key)) {
+    const oldestKey = tenantCache.keys().next().value
+    if (oldestKey !== undefined) {
+      tenantCache.delete(oldestKey)
+    }
+  }
   tenantCache.set(key, { tenant, timestamp: Date.now() })
 }
 

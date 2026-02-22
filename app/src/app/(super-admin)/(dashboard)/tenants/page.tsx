@@ -37,7 +37,11 @@ export default async function TenantsPage({
   }
 
   if (params.q) {
-    query = query.or(`name.ilike.%${params.q}%,slug.ilike.%${params.q}%`)
+    // Sanitize: strip PostgREST special characters to prevent filter injection
+    const sanitizedQuery = params.q.replace(/[,.()\[\]]/g, '')
+    if (sanitizedQuery) {
+      query = query.or(`name.ilike.%${sanitizedQuery}%,slug.ilike.%${sanitizedQuery}%`)
+    }
   }
 
   const { data: tenants } = await query

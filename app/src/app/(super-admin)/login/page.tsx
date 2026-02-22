@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { createClient } from '@/lib/supabase/client'
+import { sendAdminMagicLink } from '../_actions/admin-actions'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -14,23 +14,23 @@ export default function SuperAdminLoginPage() {
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState<Status>('idle')
   const [errorMsg, setErrorMsg] = useState('')
-  const supabase = createClient()
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setStatus('loading')
     setErrorMsg('')
 
-    const { error } = await supabase.auth.signInWithOtp({
-      email: email.trim().toLowerCase(),
-      options: {
-        emailRedirectTo: `${window.location.origin}/auth/callback?next=/`,
-      },
-    })
+    // Use server action that verifies admin status before sending magic link
+    const formData = new FormData()
+    formData.set('email', email.trim().toLowerCase())
 
-    if (error) {
+    const result = await sendAdminMagicLink(formData)
+
+    if (result?.error === 'access_denied') {
+      setStatus('access_denied')
+    } else if (result?.error) {
       setStatus('error')
-      setErrorMsg(error.message)
+      setErrorMsg(result.error)
     } else {
       setStatus('sent')
     }

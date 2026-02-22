@@ -1,10 +1,10 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { createServiceRoleClient } from '@/lib/supabase/service'
+import { requireSuperAdmin } from './auth'
 
 export async function updateTheme(themeId: string, formData: FormData) {
-  const supabase = createServiceRoleClient()
+  const supabase = await requireSuperAdmin()
 
   const name = formData.get('name') as string
   const description = formData.get('description') as string
@@ -36,7 +36,7 @@ export async function updateTheme(themeId: string, formData: FormData) {
 }
 
 export async function assignThemeToTenant(themeId: string, tenantId: string) {
-  const supabase = createServiceRoleClient()
+  const supabase = await requireSuperAdmin()
 
   const { error } = await supabase
     .from('tenants')
