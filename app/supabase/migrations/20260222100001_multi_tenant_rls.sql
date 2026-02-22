@@ -841,7 +841,8 @@ JOIN roles r ON m.role_id = r.id;
 -- 6. UPDATE UPCOMING_EVENTS VIEW TO BE TENANT-AWARE
 -- ============================================================
 
-CREATE OR REPLACE VIEW upcoming_events AS
+DROP VIEW IF EXISTS upcoming_events;
+CREATE VIEW upcoming_events AS
 SELECT
   e.*,
   m.display_name as instructor_name,
