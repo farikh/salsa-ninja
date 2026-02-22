@@ -56,7 +56,7 @@ export default async function EventsPage() {
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <div style={{ textAlign: 'center', maxWidth: '700px', margin: '0 auto' }}>
             <span className="badge"><span>Upcoming Events</span></span>
-            <h1 className="heading-xl" style={{ marginTop: '1.5rem', color: '#ffffff' }}>
+            <h1 className="heading-xl" style={{ marginTop: '1.5rem', color: 'var(--foreground)' }}>
               Special <span className="gradient-text">Events</span>
             </h1>
             <p style={{ color: 'var(--text-light)', fontSize: '1.1rem', marginTop: '1rem' }}>
@@ -174,7 +174,7 @@ export default async function EventsPage() {
                       <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.5rem', letterSpacing: '0.08em' }}>
                         {item!.label}
                       </div>
-                      <div style={{ fontWeight: 600, fontSize: '1.05rem', color: '#ffffff', whiteSpace: 'pre-line' }}>
+                      <div style={{ fontWeight: 600, fontSize: '1.05rem', color: 'var(--foreground)', whiteSpace: 'pre-line' }}>
                         {item!.value}
                       </div>
                     </div>
@@ -230,7 +230,7 @@ export default async function EventsPage() {
                     <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.5rem', letterSpacing: '0.08em' }}>
                       Location
                     </div>
-                    <p style={{ fontWeight: 600, color: '#ffffff', whiteSpace: 'pre-line' }}>
+                    <p style={{ fontWeight: 600, color: 'var(--foreground)', whiteSpace: 'pre-line' }}>
                       {featured.location}
                     </p>
                   </div>
@@ -271,7 +271,7 @@ export default async function EventsPage() {
       {additional.length > 0 && (
         <section className="section">
           <div className="container">
-            <h2 className="heading-md" style={{ textAlign: 'center', marginBottom: '2rem', color: '#ffffff' }}>
+            <h2 className="heading-md" style={{ textAlign: 'center', marginBottom: '2rem', color: 'var(--foreground)' }}>
               More <span className="gradient-text">Upcoming Events</span>
             </h2>
             <div
@@ -314,7 +314,7 @@ export default async function EventsPage() {
                     )}
                     <div style={{ padding: '1.25rem' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', gap: '0.5rem', marginBottom: '0.5rem' }}>
-                        <h3 style={{ fontWeight: 700, fontSize: '1.1rem', color: '#ffffff', margin: 0 }}>
+                        <h3 style={{ fontWeight: 700, fontSize: '1.1rem', color: 'var(--foreground)', margin: 0 }}>
                           {ev.title}
                         </h3>
                         <span
@@ -358,7 +358,7 @@ export default async function EventsPage() {
       <section className="section section-alt">
         <div className="container">
           <div style={{ textAlign: 'center', maxWidth: '600px', margin: '0 auto' }}>
-            <h2 className="heading-md" style={{ marginBottom: '1rem', color: '#ffffff' }}>
+            <h2 className="heading-md" style={{ marginBottom: '1rem', color: 'var(--foreground)' }}>
               Don&apos;t <span className="gradient-text">Miss Out!</span>
             </h2>
             <p style={{ color: 'var(--text-light)', marginBottom: '2rem' }}>

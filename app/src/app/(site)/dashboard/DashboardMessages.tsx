@@ -74,7 +74,7 @@ export function DashboardMessages({ initialBookings, memberId }: DashboardMessag
             style={{
               fontSize: '0.7rem',
               background: 'var(--primary)',
-              color: '#fff',
+              color: 'var(--primary-foreground)',
               padding: '2px 8px',
               borderRadius: '9999px',
               fontWeight: 700,

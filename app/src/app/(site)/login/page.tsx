@@ -267,7 +267,7 @@ export default function LoginPage() {
                   cursor: 'pointer',
                   transition: 'background 0.15s, color 0.15s',
                   background: mode === m.id ? 'var(--primary)' : 'transparent',
-                  color: mode === m.id ? '#fff' : 'var(--muted-foreground)',
+                  color: mode === m.id ? 'var(--primary-foreground)' : 'var(--muted-foreground)',
                   borderRight: m.id !== 'google' ? '1px solid var(--border)' : 'none',
                 }}
               >

@@ -34,10 +34,10 @@ interface ConversationsListProps {
 }
 
 const STATUS_COLORS: Record<string, string> = {
-  pending: '#f59e0b',
-  confirmed: '#22c55e',
+  pending: 'var(--status-warning)',
+  confirmed: 'var(--status-success)',
   completed: 'var(--muted-foreground)',
-  declined: '#ef4444',
+  declined: 'var(--status-error)',
 }
 
 function isSafeUrl(url: string): boolean {
@@ -204,7 +204,7 @@ export function ConversationsList({
             gap: '0.5rem',
             padding: '0.5rem 1.25rem',
             background: 'var(--primary)',
-            color: '#fff',
+            color: 'var(--primary-foreground)',
             borderRadius: '8px',
             fontWeight: 600,
             fontSize: '0.9rem',
@@ -252,7 +252,7 @@ export function ConversationsList({
               <span style={{
                 fontSize: '0.7rem',
                 background: 'var(--primary)',
-                color: '#fff',
+                color: 'var(--primary-foreground)',
                 padding: '2px 8px',
                 borderRadius: '9999px',
                 fontWeight: 700,
@@ -318,7 +318,7 @@ export function ConversationsList({
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  color: '#fff',
+                  color: 'var(--primary-foreground)',
                   fontSize: '0.75rem',
                   fontWeight: 700,
                   position: 'relative',
@@ -446,7 +446,7 @@ export function ConversationsList({
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: '#fff',
+                color: 'var(--primary-foreground)',
                 fontSize: '0.7rem',
                 fontWeight: 700,
                 overflow: 'hidden',
@@ -542,7 +542,7 @@ export function ConversationsList({
                           background: isOwn
                             ? 'linear-gradient(135deg, var(--primary), var(--primary-dark))'
                             : 'var(--muted)',
-                          color: isOwn ? '#fff' : 'inherit',
+                          color: isOwn ? 'var(--primary-foreground)' : 'inherit',
                         }}>
                           <p style={{ fontSize: '0.85rem', margin: 0, lineHeight: 1.5, wordBreak: 'break-word' }}>
                             {msg.content}
@@ -608,7 +608,7 @@ export function ConversationsList({
                   borderRadius: '50%',
                   border: 'none',
                   background: messageText.trim() ? 'var(--primary)' : 'var(--muted)',
-                  color: messageText.trim() ? '#fff' : 'var(--muted-foreground)',
+                  color: messageText.trim() ? 'var(--primary-foreground)' : 'var(--muted-foreground)',
                   cursor: messageText.trim() ? 'pointer' : 'default',
                   display: 'flex',
                   alignItems: 'center',

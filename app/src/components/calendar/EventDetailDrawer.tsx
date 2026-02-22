@@ -153,9 +153,9 @@ export function EventDetailDrawer({ event, open, onClose }: EventDetailDrawerPro
                   style={{
                     color:
                       event.user_rsvp_status === 'going'
-                        ? '#22c55e'
+                        ? 'var(--status-success)'
                         : event.user_rsvp_status === 'waitlist'
-                          ? '#f59e0b'
+                          ? 'var(--status-warning)'
                           : undefined,
                   }}
                 >

@@ -54,7 +54,7 @@ export function StudentBookingsCard({ memberId }: StudentBookingsCardProps) {
             height="20"
             viewBox="0 0 24 24"
             fill="none"
-            stroke="#3b82f6"
+            stroke="var(--status-info)"
             strokeWidth={2}
             strokeLinecap="round"
             strokeLinejoin="round"

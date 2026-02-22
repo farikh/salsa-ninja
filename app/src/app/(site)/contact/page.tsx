@@ -34,7 +34,7 @@ export default function ContactPage() {
         <div className="container" style={{ position: "relative", zIndex: 1 }}>
           <div style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto" }}>
             <span className="badge"><span>Get in Touch</span></span>
-            <h1 className="heading-xl" style={{ marginTop: "1.5rem", color: "#ffffff" }}>
+            <h1 className="heading-xl" style={{ marginTop: "1.5rem", color: "var(--foreground)" }}>
               Contact <span className="gradient-text">Us</span>
             </h1>
             <p style={{ color: "var(--text-light)", fontSize: "1.1rem", marginTop: "1rem" }}>
@@ -59,7 +59,7 @@ export default function ContactPage() {
                   marginBottom: "2rem",
                 }}
               >
-                <h2 style={{ fontSize: "1.5rem", fontWeight: 800, marginBottom: "1.5rem", color: "#ffffff" }}>
+                <h2 style={{ fontSize: "1.5rem", fontWeight: 800, marginBottom: "1.5rem", color: "var(--foreground)" }}>
                   Contact <span className="gradient-text">Information</span>
                 </h2>
 
@@ -132,7 +132,7 @@ export default function ContactPage() {
                         {item.emoji}
                       </span>
                       <div>
-                        <h3 style={{ fontWeight: 700, marginBottom: "0.25rem", color: "#ffffff" }}>
+                        <h3 style={{ fontWeight: 700, marginBottom: "0.25rem", color: "var(--foreground)" }}>
                           {item.title}
                         </h3>
                         {item.content}
@@ -143,7 +143,7 @@ export default function ContactPage() {
 
                 {/* Social Links */}
                 <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: "1.5rem" }}>
-                  <h3 style={{ fontWeight: 700, marginBottom: "1rem", color: "#ffffff" }}>
+                  <h3 style={{ fontWeight: 700, marginBottom: "1rem", color: "var(--foreground)" }}>
                     Follow Us
                   </h3>
                   <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
@@ -200,7 +200,7 @@ export default function ContactPage() {
                   border: "1px solid rgba(255,255,255,0.06)",
                 }}
               >
-                <h2 style={{ fontSize: "1.5rem", fontWeight: 800, marginBottom: "1.5rem", color: "#ffffff" }}>
+                <h2 style={{ fontSize: "1.5rem", fontWeight: 800, marginBottom: "1.5rem", color: "var(--foreground)" }}>
                   Hours of <span className="gradient-text">Operation</span>
                 </h2>
                 <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
@@ -217,7 +217,7 @@ export default function ContactPage() {
                             : "none",
                       }}
                     >
-                      <span style={{ fontWeight: 600, color: "#ffffff" }}>{item.day}</span>
+                      <span style={{ fontWeight: 600, color: "var(--foreground)" }}>{item.day}</span>
                       <span
                         style={{
                           color: item.time.includes("Closed")

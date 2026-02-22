@@ -73,7 +73,7 @@ export default function BootcampPage() {
         <div className="container" style={{ position: "relative", zIndex: 1 }}>
           <div style={{ textAlign: "center", maxWidth: "800px", margin: "0 auto" }}>
             <span className="badge"><span>6 Week Course</span></span>
-            <h1 className="heading-xl" style={{ marginTop: "1.5rem", color: "#ffffff" }}>
+            <h1 className="heading-xl" style={{ marginTop: "1.5rem", color: "var(--foreground)" }}>
               Absolute Beginners
               <br />
               <span className="gradient-text">L.A. Style Salsa On 1</span>
@@ -119,7 +119,7 @@ export default function BootcampPage() {
           <div className="grid-2" style={{ alignItems: "start" }}>
             {/* Left - Info */}
             <div>
-              <h2 className="heading-md" style={{ marginBottom: "1.5rem", color: "#ffffff" }}>
+              <h2 className="heading-md" style={{ marginBottom: "1.5rem", color: "var(--foreground)" }}>
                 Bootcamp <span className="gradient-text">Details</span>
               </h2>
 
@@ -136,7 +136,7 @@ export default function BootcampPage() {
                       <div style={{ fontSize: "0.8rem", textTransform: "uppercase", color: "var(--text-muted)", marginBottom: "0.25rem", letterSpacing: "0.08em" }}>
                         {item.label}
                       </div>
-                      <div style={{ fontSize: "1.1rem", fontWeight: 600, color: "#ffffff" }}>
+                      <div style={{ fontSize: "1.1rem", fontWeight: 600, color: "var(--foreground)" }}>
                         {item.value}
                       </div>
                     </div>
@@ -146,7 +146,7 @@ export default function BootcampPage() {
                     <div style={{ fontSize: "0.8rem", textTransform: "uppercase", color: "var(--text-muted)", marginBottom: "0.25rem", letterSpacing: "0.08em" }}>
                       Time Options
                     </div>
-                    <div style={{ fontSize: "1.1rem", fontWeight: 600, color: "#ffffff" }}>
+                    <div style={{ fontSize: "1.1rem", fontWeight: 600, color: "var(--foreground)" }}>
                       6:00 PM - 7:00 PM (Early Evening)
                       <br />
                       9:00 PM - 10:00 PM (Late Evening)
@@ -160,7 +160,7 @@ export default function BootcampPage() {
                     <div style={{ fontSize: "0.8rem", textTransform: "uppercase", color: "var(--text-muted)", marginBottom: "0.25rem", letterSpacing: "0.08em" }}>
                       Duration
                     </div>
-                    <div style={{ fontSize: "1.1rem", fontWeight: 600, color: "#ffffff" }}>
+                    <div style={{ fontSize: "1.1rem", fontWeight: 600, color: "var(--foreground)" }}>
                       6 Weeks Total
                     </div>
                     <p style={{ color: "var(--text-light)", fontSize: "0.85rem", marginTop: "0.25rem" }}>
@@ -176,7 +176,7 @@ export default function BootcampPage() {
                 throughout the Bootcamp.
               </p>
 
-              <h3 style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: "1rem", color: "#ffffff" }}>
+              <h3 style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: "1rem", color: "var(--foreground)" }}>
                 Payment Options Available
               </h3>
               <p style={{ color: "var(--text-light)", marginBottom: "1rem" }}>
@@ -225,7 +225,7 @@ export default function BootcampPage() {
                     background: "linear-gradient(90deg, var(--primary), var(--primary-light))",
                   }}
                 />
-                <h3 style={{ fontSize: "1.5rem", fontWeight: 800, marginBottom: "1.5rem", color: "#ffffff" }}>
+                <h3 style={{ fontSize: "1.5rem", fontWeight: 800, marginBottom: "1.5rem", color: "var(--foreground)" }}>
                   Bootcamp <span className="gradient-text">Pricing</span>
                 </h3>
 
@@ -316,7 +316,7 @@ export default function BootcampPage() {
             {curriculum.map((item, index) => (
               <div key={index} className="card">
                 <div style={{ fontSize: "2.5rem", marginBottom: "1rem" }}>{item.icon}</div>
-                <h3 style={{ fontSize: "1.25rem", fontWeight: 700, marginBottom: "0.75rem", color: "#ffffff" }}>
+                <h3 style={{ fontSize: "1.25rem", fontWeight: 700, marginBottom: "0.75rem", color: "var(--foreground)" }}>
                   {item.title}
                 </h3>
                 <p style={{ color: "var(--text-light)", lineHeight: 1.7 }}>
@@ -354,7 +354,7 @@ export default function BootcampPage() {
                 background: "linear-gradient(90deg, var(--primary), var(--primary-light))",
               }}
             />
-            <h2 style={{ fontSize: "1.5rem", fontWeight: 800, marginBottom: "1rem", color: "#ffffff" }}>
+            <h2 style={{ fontSize: "1.5rem", fontWeight: 800, marginBottom: "1rem", color: "var(--foreground)" }}>
               Step 2: Order Your <span className="gradient-text">Dance Shoes</span>
             </h2>
             <p style={{ color: "var(--text-light)", marginBottom: "1.5rem" }}>

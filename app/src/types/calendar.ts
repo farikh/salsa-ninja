@@ -46,21 +46,21 @@ export interface CalendarDateRange {
   end: Date;
 }
 
-// Event type color mapping
+// Event type color mapping — uses CSS custom properties from globals.css
 export const EVENT_TYPE_COLORS: Record<CalendarEventType, { bg: string; text: string; border: string }> = {
-  class: { bg: 'rgba(239, 68, 68, 0.15)', text: '#ef4444', border: '#ef4444' },
-  workshop: { bg: 'rgba(245, 158, 11, 0.15)', text: '#f59e0b', border: '#f59e0b' },
-  bootcamp: { bg: 'rgba(249, 115, 22, 0.15)', text: '#f97316', border: '#f97316' },
-  studio_social: { bg: 'rgba(168, 85, 247, 0.15)', text: '#a855f7', border: '#a855f7' },
-  community: { bg: 'rgba(34, 197, 94, 0.15)', text: '#22c55e', border: '#22c55e' },
-  private_lesson: { bg: 'rgba(59, 130, 246, 0.15)', text: '#3b82f6', border: '#3b82f6' },
+  class: { bg: 'color-mix(in srgb, var(--event-class) 15%, transparent)', text: 'var(--event-class)', border: 'var(--event-class)' },
+  workshop: { bg: 'color-mix(in srgb, var(--event-workshop) 15%, transparent)', text: 'var(--event-workshop)', border: 'var(--event-workshop)' },
+  bootcamp: { bg: 'color-mix(in srgb, var(--event-bootcamp) 15%, transparent)', text: 'var(--event-bootcamp)', border: 'var(--event-bootcamp)' },
+  studio_social: { bg: 'color-mix(in srgb, var(--event-social) 15%, transparent)', text: 'var(--event-social)', border: 'var(--event-social)' },
+  community: { bg: 'color-mix(in srgb, var(--event-community) 15%, transparent)', text: 'var(--event-community)', border: 'var(--event-community)' },
+  private_lesson: { bg: 'color-mix(in srgb, var(--event-private) 15%, transparent)', text: 'var(--event-private)', border: 'var(--event-private)' },
 };
 
-// Availability block color mapping
+// Availability block color mapping — uses CSS custom properties from globals.css
 export const AVAILABILITY_COLORS = {
-  recurring: { bg: 'rgba(34, 197, 94, 0.12)', border: '#22c55e', style: 'solid' as const },
-  oneOff: { bg: 'rgba(34, 197, 94, 0.12)', border: '#22c55e', style: 'dashed' as const },
-  blocked: { bg: 'rgba(239, 68, 68, 0.08)', border: 'transparent', style: 'none' as const },
-  pendingBooking: { bg: 'rgba(245, 158, 11, 0.15)', border: '#f59e0b', style: 'solid' as const },
-  confirmedBooking: { bg: 'rgba(59, 130, 246, 0.15)', border: '#3b82f6', style: 'solid' as const },
+  recurring: { bg: 'color-mix(in srgb, var(--status-success) 12%, transparent)', border: 'var(--status-success)', style: 'solid' as const },
+  oneOff: { bg: 'color-mix(in srgb, var(--status-success) 12%, transparent)', border: 'var(--status-success)', style: 'dashed' as const },
+  blocked: { bg: 'color-mix(in srgb, var(--status-error) 8%, transparent)', border: 'transparent', style: 'none' as const },
+  pendingBooking: { bg: 'color-mix(in srgb, var(--status-warning) 15%, transparent)', border: 'var(--status-warning)', style: 'solid' as const },
+  confirmedBooking: { bg: 'color-mix(in srgb, var(--status-info) 15%, transparent)', border: 'var(--status-info)', style: 'solid' as const },
 };

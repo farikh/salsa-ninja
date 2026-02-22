@@ -28,7 +28,7 @@ export default function RegisterPage() {
         <div className="container" style={{ position: "relative", zIndex: 1 }}>
           <div style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto" }}>
             <span className="badge"><span>Get Started</span></span>
-            <h1 className="heading-xl" style={{ marginTop: "1.5rem", color: "#ffffff" }}>
+            <h1 className="heading-xl" style={{ marginTop: "1.5rem", color: "var(--foreground)" }}>
               Registration & <span className="gradient-text">Waiver</span>
             </h1>
             <p style={{ color: "var(--text-light)", fontSize: "1.1rem", marginTop: "1rem" }}>
@@ -54,7 +54,7 @@ export default function RegisterPage() {
                   style={{ textAlign: "center" }}
                 >
                   <div style={{ fontSize: "2rem", marginBottom: "0.75rem" }}>{item.emoji}</div>
-                  <h3 style={{ fontWeight: 700, marginBottom: "0.5rem", color: "#ffffff" }}>
+                  <h3 style={{ fontWeight: 700, marginBottom: "0.5rem", color: "var(--foreground)" }}>
                     {item.step}
                   </h3>
                   <p style={{ color: "var(--text-light)", fontSize: "0.9rem" }}>
@@ -83,7 +83,7 @@ export default function RegisterPage() {
           <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
             <div
               style={{
-                background: "#ffffff",
+                background: "var(--card)",
                 color: "var(--dark)",
                 borderRadius: "1rem",
                 overflow: "hidden",
@@ -106,7 +106,7 @@ export default function RegisterPage() {
           <div className="grid-2" style={{ alignItems: "center" }}>
             <div>
               <span className="badge"><span>Visit Us</span></span>
-              <h2 className="heading-md" style={{ marginTop: "1rem", color: "#ffffff" }}>
+              <h2 className="heading-md" style={{ marginTop: "1rem", color: "var(--foreground)" }}>
                 Studio <span className="gradient-text">Location</span>
               </h2>
               <p style={{ color: "var(--text-light)", marginTop: "1rem", lineHeight: 1.7 }}>
@@ -114,7 +114,7 @@ export default function RegisterPage() {
                 Sunrise, FL (Broward County).
               </p>
               <div style={{ marginTop: "1.5rem" }}>
-                <p style={{ fontWeight: 600, marginBottom: "0.5rem", color: "#ffffff" }}>
+                <p style={{ fontWeight: 600, marginBottom: "0.5rem", color: "var(--foreground)" }}>
                   10070 W Oakland Park Blvd
                   <br />
                   Sunrise, FL 33351

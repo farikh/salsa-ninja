@@ -96,11 +96,11 @@ const stages = [
 
 const statusConfig = {
   live: {
-    color: "#22c55e",
+    color: "var(--status-success)",
     bg: "rgba(34, 197, 94, 0.12)",
     border: "rgba(34, 197, 94, 0.25)",
     glow: "0 0 24px rgba(34, 197, 94, 0.15)",
-    lineColor: "#22c55e",
+    lineColor: "var(--status-success)",
   },
   building: {
     color: "var(--primary)",
@@ -173,7 +173,7 @@ export default function RoadmapPage() {
               fontSize: "clamp(2rem, 5vw, 3.5rem)",
               fontWeight: 800,
               lineHeight: 1.1,
-              color: "#ffffff",
+              color: "var(--foreground)",
               margin: "0 0 1rem",
             }}
           >
@@ -211,7 +211,7 @@ export default function RoadmapPage() {
             }}
           >
             {[
-              { label: "Live", count: 2, color: "#22c55e" },
+              { label: "Live", count: 2, color: "var(--status-success)" },
               { label: "Building", count: 1, color: "var(--primary)" },
               { label: "Planned", count: 2, color: "rgba(255,255,255,0.35)" },
             ].map((item) => (
@@ -303,7 +303,7 @@ export default function RoadmapPage() {
                     <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
                       <path
                         d="M5 10l3.5 3.5L15 7"
-                        stroke="#22c55e"
+                        stroke="var(--status-success)"
                         strokeWidth="2.5"
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -358,7 +358,7 @@ export default function RoadmapPage() {
                       height: "3px",
                       background:
                         stage.status === "live"
-                          ? "#22c55e"
+                          ? "var(--status-success)"
                           : "linear-gradient(90deg, var(--primary), var(--primary-light))",
                     }}
                   />
@@ -378,7 +378,7 @@ export default function RoadmapPage() {
                       style={{
                         fontSize: "clamp(1.1rem, 3vw, 1.3rem)",
                         fontWeight: 700,
-                        color: faded ? "rgba(255,255,255,0.5)" : "#ffffff",
+                        color: faded ? "rgba(255,255,255,0.5)" : "var(--foreground)",
                         margin: 0,
                         lineHeight: 1.3,
                       }}

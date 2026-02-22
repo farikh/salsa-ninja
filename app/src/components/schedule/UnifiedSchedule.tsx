@@ -20,11 +20,11 @@ interface UnifiedScheduleProps {
   userRole: string;
 }
 
-// Hex colors for booking legend items (matches BOOKING_COLORS Tailwind equivalents)
+// Booking legend colors — uses CSS custom properties from globals.css
 const BOOKING_LEGEND_COLORS = {
-  booking: '#6366f1',     // indigo-500
-  pending: '#eab308',     // yellow-500
-  available: '#22c55e',   // green-500
+  booking: 'var(--status-info)',
+  pending: 'var(--status-warning)',
+  available: 'var(--status-success)',
 };
 
 export function UnifiedSchedule({ userId, userRole }: UnifiedScheduleProps) {

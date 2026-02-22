@@ -279,7 +279,7 @@ export default async function SchedulePage() {
                     fontSize: "1.1rem",
                     fontWeight: 700,
                     textAlign: "center",
-                    color: "#ffffff",
+                    color: "var(--foreground)",
                   }}
                 >
                   {plan.name}

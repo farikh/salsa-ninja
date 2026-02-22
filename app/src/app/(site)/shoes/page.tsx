@@ -68,7 +68,7 @@ export default function ShoesPage() {
         <div className="container" style={{ position: "relative", zIndex: 1 }}>
           <div style={{ textAlign: "center", maxWidth: "800px", margin: "0 auto" }}>
             <span className="badge"><span>Gear Up</span></span>
-            <h1 className="heading-xl" style={{ marginTop: "1.5rem", color: "#ffffff" }}>
+            <h1 className="heading-xl" style={{ marginTop: "1.5rem", color: "var(--foreground)" }}>
               Shoes & <span className="gradient-text">Apparel</span>
             </h1>
             <p style={{ color: "var(--text-light)", fontSize: "1.1rem", marginTop: "1rem" }}>
@@ -117,17 +117,17 @@ export default function ShoesPage() {
                 background: "linear-gradient(90deg, var(--primary), var(--primary-light))",
               }}
             />
-            <h2 className="heading-md" style={{ marginBottom: "1.5rem", color: "#ffffff" }}>
+            <h2 className="heading-md" style={{ marginBottom: "1.5rem", color: "var(--foreground)" }}>
               Why Dance Shoes <span className="gradient-text">Matter</span>
             </h2>
             <p style={{ fontSize: "1.1rem", lineHeight: 1.8, color: "var(--text-light)" }}>
-              The main difference between <strong style={{ color: "#ffffff" }}>BALLROOM DANCE SHOES / DANCER SNEAKERS</strong>{" "}
-              and <strong style={{ color: "#ffffff" }}>CASUAL SHOES</strong> is that dance shoes have special suede soles
+              The main difference between <strong style={{ color: "var(--foreground)" }}>BALLROOM DANCE SHOES / DANCER SNEAKERS</strong>{" "}
+              and <strong style={{ color: "var(--foreground)" }}>CASUAL SHOES</strong> is that dance shoes have special suede soles
               or material which is smooth enough to allow easier pivot and turning motions on
               specific dance floors.
             </p>
             <div style={{ marginTop: "2rem" }}>
-              <h3 style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: "1rem", color: "#ffffff" }}>
+              <h3 style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: "1rem", color: "var(--foreground)" }}>
                 Benefits of Proper Dance Shoes:
               </h3>
               <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
@@ -223,7 +223,7 @@ export default function ShoesPage() {
                 >
                   <span>{shoe.type}</span>
                 </span>
-                <h3 style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: "0.5rem", color: "#ffffff" }}>
+                <h3 style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: "0.5rem", color: "var(--foreground)" }}>
                   {shoe.name}
                 </h3>
                 <p style={{ color: "var(--text-light)", fontSize: "0.9rem", marginBottom: "1rem" }}>
@@ -284,7 +284,7 @@ export default function ShoesPage() {
                   textAlign: "center",
                 }}
               >
-                <h3 style={{ fontSize: "1.5rem", fontWeight: 800, marginBottom: "0.75rem", color: "#ffffff" }}>
+                <h3 style={{ fontSize: "1.5rem", fontWeight: 800, marginBottom: "0.75rem", color: "var(--foreground)" }}>
                   {brand.name}
                 </h3>
                 <p style={{ color: "var(--text-light)", marginBottom: "1.25rem" }}>
@@ -316,7 +316,7 @@ export default function ShoesPage() {
       <section className="section section-alt">
         <div className="container">
           <div style={{ textAlign: "center", maxWidth: "600px", margin: "0 auto" }}>
-            <h2 className="heading-md" style={{ marginBottom: "1rem", color: "#ffffff" }}>
+            <h2 className="heading-md" style={{ marginBottom: "1rem", color: "var(--foreground)" }}>
               Ready to <span className="gradient-text">Dance?</span>
             </h2>
             <p style={{ color: "var(--text-light)", marginBottom: "2rem" }}>

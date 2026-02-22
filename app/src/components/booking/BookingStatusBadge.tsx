@@ -10,13 +10,13 @@ const STATUS_CONFIG: Record<
   pending: {
     label: 'Pending',
     variant: 'secondary',
-    color: '#f59e0b',
+    color: 'var(--status-warning)',
     tooltip: 'Awaiting instructor confirmation',
   },
   confirmed: {
     label: 'Confirmed',
     variant: 'default',
-    color: '#22c55e',
+    color: 'var(--status-success)',
     tooltip: 'Lesson confirmed',
   },
   declined: {
@@ -42,7 +42,7 @@ const STATUS_CONFIG: Record<
   completed: {
     label: 'Completed',
     variant: 'outline',
-    color: '#22c55e',
+    color: 'var(--status-success)',
     tooltip: 'Lesson completed',
   },
   no_show: {
@@ -71,9 +71,9 @@ export function BookingStatusBadge({ status, size = 'md' }: BookingStatusBadgePr
       style={{
         ...(config.color
           ? {
-              backgroundColor: `${config.color}20`,
+              backgroundColor: `color-mix(in srgb, ${config.color} 12%, transparent)`,
               color: config.color,
-              borderColor: `${config.color}40`,
+              borderColor: `color-mix(in srgb, ${config.color} 25%, transparent)`,
             }
           : {}),
         fontSize: size === 'sm' ? '0.7rem' : '0.75rem',

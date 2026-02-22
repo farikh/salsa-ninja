@@ -83,7 +83,7 @@ export function DashboardTabs({
                 background: activeTab === tab.id
                   ? 'linear-gradient(135deg, var(--primary), var(--primary-light))'
                   : 'transparent',
-                color: activeTab === tab.id ? '#fff' : 'rgba(255,255,255,0.7)',
+                color: activeTab === tab.id ? 'var(--primary-foreground)' : 'rgba(255,255,255,0.7)',
                 fontWeight: 600,
                 fontSize: '0.9rem',
                 cursor: 'pointer',
@@ -439,7 +439,7 @@ function EnrollmentCard({
             flexShrink: 0,
           }}>
             {bootcamp && (
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--foreground)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="20 6 9 17 4 12"/>
               </svg>
             )}

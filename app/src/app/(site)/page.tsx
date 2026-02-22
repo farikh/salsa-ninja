@@ -44,7 +44,7 @@ export default function Home() {
           minHeight: "100vh",
           display: "flex",
           alignItems: "center",
-          background: "var(--dark)",
+          background: "var(--secondary)",
           overflow: "hidden",
         }}
       >
@@ -141,7 +141,7 @@ export default function Home() {
             <h1
               className="heading-xl reveal hero-stagger-2"
               style={{
-                color: "#ffffff",
+                color: "var(--foreground)",
                 marginBottom: "1.5rem",
               }}
             >
@@ -244,7 +244,7 @@ export default function Home() {
           style={{
             maxWidth: "1200px",
             margin: "0 auto",
-            background: "#222222",
+            background: "var(--accent)",
             transform: "skewY(-3deg)",
             boxShadow: "0 20px 60px rgba(0,0,0,0.4)",
             position: "relative",
@@ -330,8 +330,8 @@ export default function Home() {
       {/* ===== DANCE STYLES ===== */}
       <section
         style={{
-          background: "#ffffff",
-          color: "var(--dark)",
+          background: "var(--card)",
+          color: "var(--card-foreground)",
           padding: "7rem 0 5rem",
           clipPath: "polygon(0 40px, 100% 0, 100% calc(100% - 40px), 0 100%)",
           marginTop: "-20px",
@@ -353,7 +353,7 @@ export default function Home() {
             </span>
             <h2
               className="heading-lg"
-              style={{ marginTop: "0.75rem", color: "var(--dark)" }}
+              style={{ marginTop: "0.75rem", color: "var(--card-foreground)" }}
             >
               Find Your{" "}
               <span
@@ -392,7 +392,7 @@ export default function Home() {
                 key={i}
                 className="reveal"
                 style={{
-                  background: "#ffffff",
+                  background: "var(--card)",
                   borderRadius: "0.75rem",
                   overflow: "hidden",
                   boxShadow:
@@ -447,14 +447,14 @@ export default function Home() {
                       fontSize: "1.35rem",
                       fontWeight: 700,
                       marginBottom: "0.75rem",
-                      color: "var(--dark)",
+                      color: "var(--card-foreground)",
                     }}
                   >
                     {style.title}
                   </h3>
                   <p
                     style={{
-                      color: "#6b7280",
+                      color: "var(--muted-foreground)",
                       fontSize: "0.95rem",
                       lineHeight: 1.7,
                     }}
@@ -479,7 +479,7 @@ export default function Home() {
       {/* ===== SCHEDULE SECTION ===== */}
       <section
         style={{
-          background: "var(--dark)",
+          background: "var(--secondary)",
           padding: "7rem 0 5rem",
           clipPath: "polygon(0 0, 100% 40px, 100% 100%, 0 calc(100% - 40px))",
           position: "relative",
@@ -512,7 +512,7 @@ export default function Home() {
             </span>
             <h2
               className="heading-lg"
-              style={{ marginTop: "0.75rem", color: "#ffffff" }}
+              style={{ marginTop: "0.75rem", color: "var(--foreground)" }}
             >
               Our{" "}
               <span
@@ -627,7 +627,7 @@ export default function Home() {
                       <td
                         style={{
                           padding: "1rem 1.5rem",
-                          color: "#ffffff",
+                          color: "var(--foreground)",
                           fontWeight: 600,
                           fontSize: "0.95rem",
                         }}
@@ -646,7 +646,7 @@ export default function Home() {
                       <td
                         style={{
                           padding: "1rem 1.5rem",
-                          color: "#ffffff",
+                          color: "var(--foreground)",
                           fontSize: "0.95rem",
                         }}
                       >
@@ -717,7 +717,7 @@ export default function Home() {
             </span>
             <h2
               className="heading-lg"
-              style={{ marginTop: "0.75rem", color: "#ffffff" }}
+              style={{ marginTop: "0.75rem", color: "var(--foreground)" }}
             >
               Learn From the{" "}
               <span
@@ -771,8 +771,8 @@ export default function Home() {
       {/* ===== SOCIAL PROOF / COMMUNITY CTA ===== */}
       <section
         style={{
-          background: "#ffffff",
-          color: "var(--dark)",
+          background: "var(--card)",
+          color: "var(--card-foreground)",
           padding: "7rem 0 5rem",
           clipPath: "polygon(0 40px, 100% 0, 100% calc(100% - 40px), 0 100%)",
         }}
@@ -792,7 +792,7 @@ export default function Home() {
             </span>
             <h2
               className="heading-lg"
-              style={{ marginTop: "0.75rem", color: "var(--dark)" }}
+              style={{ marginTop: "0.75rem", color: "var(--card-foreground)" }}
             >
               More Than a{" "}
               <span
@@ -808,7 +808,7 @@ export default function Home() {
               </span>
             </h2>
             <p style={{
-              color: "#6b7280",
+              color: "var(--muted-foreground)",
               fontSize: "1.05rem",
               lineHeight: 1.8,
               marginTop: "1.5rem",
@@ -850,7 +850,7 @@ export default function Home() {
                   fontWeight: 600,
                   fontSize: "0.95rem",
                   background: "transparent",
-                  color: "var(--dark)",
+                  color: "var(--card-foreground)",
                   textDecoration: "none",
                   border: "2px solid rgba(0,0,0,0.15)",
                   transform: "skewX(-6deg)",
@@ -869,7 +869,7 @@ export default function Home() {
       {/* ===== PRICING SECTION ===== */}
       <section
         style={{
-          background: "var(--dark)",
+          background: "var(--secondary)",
           padding: "7rem 0 5rem",
           clipPath: "polygon(0 0, 100% 40px, 100% 100%, 0 calc(100% - 40px))",
           position: "relative",
@@ -902,7 +902,7 @@ export default function Home() {
             </span>
             <h2
               className="heading-lg"
-              style={{ marginTop: "0.75rem", color: "#ffffff" }}
+              style={{ marginTop: "0.75rem", color: "var(--foreground)" }}
             >
               Choose Your{" "}
               <span
@@ -1019,7 +1019,7 @@ export default function Home() {
                   style={{
                     fontSize: "1.1rem",
                     fontWeight: 700,
-                    color: "#ffffff",
+                    color: "var(--foreground)",
                     marginBottom: "1rem",
                   }}
                 >
@@ -1037,7 +1037,7 @@ export default function Home() {
                     style={{
                       fontSize: "2.5rem",
                       fontWeight: 800,
-                      color: "#ffffff",
+                      color: "var(--foreground)",
                     }}
                   >
                     {plan.price}
@@ -1142,8 +1142,8 @@ export default function Home() {
       {/* ===== EVENTS SECTION ===== */}
       <section
         style={{
-          background: "#ffffff",
-          color: "var(--dark)",
+          background: "var(--card)",
+          color: "var(--card-foreground)",
           padding: "7rem 0 5rem",
           clipPath: "polygon(0 40px, 100% 0, 100% calc(100% - 40px), 0 100%)",
         }}
@@ -1164,7 +1164,7 @@ export default function Home() {
             </span>
             <h2
               className="heading-lg"
-              style={{ marginTop: "0.75rem", color: "var(--dark)" }}
+              style={{ marginTop: "0.75rem", color: "var(--card-foreground)" }}
             >
               Upcoming{" "}
               <span
@@ -1192,7 +1192,7 @@ export default function Home() {
             <div
               className="reveal"
               style={{
-                background: "#ffffff",
+                background: "var(--card)",
                 borderRadius: "0.75rem",
                 overflow: "hidden",
                 boxShadow: "0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03)",
@@ -1212,7 +1212,7 @@ export default function Home() {
                 }} />
                 <div style={{
                   position: "absolute", bottom: 0, right: 0, width: "100%", height: "60px",
-                  background: "#ffffff", clipPath: "polygon(100% 0, 100% 100%, 0 100%)",
+                  background: "var(--card)", clipPath: "polygon(100% 0, 100% 100%, 0 100%)",
                 }} />
                 <span style={{
                   position: "absolute", top: "16px", left: "16px",
@@ -1224,13 +1224,13 @@ export default function Home() {
                 </span>
               </div>
               <div style={{ padding: "1.5rem" }}>
-                <h3 style={{ fontSize: "1.1rem", fontWeight: 700, color: "var(--dark)", marginBottom: "0.35rem" }}>
+                <h3 style={{ fontSize: "1.1rem", fontWeight: 700, color: "var(--card-foreground)", marginBottom: "0.35rem" }}>
                   Salsa Ninja Dance Social
                 </h3>
                 <p style={{ color: "var(--primary)", fontSize: "0.8rem", fontWeight: 600, marginBottom: "0.75rem" }}>
                   Every 2nd Friday of the Month
                 </p>
-                <p style={{ color: "#6b7280", fontSize: "0.9rem", lineHeight: 1.7 }}>
+                <p style={{ color: "var(--muted-foreground)", fontSize: "0.9rem", lineHeight: 1.7 }}>
                   DJ, open floor, and the whole Ninja fam together. Salsa class at 9 PM, social dancing &apos;til late. BYOB with light bites and free parking.
                 </p>
               </div>
@@ -1241,7 +1241,7 @@ export default function Home() {
               href="/events"
               className="reveal"
               style={{
-                background: "var(--dark)",
+                background: "var(--secondary)",
                 borderRadius: "0.75rem",
                 overflow: "hidden",
                 display: "flex",
@@ -1267,7 +1267,7 @@ export default function Home() {
               }}>
                 &rarr;
               </div>
-              <h3 style={{ fontSize: "1.1rem", fontWeight: 700, color: "#ffffff", marginBottom: "0.5rem", position: "relative" }}>
+              <h3 style={{ fontSize: "1.1rem", fontWeight: 700, color: "var(--foreground)", marginBottom: "0.5rem", position: "relative" }}>
                 View All Events
               </h3>
               <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.85rem", textAlign: "center", position: "relative" }}>
@@ -1281,8 +1281,8 @@ export default function Home() {
       {/* ===== BOOTCAMP CTA ===== */}
       <section
         style={{
-          background: "#ffffff",
-          color: "var(--dark)",
+          background: "var(--card)",
+          color: "var(--card-foreground)",
           padding: "3rem 0 5rem",
         }}
       >
@@ -1290,7 +1290,7 @@ export default function Home() {
           <div
             className="reveal"
             style={{
-              background: "var(--dark)",
+              background: "var(--secondary)",
               borderRadius: "0.75rem",
               padding: "3.5rem 2.5rem",
               textAlign: "center",
@@ -1312,7 +1312,7 @@ export default function Home() {
               }}>
                 <span style={{ display: "block", transform: "skewX(6deg)" }}>New to Salsa?</span>
               </span>
-              <h2 className="heading-lg" style={{ color: "#ffffff", marginBottom: "1rem" }}>
+              <h2 className="heading-lg" style={{ color: "var(--foreground)", marginBottom: "1rem" }}>
                 Start With the{" "}
                 <span style={{
                   background: "linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%)",
@@ -1348,7 +1348,7 @@ export default function Home() {
       {/* ===== LOCATION + HOURS ===== */}
       <section
         style={{
-          background: "var(--dark)",
+          background: "var(--secondary)",
           padding: "7rem 0 5rem",
           clipPath: "polygon(0 40px, 100% 0, 100% 100%, 0 100%)",
           position: "relative",
@@ -1381,7 +1381,7 @@ export default function Home() {
             </span>
             <h2
               className="heading-lg"
-              style={{ marginTop: "0.75rem", color: "#ffffff" }}
+              style={{ marginTop: "0.75rem", color: "var(--foreground)" }}
             >
               Come{" "}
               <span
@@ -1530,7 +1530,7 @@ export default function Home() {
                     >
                       <span
                         style={{
-                          color: "#ffffff",
+                          color: "var(--foreground)",
                           fontWeight: 600,
                           fontSize: "0.95rem",
                         }}

@@ -86,7 +86,7 @@ const Navbar = () => {
                   transform: "skewX(-12deg)",
                 }}
               />
-              <span style={{ fontWeight: 800, fontSize: "1.3rem", color: "#fff" }}>
+              <span style={{ fontWeight: 800, fontSize: "1.3rem", color: "var(--foreground)" }}>
                 Salsa
                 <span
                   style={{
@@ -179,7 +179,7 @@ const Navbar = () => {
                   style={{
                     display: "inline-block",
                     background: "linear-gradient(135deg, var(--primary), var(--primary-light))",
-                    color: "#fff",
+                    color: "var(--foreground)",
                     fontWeight: 700,
                     fontSize: "0.82rem",
                     padding: "10px 24px",
@@ -218,7 +218,7 @@ const Navbar = () => {
                   display: "block",
                   width: "24px",
                   height: "2px",
-                  background: "#fff",
+                  background: "var(--foreground)",
                   borderRadius: "2px",
                   transition: "all 0.3s ease",
                   transform: isOpen ? "translateY(7px) rotate(45deg)" : "none",
@@ -229,7 +229,7 @@ const Navbar = () => {
                   display: "block",
                   width: "24px",
                   height: "2px",
-                  background: "#fff",
+                  background: "var(--foreground)",
                   borderRadius: "2px",
                   transition: "all 0.3s ease",
                   opacity: isOpen ? 0 : 1,
@@ -240,7 +240,7 @@ const Navbar = () => {
                   display: "block",
                   width: "24px",
                   height: "2px",
-                  background: "#fff",
+                  background: "var(--foreground)",
                   borderRadius: "2px",
                   transition: "all 0.3s ease",
                   transform: isOpen ? "translateY(-7px) rotate(-45deg)" : "none",
@@ -342,7 +342,7 @@ const Navbar = () => {
                 style={{
                   display: "block",
                   background: "linear-gradient(135deg, var(--primary), var(--primary-light))",
-                  color: "#fff",
+                  color: "var(--foreground)",
                   fontWeight: 700,
                   fontSize: "0.9rem",
                   padding: "12px 24px",

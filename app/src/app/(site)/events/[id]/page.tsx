@@ -75,7 +75,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
             <span className="badge">
               <span>{EVENT_TYPE_LABELS[event.event_type] || 'Event'}</span>
             </span>
-            <h1 className="heading-xl" style={{ marginTop: '1.5rem', color: '#ffffff' }}>
+            <h1 className="heading-xl" style={{ marginTop: '1.5rem', color: 'var(--foreground)' }}>
               {event.title}
             </h1>
             {event.description && (
@@ -168,7 +168,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
                     <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.5rem', letterSpacing: '0.08em' }}>
                       {item.label}
                     </div>
-                    <div style={{ fontWeight: 600, fontSize: '1.05rem', color: '#ffffff', whiteSpace: 'pre-line' }}>
+                    <div style={{ fontWeight: 600, fontSize: '1.05rem', color: 'var(--foreground)', whiteSpace: 'pre-line' }}>
                       {item.value}
                     </div>
                   </div>
@@ -224,7 +224,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
                   <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.5rem', letterSpacing: '0.08em' }}>
                     Location
                   </div>
-                  <p style={{ fontWeight: 600, color: '#ffffff', whiteSpace: 'pre-line' }}>
+                  <p style={{ fontWeight: 600, color: 'var(--foreground)', whiteSpace: 'pre-line' }}>
                     {event.location}
                   </p>
                 </div>

@@ -118,8 +118,8 @@ export function PrivateLessonsTab({ instructors, memberId, isInstructor, booking
                       onClick={() => handleAction(booking.id, 'confirm')}
                       disabled={actionLoading === booking.id}
                       style={{
-                        background: '#22c55e',
-                        color: '#fff',
+                        background: 'var(--status-success)',
+                        color: 'var(--primary-foreground)',
                         border: 'none',
                         borderRadius: '6px',
                         padding: '0.3rem 0.75rem',
@@ -181,8 +181,8 @@ export function PrivateLessonsTab({ instructors, memberId, isInstructor, booking
                           onClick={() => handleAction(booking.id, 'confirm')}
                           disabled={actionLoading === booking.id}
                           style={{
-                            background: '#22c55e',
-                            color: '#fff',
+                            background: 'var(--status-success)',
+                            color: 'var(--primary-foreground)',
                             border: 'none',
                             borderRadius: '6px',
                             padding: '0.25rem 0.6rem',
