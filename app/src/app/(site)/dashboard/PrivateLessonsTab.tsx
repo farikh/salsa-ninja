@@ -82,7 +82,7 @@ export function PrivateLessonsTab({ instructors, memberId, isInstructor, booking
             <p style={{
               fontSize: '0.8rem',
               fontWeight: 600,
-              color: '#f59e0b',
+              color: 'var(--primary-light)',
               marginBottom: '0.5rem',
               textTransform: 'uppercase',
               letterSpacing: '0.05em',
@@ -94,10 +94,10 @@ export function PrivateLessonsTab({ instructors, memberId, isInstructor, booking
                 <div
                   key={booking.id}
                   style={{
-                    border: '1px solid rgba(245,158,11,0.3)',
+                    border: '1px solid color-mix(in srgb, var(--primary-light) 30%, transparent)',
                     borderRadius: '8px',
                     padding: '0.75rem',
-                    background: 'rgba(245,158,11,0.05)',
+                    background: 'color-mix(in srgb, var(--primary-light) 5%, transparent)',
                   }}
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', gap: '0.5rem' }}>
@@ -136,8 +136,8 @@ export function PrivateLessonsTab({ instructors, memberId, isInstructor, booking
                       disabled={actionLoading === booking.id}
                       style={{
                         background: 'transparent',
-                        color: '#ef4444',
-                        border: '1px solid rgba(239,68,68,0.3)',
+                        color: 'var(--primary)',
+                        border: '1px solid color-mix(in srgb, var(--primary) 30%, transparent)',
                         borderRadius: '6px',
                         padding: '0.3rem 0.75rem',
                         fontSize: '0.8rem',
@@ -201,8 +201,8 @@ export function PrivateLessonsTab({ instructors, memberId, isInstructor, booking
                           disabled={actionLoading === booking.id}
                           style={{
                             background: 'transparent',
-                            color: '#ef4444',
-                            border: '1px solid rgba(239,68,68,0.3)',
+                            color: 'var(--primary)',
+                            border: '1px solid color-mix(in srgb, var(--primary) 30%, transparent)',
                             borderRadius: '6px',
                             padding: '0.25rem 0.6rem',
                             fontSize: '0.75rem',

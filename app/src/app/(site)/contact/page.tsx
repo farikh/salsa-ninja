@@ -14,7 +14,7 @@ export default function ContactPage() {
       {/* Hero */}
       <section
         style={{
-          background: "#111111",
+          background: "var(--dark)",
           padding: "5rem 0 6rem",
           position: "relative",
           overflow: "hidden",
@@ -27,7 +27,7 @@ export default function ContactPage() {
             right: "-15%",
             width: "60%",
             height: "180%",
-            background: "radial-gradient(circle, rgba(239,68,68,0.08) 0%, transparent 60%)",
+            background: "radial-gradient(circle, color-mix(in srgb, var(--primary) 8%, transparent) 0%, transparent 60%)",
             pointerEvents: "none",
           }}
         />
@@ -87,7 +87,7 @@ export default function ContactPage() {
                       content: (
                         <a
                           href="tel:9546625354"
-                          style={{ color: "#ef4444", textDecoration: "none", fontSize: "1.1rem", fontWeight: 600 }}
+                          style={{ color: "var(--primary)", textDecoration: "none", fontSize: "1.1rem", fontWeight: 600 }}
                         >
                           (954) 662-5354
                         </a>
@@ -99,7 +99,7 @@ export default function ContactPage() {
                       content: (
                         <a
                           href="mailto:contact@salsaninja.com"
-                          style={{ color: "#ef4444", textDecoration: "none", fontSize: "1.1rem", fontWeight: 600 }}
+                          style={{ color: "var(--primary)", textDecoration: "none", fontSize: "1.1rem", fontWeight: 600 }}
                         >
                           contact@salsaninja.com
                         </a>
@@ -123,8 +123,8 @@ export default function ContactPage() {
                           width: "48px",
                           height: "48px",
                           borderRadius: "1rem",
-                          background: "rgba(239,68,68,0.1)",
-                          border: "1px solid rgba(239,68,68,0.15)",
+                          background: "color-mix(in srgb, var(--primary) 10%, transparent)",
+                          border: "1px solid color-mix(in srgb, var(--primary) 15%, transparent)",
                           fontSize: "1.25rem",
                           flexShrink: 0,
                         }}
@@ -222,7 +222,7 @@ export default function ContactPage() {
                         style={{
                           color: item.time.includes("Closed")
                             ? "var(--text-muted)"
-                            : "#ef4444",
+                            : "var(--primary)",
                           fontWeight: item.time.includes("Closed") ? 400 : 600,
                         }}
                       >

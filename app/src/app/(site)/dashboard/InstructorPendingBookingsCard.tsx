@@ -65,7 +65,7 @@ export function InstructorPendingBookingsCard({
             height: '40px',
             borderRadius: '10px',
             background:
-              'linear-gradient(135deg, rgba(245,158,11,0.15), rgba(239,68,68,0.15))',
+              'linear-gradient(135deg, color-mix(in srgb, var(--primary-light) 15%, transparent), color-mix(in srgb, var(--primary) 15%, transparent))',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -77,7 +77,7 @@ export function InstructorPendingBookingsCard({
             height="20"
             viewBox="0 0 24 24"
             fill="none"
-            stroke="#f59e0b"
+            stroke="var(--primary-light)"
             strokeWidth={2}
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -92,8 +92,8 @@ export function InstructorPendingBookingsCard({
             <span
               style={{
                 fontSize: '0.7rem',
-                background: 'rgba(245,158,11,0.2)',
-                color: '#f59e0b',
+                background: 'color-mix(in srgb, var(--primary-light) 20%, transparent)',
+                color: 'var(--primary-light)',
                 padding: '2px 8px',
                 borderRadius: '9999px',
                 fontWeight: 700,
@@ -145,10 +145,10 @@ export function InstructorPendingBookingsCard({
               <div
                 key={booking.id}
                 style={{
-                  border: '1px solid rgba(245,158,11,0.3)',
+                  border: '1px solid color-mix(in srgb, var(--primary-light) 30%, transparent)',
                   borderRadius: '8px',
                   padding: '0.75rem',
-                  background: 'rgba(245,158,11,0.05)',
+                  background: 'color-mix(in srgb, var(--primary-light) 5%, transparent)',
                 }}
               >
                 <div
@@ -226,8 +226,8 @@ export function InstructorPendingBookingsCard({
                     disabled={actionLoading === booking.id}
                     style={{
                       background: 'transparent',
-                      color: '#ef4444',
-                      border: '1px solid rgba(239,68,68,0.3)',
+                      color: 'var(--primary)',
+                      border: '1px solid color-mix(in srgb, var(--primary) 30%, transparent)',
                       borderRadius: '6px',
                       padding: '0.3rem 0.75rem',
                       fontSize: '0.8rem',
@@ -259,7 +259,7 @@ export function InstructorPendingBookingsCard({
       <Link
         href="/private-sessions"
         style={{
-          color: '#ef4444',
+          color: 'var(--primary)',
           fontSize: '0.85rem',
           fontWeight: 600,
           textDecoration: 'none',

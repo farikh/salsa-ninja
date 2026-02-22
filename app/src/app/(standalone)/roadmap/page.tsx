@@ -103,18 +103,18 @@ const statusConfig = {
     lineColor: "#22c55e",
   },
   building: {
-    color: "#ef4444",
-    bg: "rgba(239, 68, 68, 0.12)",
-    border: "rgba(239, 68, 68, 0.25)",
-    glow: "0 0 24px rgba(239, 68, 68, 0.15)",
-    lineColor: "#ef4444",
+    color: "var(--primary)",
+    bg: "color-mix(in srgb, var(--primary) 12%, transparent)",
+    border: "color-mix(in srgb, var(--primary) 25%, transparent)",
+    glow: "0 0 24px color-mix(in srgb, var(--primary) 15%, transparent)",
+    lineColor: "var(--primary)",
   },
   next: {
-    color: "#f59e0b",
-    bg: "rgba(245, 158, 11, 0.08)",
-    border: "rgba(245, 158, 11, 0.2)",
+    color: "var(--primary-light)",
+    bg: "color-mix(in srgb, var(--primary-light) 8%, transparent)",
+    border: "color-mix(in srgb, var(--primary-light) 20%, transparent)",
     glow: "none",
-    lineColor: "#f59e0b",
+    lineColor: "var(--primary-light)",
   },
   future: {
     color: "rgba(255,255,255,0.4)",
@@ -129,7 +129,7 @@ export default function RoadmapPage() {
   const [expandedStage, setExpandedStage] = useState<number | null>(null);
 
   return (
-    <div style={{ background: "#0f0f0f", minHeight: "100vh", fontFamily: "'Segoe UI', -apple-system, 'Helvetica Neue', Arial, sans-serif" }}>
+    <div style={{ background: "var(--background)", minHeight: "100vh", fontFamily: "'Segoe UI', -apple-system, 'Helvetica Neue', Arial, sans-serif" }}>
       {/* Hero */}
       <section
         style={{
@@ -147,7 +147,7 @@ export default function RoadmapPage() {
             width: "60%",
             height: "180%",
             background:
-              "radial-gradient(circle, rgba(239,68,68,0.06) 0%, transparent 60%)",
+              "radial-gradient(circle, color-mix(in srgb, var(--primary) 6%, transparent) 0%, transparent 60%)",
             pointerEvents: "none",
           }}
         />
@@ -159,7 +159,7 @@ export default function RoadmapPage() {
               fontSize: "1.1rem",
               fontWeight: 800,
               letterSpacing: "-0.02em",
-              background: "linear-gradient(135deg, #ef4444, #f59e0b)",
+              background: "linear-gradient(135deg, var(--primary), var(--primary-light))",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               marginBottom: "2rem",
@@ -180,7 +180,7 @@ export default function RoadmapPage() {
             Building Your{" "}
             <span
               style={{
-                background: "linear-gradient(135deg, #ef4444, #f59e0b)",
+                background: "linear-gradient(135deg, var(--primary), var(--primary-light))",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
               }}
@@ -212,7 +212,7 @@ export default function RoadmapPage() {
           >
             {[
               { label: "Live", count: 2, color: "#22c55e" },
-              { label: "Building", count: 1, color: "#ef4444" },
+              { label: "Building", count: 1, color: "var(--primary)" },
               { label: "Planned", count: 2, color: "rgba(255,255,255,0.35)" },
             ].map((item) => (
               <div
@@ -333,7 +333,7 @@ export default function RoadmapPage() {
                 }
                 style={{
                   flex: 1,
-                  background: "#1a1a1a",
+                  background: "var(--card)",
                   borderRadius: "1rem",
                   padding: "1.5rem",
                   marginBottom: idx < stages.length - 1 ? "0.75rem" : 0,
@@ -359,7 +359,7 @@ export default function RoadmapPage() {
                       background:
                         stage.status === "live"
                           ? "#22c55e"
-                          : "linear-gradient(90deg, #ef4444, #f59e0b)",
+                          : "linear-gradient(90deg, var(--primary), var(--primary-light))",
                     }}
                   />
                 )}
@@ -532,7 +532,7 @@ export default function RoadmapPage() {
             textAlign: "center",
             marginTop: "3rem",
             padding: "1.75rem",
-            background: "#1a1a1a",
+            background: "var(--card)",
             borderRadius: "1rem",
             border: "1px solid rgba(255,255,255,0.06)",
           }}

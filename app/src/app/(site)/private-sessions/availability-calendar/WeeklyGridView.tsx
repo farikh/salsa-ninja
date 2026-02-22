@@ -418,7 +418,7 @@ export function WeeklyGridView({
         borderClass = 'border-l-2 border-red-400'
         extraStyle = {
           backgroundImage:
-            'repeating-linear-gradient(135deg, transparent, transparent 4px, rgba(239,68,68,0.08) 4px, rgba(239,68,68,0.08) 8px)',
+            'repeating-linear-gradient(135deg, transparent, transparent 4px, color-mix(in srgb, var(--primary) 8%, transparent) 4px, color-mix(in srgb, var(--primary) 8%, transparent) 8px)',
         }
         break
       case 'override-available':
@@ -478,7 +478,7 @@ export function WeeklyGridView({
         className="relative"
         style={{
           height: `${GRID_BODY_HEIGHT}px`,
-          background: today ? 'var(--primary-5, rgba(239,68,68,0.05))' : undefined,
+          background: today ? 'var(--primary-5, color-mix(in srgb, var(--primary) 5%, transparent))' : undefined,
           userSelect: dragState?.isDragging ? 'none' : undefined,
           touchAction: 'none',
         }}

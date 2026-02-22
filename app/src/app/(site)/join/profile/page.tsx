@@ -145,7 +145,7 @@ export default function ProfileSetupPage() {
                   fontSize: '1rem',
                   outline: 'none',
                   background: 'white',
-                  color: '#111111',
+                  color: 'var(--dark)',
                   cursor: 'pointer',
                   transition: 'border-color 0.2s',
                 }}
@@ -161,7 +161,7 @@ export default function ProfileSetupPage() {
             </div>
 
             {status === 'error' && (
-              <p style={{ color: '#dc2626', fontSize: '0.875rem', marginBottom: '1rem' }}>
+              <p style={{ color: 'var(--destructive)', fontSize: '0.875rem', marginBottom: '1rem' }}>
                 {errorMsg}
               </p>
             )}

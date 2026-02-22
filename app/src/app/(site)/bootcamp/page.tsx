@@ -42,7 +42,7 @@ export default function BootcampPage() {
       {/* Hero */}
       <section
         style={{
-          background: "#111111",
+          background: "var(--dark)",
           padding: "5rem 0 6rem",
           position: "relative",
           overflow: "hidden",
@@ -55,7 +55,7 @@ export default function BootcampPage() {
             right: "-15%",
             width: "60%",
             height: "180%",
-            background: "radial-gradient(circle, rgba(239,68,68,0.08) 0%, transparent 60%)",
+            background: "radial-gradient(circle, color-mix(in srgb, var(--primary) 8%, transparent) 0%, transparent 60%)",
             pointerEvents: "none",
           }}
         />
@@ -66,7 +66,7 @@ export default function BootcampPage() {
             left: "-10%",
             width: "40%",
             height: "120%",
-            background: "radial-gradient(circle, rgba(245,158,11,0.05) 0%, transparent 60%)",
+            background: "radial-gradient(circle, color-mix(in srgb, var(--primary-light) 5%, transparent) 0%, transparent 60%)",
             pointerEvents: "none",
           }}
         />
@@ -94,7 +94,7 @@ export default function BootcampPage() {
             <div
               style={{
                 display: "inline-block",
-                background: "linear-gradient(135deg, #ef4444, #f59e0b)",
+                background: "linear-gradient(135deg, var(--primary), var(--primary-light))",
                 color: "white",
                 padding: "0.625rem 2rem",
                 fontWeight: 700,
@@ -151,7 +151,7 @@ export default function BootcampPage() {
                       <br />
                       9:00 PM - 10:00 PM (Late Evening)
                     </div>
-                    <p style={{ color: "#f59e0b", fontSize: "0.9rem", marginTop: "0.5rem", fontWeight: 600 }}>
+                    <p style={{ color: "var(--primary-light)", fontSize: "0.9rem", marginTop: "0.5rem", fontWeight: 600 }}>
                       Yes, you can take both 6PM & 9PM!
                     </p>
                   </div>
@@ -222,7 +222,7 @@ export default function BootcampPage() {
                     left: 0,
                     right: 0,
                     height: "4px",
-                    background: "linear-gradient(90deg, #ef4444, #f59e0b)",
+                    background: "linear-gradient(90deg, var(--primary), var(--primary-light))",
                   }}
                 />
                 <h3 style={{ fontSize: "1.5rem", fontWeight: 800, marginBottom: "1.5rem", color: "#ffffff" }}>
@@ -241,10 +241,10 @@ export default function BootcampPage() {
 
                   <div
                     style={{
-                      background: "rgba(239,68,68,0.08)",
+                      background: "color-mix(in srgb, var(--primary) 8%, transparent)",
                       borderRadius: "1rem",
                       padding: "1.25rem",
-                      border: "1px solid rgba(239,68,68,0.15)",
+                      border: "1px solid color-mix(in srgb, var(--primary) 15%, transparent)",
                     }}
                   >
                     <div style={{ fontSize: "0.85rem", textTransform: "uppercase", color: "var(--text-muted)", marginBottom: "0.25rem", letterSpacing: "0.08em" }}>
@@ -267,13 +267,13 @@ export default function BootcampPage() {
               <div
                 style={{
                   background: "var(--dark-2)",
-                  border: "1px solid rgba(245,158,11,0.3)",
-                  borderLeft: "4px solid #f59e0b",
+                  border: "1px solid color-mix(in srgb, var(--primary-light) 30%, transparent)",
+                  borderLeft: "4px solid var(--primary-light)",
                   borderRadius: "1rem",
                   padding: "2rem",
                 }}
               >
-                <h4 style={{ fontWeight: 700, marginBottom: "1rem", color: "#f59e0b" }}>
+                <h4 style={{ fontWeight: 700, marginBottom: "1rem", color: "var(--primary-light)" }}>
                   Important Notes
                 </h4>
                 <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
@@ -289,7 +289,7 @@ export default function BootcampPage() {
                         color: "var(--text-light)",
                       }}
                     >
-                      <span style={{ color: "#f59e0b", flexShrink: 0 }}>⚠</span>
+                      <span style={{ color: "var(--primary-light)", flexShrink: 0 }}>⚠</span>
                       {rule}
                     </li>
                   ))}
@@ -351,7 +351,7 @@ export default function BootcampPage() {
                 left: 0,
                 right: 0,
                 height: "4px",
-                background: "linear-gradient(90deg, #ef4444, #f59e0b)",
+                background: "linear-gradient(90deg, var(--primary), var(--primary-light))",
               }}
             />
             <h2 style={{ fontSize: "1.5rem", fontWeight: 800, marginBottom: "1rem", color: "#ffffff" }}>

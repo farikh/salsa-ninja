@@ -8,7 +8,7 @@ export default function RegisterPage() {
       {/* Hero */}
       <section
         style={{
-          background: "#111111",
+          background: "var(--dark)",
           padding: "5rem 0 4rem",
           position: "relative",
           overflow: "hidden",
@@ -21,7 +21,7 @@ export default function RegisterPage() {
             right: "-15%",
             width: "60%",
             height: "180%",
-            background: "radial-gradient(circle, rgba(239,68,68,0.08) 0%, transparent 60%)",
+            background: "radial-gradient(circle, color-mix(in srgb, var(--primary) 8%, transparent) 0%, transparent 60%)",
             pointerEvents: "none",
           }}
         />
@@ -84,7 +84,7 @@ export default function RegisterPage() {
             <div
               style={{
                 background: "#ffffff",
-                color: "#111111",
+                color: "var(--dark)",
                 borderRadius: "1rem",
                 overflow: "hidden",
                 boxShadow: "var(--shadow-heavy)",
@@ -122,7 +122,7 @@ export default function RegisterPage() {
                 <p>
                   <a
                     href="tel:9546625354"
-                    style={{ color: "#ef4444", textDecoration: "none", fontWeight: 600 }}
+                    style={{ color: "var(--primary)", textDecoration: "none", fontWeight: 600 }}
                   >
                     (954) 662-5354
                   </a>

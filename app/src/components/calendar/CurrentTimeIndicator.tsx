@@ -29,11 +29,11 @@ export function CurrentTimeIndicator({ hourStart, hourEnd }: CurrentTimeIndicato
       <div className="relative flex items-center">
         <div
           className="w-2.5 h-2.5 rounded-full shrink-0 -ml-1"
-          style={{ backgroundColor: '#ef4444' }}
+          style={{ backgroundColor: 'var(--primary)' }}
         />
         <div
           className="flex-1 h-[2px]"
-          style={{ backgroundColor: '#ef4444' }}
+          style={{ backgroundColor: 'var(--primary)' }}
         />
       </div>
     </div>

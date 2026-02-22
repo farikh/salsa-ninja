@@ -47,7 +47,7 @@ export function DashboardMessages({ initialBookings, memberId }: DashboardMessag
             width: '40px',
             height: '40px',
             borderRadius: '10px',
-            background: 'linear-gradient(135deg, rgba(239,68,68,0.15), rgba(245,158,11,0.15))',
+            background: 'linear-gradient(135deg, color-mix(in srgb, var(--primary) 15%, transparent), color-mix(in srgb, var(--primary-light) 15%, transparent))',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -60,7 +60,7 @@ export function DashboardMessages({ initialBookings, memberId }: DashboardMessag
             height="20"
             viewBox="0 0 24 24"
             fill="none"
-            stroke="#ef4444"
+            stroke="var(--primary)"
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -73,7 +73,7 @@ export function DashboardMessages({ initialBookings, memberId }: DashboardMessag
           <span
             style={{
               fontSize: '0.7rem',
-              background: '#ef4444',
+              background: 'var(--primary)',
               color: '#fff',
               padding: '2px 8px',
               borderRadius: '9999px',
@@ -101,8 +101,8 @@ export function DashboardMessages({ initialBookings, memberId }: DashboardMessag
                 flexDirection: 'column',
                 padding: '0.5rem 0.75rem',
                 borderRadius: '8px',
-                border: '1px solid rgba(239,68,68,0.2)',
-                background: 'rgba(239,68,68,0.05)',
+                border: '1px solid color-mix(in srgb, var(--primary) 20%, transparent)',
+                background: 'color-mix(in srgb, var(--primary) 5%, transparent)',
                 textDecoration: 'none',
                 color: 'inherit',
                 transition: 'background 0.15s',
@@ -149,7 +149,7 @@ export function DashboardMessages({ initialBookings, memberId }: DashboardMessag
       <Link
         href="/dashboard/conversations"
         style={{
-          color: '#ef4444',
+          color: 'var(--primary)',
           fontSize: '0.85rem',
           fontWeight: 600,
           textDecoration: 'none',

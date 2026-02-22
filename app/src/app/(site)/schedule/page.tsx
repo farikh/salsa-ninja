@@ -236,12 +236,12 @@ export default async function SchedulePage() {
             <span
               style={{
                 display: "inline-block",
-                background: "linear-gradient(135deg, rgba(239,68,68,0.15), rgba(245,158,11,0.15))",
-                color: "#f59e0b",
+                background: "linear-gradient(135deg, color-mix(in srgb, var(--primary) 15%, transparent), color-mix(in srgb, var(--primary-light) 15%, transparent))",
+                color: "var(--primary-light)",
                 padding: "0.75rem 2rem",
                 fontWeight: 700,
                 fontSize: "1.1rem",
-                borderLeft: "3px solid #f59e0b",
+                borderLeft: "3px solid var(--primary-light)",
                 transform: "skewX(-6deg)",
               }}
             >
@@ -260,11 +260,11 @@ export default async function SchedulePage() {
                   border: plan.highlight
                     ? "2px solid transparent"
                     : "1px solid rgba(255,255,255,0.06)",
-                  background: plan.highlight ? "#1a1a1a" : undefined,
+                  background: plan.highlight ? "var(--card)" : undefined,
                   ...(plan.highlight
                     ? {
                         backgroundImage:
-                          "linear-gradient(#1a1a1a, #1a1a1a), linear-gradient(135deg, #ef4444, #f59e0b)",
+                          "linear-gradient(var(--card), var(--card)), linear-gradient(135deg, var(--primary), var(--primary-light))",
                         backgroundOrigin: "border-box",
                         backgroundClip: "padding-box, border-box",
                       }
@@ -310,7 +310,7 @@ export default async function SchedulePage() {
                     >
                       <span
                         style={{
-                          background: "linear-gradient(135deg, #ef4444, #f59e0b)",
+                          background: "linear-gradient(135deg, var(--primary), var(--primary-light))",
                           borderRadius: "50%",
                           width: "16px",
                           height: "16px",

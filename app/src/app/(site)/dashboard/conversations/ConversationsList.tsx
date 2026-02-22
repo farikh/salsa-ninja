@@ -185,13 +185,13 @@ export function ConversationsList({
           width: '56px',
           height: '56px',
           borderRadius: '50%',
-          background: 'linear-gradient(135deg, rgba(239,68,68,0.15), rgba(245,158,11,0.15))',
+          background: 'linear-gradient(135deg, color-mix(in srgb, var(--primary) 15%, transparent), color-mix(in srgb, var(--primary-light) 15%, transparent))',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           margin: '0 auto 1rem',
         }}>
-          <MessageSquare size={24} color="#ef4444" />
+          <MessageSquare size={24} color="var(--primary)" />
         </div>
         <p style={{ color: 'var(--muted-foreground)', marginBottom: '1rem' }}>
           No conversations yet. Book a private lesson to start messaging.
@@ -203,7 +203,7 @@ export function ConversationsList({
             alignItems: 'center',
             gap: '0.5rem',
             padding: '0.5rem 1.25rem',
-            background: '#ef4444',
+            background: 'var(--primary)',
             color: '#fff',
             borderRadius: '8px',
             fontWeight: 600,
@@ -251,7 +251,7 @@ export function ConversationsList({
             {conversations.some(c => c.has_unread) && (
               <span style={{
                 fontSize: '0.7rem',
-                background: '#ef4444',
+                background: 'var(--primary)',
                 color: '#fff',
                 padding: '2px 8px',
                 borderRadius: '9999px',
@@ -300,11 +300,11 @@ export function ConversationsList({
                   padding: '0.75rem 1rem',
                   width: '100%',
                   border: 'none',
-                  background: isSelected ? 'rgba(239,68,68,0.08)' : 'transparent',
+                  background: isSelected ? 'color-mix(in srgb, var(--primary) 8%, transparent)' : 'transparent',
                   cursor: 'pointer',
                   textAlign: 'left',
                   color: 'inherit',
-                  borderLeft: isSelected ? '3px solid #ef4444' : '3px solid transparent',
+                  borderLeft: isSelected ? '3px solid var(--primary)' : '3px solid transparent',
                   transition: 'background 0.1s',
                 }}
               >
@@ -314,7 +314,7 @@ export function ConversationsList({
                   height: '40px',
                   borderRadius: '50%',
                   flexShrink: 0,
-                  background: 'linear-gradient(135deg, #ef4444, #f59e0b)',
+                  background: 'linear-gradient(135deg, var(--primary), var(--primary-light))',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -337,7 +337,7 @@ export function ConversationsList({
                       width: '10px',
                       height: '10px',
                       borderRadius: '50%',
-                      background: '#ef4444',
+                      background: 'var(--primary)',
                       border: '2px solid var(--card)',
                     }} />
                   )}
@@ -358,7 +358,7 @@ export function ConversationsList({
                     {convo.latest_message_at && (
                       <span style={{
                         fontSize: '0.7rem',
-                        color: convo.has_unread ? '#ef4444' : 'var(--muted-foreground)',
+                        color: convo.has_unread ? 'var(--primary)' : 'var(--muted-foreground)',
                         flexShrink: 0,
                         fontWeight: convo.has_unread ? 600 : 400,
                       }}>
@@ -442,7 +442,7 @@ export function ConversationsList({
                 height: '36px',
                 borderRadius: '50%',
                 flexShrink: 0,
-                background: 'linear-gradient(135deg, #ef4444, #f59e0b)',
+                background: 'linear-gradient(135deg, var(--primary), var(--primary-light))',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -540,7 +540,7 @@ export function ConversationsList({
                           padding: '0.5rem 0.75rem',
                           borderRadius: isOwn ? '12px 12px 4px 12px' : '12px 12px 12px 4px',
                           background: isOwn
-                            ? 'linear-gradient(135deg, #ef4444, #dc2626)'
+                            ? 'linear-gradient(135deg, var(--primary), var(--primary-dark))'
                             : 'var(--muted)',
                           color: isOwn ? '#fff' : 'inherit',
                         }}>
@@ -607,7 +607,7 @@ export function ConversationsList({
                   height: '38px',
                   borderRadius: '50%',
                   border: 'none',
-                  background: messageText.trim() ? '#ef4444' : 'var(--muted)',
+                  background: messageText.trim() ? 'var(--primary)' : 'var(--muted)',
                   color: messageText.trim() ? '#fff' : 'var(--muted-foreground)',
                   cursor: messageText.trim() ? 'pointer' : 'default',
                   display: 'flex',
@@ -642,12 +642,12 @@ export function ConversationsList({
               width: '64px',
               height: '64px',
               borderRadius: '50%',
-              background: 'linear-gradient(135deg, rgba(239,68,68,0.1), rgba(245,158,11,0.1))',
+              background: 'linear-gradient(135deg, color-mix(in srgb, var(--primary) 10%, transparent), color-mix(in srgb, var(--primary-light) 10%, transparent))',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
             }}>
-              <MessageSquare size={28} strokeWidth={1.5} color="#ef4444" />
+              <MessageSquare size={28} strokeWidth={1.5} color="var(--primary)" />
             </div>
             <p style={{ fontSize: '1rem', fontWeight: 500, margin: 0 }}>
               Select a conversation

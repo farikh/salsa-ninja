@@ -48,7 +48,7 @@ export default function ShoesPage() {
       {/* Hero */}
       <section
         style={{
-          background: "#111111",
+          background: "var(--dark)",
           padding: "5rem 0 6rem",
           position: "relative",
           overflow: "hidden",
@@ -61,7 +61,7 @@ export default function ShoesPage() {
             right: "-15%",
             width: "60%",
             height: "180%",
-            background: "radial-gradient(circle, rgba(239,68,68,0.08) 0%, transparent 60%)",
+            background: "radial-gradient(circle, color-mix(in srgb, var(--primary) 8%, transparent) 0%, transparent 60%)",
             pointerEvents: "none",
           }}
         />
@@ -114,7 +114,7 @@ export default function ShoesPage() {
                 left: 0,
                 right: 0,
                 height: "4px",
-                background: "linear-gradient(90deg, #ef4444, #f59e0b)",
+                background: "linear-gradient(90deg, var(--primary), var(--primary-light))",
               }}
             />
             <h2 className="heading-md" style={{ marginBottom: "1.5rem", color: "#ffffff" }}>
@@ -157,7 +157,7 @@ export default function ShoesPage() {
                         width: "24px",
                         height: "24px",
                         borderRadius: "50%",
-                        background: "linear-gradient(135deg, #ef4444, #f59e0b)",
+                        background: "linear-gradient(135deg, var(--primary), var(--primary-light))",
                         color: "white",
                         fontSize: "0.7rem",
                         flexShrink: 0,
@@ -206,8 +206,8 @@ export default function ShoesPage() {
                     width: "80px",
                     height: "80px",
                     borderRadius: "50%",
-                    background: "rgba(239,68,68,0.1)",
-                    border: "1px solid rgba(239,68,68,0.15)",
+                    background: "color-mix(in srgb, var(--primary) 10%, transparent)",
+                    border: "1px solid color-mix(in srgb, var(--primary) 15%, transparent)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -253,8 +253,8 @@ export default function ShoesPage() {
 
           <div
             style={{
-              background: "linear-gradient(135deg, rgba(239,68,68,0.12), rgba(245,158,11,0.12))",
-              border: "1px solid rgba(239,68,68,0.2)",
+              background: "linear-gradient(135deg, color-mix(in srgb, var(--primary) 12%, transparent), color-mix(in srgb, var(--primary-light) 12%, transparent))",
+              border: "1px solid color-mix(in srgb, var(--primary) 20%, transparent)",
               padding: "1.5rem",
               textAlign: "center",
               marginBottom: "2rem",
@@ -292,7 +292,7 @@ export default function ShoesPage() {
                 </p>
                 <span
                   style={{
-                    background: "linear-gradient(135deg, #ef4444, #f59e0b)",
+                    background: "linear-gradient(135deg, var(--primary), var(--primary-light))",
                     color: "white",
                     padding: "0.5rem 1.5rem",
                     fontSize: "0.9rem",
