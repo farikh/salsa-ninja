@@ -133,8 +133,8 @@ body {
 }
 
 ::selection {
-  background: rgba(239, 68, 68, 0.3);
-  color: #ffffff;
+  background: color-mix(in srgb, var(--primary) 30%, transparent);
+  color: var(--light);
 }
 
 a {
@@ -312,7 +312,7 @@ a:hover {
   background: var(--gradient);
   color: white;
   transform: skewX(-6deg);
-  box-shadow: 0 4px 20px rgba(239, 68, 68, 0.3);
+  box-shadow: 0 4px 20px color-mix(in srgb, var(--primary) 30%, transparent);
   position: relative;
   overflow: hidden;
 }
@@ -324,7 +324,7 @@ a:hover {
 }
 
 .btn-primary:hover {
-  box-shadow: 0 8px 30px rgba(239, 68, 68, 0.5);
+  box-shadow: 0 8px 30px color-mix(in srgb, var(--primary) 50%, transparent);
   transform: skewX(-6deg) translateY(-2px);
 }
 
@@ -379,7 +379,7 @@ a:hover {
   background: var(--red);
   color: white;
   transform: skewX(-6deg) translateY(-2px);
-  box-shadow: 0 8px 30px rgba(239, 68, 68, 0.4);
+  box-shadow: 0 8px 30px color-mix(in srgb, var(--primary) 40%, transparent);
 }
 
 .btn-light {
@@ -423,7 +423,7 @@ a:hover {
 .card:hover {
   transform: translateY(-6px);
   box-shadow: var(--shadow-heavy);
-  border-color: rgba(239, 68, 68, 0.15);
+  border-color: color-mix(in srgb, var(--primary) 15%, transparent);
 }
 
 .card:hover::before {
@@ -618,10 +618,10 @@ a:hover {
 
 @keyframes glow {
   0%, 100% {
-    box-shadow: 0 0 2px var(--red), 0 0 4px rgba(239, 68, 68, 0.2);
+    box-shadow: 0 0 2px var(--red), 0 0 4px color-mix(in srgb, var(--primary) 20%, transparent);
   }
   50% {
-    box-shadow: 0 0 8px var(--red), 0 0 16px rgba(239, 68, 68, 0.3);
+    box-shadow: 0 0 8px var(--red), 0 0 16px color-mix(in srgb, var(--primary) 30%, transparent);
   }
 }
 
@@ -772,10 +772,10 @@ a:hover {
   width: 3.5rem;
   height: 3.5rem;
   border-radius: 1rem;
-  background: rgba(239, 68, 68, 0.1);
+  background: color-mix(in srgb, var(--primary) 10%, transparent);
   color: var(--red);
   margin-bottom: 1rem;
-  border: 1px solid rgba(239, 68, 68, 0.15);
+  border: 1px solid color-mix(in srgb, var(--primary) 15%, transparent);
 }
 
 /* ============================================
@@ -812,7 +812,7 @@ a:hover {
   right: -20%;
   width: 600px;
   height: 600px;
-  background: radial-gradient(circle, rgba(239, 68, 68, 0.08) 0%, transparent 70%);
+  background: radial-gradient(circle, color-mix(in srgb, var(--primary) 8%, transparent) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -849,14 +849,14 @@ a:hover {
 .time-header,
 .day-header {
   padding: 1.25rem 0.5rem;
-  background: linear-gradient(135deg, #1a1a1a 0%, #111111 100%);
+  background: linear-gradient(135deg, var(--dark-2) 0%, var(--dark) 100%);
   color: rgba(255, 255, 255, 0.9);
   font-weight: 700;
   text-align: center;
   text-transform: uppercase;
   font-size: 0.8rem;
   letter-spacing: 0.08em;
-  border-bottom: 2px solid rgba(239, 68, 68, 0.3);
+  border-bottom: 2px solid color-mix(in srgb, var(--primary) 30%, transparent);
 }
 
 .time-header {
@@ -1450,7 +1450,7 @@ a:hover {
   left: 0;
   width: 0;
   height: 2px;
-  background: linear-gradient(90deg, #ef4444, #f59e0b);
+  background: linear-gradient(90deg, var(--primary), var(--primary-light));
   border-radius: 1px;
   transition: width 0.3s ease;
 }
@@ -1464,7 +1464,7 @@ a:hover {
 /* CTA button hover */
 .fiery-cta-btn:hover {
   transform: skewX(-6deg) translateY(-2px) !important;
-  box-shadow: 0 8px 24px rgba(239, 68, 68, 0.35);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--primary) 35%, transparent);
 }
 
 /* Secondary button hover */
@@ -1492,7 +1492,7 @@ a:hover {
    ============================================ */
 
 .main-footer {
-  background: #111111;
+  background: var(--dark);
   color: white;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
   padding: 60px 0 40px;
@@ -1505,7 +1505,7 @@ a:hover {
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(to right, #ef4444, #f59e0b);
+  background: linear-gradient(to right, var(--primary), var(--primary-light));
 }
 .footer-container {
   max-width: 1200px;
@@ -1534,7 +1534,7 @@ a:hover {
   letter-spacing: -0.02em;
 }
 .logo-bar {
-  color: #ef4444;
+  color: var(--primary);
   margin-right: 8px;
   font-weight: 300;
 }
@@ -1542,7 +1542,7 @@ a:hover {
   color: white;
 }
 .logo-ninja {
-  background: linear-gradient(135deg, #ef4444, #f59e0b);
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -1571,8 +1571,8 @@ a:hover {
   transition: all 0.2s ease;
 }
 .social-icon:hover {
-  background: rgba(239, 68, 68, 0.15);
-  color: #ef4444;
+  background: color-mix(in srgb, var(--primary) 15%, transparent);
+  color: var(--primary);
   transform: translateY(-2px);
 }
 .social-icon svg {
@@ -1602,7 +1602,7 @@ a:hover {
   transition: color 0.2s ease;
 }
 .column-link:hover {
-  color: #ef4444;
+  color: var(--primary);
 }
 .address-text {
   color: rgba(255, 255, 255, 0.55);
@@ -1657,7 +1657,7 @@ a:hover {
   transition: color 0.2s ease;
 }
 .bottom-social-link:hover {
-  color: #ef4444;
+  color: var(--primary);
 }
 @media (max-width: 900px) {
   .footer-top {
@@ -1717,7 +1717,7 @@ a:hover {
   }
 }
 a[href="/login"]:hover {
-  box-shadow: 0 10px 30px rgba(239, 68, 68, 0.3);
+  box-shadow: 0 10px 30px color-mix(in srgb, var(--primary) 30%, transparent);
 }
 a[href="/schedule"]:hover {
   border-color: rgba(255, 255, 255, 0.5) !important;
