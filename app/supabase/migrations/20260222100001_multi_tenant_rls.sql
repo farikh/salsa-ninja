@@ -816,17 +816,20 @@ SELECT
     FROM member_roles mr
     JOIN roles r2 ON mr.role_id = r2.id
     WHERE mr.member_id = m.id
+    AND mr.tenant_id = m.tenant_id
   ) as all_roles,
   (
     SELECT COALESCE(SUM(amount), 0)
     FROM member_credits mc
     WHERE mc.member_id = m.id AND mc.applied_at IS NULL
+    AND mc.tenant_id = m.tenant_id
   ) as available_credits,
   (
     SELECT ARRAY_AGG(t.name)
     FROM member_tags mt
     JOIN tags t ON mt.tag_id = t.id
     WHERE mt.member_id = m.id
+    AND mt.tenant_id = m.tenant_id
   ) as tags
 FROM members m
 JOIN roles r ON m.role_id = r.id;
@@ -846,10 +849,400 @@ SELECT
   (SELECT COUNT(*) FROM event_rsvps WHERE event_id = e.id AND status = 'going') as rsvp_count,
   (SELECT COUNT(*) FROM event_rsvps WHERE event_id = e.id AND status = 'waitlist') as waitlist_count
 FROM events e
-LEFT JOIN members m ON e.instructor_id = m.id
+LEFT JOIN members m ON e.instructor_id = m.id AND m.tenant_id = e.tenant_id
 WHERE e.start_time > NOW()
 AND e.approval_status = 'approved'
 ORDER BY e.start_time ASC;
 
 -- NOTE: tenant_id is included via e.* since it's a column on events.
 -- Queries should filter: WHERE tenant_id = get_current_tenant_id()
+
+-- ============================================================
+-- 7. REWRITE BOOKING RPC FUNCTIONS WITH TENANT SCOPING
+-- ============================================================
+
+-- member_has_role: tenant-scoped
+CREATE OR REPLACE FUNCTION member_has_role(p_member_id UUID, p_role_names user_role[])
+RETURNS BOOLEAN AS $$
+BEGIN
+  -- Check new member_roles table first (tenant-scoped)
+  IF EXISTS (
+    SELECT 1 FROM member_roles mr
+    JOIN roles r ON mr.role_id = r.id
+    WHERE mr.member_id = p_member_id
+    AND mr.tenant_id = get_current_tenant_id()
+    AND r.name = ANY(p_role_names)
+  ) THEN
+    RETURN TRUE;
+  END IF;
+
+  -- Fallback: check legacy role_id on members table (tenant-scoped)
+  IF EXISTS (
+    SELECT 1 FROM members m
+    JOIN roles r ON m.role_id = r.id
+    WHERE m.id = p_member_id
+    AND m.tenant_id = get_current_tenant_id()
+    AND r.name = ANY(p_role_names)
+  ) THEN
+    RETURN TRUE;
+  END IF;
+
+  RETURN FALSE;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- get_current_member_with_roles: tenant-scoped
+CREATE OR REPLACE FUNCTION get_current_member_with_roles()
+RETURNS TABLE (member_id UUID, is_instructor BOOLEAN, is_admin BOOLEAN) AS $$
+DECLARE
+  v_member_id UUID;
+BEGIN
+  SELECT m.id INTO v_member_id
+  FROM members m
+  WHERE m.user_id = auth.uid()
+  AND m.tenant_id = get_current_tenant_id();
+
+  IF v_member_id IS NULL THEN
+    RETURN;
+  END IF;
+
+  RETURN QUERY SELECT
+    v_member_id,
+    member_has_role(v_member_id, ARRAY['instructor', 'owner']::user_role[]),
+    member_has_role(v_member_id, ARRAY['owner']::user_role[]);
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- get_available_slots: tenant-scoped
+CREATE OR REPLACE FUNCTION get_available_slots(
+  p_instructor_id UUID,
+  p_start_date DATE,
+  p_end_date DATE
+) RETURNS TABLE (
+  slot_start TIMESTAMPTZ,
+  slot_end TIMESTAMPTZ
+) AS $$
+BEGIN
+  RETURN QUERY
+  WITH date_series AS (
+    SELECT d::DATE AS day
+    FROM generate_series(p_start_date::TIMESTAMP, p_end_date::TIMESTAMP, '1 day') d
+  ),
+  avail_windows AS (
+    SELECT
+      ds.day,
+      ia.start_time AS win_start,
+      ia.end_time AS win_end,
+      ia.slot_duration_minutes
+    FROM date_series ds
+    CROSS JOIN instructor_availability ia
+    WHERE ia.instructor_id = p_instructor_id
+      AND ia.tenant_id = get_current_tenant_id()
+      AND ia.is_active = TRUE
+      AND EXTRACT(dow FROM ds.day) = ia.day_of_week
+      AND ds.day >= ia.effective_from
+      AND (ia.effective_until IS NULL OR ds.day <= ia.effective_until)
+      AND NOT EXISTS (
+        SELECT 1 FROM availability_overrides ao
+        WHERE ao.instructor_id = p_instructor_id
+          AND ao.tenant_id = get_current_tenant_id()
+          AND ao.override_date = ds.day
+          AND ao.is_available = FALSE
+          AND ao.start_time IS NULL
+      )
+  ),
+  weekly_slots AS (
+    SELECT
+      (aw.day + slot_time) AT TIME ZONE 'America/New_York' AS slot_start,
+      (aw.day + slot_time + (aw.slot_duration_minutes || ' minutes')::INTERVAL)
+        AT TIME ZONE 'America/New_York' AS slot_end
+    FROM avail_windows aw
+    CROSS JOIN LATERAL generate_series(
+      aw.win_start,
+      aw.win_end - (aw.slot_duration_minutes || ' minutes')::INTERVAL,
+      (aw.slot_duration_minutes || ' minutes')::INTERVAL
+    ) AS slot_time
+    WHERE NOT EXISTS (
+      SELECT 1 FROM availability_overrides ao
+      WHERE ao.instructor_id = p_instructor_id
+        AND ao.tenant_id = get_current_tenant_id()
+        AND ao.override_date = aw.day
+        AND ao.is_available = FALSE
+        AND ao.start_time IS NOT NULL
+        AND slot_time >= ao.start_time
+        AND slot_time < ao.end_time
+    )
+  ),
+  extras AS (
+    SELECT
+      (ao.override_date + slot_time) AT TIME ZONE 'America/New_York' AS slot_start,
+      (ao.override_date + slot_time + (ao.slot_duration_minutes || ' minutes')::INTERVAL)
+        AT TIME ZONE 'America/New_York' AS slot_end
+    FROM availability_overrides ao
+    CROSS JOIN LATERAL generate_series(
+      ao.start_time,
+      ao.end_time - (ao.slot_duration_minutes || ' minutes')::INTERVAL,
+      (ao.slot_duration_minutes || ' minutes')::INTERVAL
+    ) AS slot_time
+    WHERE ao.instructor_id = p_instructor_id
+      AND ao.tenant_id = get_current_tenant_id()
+      AND ao.is_available = TRUE
+      AND ao.override_date BETWEEN p_start_date AND p_end_date
+      AND ao.start_time IS NOT NULL
+  ),
+  all_slots AS (
+    SELECT slot_start, slot_end FROM weekly_slots
+    UNION ALL
+    SELECT slot_start, slot_end FROM extras
+  )
+  SELECT s.slot_start, s.slot_end
+  FROM all_slots s
+  WHERE NOT EXISTS (
+    SELECT 1 FROM private_lesson_bookings b
+    WHERE b.instructor_id = p_instructor_id
+      AND b.tenant_id = get_current_tenant_id()
+      AND b.status = 'confirmed'
+      AND tstzrange(b.start_time, b.end_time) && tstzrange(s.slot_start, s.slot_end)
+  )
+  AND s.slot_start > NOW()
+  ORDER BY s.slot_start;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- create_booking: tenant-scoped
+CREATE OR REPLACE FUNCTION create_booking(
+  p_instructor_id UUID,
+  p_start_time TIMESTAMPTZ,
+  p_end_time TIMESTAMPTZ,
+  p_notes TEXT DEFAULT NULL
+) RETURNS JSONB AS $$
+DECLARE
+  v_member_id UUID;
+  v_is_guest BOOLEAN;
+  v_booking_id UUID;
+BEGIN
+  SELECT m.id INTO v_member_id
+  FROM members m
+  WHERE m.user_id = auth.uid()
+  AND m.tenant_id = get_current_tenant_id();
+
+  IF v_member_id IS NULL THEN
+    RETURN jsonb_build_object('success', false, 'error', 'Not authenticated');
+  END IF;
+
+  v_is_guest := NOT member_has_role(v_member_id, ARRAY['owner', 'instructor', 'member_full', 'member_limited']::user_role[]);
+
+  IF v_is_guest THEN
+    RETURN jsonb_build_object('success', false, 'error', 'Guests cannot book private lessons');
+  END IF;
+
+  IF v_member_id = p_instructor_id THEN
+    RETURN jsonb_build_object('success', false, 'error', 'Cannot book a lesson with yourself');
+  END IF;
+
+  IF NOT member_has_role(p_instructor_id, ARRAY['instructor', 'owner']::user_role[]) THEN
+    RETURN jsonb_build_object('success', false, 'error', 'Instructor not found');
+  END IF;
+
+  IF p_start_time <= NOW() THEN
+    RETURN jsonb_build_object('success', false, 'error', 'Cannot book a slot in the past');
+  END IF;
+
+  IF NOT EXISTS (
+    SELECT 1 FROM get_available_slots(p_instructor_id, p_start_time::DATE, p_start_time::DATE) gs
+    WHERE gs.slot_start = p_start_time AND gs.slot_end = p_end_time
+  ) THEN
+    RETURN jsonb_build_object('success', false, 'error', 'Requested time is not an available slot');
+  END IF;
+
+  IF EXISTS (
+    SELECT 1 FROM private_lesson_bookings
+    WHERE instructor_id = p_instructor_id
+      AND tenant_id = get_current_tenant_id()
+      AND status = 'confirmed'
+      AND tstzrange(start_time, end_time) && tstzrange(p_start_time, p_end_time)
+  ) THEN
+    RETURN jsonb_build_object('success', false, 'error', 'This slot is already confirmed');
+  END IF;
+
+  INSERT INTO private_lesson_bookings (instructor_id, member_id, start_time, end_time, notes, tenant_id)
+  VALUES (p_instructor_id, v_member_id, p_start_time, p_end_time, p_notes, get_current_tenant_id())
+  RETURNING id INTO v_booking_id;
+
+  RETURN jsonb_build_object('success', true, 'booking_id', v_booking_id);
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- confirm_booking: tenant-scoped
+CREATE OR REPLACE FUNCTION confirm_booking(
+  p_booking_id UUID
+) RETURNS JSONB AS $$
+DECLARE
+  v_booking private_lesson_bookings%ROWTYPE;
+  v_caller_member_id UUID;
+  v_caller_is_admin BOOLEAN;
+BEGIN
+  SELECT m.id INTO v_caller_member_id
+  FROM members m
+  WHERE m.user_id = auth.uid()
+  AND m.tenant_id = get_current_tenant_id();
+
+  IF v_caller_member_id IS NULL THEN
+    RETURN jsonb_build_object('success', false, 'error', 'Not authenticated');
+  END IF;
+
+  v_caller_is_admin := member_has_role(v_caller_member_id, ARRAY['owner']::user_role[]);
+
+  SELECT * INTO v_booking
+  FROM private_lesson_bookings
+  WHERE id = p_booking_id
+    AND tenant_id = get_current_tenant_id()
+    AND status = 'pending'
+  FOR UPDATE;
+
+  IF NOT FOUND THEN
+    RETURN jsonb_build_object('success', false, 'error', 'Booking not found or not pending');
+  END IF;
+
+  IF v_booking.instructor_id != v_caller_member_id AND NOT v_caller_is_admin THEN
+    RETURN jsonb_build_object('success', false, 'error', 'Not authorized to confirm this booking');
+  END IF;
+
+  BEGIN
+    UPDATE private_lesson_bookings
+    SET status = 'confirmed', updated_at = NOW()
+    WHERE id = p_booking_id;
+  EXCEPTION
+    WHEN exclusion_violation THEN
+      RETURN jsonb_build_object('success', false, 'error', 'Time slot already confirmed for another booking');
+  END;
+
+  UPDATE private_lesson_bookings
+  SET status = 'declined', updated_at = NOW()
+  WHERE instructor_id = v_booking.instructor_id
+    AND tenant_id = get_current_tenant_id()
+    AND id != p_booking_id
+    AND status = 'pending'
+    AND tstzrange(start_time, end_time) && tstzrange(v_booking.start_time, v_booking.end_time);
+
+  RETURN jsonb_build_object('success', true);
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- cancel_booking: tenant-scoped
+CREATE OR REPLACE FUNCTION cancel_booking(
+  p_booking_id UUID,
+  p_reason TEXT DEFAULT NULL
+) RETURNS JSONB AS $$
+DECLARE
+  v_booking private_lesson_bookings%ROWTYPE;
+  v_caller_member_id UUID;
+  v_caller_is_admin BOOLEAN;
+BEGIN
+  SELECT m.id INTO v_caller_member_id
+  FROM members m
+  WHERE m.user_id = auth.uid()
+  AND m.tenant_id = get_current_tenant_id();
+
+  IF v_caller_member_id IS NULL THEN
+    RETURN jsonb_build_object('success', false, 'error', 'Not authenticated');
+  END IF;
+
+  v_caller_is_admin := member_has_role(v_caller_member_id, ARRAY['owner']::user_role[]);
+
+  SELECT * INTO v_booking
+  FROM private_lesson_bookings
+  WHERE id = p_booking_id
+    AND tenant_id = get_current_tenant_id()
+    AND status IN ('pending', 'confirmed')
+  FOR UPDATE;
+
+  IF NOT FOUND THEN
+    RETURN jsonb_build_object('success', false, 'error', 'Booking not found or not cancellable');
+  END IF;
+
+  IF v_booking.instructor_id = v_caller_member_id THEN
+    UPDATE private_lesson_bookings
+    SET status = 'cancelled_by_instructor',
+        cancelled_at = NOW(),
+        cancelled_by = v_caller_member_id,
+        cancellation_reason = p_reason,
+        updated_at = NOW()
+    WHERE id = p_booking_id;
+
+  ELSIF v_caller_is_admin THEN
+    UPDATE private_lesson_bookings
+    SET status = 'cancelled_by_instructor',
+        cancelled_at = NOW(),
+        cancelled_by = v_caller_member_id,
+        cancellation_reason = p_reason,
+        updated_at = NOW()
+    WHERE id = p_booking_id;
+
+  ELSIF v_booking.member_id = v_caller_member_id THEN
+    IF v_booking.status = 'confirmed'
+       AND v_booking.start_time <= NOW() + INTERVAL '24 hours' THEN
+      RETURN jsonb_build_object('success', false, 'error',
+        'Cannot cancel within 24 hours of start time. Contact your instructor.');
+    END IF;
+    UPDATE private_lesson_bookings
+    SET status = 'cancelled_by_member',
+        cancelled_at = NOW(),
+        cancelled_by = v_caller_member_id,
+        cancellation_reason = p_reason,
+        updated_at = NOW()
+    WHERE id = p_booking_id;
+
+  ELSE
+    RETURN jsonb_build_object('success', false, 'error', 'Not authorized to cancel this booking');
+  END IF;
+
+  RETURN jsonb_build_object('success', true);
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- decline_booking: tenant-scoped
+CREATE OR REPLACE FUNCTION decline_booking(
+  p_booking_id UUID,
+  p_reason TEXT DEFAULT NULL
+) RETURNS JSONB AS $$
+DECLARE
+  v_booking private_lesson_bookings%ROWTYPE;
+  v_caller_member_id UUID;
+  v_caller_is_admin BOOLEAN;
+BEGIN
+  SELECT m.id INTO v_caller_member_id
+  FROM members m
+  WHERE m.user_id = auth.uid()
+  AND m.tenant_id = get_current_tenant_id();
+
+  IF v_caller_member_id IS NULL THEN
+    RETURN jsonb_build_object('success', false, 'error', 'Not authenticated');
+  END IF;
+
+  v_caller_is_admin := member_has_role(v_caller_member_id, ARRAY['owner']::user_role[]);
+
+  SELECT * INTO v_booking
+  FROM private_lesson_bookings
+  WHERE id = p_booking_id
+    AND tenant_id = get_current_tenant_id()
+    AND status = 'pending'
+  FOR UPDATE;
+
+  IF NOT FOUND THEN
+    RETURN jsonb_build_object('success', false, 'error', 'Booking not found or not pending');
+  END IF;
+
+  IF v_booking.instructor_id != v_caller_member_id AND NOT v_caller_is_admin THEN
+    RETURN jsonb_build_object('success', false, 'error', 'Not authorized to decline this booking');
+  END IF;
+
+  UPDATE private_lesson_bookings
+  SET status = 'declined',
+      cancellation_reason = p_reason,
+      updated_at = NOW()
+  WHERE id = p_booking_id;
+
+  RETURN jsonb_build_object('success', true);
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;

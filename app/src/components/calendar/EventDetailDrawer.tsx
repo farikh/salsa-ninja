@@ -155,7 +155,7 @@ export function EventDetailDrawer({ event, open, onClose }: EventDetailDrawerPro
                       event.user_rsvp_status === 'going'
                         ? '#22c55e'
                         : event.user_rsvp_status === 'waitlist'
-                          ? 'var(--primary-light)'
+                          ? '#f59e0b'
                           : undefined,
                   }}
                 >

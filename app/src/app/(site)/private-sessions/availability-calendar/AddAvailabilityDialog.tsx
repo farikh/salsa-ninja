@@ -251,7 +251,7 @@ export function AddAvailabilityDialog({
           {error && (
             <p
               style={{
-                color: 'var(--primary)',
+                color: 'var(--destructive)',
                 fontSize: '0.875rem',
                 margin: 0,
               }}

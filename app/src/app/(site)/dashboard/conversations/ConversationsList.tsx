@@ -34,10 +34,10 @@ interface ConversationsListProps {
 }
 
 const STATUS_COLORS: Record<string, string> = {
-  pending: 'var(--primary-light)',
+  pending: '#f59e0b',
   confirmed: '#22c55e',
   completed: 'var(--muted-foreground)',
-  declined: 'var(--primary)',
+  declined: '#ef4444',
 }
 
 function isSafeUrl(url: string): boolean {

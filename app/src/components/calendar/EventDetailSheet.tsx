@@ -177,7 +177,7 @@ export function EventDetailSheet({ event, open, onClose }: EventDetailSheetProps
                       event.user_rsvp_status === 'going'
                         ? '#22c55e'
                         : event.user_rsvp_status === 'waitlist'
-                          ? 'var(--primary-light)'
+                          ? '#f59e0b'
                           : undefined,
                   }}
                 >
