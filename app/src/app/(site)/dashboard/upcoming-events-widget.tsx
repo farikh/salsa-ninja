@@ -251,7 +251,7 @@ export default function UpcomingEventsWidget({ initialEvents, isStaff }: Upcomin
       </div>
 
       {error && (
-        <p style={{ color: '#dc2626', fontSize: '0.85rem', marginBottom: '0.75rem' }}>{error}</p>
+        <p style={{ color: 'var(--destructive)', fontSize: '0.85rem', marginBottom: '0.75rem' }}>{error}</p>
       )}
 
       {events.length === 0 && (
@@ -275,7 +275,7 @@ export default function UpcomingEventsWidget({ initialEvents, isStaff }: Upcomin
                 marginBottom: i < events.length - 1 ? '0.5rem' : 0,
               }}
             >
-              <span style={{ color: '#ef4444', fontSize: '0.9rem', fontWeight: 500 }}>
+              <span style={{ color: 'var(--primary)', fontSize: '0.9rem', fontWeight: 500 }}>
                 Delete &ldquo;{event.title}&rdquo;?
               </span>
               <div style={{ display: 'flex', gap: '0.5rem' }}>
@@ -285,7 +285,7 @@ export default function UpcomingEventsWidget({ initialEvents, isStaff }: Upcomin
                   style={{
                     padding: '0.3rem 0.75rem',
                     fontSize: '0.8rem',
-                    background: '#ef4444',
+                    background: 'var(--primary)',
                     color: 'white',
                     border: 'none',
                     borderRadius: '0.375rem',
@@ -354,13 +354,13 @@ export default function UpcomingEventsWidget({ initialEvents, isStaff }: Upcomin
                         fontWeight: 600,
                         borderRadius: '0.375rem',
                         border: editValues.event_type === type.value
-                          ? '1px solid #ef4444'
+                          ? '1px solid var(--primary)'
                           : '1px solid rgba(255,255,255,0.15)',
                         background: editValues.event_type === type.value
-                          ? 'rgba(239,68,68,0.15)'
+                          ? 'color-mix(in srgb, var(--primary) 15%, transparent)'
                           : 'transparent',
                         color: editValues.event_type === type.value
-                          ? '#ef4444'
+                          ? 'var(--primary)'
                           : 'rgba(255,255,255,0.7)',
                         cursor: 'pointer',
                         transition: 'all 0.15s',
@@ -453,13 +453,13 @@ export default function UpcomingEventsWidget({ initialEvents, isStaff }: Upcomin
                         fontWeight: 600,
                         borderRadius: '9999px',
                         border: editValues.tags.includes(tag)
-                          ? '1px solid #ef4444'
+                          ? '1px solid var(--primary)'
                           : '1px solid rgba(255,255,255,0.15)',
                         background: editValues.tags.includes(tag)
-                          ? 'rgba(239,68,68,0.15)'
+                          ? 'color-mix(in srgb, var(--primary) 15%, transparent)'
                           : 'transparent',
                         color: editValues.tags.includes(tag)
-                          ? '#ef4444'
+                          ? 'var(--primary)'
                           : 'rgba(255,255,255,0.5)',
                         cursor: 'pointer',
                         transition: 'all 0.15s',
@@ -480,8 +480,8 @@ export default function UpcomingEventsWidget({ initialEvents, isStaff }: Upcomin
                   alignItems: 'center',
                   padding: '0.5rem 0.75rem',
                   borderRadius: '0.375rem',
-                  border: editValues.purchase_enabled ? '1px solid rgba(239,68,68,0.4)' : '1px solid rgba(255,255,255,0.1)',
-                  background: editValues.purchase_enabled ? 'rgba(239,68,68,0.08)' : 'transparent',
+                  border: editValues.purchase_enabled ? '1px solid color-mix(in srgb, var(--primary) 40%, transparent)' : '1px solid rgba(255,255,255,0.1)',
+                  background: editValues.purchase_enabled ? 'color-mix(in srgb, var(--primary) 8%, transparent)' : 'transparent',
                   cursor: 'pointer',
                   marginBottom: editValues.purchase_enabled ? '0.5rem' : '0.75rem',
                 }}
@@ -491,8 +491,8 @@ export default function UpcomingEventsWidget({ initialEvents, isStaff }: Upcomin
                   width: '18px',
                   height: '18px',
                   borderRadius: '3px',
-                  border: editValues.purchase_enabled ? '2px solid #ef4444' : '2px solid rgba(255,255,255,0.2)',
-                  background: editValues.purchase_enabled ? '#ef4444' : 'transparent',
+                  border: editValues.purchase_enabled ? '2px solid var(--primary)' : '2px solid rgba(255,255,255,0.2)',
+                  background: editValues.purchase_enabled ? 'var(--primary)' : 'transparent',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -544,7 +544,7 @@ export default function UpcomingEventsWidget({ initialEvents, isStaff }: Upcomin
                   style={{
                     padding: '0.4rem 1rem',
                     fontSize: '0.8rem',
-                    background: 'linear-gradient(135deg, #ef4444, #f59e0b)',
+                    background: 'linear-gradient(135deg, var(--primary), var(--primary-light))',
                     color: 'white',
                     border: 'none',
                     borderRadius: '0.375rem',
@@ -586,9 +586,9 @@ export default function UpcomingEventsWidget({ initialEvents, isStaff }: Upcomin
                     fontWeight: 600,
                     padding: '1px 8px',
                     borderRadius: '9999px',
-                    background: 'rgba(239,68,68,0.1)',
-                    color: '#ef4444',
-                    border: '1px solid rgba(239,68,68,0.2)',
+                    background: 'color-mix(in srgb, var(--primary) 10%, transparent)',
+                    color: 'var(--primary)',
+                    border: '1px solid color-mix(in srgb, var(--primary) 20%, transparent)',
                   }}>
                     {EVENT_TYPE_LABELS[event.event_type] || event.event_type}
                   </span>

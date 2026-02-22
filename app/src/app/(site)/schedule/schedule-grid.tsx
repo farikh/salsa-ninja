@@ -192,7 +192,7 @@ export default function ScheduleGrid({ initialSlots }: ScheduleGridProps) {
               disabled={saving}
               style={{
                 padding: '0.25rem 0.5rem', fontSize: '0.75rem',
-                background: '#dc2626', color: 'white',
+                background: 'var(--destructive)', color: 'white',
                 border: 'none', borderRadius: '0.25rem', cursor: 'pointer',
               }}
             >
@@ -203,7 +203,7 @@ export default function ScheduleGrid({ initialSlots }: ScheduleGridProps) {
             onClick={cancelEditing}
             style={{
               flex: 1, padding: '0.25rem', fontSize: '0.75rem',
-              background: 'white', color: '#111111', border: '1px solid var(--border)',
+              background: 'white', color: 'var(--dark)', border: '1px solid var(--border)',
               borderRadius: '0.25rem', cursor: 'pointer',
             }}
           >
@@ -217,7 +217,7 @@ export default function ScheduleGrid({ initialSlots }: ScheduleGridProps) {
   return (
     <>
       {error && (
-        <p style={{ color: '#dc2626', fontSize: '0.85rem', marginBottom: '0.75rem', textAlign: 'center' }}>{error}</p>
+        <p style={{ color: 'var(--destructive)', fontSize: '0.85rem', marginBottom: '0.75rem', textAlign: 'center' }}>{error}</p>
       )}
 
       {/* Mobile: day tabs + stacked cards */}

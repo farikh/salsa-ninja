@@ -2,9 +2,9 @@
 
 const LEGEND_ITEMS = [
   { color: '#22c55e', label: 'Available' },
-  { color: '#f59e0b', label: 'Pending' },
+  { color: 'var(--primary-light)', label: 'Pending' },
   { color: '#3b82f6', label: 'Confirmed' },
-  { color: '#ef4444', label: 'Unavailable' },
+  { color: 'var(--primary)', label: 'Unavailable' },
 ]
 
 interface CalendarLegendProps {

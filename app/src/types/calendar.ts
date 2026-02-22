@@ -48,8 +48,8 @@ export interface CalendarDateRange {
 
 // Event type color mapping
 export const EVENT_TYPE_COLORS: Record<CalendarEventType, { bg: string; text: string; border: string }> = {
-  class: { bg: 'rgba(239, 68, 68, 0.15)', text: '#ef4444', border: '#ef4444' },
-  workshop: { bg: 'rgba(245, 158, 11, 0.15)', text: '#f59e0b', border: '#f59e0b' },
+  class: { bg: 'color-mix(in srgb, var(--primary) 15%, transparent)', text: 'var(--primary)', border: 'var(--primary)' },
+  workshop: { bg: 'color-mix(in srgb, var(--primary-light) 15%, transparent)', text: 'var(--primary-light)', border: 'var(--primary-light)' },
   bootcamp: { bg: 'rgba(249, 115, 22, 0.15)', text: '#f97316', border: '#f97316' },
   studio_social: { bg: 'rgba(168, 85, 247, 0.15)', text: '#a855f7', border: '#a855f7' },
   community: { bg: 'rgba(34, 197, 94, 0.15)', text: '#22c55e', border: '#22c55e' },
@@ -60,7 +60,7 @@ export const EVENT_TYPE_COLORS: Record<CalendarEventType, { bg: string; text: st
 export const AVAILABILITY_COLORS = {
   recurring: { bg: 'rgba(34, 197, 94, 0.12)', border: '#22c55e', style: 'solid' as const },
   oneOff: { bg: 'rgba(34, 197, 94, 0.12)', border: '#22c55e', style: 'dashed' as const },
-  blocked: { bg: 'rgba(239, 68, 68, 0.08)', border: 'transparent', style: 'none' as const },
-  pendingBooking: { bg: 'rgba(245, 158, 11, 0.15)', border: '#f59e0b', style: 'solid' as const },
+  blocked: { bg: 'color-mix(in srgb, var(--primary) 8%, transparent)', border: 'transparent', style: 'none' as const },
+  pendingBooking: { bg: 'color-mix(in srgb, var(--primary-light) 15%, transparent)', border: 'var(--primary-light)', style: 'solid' as const },
   confirmedBooking: { bg: 'rgba(59, 130, 246, 0.15)', border: '#3b82f6', style: 'solid' as const },
 };

@@ -129,9 +129,9 @@ export function ProfileCard({ member }: ProfileCardProps) {
         <div style={{
           padding: '0.5rem 0.75rem',
           borderRadius: '6px',
-          background: 'rgba(239,68,68,0.1)',
-          border: '1px solid rgba(239,68,68,0.3)',
-          color: '#ef4444',
+          background: 'color-mix(in srgb, var(--primary) 10%, transparent)',
+          border: '1px solid color-mix(in srgb, var(--primary) 30%, transparent)',
+          color: 'var(--primary)',
           fontSize: '0.85rem',
           marginBottom: '0.75rem',
         }}>
@@ -187,7 +187,7 @@ export function ProfileCard({ member }: ProfileCardProps) {
               onClick={handleSave}
               disabled={saving}
               style={{
-                background: '#ef4444',
+                background: 'var(--primary)',
                 color: '#fff',
                 border: 'none',
                 borderRadius: '6px',

@@ -81,7 +81,7 @@ const Navbar = () => {
                   display: "inline-block",
                   width: "4px",
                   height: "20px",
-                  background: "linear-gradient(to bottom, #ef4444, #f59e0b)",
+                  background: "linear-gradient(to bottom, var(--primary), var(--primary-light))",
                   borderRadius: "2px",
                   transform: "skewX(-12deg)",
                 }}
@@ -90,7 +90,7 @@ const Navbar = () => {
                 Salsa
                 <span
                   style={{
-                    background: "linear-gradient(135deg, #ef4444, #f59e0b)",
+                    background: "linear-gradient(135deg, var(--primary), var(--primary-light))",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
                     backgroundClip: "text",
@@ -178,7 +178,7 @@ const Navbar = () => {
                   className="fiery-cta-btn"
                   style={{
                     display: "inline-block",
-                    background: "linear-gradient(135deg, #ef4444, #f59e0b)",
+                    background: "linear-gradient(135deg, var(--primary), var(--primary-light))",
                     color: "#fff",
                     fontWeight: 700,
                     fontSize: "0.82rem",
@@ -290,7 +290,7 @@ const Navbar = () => {
                   href="/dashboard"
                   onClick={() => setIsOpen(false)}
                   style={{
-                    color: "#ef4444",
+                    color: "var(--primary)",
                     fontSize: "1rem",
                     fontWeight: 600,
                     textDecoration: "none",
@@ -305,7 +305,7 @@ const Navbar = () => {
                   href="/my-schedule"
                   onClick={() => setIsOpen(false)}
                   style={{
-                    color: "#ef4444",
+                    color: "var(--primary)",
                     fontSize: "1rem",
                     fontWeight: 600,
                     textDecoration: "none",
@@ -341,7 +341,7 @@ const Navbar = () => {
                 onClick={() => setIsOpen(false)}
                 style={{
                   display: "block",
-                  background: "linear-gradient(135deg, #ef4444, #f59e0b)",
+                  background: "linear-gradient(135deg, var(--primary), var(--primary-light))",
                   color: "#fff",
                   fontWeight: 700,
                   fontSize: "0.9rem",

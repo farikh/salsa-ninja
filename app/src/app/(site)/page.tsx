@@ -44,7 +44,7 @@ export default function Home() {
           minHeight: "100vh",
           display: "flex",
           alignItems: "center",
-          background: "#111111",
+          background: "var(--dark)",
           overflow: "hidden",
         }}
       >
@@ -63,7 +63,7 @@ export default function Home() {
               position: "absolute",
               inset: 0,
               backgroundImage:
-                "repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(239, 68, 68, 0.04) 40px, rgba(239, 68, 68, 0.04) 42px)",
+                "repeating-linear-gradient(45deg, transparent, transparent 40px, color-mix(in srgb, var(--primary) 4%, transparent) 40px, color-mix(in srgb, var(--primary) 4%, transparent) 42px)",
               animation: "stripeShift 20s linear infinite",
             }}
           />
@@ -79,7 +79,7 @@ export default function Home() {
             height: "100%",
             clipPath: "polygon(55% 0, 100% 0, 100% 100%, 25% 100%)",
             background:
-              "linear-gradient(135deg, #ef4444 0%, #f97316 50%, #ea580c 100%)",
+              "linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 50%, var(--primary-dark) 100%)",
             opacity: 0.15,
             zIndex: 1,
           }}
@@ -96,7 +96,7 @@ export default function Home() {
             height: "600px",
             borderRadius: "50%",
             background:
-              "radial-gradient(circle, rgba(239, 68, 68, 0.2) 0%, transparent 70%)",
+              "radial-gradient(circle, color-mix(in srgb, var(--primary) 20%, transparent) 0%, transparent 70%)",
             zIndex: 1,
             pointerEvents: "none",
           }}
@@ -120,7 +120,7 @@ export default function Home() {
                   display: "block",
                   width: "40px",
                   height: "3px",
-                  background: "linear-gradient(90deg, #ef4444, #f97316)",
+                  background: "linear-gradient(90deg, var(--primary), var(--primary-light))",
                   borderRadius: "2px",
                 }}
               />
@@ -149,7 +149,7 @@ export default function Home() {
               <span
                 style={{
                   background:
-                    "linear-gradient(135deg, #ef4444 0%, #f97316 100%)",
+                    "linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
@@ -190,7 +190,7 @@ export default function Home() {
                   fontWeight: 700,
                   fontSize: "0.95rem",
                   background:
-                    "linear-gradient(135deg, #ef4444 0%, #f97316 100%)",
+                    "linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%)",
                   color: "white",
                   textDecoration: "none",
                   transform: "skewX(-6deg)",
@@ -258,7 +258,7 @@ export default function Home() {
               left: 0,
               right: 0,
               height: "3px",
-              background: "linear-gradient(90deg, #ef4444, #f97316)",
+              background: "linear-gradient(90deg, var(--primary), var(--primary-light))",
             }}
           />
           <div
@@ -300,7 +300,7 @@ export default function Home() {
                     fontSize: "clamp(1.5rem, 3vw, 2.25rem)",
                     fontWeight: 800,
                     background:
-                      "linear-gradient(135deg, #ef4444 0%, #f97316 100%)",
+                      "linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%)",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
                     backgroundClip: "text",
@@ -331,7 +331,7 @@ export default function Home() {
       <section
         style={{
           background: "#ffffff",
-          color: "#111111",
+          color: "var(--dark)",
           padding: "7rem 0 5rem",
           clipPath: "polygon(0 40px, 100% 0, 100% calc(100% - 40px), 0 100%)",
           marginTop: "-20px",
@@ -346,20 +346,20 @@ export default function Home() {
                 fontWeight: 600,
                 letterSpacing: "0.15em",
                 textTransform: "uppercase",
-                color: "#ef4444",
+                color: "var(--primary)",
               }}
             >
               What We Teach
             </span>
             <h2
               className="heading-lg"
-              style={{ marginTop: "0.75rem", color: "#111111" }}
+              style={{ marginTop: "0.75rem", color: "var(--dark)" }}
             >
               Find Your{" "}
               <span
                 style={{
                   background:
-                    "linear-gradient(135deg, #ef4444 0%, #f97316 100%)",
+                    "linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
@@ -378,14 +378,14 @@ export default function Home() {
                 title: "Salsa On1",
                 description:
                   "Master the explosive energy of LA-style Salsa. From foundation to advanced partnerwork and shines, learn to command the dance floor with precision timing and dynamic spins.",
-                gradient: "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)",
+                gradient: "linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%)",
               },
               {
                 tag: "Dominican Roots",
                 title: "Bachata",
                 description:
                   "Feel the sensual rhythm of Bachata. Explore traditional Dominican footwork, modern sensual styling, body waves, and connection techniques that bring this passionate dance to life.",
-                gradient: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)",
+                gradient: "linear-gradient(135deg, var(--primary-light) 0%, var(--primary-dark) 100%)",
               },
             ].map((style, i) => (
               <div
@@ -447,7 +447,7 @@ export default function Home() {
                       fontSize: "1.35rem",
                       fontWeight: 700,
                       marginBottom: "0.75rem",
-                      color: "#111111",
+                      color: "var(--dark)",
                     }}
                   >
                     {style.title}
@@ -467,7 +467,7 @@ export default function Home() {
                   style={{
                     height: "3px",
                     background:
-                      "linear-gradient(90deg, #ef4444, #f97316)",
+                      "linear-gradient(90deg, var(--primary), var(--primary-light))",
                   }}
                 />
               </div>
@@ -479,7 +479,7 @@ export default function Home() {
       {/* ===== SCHEDULE SECTION ===== */}
       <section
         style={{
-          background: "#111111",
+          background: "var(--dark)",
           padding: "7rem 0 5rem",
           clipPath: "polygon(0 0, 100% 40px, 100% 100%, 0 calc(100% - 40px))",
           position: "relative",
@@ -492,7 +492,7 @@ export default function Home() {
             position: "absolute",
             inset: 0,
             backgroundImage:
-              "repeating-linear-gradient(45deg, transparent, transparent 60px, rgba(239, 68, 68, 0.03) 60px, rgba(239, 68, 68, 0.03) 62px)",
+              "repeating-linear-gradient(45deg, transparent, transparent 60px, color-mix(in srgb, var(--primary) 3%, transparent) 60px, color-mix(in srgb, var(--primary) 3%, transparent) 62px)",
             pointerEvents: "none",
           }}
         />
@@ -505,7 +505,7 @@ export default function Home() {
                 fontWeight: 600,
                 letterSpacing: "0.15em",
                 textTransform: "uppercase",
-                color: "#ef4444",
+                color: "var(--primary)",
               }}
             >
               When We Dance
@@ -518,7 +518,7 @@ export default function Home() {
               <span
                 style={{
                   background:
-                    "linear-gradient(135deg, #ef4444 0%, #f97316 100%)",
+                    "linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
@@ -533,7 +533,7 @@ export default function Home() {
           <div
             className="reveal"
             style={{
-              background: "#1a1a1a",
+              background: "var(--card)",
               borderRadius: "0.75rem",
               overflow: "hidden",
               position: "relative",
@@ -547,7 +547,7 @@ export default function Home() {
                 top: 0,
                 bottom: 0,
                 width: "3px",
-                background: "linear-gradient(180deg, #ef4444, #f97316)",
+                background: "linear-gradient(180deg, var(--primary), var(--primary-light))",
               }}
             />
             <div style={{ overflowX: "auto" }}>
@@ -664,16 +664,16 @@ export default function Home() {
                             transform: "skewX(-6deg)",
                             background:
                               row.level === "beginner"
-                                ? "rgba(239, 68, 68, 0.15)"
+                                ? "color-mix(in srgb, var(--primary) 15%, transparent)"
                                 : row.level === "intermediate"
-                                ? "rgba(249, 115, 22, 0.15)"
-                                : "rgba(239, 68, 68, 0.08)",
+                                ? "color-mix(in srgb, var(--primary-light) 15%, transparent)"
+                                : "color-mix(in srgb, var(--primary) 8%, transparent)",
                             color:
                               row.level === "beginner"
-                                ? "#ef4444"
+                                ? "var(--primary)"
                                 : row.level === "intermediate"
-                                ? "#f97316"
-                                : "rgba(239, 68, 68, 0.6)",
+                                ? "var(--primary-light)"
+                                : "color-mix(in srgb, var(--primary) 60%, transparent)",
                           }}
                         >
                           <span
@@ -698,7 +698,7 @@ export default function Home() {
       {/* ===== INSTRUCTORS SECTION ===== */}
       <section
         style={{
-          background: "#1a1a1a",
+          background: "var(--card)",
           padding: "5rem 0",
         }}
       >
@@ -710,7 +710,7 @@ export default function Home() {
                 fontWeight: 600,
                 letterSpacing: "0.15em",
                 textTransform: "uppercase",
-                color: "#ef4444",
+                color: "var(--primary)",
               }}
             >
               Meet The Team
@@ -723,7 +723,7 @@ export default function Home() {
               <span
                 style={{
                   background:
-                    "linear-gradient(135deg, #ef4444 0%, #f97316 100%)",
+                    "linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
@@ -753,7 +753,7 @@ export default function Home() {
                 padding: "0.875rem 2.5rem",
                 fontWeight: 700,
                 fontSize: "0.95rem",
-                background: "linear-gradient(135deg, #ef4444 0%, #f97316 100%)",
+                background: "linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%)",
                 color: "white",
                 textDecoration: "none",
                 transform: "skewX(-6deg)",
@@ -772,7 +772,7 @@ export default function Home() {
       <section
         style={{
           background: "#ffffff",
-          color: "#111111",
+          color: "var(--dark)",
           padding: "7rem 0 5rem",
           clipPath: "polygon(0 40px, 100% 0, 100% calc(100% - 40px), 0 100%)",
         }}
@@ -785,20 +785,20 @@ export default function Home() {
                 fontWeight: 600,
                 letterSpacing: "0.15em",
                 textTransform: "uppercase",
-                color: "#ef4444",
+                color: "var(--primary)",
               }}
             >
               Community
             </span>
             <h2
               className="heading-lg"
-              style={{ marginTop: "0.75rem", color: "#111111" }}
+              style={{ marginTop: "0.75rem", color: "var(--dark)" }}
             >
               More Than a{" "}
               <span
                 style={{
                   background:
-                    "linear-gradient(135deg, #ef4444 0%, #f97316 100%)",
+                    "linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
@@ -830,7 +830,7 @@ export default function Home() {
                   padding: "0.875rem 2rem",
                   fontWeight: 700,
                   fontSize: "0.95rem",
-                  background: "linear-gradient(135deg, #ef4444 0%, #f97316 100%)",
+                  background: "linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%)",
                   color: "white",
                   textDecoration: "none",
                   transform: "skewX(-6deg)",
@@ -850,7 +850,7 @@ export default function Home() {
                   fontWeight: 600,
                   fontSize: "0.95rem",
                   background: "transparent",
-                  color: "#111111",
+                  color: "var(--dark)",
                   textDecoration: "none",
                   border: "2px solid rgba(0,0,0,0.15)",
                   transform: "skewX(-6deg)",
@@ -869,7 +869,7 @@ export default function Home() {
       {/* ===== PRICING SECTION ===== */}
       <section
         style={{
-          background: "#111111",
+          background: "var(--dark)",
           padding: "7rem 0 5rem",
           clipPath: "polygon(0 0, 100% 40px, 100% 100%, 0 calc(100% - 40px))",
           position: "relative",
@@ -882,7 +882,7 @@ export default function Home() {
             position: "absolute",
             inset: 0,
             backgroundImage:
-              "repeating-linear-gradient(45deg, transparent, transparent 80px, rgba(239, 68, 68, 0.02) 80px, rgba(239, 68, 68, 0.02) 82px)",
+              "repeating-linear-gradient(45deg, transparent, transparent 80px, color-mix(in srgb, var(--primary) 2%, transparent) 80px, color-mix(in srgb, var(--primary) 2%, transparent) 82px)",
             pointerEvents: "none",
           }}
         />
@@ -895,7 +895,7 @@ export default function Home() {
                 fontWeight: 600,
                 letterSpacing: "0.15em",
                 textTransform: "uppercase",
-                color: "#ef4444",
+                color: "var(--primary)",
               }}
             >
               Membership
@@ -908,7 +908,7 @@ export default function Home() {
               <span
                 style={{
                   background:
-                    "linear-gradient(135deg, #ef4444 0%, #f97316 100%)",
+                    "linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
@@ -971,7 +971,7 @@ export default function Home() {
                 key={i}
                 className="reveal"
                 style={{
-                  background: plan.featured ? "#1a1a1a" : "#1a1a1a",
+                  background: "var(--card)",
                   borderRadius: "0.75rem",
                   padding: "2.5rem 2rem",
                   position: "relative",
@@ -981,7 +981,7 @@ export default function Home() {
                   ...(plan.featured
                     ? {
                         backgroundImage:
-                          "linear-gradient(#1a1a1a, #1a1a1a), linear-gradient(135deg, #ef4444, #f97316)",
+                          "linear-gradient(var(--card), var(--card)), linear-gradient(135deg, var(--primary), var(--primary-light))",
                         backgroundOrigin: "border-box",
                         backgroundClip: "padding-box, border-box",
                       }
@@ -998,7 +998,7 @@ export default function Home() {
                       left: "50%",
                       transform: "translateX(-50%) skewX(-6deg)",
                       background:
-                        "linear-gradient(135deg, #ef4444, #f97316)",
+                        "linear-gradient(135deg, var(--primary), var(--primary-light))",
                       color: "white",
                       padding: "0.3rem 1.25rem",
                       fontSize: "0.65rem",
@@ -1079,7 +1079,7 @@ export default function Home() {
                           width: "6px",
                           height: "6px",
                           background:
-                            "linear-gradient(135deg, #ef4444, #f97316)",
+                            "linear-gradient(135deg, var(--primary), var(--primary-light))",
                           transform: "rotate(45deg)",
                           flexShrink: 0,
                         }}
@@ -1102,7 +1102,7 @@ export default function Home() {
                     ...(plan.featured
                       ? {
                           background:
-                            "linear-gradient(135deg, #ef4444, #f97316)",
+                            "linear-gradient(135deg, var(--primary), var(--primary-light))",
                           color: "white",
                         }
                       : {
@@ -1143,7 +1143,7 @@ export default function Home() {
       <section
         style={{
           background: "#ffffff",
-          color: "#111111",
+          color: "var(--dark)",
           padding: "7rem 0 5rem",
           clipPath: "polygon(0 40px, 100% 0, 100% calc(100% - 40px), 0 100%)",
         }}
@@ -1157,20 +1157,20 @@ export default function Home() {
                 fontWeight: 600,
                 letterSpacing: "0.15em",
                 textTransform: "uppercase",
-                color: "#ef4444",
+                color: "var(--primary)",
               }}
             >
               Coming Up
             </span>
             <h2
               className="heading-lg"
-              style={{ marginTop: "0.75rem", color: "#111111" }}
+              style={{ marginTop: "0.75rem", color: "var(--dark)" }}
             >
               Upcoming{" "}
               <span
                 style={{
                   background:
-                    "linear-gradient(135deg, #ef4444 0%, #f97316 100%)",
+                    "linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
@@ -1201,7 +1201,7 @@ export default function Home() {
               <div
                 style={{
                   height: "180px",
-                  background: "linear-gradient(135deg, #ef4444, #dc2626)",
+                  background: "linear-gradient(135deg, var(--primary), var(--primary-dark))",
                   position: "relative",
                   overflow: "hidden",
                 }}
@@ -1224,10 +1224,10 @@ export default function Home() {
                 </span>
               </div>
               <div style={{ padding: "1.5rem" }}>
-                <h3 style={{ fontSize: "1.1rem", fontWeight: 700, color: "#111111", marginBottom: "0.35rem" }}>
+                <h3 style={{ fontSize: "1.1rem", fontWeight: 700, color: "var(--dark)", marginBottom: "0.35rem" }}>
                   Salsa Ninja Dance Social
                 </h3>
-                <p style={{ color: "#ef4444", fontSize: "0.8rem", fontWeight: 600, marginBottom: "0.75rem" }}>
+                <p style={{ color: "var(--primary)", fontSize: "0.8rem", fontWeight: 600, marginBottom: "0.75rem" }}>
                   Every 2nd Friday of the Month
                 </p>
                 <p style={{ color: "#6b7280", fontSize: "0.9rem", lineHeight: 1.7 }}>
@@ -1241,7 +1241,7 @@ export default function Home() {
               href="/events"
               className="reveal"
               style={{
-                background: "#111111",
+                background: "var(--dark)",
                 borderRadius: "0.75rem",
                 overflow: "hidden",
                 display: "flex",
@@ -1256,12 +1256,12 @@ export default function Home() {
             >
               <div style={{
                 position: "absolute", inset: 0,
-                backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(239,68,68,0.04) 30px, rgba(239,68,68,0.04) 32px)",
+                backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 30px, color-mix(in srgb, var(--primary) 4%, transparent) 30px, color-mix(in srgb, var(--primary) 4%, transparent) 32px)",
                 pointerEvents: "none",
               }} />
               <div style={{
                 width: "60px", height: "60px", borderRadius: "50%",
-                background: "linear-gradient(135deg, #ef4444, #f97316)",
+                background: "linear-gradient(135deg, var(--primary), var(--primary-light))",
                 display: "flex", alignItems: "center", justifyContent: "center",
                 marginBottom: "1.5rem", fontSize: "1.5rem", color: "white", position: "relative",
               }}>
@@ -1282,7 +1282,7 @@ export default function Home() {
       <section
         style={{
           background: "#ffffff",
-          color: "#111111",
+          color: "var(--dark)",
           padding: "3rem 0 5rem",
         }}
       >
@@ -1290,7 +1290,7 @@ export default function Home() {
           <div
             className="reveal"
             style={{
-              background: "#111111",
+              background: "var(--dark)",
               borderRadius: "0.75rem",
               padding: "3.5rem 2.5rem",
               textAlign: "center",
@@ -1300,14 +1300,14 @@ export default function Home() {
           >
             <div style={{
               position: "absolute", inset: 0,
-              backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(239,68,68,0.04) 40px, rgba(239,68,68,0.04) 42px)",
+              backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 40px, color-mix(in srgb, var(--primary) 4%, transparent) 40px, color-mix(in srgb, var(--primary) 4%, transparent) 42px)",
               pointerEvents: "none",
             }} />
             <div style={{ position: "relative", zIndex: 1 }}>
               <span style={{
                 display: "inline-block", padding: "0.375rem 1rem", marginBottom: "1.25rem",
                 fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase",
-                background: "linear-gradient(135deg, #ef4444, #f97316)", color: "white",
+                background: "linear-gradient(135deg, var(--primary), var(--primary-light))", color: "white",
                 transform: "skewX(-6deg)",
               }}>
                 <span style={{ display: "block", transform: "skewX(6deg)" }}>New to Salsa?</span>
@@ -1315,7 +1315,7 @@ export default function Home() {
               <h2 className="heading-lg" style={{ color: "#ffffff", marginBottom: "1rem" }}>
                 Start With the{" "}
                 <span style={{
-                  background: "linear-gradient(135deg, #ef4444 0%, #f97316 100%)",
+                  background: "linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%)",
                   WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text",
                 }}>Bootcamp</span>
               </h2>
@@ -1331,7 +1331,7 @@ export default function Home() {
                 style={{
                   display: "inline-flex", alignItems: "center", justifyContent: "center",
                   padding: "0.875rem 2.5rem", fontWeight: 700, fontSize: "0.95rem",
-                  background: "linear-gradient(135deg, #ef4444 0%, #f97316 100%)",
+                  background: "linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%)",
                   color: "white", textDecoration: "none", transform: "skewX(-6deg)",
                   transition: "all 0.3s ease",
                 }}
@@ -1348,7 +1348,7 @@ export default function Home() {
       {/* ===== LOCATION + HOURS ===== */}
       <section
         style={{
-          background: "#111111",
+          background: "var(--dark)",
           padding: "7rem 0 5rem",
           clipPath: "polygon(0 40px, 100% 0, 100% 100%, 0 100%)",
           position: "relative",
@@ -1361,7 +1361,7 @@ export default function Home() {
             position: "absolute",
             inset: 0,
             backgroundImage:
-              "repeating-linear-gradient(45deg, transparent, transparent 60px, rgba(239, 68, 68, 0.03) 60px, rgba(239, 68, 68, 0.03) 62px)",
+              "repeating-linear-gradient(45deg, transparent, transparent 60px, color-mix(in srgb, var(--primary) 3%, transparent) 60px, color-mix(in srgb, var(--primary) 3%, transparent) 62px)",
             pointerEvents: "none",
           }}
         />
@@ -1374,7 +1374,7 @@ export default function Home() {
                 fontWeight: 600,
                 letterSpacing: "0.15em",
                 textTransform: "uppercase",
-                color: "#ef4444",
+                color: "var(--primary)",
               }}
             >
               Location
@@ -1387,7 +1387,7 @@ export default function Home() {
               <span
                 style={{
                   background:
-                    "linear-gradient(135deg, #ef4444 0%, #f97316 100%)",
+                    "linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
@@ -1403,7 +1403,7 @@ export default function Home() {
             <div
               className="reveal"
               style={{
-                background: "#1a1a1a",
+                background: "var(--card)",
                 borderRadius: "0.75rem",
                 overflow: "hidden",
                 height: "400px",
@@ -1470,7 +1470,7 @@ export default function Home() {
                       fontWeight: 700,
                       letterSpacing: "0.12em",
                       textTransform: "uppercase",
-                      color: "#ef4444",
+                      color: "var(--primary)",
                       marginBottom: "0.4rem",
                     }}
                   >
@@ -1496,7 +1496,7 @@ export default function Home() {
                     fontWeight: 700,
                     letterSpacing: "0.12em",
                     textTransform: "uppercase",
-                    color: "#ef4444",
+                    color: "var(--primary)",
                     marginBottom: "0.75rem",
                   }}
                 >

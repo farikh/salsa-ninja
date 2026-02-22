@@ -155,7 +155,7 @@ export function StudentBookingsCard({ memberId }: StudentBookingsCardProps) {
       <Link
         href="/private-sessions"
         style={{
-          color: '#ef4444',
+          color: 'var(--primary)',
           fontSize: '0.85rem',
           fontWeight: 600,
           textDecoration: 'none',

@@ -81,7 +81,7 @@ export function DashboardTabs({
                 borderRadius: '8px',
                 border: activeTab === tab.id ? 'none' : '1px solid rgba(255,255,255,0.15)',
                 background: activeTab === tab.id
-                  ? 'linear-gradient(135deg, #ef4444, #f59e0b)'
+                  ? 'linear-gradient(135deg, var(--primary), var(--primary-light))'
                   : 'transparent',
                 color: activeTab === tab.id ? '#fff' : 'rgba(255,255,255,0.7)',
                 fontWeight: 600,
@@ -181,13 +181,13 @@ function HomeTab({
               width: '40px',
               height: '40px',
               borderRadius: '10px',
-              background: 'linear-gradient(135deg, rgba(239,68,68,0.15), rgba(245,158,11,0.15))',
+              background: 'linear-gradient(135deg, color-mix(in srgb, var(--primary) 15%, transparent), color-mix(in srgb, var(--primary-light) 15%, transparent))',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               flexShrink: 0,
             }}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <polygon points="23 7 16 12 23 17 23 7"/>
                 <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
               </svg>
@@ -209,8 +209,8 @@ function HomeTab({
               Recent class videos
               <span style={{
                 fontSize: '0.7rem',
-                background: 'rgba(239,68,68,0.15)',
-                color: '#ef4444',
+                background: 'color-mix(in srgb, var(--primary) 15%, transparent)',
+                color: 'var(--primary)',
                 padding: '2px 8px',
                 borderRadius: '9999px',
                 fontWeight: 600,
@@ -227,8 +227,8 @@ function HomeTab({
               Video archive
               <span style={{
                 fontSize: '0.7rem',
-                background: 'rgba(239,68,68,0.15)',
-                color: '#ef4444',
+                background: 'color-mix(in srgb, var(--primary) 15%, transparent)',
+                color: 'var(--primary)',
                 padding: '2px 8px',
                 borderRadius: '9999px',
                 fontWeight: 600,
@@ -321,13 +321,13 @@ function EnrollmentCard({
           width: '40px',
           height: '40px',
           borderRadius: '10px',
-          background: 'linear-gradient(135deg, rgba(239,68,68,0.15), rgba(245,158,11,0.15))',
+          background: 'linear-gradient(135deg, color-mix(in srgb, var(--primary) 15%, transparent), color-mix(in srgb, var(--primary-light) 15%, transparent))',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           flexShrink: 0,
         }}>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
             <circle cx="8.5" cy="7" r="4"/>
             <polyline points="17 11 19 13 23 9"/>
@@ -383,8 +383,8 @@ function EnrollmentCard({
                   alignItems: 'center',
                   padding: '0.6rem 0.75rem',
                   borderRadius: '6px',
-                  border: p.id === plan ? '1px solid #ef4444' : '1px solid rgba(255,255,255,0.1)',
-                  background: p.id === plan ? 'rgba(239,68,68,0.1)' : 'transparent',
+                  border: p.id === plan ? '1px solid var(--primary)' : '1px solid rgba(255,255,255,0.1)',
+                  background: p.id === plan ? 'color-mix(in srgb, var(--primary) 10%, transparent)' : 'transparent',
                   color: 'inherit',
                   cursor: 'pointer',
                   textAlign: 'left',
@@ -397,7 +397,7 @@ function EnrollmentCard({
                     {p.description}
                   </span>
                 </div>
-                <span style={{ fontWeight: 700, fontSize: '0.9rem', color: p.id === plan ? '#ef4444' : 'inherit' }}>
+                <span style={{ fontWeight: 700, fontSize: '0.9rem', color: p.id === plan ? 'var(--primary)' : 'inherit' }}>
                   ${p.price}/mo
                 </span>
               </button>
@@ -410,11 +410,11 @@ function EnrollmentCard({
       {hasUpcomingBootcamp && <div
         onClick={handleBootcampToggle}
         style={{
-          border: bootcamp ? '1px solid rgba(239,68,68,0.4)' : '1px solid rgba(255,255,255,0.1)',
+          border: bootcamp ? '1px solid color-mix(in srgb, var(--primary) 40%, transparent)' : '1px solid rgba(255,255,255,0.1)',
           borderRadius: '8px',
           padding: '0.75rem',
           cursor: 'pointer',
-          background: bootcamp ? 'rgba(239,68,68,0.08)' : 'transparent',
+          background: bootcamp ? 'color-mix(in srgb, var(--primary) 8%, transparent)' : 'transparent',
           opacity: 1,
           transition: 'all 0.2s',
         }}
@@ -430,8 +430,8 @@ function EnrollmentCard({
             width: '20px',
             height: '20px',
             borderRadius: '4px',
-            border: bootcamp ? '2px solid #ef4444' : '2px solid rgba(255,255,255,0.2)',
-            background: bootcamp ? '#ef4444' : 'transparent',
+            border: bootcamp ? '2px solid var(--primary)' : '2px solid rgba(255,255,255,0.2)',
+            background: bootcamp ? 'var(--primary)' : 'transparent',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',

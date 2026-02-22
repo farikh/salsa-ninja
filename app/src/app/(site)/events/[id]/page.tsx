@@ -53,7 +53,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
       {/* Hero */}
       <section
         style={{
-          background: '#111111',
+          background: 'var(--dark)',
           padding: '5rem 0 6rem',
           position: 'relative',
           overflow: 'hidden',
@@ -66,7 +66,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
             right: '-15%',
             width: '60%',
             height: '180%',
-            background: 'radial-gradient(circle, rgba(239,68,68,0.08) 0%, transparent 60%)',
+            background: 'radial-gradient(circle, color-mix(in srgb, var(--primary) 8%, transparent) 0%, transparent 60%)',
             pointerEvents: 'none',
           }}
         />
@@ -115,7 +115,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
             {/* Event Header */}
             <div
               style={{
-                background: 'linear-gradient(135deg, #ef4444 0%, #f59e0b 100%)',
+                background: 'linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%)',
                 padding: '2rem',
                 textAlign: 'center',
                 color: 'white',
@@ -183,11 +183,11 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
                       key={tag}
                       style={{
                         padding: '0.5rem 1.25rem',
-                        background: 'rgba(239,68,68,0.1)',
-                        color: '#ef4444',
+                        background: 'color-mix(in srgb, var(--primary) 10%, transparent)',
+                        color: 'var(--primary)',
                         fontWeight: 600,
                         fontSize: '0.9rem',
-                        border: '1px solid rgba(239,68,68,0.2)',
+                        border: '1px solid color-mix(in srgb, var(--primary) 20%, transparent)',
                         borderRadius: '9999px',
                       }}
                     >
@@ -202,14 +202,14 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
                 <div
                   style={{
                     padding: '1.5rem',
-                    background: 'linear-gradient(135deg, rgba(245,158,11,0.12), rgba(245,158,11,0.06))',
+                    background: 'linear-gradient(135deg, color-mix(in srgb, var(--primary-light) 12%, transparent), color-mix(in srgb, var(--primary-light) 6%, transparent))',
                     borderRadius: '1rem',
                     marginBottom: '2rem',
                     textAlign: 'center',
-                    border: '1px solid rgba(245,158,11,0.25)',
+                    border: '1px solid color-mix(in srgb, var(--primary-light) 25%, transparent)',
                   }}
                 >
-                  <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', color: '#f59e0b', marginBottom: '0.5rem', letterSpacing: '0.08em', fontWeight: 600 }}>
+                  <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', color: 'var(--primary-light)', marginBottom: '0.5rem', letterSpacing: '0.08em', fontWeight: 600 }}>
                     Dresscode
                   </div>
                   <div className="gradient-text" style={{ fontWeight: 800, fontSize: '1.75rem' }}>

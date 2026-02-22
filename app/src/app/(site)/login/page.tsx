@@ -266,7 +266,7 @@ export default function LoginPage() {
                   border: 'none',
                   cursor: 'pointer',
                   transition: 'background 0.15s, color 0.15s',
-                  background: mode === m.id ? '#ef4444' : 'transparent',
+                  background: mode === m.id ? 'var(--primary)' : 'transparent',
                   color: mode === m.id ? '#fff' : 'var(--muted-foreground)',
                   borderRight: m.id !== 'google' ? '1px solid var(--border)' : 'none',
                 }}
@@ -286,7 +286,7 @@ export default function LoginPage() {
                 borderRadius: '0.75rem',
                 border: '1px solid var(--border)',
                 background: 'white',
-                color: '#111111',
+                color: 'var(--dark)',
                 fontSize: '0.95rem',
                 fontWeight: 600,
                 cursor: 'pointer',
@@ -342,7 +342,7 @@ export default function LoginPage() {
               />
 
               {status === 'error' && (
-                <p style={{ color: '#dc2626', fontSize: '0.8rem', marginBottom: '0.75rem' }}>
+                <p style={{ color: 'var(--destructive)', fontSize: '0.8rem', marginBottom: '0.75rem' }}>
                   {errorMsg}
                 </p>
               )}
@@ -457,7 +457,7 @@ export default function LoginPage() {
                   style={{
                     background: 'transparent',
                     border: 'none',
-                    color: '#ef4444',
+                    color: 'var(--primary)',
                     fontSize: '0.8rem',
                     fontWeight: 500,
                     cursor: 'pointer',
@@ -469,7 +469,7 @@ export default function LoginPage() {
               </div>
 
               {status === 'error' && (
-                <p style={{ color: '#dc2626', fontSize: '0.8rem', marginBottom: '0.75rem' }}>
+                <p style={{ color: 'var(--destructive)', fontSize: '0.8rem', marginBottom: '0.75rem' }}>
                   {errorMsg}
                 </p>
               )}
@@ -491,7 +491,7 @@ export default function LoginPage() {
                   style={{
                     background: 'transparent',
                     border: 'none',
-                    color: '#ef4444',
+                    color: 'var(--primary)',
                     fontWeight: 600,
                     cursor: 'pointer',
                     padding: 0,
@@ -597,7 +597,7 @@ export default function LoginPage() {
               </div>
 
               {status === 'error' && (
-                <p style={{ color: '#dc2626', fontSize: '0.8rem', marginBottom: '0.75rem' }}>
+                <p style={{ color: 'var(--destructive)', fontSize: '0.8rem', marginBottom: '0.75rem' }}>
                   {errorMsg}
                 </p>
               )}
@@ -619,7 +619,7 @@ export default function LoginPage() {
                   style={{
                     background: 'transparent',
                     border: 'none',
-                    color: '#ef4444',
+                    color: 'var(--primary)',
                     fontWeight: 600,
                     cursor: 'pointer',
                     padding: 0,
