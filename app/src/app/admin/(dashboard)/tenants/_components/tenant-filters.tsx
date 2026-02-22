@@ -33,7 +33,7 @@ export function TenantFilters({
         params.delete(key)
       }
       startTransition(() => {
-        router.push(`/tenants?${params.toString()}`)
+        router.push(`/admin/tenants?${params.toString()}`)
       })
     },
     [router, searchParams, startTransition]

@@ -27,7 +27,7 @@ export default async function ThemeEditPage({
     <div className="space-y-6">
       <div className="flex items-center gap-3">
         <Link
-          href="/themes"
+          href="/admin/themes"
           className="flex items-center gap-1 text-sm text-slate-400 hover:text-white transition-colors"
         >
           <ArrowLeft className="size-4" />

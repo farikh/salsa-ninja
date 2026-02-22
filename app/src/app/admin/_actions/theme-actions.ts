@@ -31,8 +31,8 @@ export async function updateTheme(themeId: string, formData: FormData) {
     return { error: `Failed to update theme: ${error.message}` }
   }
 
-  revalidatePath(`/themes/${themeId}`)
-  revalidatePath('/themes')
+  revalidatePath(`/admin/themes/${themeId}`)
+  revalidatePath('/admin/themes')
 }
 
 export async function assignThemeToTenant(themeId: string, tenantId: string) {
@@ -47,6 +47,6 @@ export async function assignThemeToTenant(themeId: string, tenantId: string) {
     return { error: `Failed to assign theme: ${error.message}` }
   }
 
-  revalidatePath('/themes')
-  revalidatePath('/tenants')
+  revalidatePath('/admin/themes')
+  revalidatePath('/admin/tenants')
 }

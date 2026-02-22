@@ -99,7 +99,7 @@ export default async function ThemesPage() {
                 {/* Actions */}
                 <div className="flex items-center gap-2 pt-1">
                   <Button asChild variant="outline" size="sm" className="border-slate-700 text-slate-300 hover:bg-slate-800">
-                    <Link href={`/themes/${theme.id}`}>
+                    <Link href={`/admin/themes/${theme.id}`}>
                       <Pencil className="size-3.5" />
                       Edit
                     </Link>

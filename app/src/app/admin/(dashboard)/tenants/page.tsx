@@ -78,7 +78,7 @@ export default async function TenantsPage({
           <p className="text-sm text-slate-400">Manage studio tenants</p>
         </div>
         <Button asChild className="bg-blue-600 hover:bg-blue-700 text-white">
-          <Link href="/tenants/new">
+          <Link href="/admin/tenants/new">
             <Plus className="size-4" />
             New Tenant
           </Link>
@@ -116,7 +116,7 @@ export default async function TenantsPage({
                     <TableRow key={tenant.id} className="border-slate-800">
                       <TableCell>
                         <Link
-                          href={`/tenants/${tenant.id}`}
+                          href={`/admin/tenants/${tenant.id}`}
                           className="font-medium text-white hover:text-blue-400 transition-colors"
                         >
                           {tenant.name}

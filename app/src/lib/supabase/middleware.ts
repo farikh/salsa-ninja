@@ -19,6 +19,8 @@ const PUBLIC_ROUTES = [
   '/bootcamp',
   '/shoes',
   '/roadmap',
+  '/themes',
+  '/admin/login',
 ]
 
 function isPublicRoute(pathname: string): boolean {

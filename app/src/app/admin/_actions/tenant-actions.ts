@@ -137,8 +137,8 @@ export async function createTenant(formData: FormData) {
     return { error: `Failed to assign owner role: ${roleError.message}` }
   }
 
-  revalidatePath('/tenants')
-  redirect(`/tenants/${tenant.id}`)
+  revalidatePath('/admin/tenants')
+  redirect(`/admin/tenants/${tenant.id}`)
 }
 
 export async function updateTenant(tenantId: string, formData: FormData) {
@@ -163,8 +163,8 @@ export async function updateTenant(tenantId: string, formData: FormData) {
     return { error: `Failed to update tenant: ${error.message}` }
   }
 
-  revalidatePath(`/tenants/${tenantId}`)
-  revalidatePath('/tenants')
+  revalidatePath(`/admin/tenants/${tenantId}`)
+  revalidatePath('/admin/tenants')
 }
 
 export async function updateTenantStatus(tenantId: string, status: string) {
@@ -179,7 +179,7 @@ export async function updateTenantStatus(tenantId: string, status: string) {
     return { error: `Failed to update status: ${error.message}` }
   }
 
-  revalidatePath(`/tenants/${tenantId}`)
-  revalidatePath('/tenants')
-  revalidatePath('/')
+  revalidatePath(`/admin/tenants/${tenantId}`)
+  revalidatePath('/admin/tenants')
+  revalidatePath('/admin')
 }

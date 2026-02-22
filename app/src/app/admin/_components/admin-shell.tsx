@@ -23,11 +23,11 @@ interface AdminInfo {
 }
 
 const navItems = [
-  { href: '/', label: 'Dashboard', icon: LayoutDashboard },
-  { href: '/tenants', label: 'Tenants', icon: Building2 },
-  { href: '/themes', label: 'Themes', icon: Palette },
-  { href: '/admins', label: 'Admins', icon: Shield },
-  { href: '/settings', label: 'Settings', icon: Settings },
+  { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
+  { href: '/admin/tenants', label: 'Tenants', icon: Building2 },
+  { href: '/admin/themes', label: 'Themes', icon: Palette },
+  { href: '/admin/admins', label: 'Admins', icon: Shield },
+  { href: '/admin/settings', label: 'Settings', icon: Settings },
 ]
 
 export function SuperAdminShell({
@@ -41,7 +41,7 @@ export function SuperAdminShell({
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   function isActive(href: string) {
-    if (href === '/') return pathname === '/'
+    if (href === '/admin') return pathname === '/admin'
     return pathname.startsWith(href)
   }
 

@@ -17,7 +17,7 @@ export default async function NewTenantPage() {
     <div className="mx-auto max-w-2xl space-y-6">
       <div className="flex items-center gap-3">
         <Link
-          href="/tenants"
+          href="/admin/tenants"
           className="flex items-center gap-1 text-sm text-slate-400 hover:text-white transition-colors"
         >
           <ArrowLeft className="size-4" />

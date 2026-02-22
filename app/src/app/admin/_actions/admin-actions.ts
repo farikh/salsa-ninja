@@ -71,7 +71,7 @@ export async function inviteAdmin(formData: FormData) {
     return { error: `Failed to create admin record: ${insertError.message}` }
   }
 
-  revalidatePath('/admins')
+  revalidatePath('/admin/admins')
 }
 
 export async function sendAdminMagicLink(formData: FormData) {

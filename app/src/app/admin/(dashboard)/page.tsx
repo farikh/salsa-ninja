@@ -171,7 +171,7 @@ export default async function SuperAdminDashboard() {
                     <TableRow key={tenant.id} className="border-slate-800">
                       <TableCell>
                         <Link
-                          href={`/tenants/${tenant.id}`}
+                          href={`/admin/tenants/${tenant.id}`}
                           className="font-medium text-white hover:text-blue-400 transition-colors"
                         >
                           {tenant.name}

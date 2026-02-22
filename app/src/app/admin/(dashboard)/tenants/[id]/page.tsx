@@ -62,17 +62,17 @@ export default async function TenantDetailPage({
   }
 
   const drillDownLinks = [
-    { href: `/tenants/${id}/members`, label: 'Members', icon: Users, count: memberCount },
-    { href: `/tenants/${id}/events`, label: 'Events', icon: CalendarDays, count: eventCount },
-    { href: `/tenants/${id}/messages`, label: 'Messages', icon: MessageSquare, count: messageCount },
-    { href: `/tenants/${id}/analytics`, label: 'Analytics', icon: BarChart3, count: null },
+    { href: `/admin/tenants/${id}/members`, label: 'Members', icon: Users, count: memberCount },
+    { href: `/admin/tenants/${id}/events`, label: 'Events', icon: CalendarDays, count: eventCount },
+    { href: `/admin/tenants/${id}/messages`, label: 'Messages', icon: MessageSquare, count: messageCount },
+    { href: `/admin/tenants/${id}/analytics`, label: 'Analytics', icon: BarChart3, count: null },
   ]
 
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-3">
         <Link
-          href="/tenants"
+          href="/admin/tenants"
           className="flex items-center gap-1 text-sm text-slate-400 hover:text-white transition-colors"
         >
           <ArrowLeft className="size-4" />

@@ -12,7 +12,7 @@ export default async function AuthenticatedAdminLayout({
   const { data: { user } } = await supabase.auth.getUser()
 
   if (!user) {
-    redirect('/login')
+    redirect('/admin/login')
   }
 
   // Verify user is a super admin using service role (bypasses RLS)
@@ -24,7 +24,7 @@ export default async function AuthenticatedAdminLayout({
     .single()
 
   if (!admin) {
-    redirect('/login')
+    redirect('/admin/login')
   }
 
   return (
