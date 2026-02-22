@@ -10,7 +10,13 @@ interface ThemeRow {
     radius?: string
     style?: Record<string, string>
   }
-  is_default: boolean
+  is_active: boolean
+}
+
+function toCSS(hslValue: string | undefined, fallback: string): string {
+  if (!hslValue) return fallback
+  if (hslValue.startsWith('#') || hslValue.startsWith('rgb') || hslValue.startsWith('hsl')) return hslValue
+  return `hsl(${hslValue})`
 }
 
 export const metadata = {
@@ -23,7 +29,7 @@ export default async function ThemesPage() {
 
   const { data: themes, error } = await supabase
     .from('themes')
-    .select('id, name, description, config, is_default')
+    .select('id, name, description, config, is_active')
     .order('name')
 
   const themeList = (themes ?? []) as ThemeRow[]
@@ -88,32 +94,12 @@ export default async function ThemesPage() {
           </p>
         )}
 
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(1, 1fr)',
-            gap: '1.5rem',
-          }}
-          className="themes-grid"
-        >
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {themeList.map((theme) => (
             <ThemeCard key={theme.id} theme={theme} />
           ))}
         </div>
       </section>
-
-      <style
-        dangerouslySetInnerHTML={{
-          __html: `
-            @media (min-width: 640px) {
-              .themes-grid { grid-template-columns: repeat(2, 1fr) !important; }
-            }
-            @media (min-width: 1024px) {
-              .themes-grid { grid-template-columns: repeat(3, 1fr) !important; }
-            }
-          `,
-        }}
-      />
     </div>
   )
 }
@@ -122,13 +108,14 @@ function ThemeCard({ theme }: { theme: ThemeRow }) {
   const { config } = theme
   const colors = config.colors ?? {}
 
-  const primary = colors.primary ?? '#888'
-  const primaryLight = colors['primary-light'] ?? colors.primary ?? '#aaa'
-  const background = colors.background ?? '#0f0f0f'
-  const card = colors.card ?? '#1a1a1a'
-  const foreground = colors.foreground ?? '#fff'
-  const muted = colors.muted ?? '#2a2a2a'
-  const accent = colors.accent ?? '#222'
+  const primary = toCSS(colors.primary, '#888')
+  const secondary = toCSS(colors.secondary, primary)
+  const background = toCSS(colors.background, '#0f0f0f')
+  const card = toCSS(colors.card, '#1a1a1a')
+  const foreground = toCSS(colors.foreground, '#fff')
+  const muted = toCSS(colors.muted, '#2a2a2a')
+  const accent = toCSS(colors.accent, '#222')
+  const mutedFg = toCSS(colors['muted-foreground'], 'rgba(100,100,100,0.7)')
 
   const fontHeading = config.fonts?.heading ?? 'System'
   const fontBody = config.fonts?.body ?? 'System'
@@ -148,7 +135,7 @@ function ThemeCard({ theme }: { theme: ThemeRow }) {
       <div
         style={{
           height: '8px',
-          background: `linear-gradient(90deg, ${primary}, ${primaryLight})`,
+          background: `linear-gradient(90deg, ${primary}, ${secondary})`,
         }}
       />
 
@@ -174,7 +161,7 @@ function ThemeCard({ theme }: { theme: ThemeRow }) {
               style={{
                 width: '3px',
                 height: '12px',
-                background: `linear-gradient(to bottom, ${primary}, ${primaryLight})`,
+                background: `linear-gradient(to bottom, ${primary}, ${secondary})`,
                 borderRadius: '1px',
               }}
             />
@@ -189,7 +176,7 @@ function ThemeCard({ theme }: { theme: ThemeRow }) {
               Studio
               <span
                 style={{
-                  background: `linear-gradient(135deg, ${primary}, ${primaryLight})`,
+                  background: `linear-gradient(135deg, ${primary}, ${secondary})`,
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text',
@@ -203,7 +190,7 @@ function ThemeCard({ theme }: { theme: ThemeRow }) {
             style={{
               padding: '2px 10px',
               borderRadius: '4px',
-              background: `linear-gradient(135deg, ${primary}, ${primaryLight})`,
+              background: `linear-gradient(135deg, ${primary}, ${secondary})`,
               fontSize: '0.55rem',
               fontWeight: 700,
               color: '#fff',
@@ -250,20 +237,20 @@ function ThemeCard({ theme }: { theme: ThemeRow }) {
           >
             {theme.name}
           </h3>
-          {theme.is_default && (
+          {theme.is_active && (
             <span
               style={{
                 fontSize: '0.6rem',
                 fontWeight: 700,
                 padding: '1px 6px',
                 borderRadius: '9999px',
-                background: `linear-gradient(135deg, ${primary}, ${primaryLight})`,
+                background: `linear-gradient(135deg, ${primary}, ${secondary})`,
                 color: '#fff',
                 textTransform: 'uppercase',
                 letterSpacing: '0.05em',
               }}
             >
-              Default
+              Active
             </span>
           )}
         </div>
@@ -272,7 +259,7 @@ function ThemeCard({ theme }: { theme: ThemeRow }) {
           <p
             style={{
               fontSize: '0.8rem',
-              color: 'rgba(255,255,255,0.5)',
+              color: mutedFg,
               margin: '0 0 0.75rem',
               lineHeight: 1.5,
               fontFamily: `'${fontBody}', sans-serif`,
@@ -286,7 +273,7 @@ function ThemeCard({ theme }: { theme: ThemeRow }) {
         <div style={{ display: 'flex', gap: '0.35rem', marginBottom: '0.75rem', flexWrap: 'wrap' }}>
           {[
             { label: 'Primary', value: primary },
-            { label: 'Secondary', value: primaryLight },
+            { label: 'Secondary', value: secondary },
             { label: 'BG', value: background },
             { label: 'Card', value: card },
             { label: 'Accent', value: accent },
@@ -307,7 +294,7 @@ function ThemeCard({ theme }: { theme: ThemeRow }) {
         </div>
 
         {/* Font info */}
-        <div style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.35)' }}>
+        <div style={{ fontSize: '0.7rem', color: mutedFg }}>
           <span style={{ fontWeight: 600 }}>Fonts:</span> {fontHeading}
           {fontBody !== fontHeading ? ` / ${fontBody}` : ''}
         </div>
