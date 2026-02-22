@@ -108,7 +108,8 @@ export function isRootDomain(hostname: string): boolean {
     host === rootDomain ||
     host === `www.${rootDomain}` ||
     host === 'localhost' ||
-    host === 'www.localhost'
+    host === 'www.localhost' ||
+    host.endsWith('.vercel.app')
   )
 }
 
