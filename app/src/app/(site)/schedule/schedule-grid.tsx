@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase/client'
+import { useTenant } from '@/lib/tenant/context'
 
 interface ScheduleSlot {
   id: string
@@ -34,6 +35,7 @@ export default function ScheduleGrid({ initialSlots }: ScheduleGridProps) {
   const [error, setError] = useState('')
   const [activeDay, setActiveDay] = useState(DAYS[0])
   const supabase = createClient()
+  const { tenant } = useTenant()
 
   useEffect(() => {
     supabase.auth.getUser().then(async ({ data: { user } }) => {
@@ -108,6 +110,7 @@ export default function ScheduleGrid({ initialSlots }: ScheduleGridProps) {
           class_name: editValues.class_name.trim(),
           class_level: editValues.class_level.trim() || null,
           color_key: editValues.color_key,
+          tenant_id: tenant?.id,
         })
         .select()
         .single()

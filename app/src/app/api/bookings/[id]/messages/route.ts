@@ -51,6 +51,7 @@ export async function GET(
     }
 
     // Upsert read marker to mark all messages as read
+    const tenantIdGet = request.headers.get('x-tenant-id')
     await supabase
       .from('booking_message_reads')
       .upsert(
@@ -58,6 +59,7 @@ export async function GET(
           booking_id: bookingId,
           member_id: member.id,
           last_read_at: new Date().toISOString(),
+          tenant_id: tenantIdGet,
         },
         { onConflict: 'booking_id,member_id' }
       )
@@ -116,6 +118,8 @@ export async function POST(
     return NextResponse.json({ error: 'Member not found' }, { status: 400 })
   }
 
+  const tenantId = request.headers.get('x-tenant-id')
+
   // RLS ensures only booking participants can insert messages
   const { data, error } = await supabase
     .from('booking_messages')
@@ -123,6 +127,7 @@ export async function POST(
       booking_id: bookingId,
       sender_id: member.id,
       content: body.content,
+      tenant_id: tenantId,
     })
     .select()
     .single()

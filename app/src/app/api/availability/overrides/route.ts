@@ -43,6 +43,8 @@ export async function POST(request: NextRequest) {
     )
   }
 
+  const tenantId = request.headers.get('x-tenant-id')
+
   // RLS enforces that only the instructor or owner can insert
   const { data, error } = await supabase
     .from('availability_overrides')
@@ -54,6 +56,7 @@ export async function POST(request: NextRequest) {
       is_available: body.is_available,
       reason: body.reason ?? null,
       slot_duration_minutes: body.slot_duration_minutes ?? 60,
+      tenant_id: tenantId,
     })
     .select()
     .single()

@@ -1,8 +1,11 @@
 "use client";
 
 import { InlineWidget } from "react-calendly";
+import { useTenant } from "@/lib/tenant/context";
 
 export default function RegisterPage() {
+  const { tenant } = useTenant();
+  const studioName = tenant?.name || "Studio";
   return (
     <>
       {/* Hero */}
@@ -32,7 +35,7 @@ export default function RegisterPage() {
               Registration & <span className="gradient-text">Waiver</span>
             </h1>
             <p style={{ color: "var(--text-light)", fontSize: "1.1rem", marginTop: "1rem" }}>
-              Complete your registration to join the Salsa Ninja Dance Academy family!
+              Complete your registration to join the {studioName} family!
             </p>
           </div>
         </div>

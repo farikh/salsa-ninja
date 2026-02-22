@@ -1,10 +1,16 @@
 import { Suspense } from 'react';
+import type { Metadata } from 'next';
 import { CalendarShell } from '@/components/calendar/CalendarShell';
+import { getTenantFromHeaders } from '@/lib/tenant/server';
 
-export const metadata = {
-  title: 'Events Calendar | Salsa Ninja Dance Academy',
-  description: 'View classes, workshops, bootcamps, and events at Salsa Ninja Dance Academy.',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const tenant = await getTenantFromHeaders();
+  const name = tenant?.name || 'Studio';
+  return {
+    title: `Events Calendar | ${name}`,
+    description: `View classes, workshops, bootcamps, and events at ${name}.`,
+  };
+}
 
 export default function CalendarPage() {
   return (

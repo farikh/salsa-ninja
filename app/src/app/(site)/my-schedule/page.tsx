@@ -1,12 +1,18 @@
 import { Suspense } from 'react';
+import type { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 import { UnifiedSchedule } from '@/components/schedule/UnifiedSchedule';
+import { getTenantFromHeaders } from '@/lib/tenant/server';
 
-export const metadata = {
-  title: 'My Schedule | Salsa Ninja Dance Academy',
-  description: 'View your unified schedule — classes, private lessons, and bookings.',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const tenant = await getTenantFromHeaders();
+  const name = tenant?.name || 'Studio';
+  return {
+    title: `My Schedule | ${name}`,
+    description: 'View your unified schedule — classes, private lessons, and bookings.',
+  };
+}
 
 export default async function MySchedulePage() {
   const supabase = await createClient();

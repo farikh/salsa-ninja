@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
+import { useTenant } from '@/lib/tenant/context'
 
 export default function ProfileSetupPage() {
   const [fullName, setFullName] = useState('')
@@ -12,6 +13,7 @@ export default function ProfileSetupPage() {
   const [errorMsg, setErrorMsg] = useState('')
   const router = useRouter()
   const supabase = createClient()
+  const { tenant } = useTenant()
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -46,6 +48,7 @@ export default function ProfileSetupPage() {
         full_name: fullName.trim(),
         display_name: displayName.trim() || null,
         dance_experience: danceExperience || null,
+        tenant_id: tenant?.id,
       })
 
     if (error) {

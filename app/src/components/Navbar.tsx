@@ -4,12 +4,15 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { useTenant } from "@/lib/tenant/context";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
   const supabase = createClient();
+  const { tenant } = useTenant();
+  const studioName = tenant?.name || "Studio";
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data: { user } }) => {
@@ -86,18 +89,15 @@ const Navbar = () => {
                   transform: "skewX(-12deg)",
                 }}
               />
-              <span style={{ fontWeight: 800, fontSize: "1.3rem", color: "var(--foreground)" }}>
-                Salsa
-                <span
-                  style={{
-                    background: "linear-gradient(135deg, var(--primary), var(--primary-light))",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                  }}
-                >
-                  Ninja
-                </span>
+              <span style={{
+                fontWeight: 800,
+                fontSize: "1.3rem",
+                background: "linear-gradient(135deg, var(--primary), var(--primary-light))",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}>
+                {studioName}
               </span>
             </Link>
 

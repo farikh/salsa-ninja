@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTenant } from "@/lib/tenant/context";
 
 const stages = [
   {
@@ -127,6 +128,8 @@ const statusConfig = {
 
 export default function RoadmapPage() {
   const [expandedStage, setExpandedStage] = useState<number | null>(null);
+  const { tenant } = useTenant();
+  const studioName = tenant?.name || "Studio";
 
   return (
     <div style={{ background: "var(--background)", minHeight: "100vh", fontFamily: "'Segoe UI', -apple-system, 'Helvetica Neue', Arial, sans-serif" }}>
@@ -165,7 +168,7 @@ export default function RoadmapPage() {
               marginBottom: "2rem",
             }}
           >
-            SALSA NINJA
+            {studioName.toUpperCase()}
           </div>
 
           <h1

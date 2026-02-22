@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
+import { useTenant } from '@/lib/tenant/context'
 
 type LoginMode = 'magic_link' | 'password' | 'google'
 type Status = 'idle' | 'loading' | 'sent' | 'not_found' | 'error'
@@ -28,6 +29,8 @@ export default function LoginPage() {
   const [cookieLoaded, setCookieLoaded] = useState(false)
   const supabase = createClient()
   const router = useRouter()
+  const { tenant } = useTenant()
+  const studioName = tenant?.name || 'Studio'
 
   // Read saved login method from cookie on mount
   useEffect(() => {
@@ -202,7 +205,7 @@ export default function LoginPage() {
       <section className="section" style={{ minHeight: '60vh', display: 'flex', alignItems: 'center' }}>
         <div className="container" style={{ maxWidth: '420px' }}>
           <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
-            <h1 className="heading-lg">Join Salsa Ninja</h1>
+            <h1 className="heading-lg">Join {studioName}</h1>
             <p style={{ color: 'var(--muted-foreground)', marginTop: '0.25rem', fontSize: '0.9rem' }}>
               We don&apos;t have an account for that email yet
             </p>

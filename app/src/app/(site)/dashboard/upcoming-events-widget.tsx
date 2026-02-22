@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
+import { useTenant } from '@/lib/tenant/context'
 
 const EVENT_TYPES = [
   { value: 'studio_social', label: 'Social' },
@@ -96,6 +97,7 @@ export default function UpcomingEventsWidget({ initialEvents, isStaff }: Upcomin
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
   const supabase = createClient()
+  const { tenant } = useTenant()
 
   function startEditing(event: EventItem) {
     if (!isStaff || saving) return
@@ -180,6 +182,7 @@ export default function UpcomingEventsWidget({ initialEvents, isStaff }: Upcomin
         event_type: 'studio_social',
         start_time: startTime.toISOString(),
         end_time: endTime.toISOString(),
+        tenant_id: tenant?.id,
       })
       .select('id, title, description, event_type, start_time, end_time, location, music_genre, price, tags, dress_code, purchase_enabled, purchase_url')
       .single()

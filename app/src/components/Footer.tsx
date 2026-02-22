@@ -1,8 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import { useTenant } from "@/lib/tenant/context";
 
 const Footer = () => {
+  const { tenant } = useTenant();
+  const studioName = tenant?.name || "Studio";
   return (
     <footer className="main-footer">
       <div className="footer-container">
@@ -11,8 +14,7 @@ const Footer = () => {
           <div className="brand-column">
             <div className="footer-logo">
               <span className="logo-bar">|</span>
-              <span className="logo-salsa">Salsa</span>
-              <span className="logo-ninja">Ninja</span>
+              <span className="logo-ninja">{studioName}</span>
             </div>
             <p className="footer-description">
               Quality dance instructions dedicated to social dancing and stage
@@ -107,7 +109,7 @@ const Footer = () => {
 
         <div className="footer-bottom">
           <p className="copyright">
-            &copy; {new Date().getFullYear()} Salsa Ninja Dance Academy. All
+            &copy; {new Date().getFullYear()} {studioName}. All
             rights reserved.
           </p>
           <div className="bottom-social">
