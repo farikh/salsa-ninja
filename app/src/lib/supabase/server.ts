@@ -1,10 +1,10 @@
 import { createServerClient } from '@supabase/ssr'
-import { cookies } from 'next/headers'
+import { cookies, headers } from 'next/headers'
 
 export async function createClient() {
   const cookieStore = await cookies()
 
-  return createServerClient(
+  const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
@@ -25,4 +25,13 @@ export async function createClient() {
       },
     }
   )
+
+  // Set tenant context so RLS policies can use get_current_tenant_id()
+  const headerStore = await headers()
+  const tenantId = headerStore.get('x-tenant-id')
+  if (tenantId) {
+    await supabase.rpc('set_tenant_context', { p_tenant_id: tenantId })
+  }
+
+  return supabase
 }
